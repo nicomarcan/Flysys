@@ -1,0 +1,36 @@
+nav {
+  background-color: #0d47a1;
+}
+
+nav.tools {
+  background-color: #9fa8da ;
+}
+
+.row {
+  margin-bottom: 0;
+}
+
+.col.s3{
+  padding-right: 0;
+  background-color: #9fa8da;
+}
+
+.col.s9{
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.row.tools li{
+  float: left;
+}
+
+.row.tools{
+  background-color: #bbdefb;
+}
+
+
+footer.page-footer {
+  background-color: #0d47a1;
+  margin-top: 0;
+  padding-top: 0;
+}
