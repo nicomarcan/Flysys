@@ -12,7 +12,7 @@ nav.tools {
 
 .col.s3{
   padding-right: 0;
-  background-color: #9fa8da;
+  background-color: #8c9eff ;
 }
 
 .col.s9{
@@ -25,7 +25,26 @@ nav.tools {
 }
 
 .row.tools{
-  background-color: #bbdefb;
+  background-color: #90a4ae  ;
+}
+
+.dropdown-button.btn {
+  margin-right: 10px;
+}
+
+ul.dropdown-content li p{
+  text-align: left;
+  margin-left: 10px;
+}
+
+div.short_data {
+  margin: 0 auto;
+  height: 100%;
+}
+
+ul.dropdown-content li:hover{
+  background-color: #80cbc4 ;
+  transition: .3s;
 }
 
 
