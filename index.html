@@ -13,15 +13,10 @@
   </head>
 
   <body>
-    <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-    <script>
-      $(document).ready(function(){
-        $(".dropdown-button").dropdown();
-      });
-    </script>
-    <nav>
+    <script type="text/javascript" src="js/results.js"></script>
+    <nav class="color1">
       <div class="nav-wrapper">
         <a href="#" class="brand-logo">Allahu Akbar</a>
         <ul class="right hide-on-med-and-down">
@@ -32,16 +27,38 @@
     </nav>
     <div class="container-fluid">
       <div class="row">
-        <div class="col s3">
-          <p>
-            Lorem ipsum dolor sit amet, malorum similique pertinacia ius ne. Ei justo noluisse per, iusto dolorem vulputate at eam. No per invenire platonem voluptaria, sea meis pertinax delicatissimi in. Error omittam comprehensam has ex, homero aperiri qui no, ex discere mediocrem nam. Qui te dicit quaeque aliquam. Ferri tempor theophrastus mei ut, ad eos diam volutpat torquatos. Vel graecis liberavisse an, vidisse electram ius cu.
-          </p>
+
+        <div class="col s3 color2 filters">
+          <form class="row center-allign search-panel z-depth-1">
+            <div class="input-field row center-allign">
+              <input id="Origen" type="text" class="validate"/>
+              <label for="Origen">Origen</label>
+            </div>
+            <div class="input-field row center-allign">
+              <input id="Destino" type="text" class="validate"/>
+              <label for="Destino">Destino</label>
+            </div>
+            <div class="input-field row center-allign">
+              <input type="date" placeholder="Partiendo" class="datepicker"/>
+            </div>
+            <div class="input-field row center-allign">
+              <input type="date" placeholder="Volviendo" class="datepicker"/>
+            </div>
+            <div class="row center-allign">
+              <a class="waves-effect waves-light btn search">
+                <i class="material-icons left">search</i>
+                Buscar
+              </a>
+            </div>
+          </form>
+
+
         </div>
 
 
         <div class="col s9">
           <div class="container-fluid">
-            <div class="row tools z-depth-1">
+            <div class="row tools z-depth-1 color2">
               <ul id="dropdown1" class="dropdown-content">
                 <li><p>ARS</p></li>
                 <li><p>USD</p></li>
@@ -51,7 +68,6 @@
                 <li><p>Calificación</p></li>
                 <li><p>Probabilidad de ataque terrorista</p></li>
               </ul>
-              <div class="left short_data"><p>Vuelos de Buenos Aires a Aleppo</p></div>
               <ul class="right">
                 <li>
                   <a class="dropdown-button btn" href="#" data-activates="dropdown1">Moneda
@@ -65,18 +81,11 @@
                 </li>
               </ul>
             </div>
-
-
-
-
-            <div class="row">
-              <p>Aca van los resultados</p>
-            </div>
           </div>
         </div>
       </div>
     </div>
-    <footer class="page-footer">
+    <footer class="page-footer color1">
       <div class="container">
         <div class="row">
           <div class="col l6 s12">

@@ -1,9 +1,9 @@
-nav {
-  background-color: #0d47a1;
+.color1,.color1.page-footer {
+  background-color: #283593;
 }
 
-nav.tools {
-  background-color: #9fa8da ;
+.color2{
+  background-color: #b0bec5;
 }
 
 .row {
@@ -12,7 +12,7 @@ nav.tools {
 
 .col.s3{
   padding-right: 0;
-  background-color: #8c9eff ;
+  padding-left: 0;
 }
 
 .col.s9{
@@ -24,10 +24,6 @@ nav.tools {
   float: left;
 }
 
-.row.tools{
-  background-color: #90a4ae  ;
-}
-
 .dropdown-button.btn {
   margin-right: 10px;
 }
@@ -37,11 +33,6 @@ ul.dropdown-content li p{
   margin-left: 10px;
 }
 
-div.short_data {
-  margin: 0 auto;
-  height: 100%;
-}
-
 ul.dropdown-content li:hover{
   background-color: #80cbc4 ;
   transition: .3s;
@@ -49,7 +40,41 @@ ul.dropdown-content li:hover{
 
 
 footer.page-footer {
-  background-color: #0d47a1;
   margin-top: 0;
   padding-top: 0;
+}
+
+.search-panel{
+  background-color: white;
+  border-radius: .25em;
+  padding: 0 0 0 0;
+  width: 80%;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.search-panel div {
+  display: block;
+  width: 80%
+}
+
+.search-panel div input{
+  display: block;
+  margin: 1em auto 1em auto;
+  padding: .3em 0 .3em 0;
+}
+
+div a.search{
+  float: right;
+  margin: 1em auto 1em auto;
+}
+
+.search-panel div label{
+  display: block;
+  margin: 1em auto 1em auto;
+  padding: .3em auto .3em auto;
+}
+
+.search-panel div label.active{
+  margin-top: 1em;
 }
