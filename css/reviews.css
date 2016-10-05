@@ -1,0 +1,21 @@
+body {
+	background-color: #eeeeee;
+}
+.global_score_wrapper {
+	margin:auto auto 10px auto;
+	height:80px;
+	text-align:center;
+}
+.global_score {
+	width:80px;
+	margin:0 auto;
+	background-color:#88b131;
+	font-size:36px;
+	padding: 15px;
+	color: rgba(235, 235, 235, 1);
+}
+
+.star_grade {
+	color:grey;
+
+}
