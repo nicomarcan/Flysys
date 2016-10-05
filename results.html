@@ -7,15 +7,17 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
-    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="css/results.css"/>
+    <link type="text/css" href="css/nouislider.min.css" rel="stylesheet">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
-
   <body>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/nouislider.min.js"></script>
     <script type="text/javascript" src="js/results.js"></script>
+
     <nav class="color1">
       <div class="nav-wrapper">
         <a href="#" class="brand-logo">Allahu Akbar</a>
@@ -29,7 +31,14 @@
       <div class="row">
 
         <div class="col s3 color2 filters">
-          <form class="row center-allign search-panel z-depth-1">
+          <form class="row center-allign search-panel z-depth-1 filter-element">
+            <div class = "row modes">
+              <ul>
+                <li class ="clickable" id="two-way">Ida y vuelta</li>
+                <li >&nbsp&nbsp |&nbsp&nbsp </li>
+                <li class ="clickable" id="one-way">Ida</li>
+              </ul>
+            </div>
             <div class="input-field row center-allign">
               <input id="Origen" type="text" class="validate"/>
               <label for="Origen">Origen</label>
@@ -41,7 +50,7 @@
             <div class="input-field row center-allign">
               <input type="date" placeholder="Partiendo" class="datepicker"/>
             </div>
-            <div class="input-field row center-allign">
+            <div class="input-field row center-allign" id="return-div">
               <input type="date" placeholder="Volviendo" class="datepicker"/>
             </div>
             <div class="row center-allign">
@@ -51,6 +60,69 @@
               </a>
             </div>
           </form>
+          <div class="row center-allign price filter-element">
+            <h5>Precio</h5>
+            <div id="price-range"></div>
+          </div>
+
+          <div class="row center-allign reputation filter-element stars">
+            <h5>Reputación</h5>
+            <form>
+              <p>
+                <input type="checkbox" id="five-stars"></id>
+                <label for="five-stars">
+                  <i class="material-icons">star</i>
+                  <i class="material-icons">star</i>
+                  <i class="material-icons">star</i>
+                  <i class="material-icons">star</i>
+                  <i class="material-icons">star</i>
+                </label>
+              </p>
+              <p>
+                <input type="checkbox" id="four-stars"></id>
+                <label for="four-stars">
+                  <i class="material-icons">star</i>
+                  <i class="material-icons">star</i>
+                  <i class="material-icons">star</i>
+                  <i class="material-icons">star</i>
+                </label>
+              </p>
+              <p>
+                <input type="checkbox" id="three-stars"></id>
+                <label for="three-stars">
+                  <i class="material-icons">star</i>
+                  <i class="material-icons">star</i>
+                  <i class="material-icons">star</i>
+                </label>
+              </p>
+              <p>
+                <input type="checkbox" id="two-stars"></id>
+                <label for="two-stars">
+                  <i class="material-icons">star</i>
+                  <i class="material-icons">star</i>
+                </label>
+              </p>
+              <p>
+                <input type="checkbox" id="one-stars"></id>
+                <label for="one-stars">
+                  <i class="material-icons">star</i>
+                </label>
+              </p>
+            </form>
+          </div>
+          <div class="row center-allign reputation filter-element airlines">
+            <h5>Aerolíneas</h5>
+            <form>
+              <p>
+                <input type="checkbox" id="ar1"></id>
+                <label for="ar1">Air Syria</label>
+              </p>
+              <p>
+                <input type="checkbox" id="ar2"></id>
+                <label for="ar2">Flysis</label>
+              </p>
+            </form>
+          </div>
 
 
         </div>
@@ -71,7 +143,7 @@
               <ul class="right">
                 <li>
                   <a class="dropdown-button btn" href="#" data-activates="dropdown1">Moneda
-                    <i class="material-icons right">arrow_drop_down</i>
+                    <i class="material-icons">arrow_drop_down</i>
                   </a>
                 </li>
                 <li>

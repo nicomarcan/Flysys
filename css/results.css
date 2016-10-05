@@ -38,17 +38,21 @@ ul.dropdown-content li:hover{
   transition: .3s;
 }
 
-
 footer.page-footer {
   margin-top: 0;
   padding-top: 0;
+}
+
+.filter-element {
+  width: 80%;
+  margin-top: 3em;
+  margin-bottom: 3em;
 }
 
 .search-panel{
   background-color: white;
   border-radius: .25em;
   padding: 0 0 0 0;
-  width: 80%;
   margin-top: 2em;
   margin-bottom: 2em;
 }
@@ -77,4 +81,29 @@ div a.search{
 
 .search-panel div label.active{
   margin-top: 1em;
+}
+
+.row.modes li{
+  display: block;
+  margin-top: 1em;
+  float:left;
+}
+
+.row.modes .clickable:hover{
+  color: #4db6ac;
+  transition: .2s;
+  cursor:pointer;
+}
+
+.price #price-range {
+  margin-top: 3em;
+  margin-bottom: 0;
+}
+
+.stars form i {
+  color: black;
+}
+
+.airlines form label{
+  color: black;
 }

@@ -49,7 +49,7 @@ min-height: 600px;
    background-attachment: fixed;
     background-position: top;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; 
 }
 
 
@@ -76,6 +76,7 @@ color: black ;
 .row.input  .material-icons.clickable{
   margin-top:25px;
 }
+
 
 .row.input .clickable:not([selected]):hover{
    color: #64b5f6 ;
