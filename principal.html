@@ -13,18 +13,7 @@
   </head>
 
     <body>
-      <!--Import jQuery before materialize.js-->
-      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-      <script>
-        $(document).ready(function(){
-          $(".dropdown-button").dropdown();
-         $('.datepicker').pickadate({
-   inline: true,
-    });
-          $('.parallax').parallax({});
-        });
-      </script>
+
 
       <nav>
         <div class="nav-wrapper color1">
@@ -36,14 +25,13 @@
         </div>
       </nav>
 
-      <div class="container-fluid parallax-container ">
-        
+      <div class="container-fluid parallax-container">
         <div  class="parallax search-back"></div>
         <div class="row  ">
           
-          <div class="col s8 offset-s2 color1" id="search">
+          <div class="col s8 offset-s2 color1 z-depth-2" id="search">
             
-            <div class = "row input">
+            <div class = "row input ">
               <ul >
               <li class = "clickable">Ida y vuelta</li>
                 <li >&nbsp&nbsp |&nbsp&nbsp </li>
@@ -101,7 +89,7 @@
 
     <div class="container-fluid offers-back">
       <div class="row  " >
-        <div class="col s8 offset-s2" >
+        <div class="col s8 offset-s3" >
             
             <img class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
             <img  class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
@@ -111,7 +99,7 @@
 
 
         <div class="row  " >
-          <div class="col s8 offset-s2" >
+          <div class="col s8 offset-s3" >
             
             <img class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
             <img  class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
@@ -121,7 +109,7 @@
        </div>
 
         <div class="row  " >
-          <div class="col s8 offset-s2" >
+          <div class="col s8 offset-s3" >
             
             <img class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
              <img  class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
@@ -131,7 +119,7 @@
        </div>
 
         <div class="row" >
-          <div class="col s12 " >
+          <div class="col s8  offset-s2" >
     
               <p >
               Lorem ipsum dolor sit amet, malorum similique pertinacia ius ne. Ei justo noluisse per, iusto dolorem vulputate at eam. No per invenire platonem voluptaria, sea meis pertinax delicatissimi in. Error omittam comprehensam has ex, homero aperiri qui no, ex discere mediocrem nam. Qui te dicit quaeque aliquam. Ferri tempor theophrastus mei ut, ad eos diam volutpat torquatos. Vel graecis liberavisse an, vidisse electram ius cu.
@@ -172,6 +160,17 @@
           </div>
       </div>
     </footer>
-
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+      <script>
+			$(document).ready(function(){
+			  $(".dropdown-button").dropdown();
+			 $('.datepicker').pickadate({
+	   inline: true,
+		});
+			  $('.parallax').parallax({});
+			});
+      </script>
   </body>
 </html>
