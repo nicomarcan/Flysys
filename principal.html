@@ -160,19 +160,8 @@
     </div>
   </div>
 
- 
 
-
-
-
-
-
-
-
-
-
-
-    <footer class="page-footer color1">
+   <footer class="page-footer color1">
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
@@ -195,40 +184,8 @@
       </div>
     </footer>
       <!--Import jQuery before materialize.js-->
-
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-      <script>
-			$(document).ready(function(){
-			 $('li.clickable').on('click', function() {
-			 	if(!$(this).attr("selected")){
-				 	$('li.clickable').removeAttr("selected");
-				 	$(this).attr("selected","");
-				 	if($(this).attr("id")=="one-way"){
-				 			$('#returning').hide();
-				 	}
-				 	else if($(this).attr("id")=="two-way"){
-				 		$('#returning').show();
-				 	}
-				 }
-			});
-			 $('.datepicker').pickadate({
-	   inline: true,
-		});
-			  $('.parallax').parallax({});
-			  $('select').material_select();
-			  $('input.autocomplete').autocomplete({
-				   data: {
-				     "Miami, FL - Miami": null,
-				     "Buenos Aires,Argentina": null,			
-				    }
-				});
-			     $(".dropdown-button").dropdown({
-			     	constrain_width: false,
-			     	belowOrigin: true,
-			     });
-     
-			});
-      </script>
+      <script type="text/javascript" src="js/index.js"></script>
   </body>
 </html>

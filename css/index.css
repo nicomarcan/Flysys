@@ -69,7 +69,6 @@ min-height: 600px;
   width: 255px;
   margin: 20px 16px 20px 16px;
 }
- .materialboxed{ display: block; }
 
 .offer-img:hover{
   cursor:pointer;
@@ -80,7 +79,6 @@ min-height: 600px;
 }
 
 .row.input  .material-icons.clickable:hover{
-color: black ;
   transition: .3s;
   cursor:pointer;
 }
@@ -119,9 +117,7 @@ color: black ;
    .input-field .prefix.active {
      color: white;
    }
-i.icon-white {
-    color: white;
-}
+
 
 .collection a.collection-item{
   display:inline;
