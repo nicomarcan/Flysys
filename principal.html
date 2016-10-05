@@ -17,7 +17,7 @@
 
       <nav>
         <div class="nav-wrapper color1">
-          <a href="#" class="brand-logo">Logo</a>
+          <a href="#" class="brand-logo">Flysis</a>
           <ul class="right hide-on-med-and-down">
             <li><a href="#"><i class="material-icons">info</i></a></li>
             <li><a href="#"><i class="material-icons">help</i></a></li>
@@ -29,19 +29,18 @@
         <div  class="parallax search-back"></div>
         <div class="row  ">
 
-          <div class="col s8 offset-s2  color3 " id="search">
+          <div class="col s10 offset-s1 color1" id="search">
 
             <div class = "row input ">
               <ul >
-              <li class = "clickable" selected>Ida y vuelta</li>
-                <li>&nbsp&nbsp &nbsp&nbsp </li>
-                  <li class = "clickable"  >Ida</li>
-                  <li >&nbsp&nbsp &nbsp&nbsp </li>
-                    <li class = "clickable" >Multiples destinos</li>
+              <li class = "clickable" selected id="two-way">Ida y vuelta</li>
+                <li >&nbsp&nbsp  &nbsp&nbsp </li>
+                  <li class = "clickable"  id="one-way">Ida</li>
+                  <li >&nbsp&nbsp  &nbsp&nbsp </li>
+                    <li class = "clickable" id="multiple-destinys">Multiples destinos</li>
                     </ul>
               </div>
-           </div>
-            <div class="col s8 offset-s2  color1 z-depth-2" >
+        
             <div class="row input color1">
                 <div class="col s12" >
                     <div class="input-field col s2">
@@ -64,20 +63,32 @@
                      <input type="date" class="datepicker" value = "Partiendo" >
                     </div>
 
-                    <div class=" input-field col s2" >
+                    <div class=" input-field col s2" id="returning">
                       <i class="material-icons prefix">today</i>
                      <input type="date" class="datepicker" value = "Volviendo">
                     </div>
 
-                      <div class="input-field col s2 ">
-                      <i class="material-icons prefix">perm_identity</i>
-                      <input type="text" id="autocomplete-input" class="autocomplete">
-                      <label for="autocomplete-input">Pasajeros</label>
-                    </div>
+                       <div class="input-field col s2 ">
+                          <i class="material-icons prefix" > perm_identity</i>                    
+					     <!-- Dropdown Trigger -->
+						  <a class='dropdown-button btn' href='#' data-activates='dropdown1' id="passengers">Pasajeros</a>
+
+						  <!-- Dropdown Structure -->
+						  <ul id='dropdown1' class='dropdown-content'>
+						    <li><a href="#!">Adultos&nbsp&nbsp  &nbsp&nbsp<button>-</button>&nbsp&nbsp  1&nbsp&nbsp<button>+</button></a></li>
+						    <li class="divider"></li>
+						     <li><a href="#!">Niños  &nbsp&nbsp&nbsp&nbsp  &nbsp&nbsp<button>-</button>&nbsp&nbsp 1 &nbsp&nbsp<button>+</button></a></li>
+						       <li class="divider"></li>
+						     <li><a href="#!">Infantes&nbsp&nbsp  &nbsp&nbsp<button>-</button>&nbsp&nbsp  1&nbsp&nbsp<button>+</button></a></li>
+						     <li><a href="#!">DONE</a></li>
+						  </ul>
+					  </div>
+
 
                      <div class=" col s1 ">
-                      <i class="material-icons small clickable">search</i>
+                      <i class="material-icons small clickable" id="search-icon">search</i>
                     </div>
+
                 </div>
             </div>
 
@@ -101,31 +112,31 @@
     <div class="container-fluid offers-back">
       <div class="row  " >
         <div class="col s8 offset-s2" >
-
-            <img class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
-            <img  class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
-            <img class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
-
+          	<ul>
+	          	<li><img class="offer-img materialboxed" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/></li>
+	            <li><img class="offer-img materialboxed" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/></li>
+	          	<li><img class="offer-img materialboxed" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/> </li>
+          	</ul>
         </div>
 
 
         <div class="row  " >
           <div class="col s8 offset-s2" >
-
-            <img class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
-            <img  class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
-            <img class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
-
+          	<ul>
+	          	<li><img class="offer-img materialboxed" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/></li>
+	            <li><img class="offer-img materialboxed" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/></li>
+	          	<li><img class="offer-img materialboxed" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/> </li>
+          	</ul>
           </div>
        </div>
 
         <div class="row  " >
           <div class="col s8 offset-s2" >
-
-            <img class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
-             <img  class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
-              <img class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
-
+			<ul>
+	          	<li><img class="offer-img materialboxed" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/></li>
+	            <li><img class="offer-img materialboxed" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/></li>
+	          	<li><img class="offer-img materialboxed" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/> </li>
+          	</ul>
           </div>
        </div>
 
@@ -149,11 +160,23 @@
     </div>
   </div>
 
+ 
+
+
+
+
+
+
+
+
+
+
+
     <footer class="page-footer color1">
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
-             <h5 class="white-text">Logo</h5>
+             <h5 class="white-text">Flysys</h5>
             <p class="grey-text text-lighten-4">¡A volar por los aires!</p>
           </div>
           <div class="col l4 offset-l2 s12">
@@ -181,12 +204,30 @@
 			 	if(!$(this).attr("selected")){
 				 	$('li.clickable').removeAttr("selected");
 				 	$(this).attr("selected","");
+				 	if($(this).attr("id")=="one-way"){
+				 			$('#returning').hide();
+				 	}
+				 	else if($(this).attr("id")=="two-way"){
+				 		$('#returning').show();
+				 	}
 				 }
 			});
 			 $('.datepicker').pickadate({
 	   inline: true,
 		});
 			  $('.parallax').parallax({});
+			  $('select').material_select();
+			  $('input.autocomplete').autocomplete({
+				   data: {
+				     "Miami, FL - Miami": null,
+				     "Buenos Aires,Argentina": null,			
+				    }
+				});
+			     $(".dropdown-button").dropdown({
+			     	constrain_width: false,
+			     	belowOrigin: true,
+			     });
+     
 			});
       </script>
   </body>

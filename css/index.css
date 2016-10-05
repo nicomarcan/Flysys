@@ -1,6 +1,8 @@
-.color1,.color1.page-footer,.row.input [selected] {
+.color1,.color1.page-footer{
   background-color: #283593;
 }
+
+
 
 .color2{
   background-color: #b0bec5;
@@ -11,13 +13,17 @@
  }
 
 .row li{
-  color:black;
+  color:#1976d2;
   float:left;
 }
+
+
 
 .row li[selected]{
   color:white;
 }
+
+
 
 .row {
   margin-bottom: 0;
@@ -31,6 +37,11 @@ footer.page-footer {
 .material-icons{
   color:white;
 }
+
+.material-icons#search-icon{
+  margin-left: 50px;
+}
+
 
 .datepicker{
   color:white;
@@ -58,6 +69,7 @@ min-height: 600px;
   width: 255px;
   margin: 20px 16px 20px 16px;
 }
+ .materialboxed{ display: block; }
 
 .offer-img:hover{
   cursor:pointer;
@@ -90,16 +102,37 @@ color: black ;
    }
 
 
+ .input .input-field input[type=text] {
+     color: white;
+   }
+
    /* label focus color */
    .input .input-field input[type=text]:focus + label {
-     color: black;
+     color: white;
    }
    /* label underline focus color */
    .input .input-field input[type=text]:focus {
-     border-bottom: 1px solid black;
-     box-shadow: 0 1px 0 0 black;
+     border-bottom: 1px solid white;
+     box-shadow: 0 1px 0 0 white;
    }
 /* icon prefix focus color */
    .input-field .prefix.active {
-     color: black;
+     color: white;
    }
+i.icon-white {
+    color: white;
+}
+
+.collection a.collection-item{
+  display:inline;
+}
+
+.btn#passengers{
+  background-color:transparent;
+  width:190px;
+  margin-top:10px;
+}
+
+.btn#passengers:hover{
+  background-color:transparent;
+}
