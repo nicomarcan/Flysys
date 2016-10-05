@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html>
+  <meta charset="utf-8"/>
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+
+    <body>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+      <script>
+        $(document).ready(function(){
+          $(".dropdown-button").dropdown();
+         $('.datepicker').pickadate({
+   inline: true,
+    });
+          $('.parallax').parallax({});
+        });
+      </script>
+
+      <nav>
+        <div class="nav-wrapper color1">
+          <a href="#" class="brand-logo">Logo</a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="#"><i class="material-icons">info</i></a></li>
+            <li><a href="#"><i class="material-icons">help</i></a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid parallax-container ">
+        
+        <div  class="parallax search-back"></div>
+        <div class="row  ">
+          
+          <div class="col s8 offset-s2 color1" id="search">
+            
+            <div class = "row input">
+              <ul >
+              <li class = "clickable">Ida y vuelta</li>
+                <li >&nbsp&nbsp |&nbsp&nbsp </li>
+                  <li class = "clickable">Ida</li>
+                  <li >&nbsp&nbsp |&nbsp&nbsp </li>
+                    <li class = "clickable">Multiples destinos</li>
+                    </ul>
+              </div>
+            
+            <div class="row input ">
+                <div class="col s12" > 
+                    <div class="input-field col s2">
+                      <i class="material-icons prefix">location_on</i>
+                     <input type="text" id="autocomplete-input" class="autocomplete">
+                      <label for="autocomplete-input">Desde</label>
+                    </div>
+                    <div class="input-field col s1">
+                      <i class="material-icons prefix clickable">swap_horiz</i>
+                    </div>
+
+                    <div class="input-field col s2 ">
+                      <i class="material-icons prefix">location_on</i>
+                      <input type="text" id="autocomplete-input" class="autocomplete">
+                      <label for="autocomplete-input">Hacia</label>
+                    </div>
+
+                    <div class=" input-field col s3" >
+                      <i class="material-icons prefix">today</i>
+                     <input type="date" class="datepicker" value = "Partiendo" >
+                    </div>
+
+                    <div class=" input-field col s3" >
+                      <i class="material-icons prefix">today</i>
+                     <input type="date" class="datepicker" value = "Volviendo">
+                    </div>
+                </div>   
+            </div> 
+
+          </div>
+
+        </div>
+
+    </div>
+
+    <div class="section white container-fluid">
+      <div class="row container">
+        <h1 class="header">Ofertones</h1>
+        <p class="grey-text text-darken-3 lighten-3">A partir de aca habrán ofertas.</p>
+            <p >
+              Lorem ipsum dolor sit amet, malorum similique pertinacia ius ne. Ei justo noluisse per, iusto dolorem vulputate at eam. No per invenire platonem voluptaria, sea meis pertinax delicatissimi in. Error omittam comprehensam has ex, homero aperiri qui no, ex discere mediocrem nam. Qui te dicit quaeque aliquam. Ferri tempor theophrastus mei ut, ad eos diam volutpat torquatos. Vel graecis liberavisse an, vidisse electram ius cu.
+            </p>
+      </div>
+    </div>
+
+
+    <div class="container-fluid offers-back">
+      <div class="row  " >
+        <div class="col s8 offset-s2" >
+            
+            <img class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
+            <img  class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
+            <img class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
+
+        </div>
+
+
+        <div class="row  " >
+          <div class="col s8 offset-s2" >
+            
+            <img class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
+            <img  class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
+            <img class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
+
+          </div>
+       </div>
+
+        <div class="row  " >
+          <div class="col s8 offset-s2" >
+            
+            <img class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
+             <img  class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
+              <img class="offer-img" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/>
+
+          </div>
+       </div>
+
+        <div class="row" >
+          <div class="col s12 " >
+    
+              <p >
+              Lorem ipsum dolor sit amet, malorum similique pertinacia ius ne. Ei justo noluisse per, iusto dolorem vulputate at eam. No per invenire platonem voluptaria, sea meis pertinax delicatissimi in. Error omittam comprehensam has ex, homero aperiri qui no, ex discere mediocrem nam. Qui te dicit quaeque aliquam. Ferri tempor theophrastus mei ut, ad eos diam volutpat torquatos. Vel graecis liberavisse an, vidisse electram ius cu.
+              </p>
+
+              <p >
+              Lorem ipsum dolor sit amet, malorum similique pertinacia ius ne. Ei justo noluisse per, iusto dolorem vulputate at eam. No per invenire platonem voluptaria, sea meis pertinax delicatissimi in. Error omittam comprehensam has ex, homero aperiri qui no, ex discere mediocrem nam. Qui te dicit quaeque aliquam. Ferri tempor theophrastus mei ut, ad eos diam volutpat torquatos. Vel graecis liberavisse an, vidisse electram ius cu.
+             </p>
+
+              <p >
+              Lorem ipsum dolor sit amet, malorum similique pertinacia ius ne. Ei justo noluisse per, iusto dolorem vulputate at eam. No per invenire platonem voluptaria, sea meis pertinax delicatissimi in. Error omittam comprehensam has ex, homero aperiri qui no, ex discere mediocrem nam. Qui te dicit quaeque aliquam. Ferri tempor theophrastus mei ut, ad eos diam volutpat torquatos. Vel graecis liberavisse an, vidisse electram ius cu.
+              </p>
+           
+          </div>
+        </div>
+    </div>
+  </div>
+
+    <footer class="page-footer color1">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+             <h5 class="white-text">Logo</h5>
+            <p class="grey-text text-lighten-4">¡A volar por los aires!</p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+             <h5 class="white-text">Herramientas del sitio</h5>
+             <ul>
+                <li><a class="grey-text text-lighten-3" href="#!">Información</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Ayuda</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <div class="container">
+          © 2016 - Instituto Tecnológico de Buenos Aires
+          </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
