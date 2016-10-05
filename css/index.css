@@ -1,4 +1,4 @@
-.color1,.color1.page-footer {
+.color1,.color1.page-footer,.row.input [selected] {
   background-color: #283593;
 }
 
@@ -6,9 +6,26 @@
   background-color: #b0bec5;
 }
 
+.offers-back,.color3{
+  background-color:#fffde7;
+ }
+
 .row li{
-  color:white;
+  color:black;
   float:left;
+}
+
+.row li[selected]{
+  color:white;
+}
+
+.row {
+  margin-bottom: 0;
+}
+
+footer.page-footer {
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .material-icons{
@@ -19,9 +36,10 @@
   color:white;
 }
 
-.parallax-container{
-  height:1000px;
 
+
+.parallax-container{
+min-height: 600px;
 }
 .parallax.search-back{
   background-image: URL("https://static.pexels.com/photos/5055/sea-sky-beach-holiday.jpeg");
@@ -34,9 +52,7 @@
     background-size: cover;
 }
 
-.offers-back{
-  background-color:#fffde7;
- }
+
 .offer-img{
   height:255px;
   width: 255px;
@@ -49,11 +65,20 @@
 
  .col#search{
   margin-top: 75px;
-
 }
 
-.row.input .clickable:hover{
-   color: black ;
+.row.input  .material-icons.clickable:hover{
+color: black ;
+  transition: .3s;
+  cursor:pointer;
+}
+
+.row.input  .material-icons.clickable{
+  margin-top:25px;
+}
+
+.row.input .clickable:not([selected]):hover{
+   color: #64b5f6 ;
   transition: .3s;
   cursor:pointer;
 }
@@ -73,7 +98,7 @@
      border-bottom: 1px solid black;
      box-shadow: 0 1px 0 0 black;
    }
-
-   /* icon prefix focus color */
-   .input .input-field .prefix.active {
-     color: b
+/* icon prefix focus color */
+   .input-field .prefix.active {
+     color: black;
+   }
