@@ -1,0 +1,79 @@
+.color1,.color1.page-footer {
+  background-color: #283593;
+}
+
+.color2{
+  background-color: #b0bec5;
+}
+
+.row li{
+  color:white;
+  float:left;
+}
+
+.material-icons{
+  color:white;
+}
+
+.datepicker{
+  color:white;
+}
+
+.parallax-container{
+  height:1000px;
+
+}
+.parallax.search-back{
+  background-image: URL("https://static.pexels.com/photos/5055/sea-sky-beach-holiday.jpeg");
+}
+
+.parallax{
+   background-attachment: fixed;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.offers-back{
+  background-color:#fffde7;
+ }
+.offer-img{
+  height:255px;
+  width: 255px;
+  margin: 20px 16px 20px 16px;
+}
+
+.offer-img:hover{
+  cursor:pointer;
+}
+
+ .col#search{
+  margin-top: 75px;
+
+}
+
+.row.input .clickable:hover{
+   color: black ;
+  transition: .3s;
+  cursor:pointer;
+}
+
+  /* label color */
+   .input .input-field label {
+     color: white;
+   }
+
+
+   /* label focus color */
+   .input .input-field input[type=text]:focus + label {
+     color: black;
+   }
+   /* label underline focus color */
+   .input .input-field input[type=text]:focus {
+     border-bottom: 1px solid black;
+     box-shadow: 0 1px 0 0 black;
+   }
+
+   /* icon prefix focus color */
+   .input .input-field .prefix.active {
+     color: b

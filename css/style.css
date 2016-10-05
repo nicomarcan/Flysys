@@ -78,8 +78,3 @@ div a.search{
 .search-panel div label.active{
   margin-top: 1em;
 }
-
-
-.row li{
-  float:left;
-}
