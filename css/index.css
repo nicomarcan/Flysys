@@ -79,22 +79,13 @@ ul.photo-list{
   margin-left: 0;
 }
 
-
 .offer-img.small.top{
-  height:140px;
-  width: 200px;
    margin: 15px 10px 15px 5px;
 }
 .offer-img.small.bottom {
-  height:140px;
-  width: 200px;
    margin: 0px 10px 0px 5px;
 }
 
-.offer-img.small{
-  height:140px;
-  width: 200px;
-}
 .offer-img.small{
   height:140px;
   width: 200px;
