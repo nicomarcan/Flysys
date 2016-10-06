@@ -18,7 +18,7 @@
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 	</head>
-	<body>
+	<body class="roboto">
 		<nav>
 			<div class="nav-wrapper color1">
 				<a href="#" class="brand-logo">Logo</a>
@@ -32,20 +32,33 @@
 			<div class="" style="max-width:1000px;margin:auto;">
 				<div class="card-panel row">
 					<div class="col s4">
-						<div class="valign-wrapper global_score_wrapper">
-							<div class="valign circle z-depth-1 global_score" >
-								9.1
+						<div class="col s12 .score_corner">
+							<div class="col s6">
+								<img src="./img/aa_logo.png" class="responsive-img">
+
+								<span style="font-size:10px;"> REP.: <a href="" style="color:red;">Muy negativa (12%)</a></span>
+
+							</div>
+							<div class="col s6">
+								<div class="valign-wrapper global_score_wrapper col">
+									<div class="valign circle z-depth-1 global_score" >
+										9.1
+									</div>
+								</div>
+								<div class="review_count">
+									3.000
+									<i class="tiny material-icons">
+										perm_identity
+									</i>
+								</div>
 							</div>
 						</div>
-						<div class="" style="margin:auto;text-align:center;">
-							3.000
-							<i class="tiny material-icons" style="color:black">
-								perm_identity
-							</i>
-						</div>
-						<div class="">
+						<div class="col s12">
 							<ul class="collection">
-								<li class="star_list_element collection-item ">
+								<li class="score_list_element_header collection-item">
+									Distribucion de puntajes:
+								</li>
+								<li class="score_list_element collection-item ">
 									<div class="col s6 star_group">
 										<i class="tiny material-icons">
 											grade
@@ -65,11 +78,11 @@
 									</div>
 									<div class="col s6">
 										<div class="progress star_progress five_stars">
-      										<div class="determinate" style="width: 85%"></div>
-  										</div>
+	  										<div class="determinate" style="width: 85%"></div>
+											</div>
 									</div>
 								</li>
-								<li class="star_list_element collection-item">
+								<li class="score_list_element collection-item">
 									<div class="col s6 star_group">
 										<i class="tiny material-icons">
 											grade
@@ -89,11 +102,11 @@
 									</div>
 									<div class="col s6">
 										<div class="progress star_progress four_stars">
-      										<div class="determinate" style="width: 10%"></div>
-  										</div>
+	  										<div class="determinate" style="width: 10%"></div>
+											</div>
 									</div>
 								</li>
-								<li class="star_list_element collection-item">
+								<li class="score_list_element collection-item">
 									<div class="col s6 star_group">
 										<i class="tiny material-icons">
 											grade
@@ -113,11 +126,11 @@
 									</div>
 									<div class="col s6">
 										<div class="progress star_progress three_stars">
-      										<div class="determinate" style="width: 3%"></div>
-  										</div>
+	  										<div class="determinate" style="width: 3%"></div>
+											</div>
 									</div>
 								</li>
-								<li class="star_list_element collection-item">
+								<li class="score_list_element collection-item">
 									<div class="col s6 star_group">
 										<i class="tiny material-icons">
 											grade
@@ -137,11 +150,11 @@
 									</div>
 									<div class="col s6">
 										<div class="progress star_progress two_stars">
-      										<div class="determinate" style="width: 1%"></div>
-  										</div>
+	  										<div class="determinate" style="width: 1%"></div>
+											</div>
 									</div>
 								</li>
-								<li class="star_list_element collection-item">
+								<li class="score_list_element collection-item">
 									<div class="col s6 star_group">
 										<i class="tiny material-icons">
 											grade
@@ -161,14 +174,14 @@
 									</div>
 									<div class="col s6">
 										<div class="progress star_progress one_star">
-      										<div class="determinate" style="width: 1%"></div>
-  										</div>
+	  										<div class="determinate" style="width: 1%"></div>
+											</div>
 									</div>
 								</li>
 							</ul>
 						</div>
 
-						<a class="waves-effect waves-light btn clickable col s12" style="margin:auto; font-size:14px;">
+						<a class="write_review_button waves-effect waves-light btn clickable col s12">
 							Escribir una resena
 							<i class="tiny material-icons right">
 								mode_edit
@@ -202,25 +215,28 @@
 
 				</div>
 			</div>
-			<div class="row" style="background-color:white; padding:20px">
-				
-				<div class="col s4 push-s7">
+			<div class="row" style="padding:5px; margin:0px;">
+				<div class="col s2 opinions_header">
+					OPINIONES
+				</div>
+				<div class="col s5 push-s5" style="top:5px">
 					<ul id="dropdown2" class="dropdown-content">
 	                  <li style="padding:7px;text-align:center;min-height:0px">Mas reciente</li>
 	                  <li style="padding:7px;text-align:center;min-height:0px">Calificacion</li>
 	                  <li style="padding:7px;text-align:center;min-height:0px">Afiliacion al ISIS</li>
 	                </ul>
-					<span style="font-weight:bold;"> Ordenar por: </span>
+					<span class="order_by_indication"> ORDENAR POR: </span>
 
-					<a class="dropdown-button btn" href="#" data-activates="dropdown2" style="display:inline-block;">Mas reciente
+					<a class="order_by_button dropdown-button btn" href="#" data-activates="dropdown2" >Mas reciente
                     </a>
-					<a class="dropdown-button btn" href="#" data-activates="dropdown2" style="display:none;">Mas reciente
+					<a class="order_by_button dropdown-button btn" href="#" data-activates="dropdown2" style="display:none;">Mas reciente
                     </a>
-					<a class="dropdown-button btn" href="#" data-activates="dropdown2" style="display:none;">Mas reciente
+					<a class="order_by_button dropdown-button btn" href="#" data-activates="dropdown2" style="display:none;">Mas reciente
                     </a>
-
 				</div>
+
 			</div>
+			<div class="divider" style="margin-bottom:10px"></div>
 			<div class="card-panel row hoverable clickable">
 				<div class="col s10">
 					<span style="font-size:22px; font-weight:bold">Estupendo!!!</span>
@@ -236,9 +252,74 @@
 				<div class="col s2" style="text-align:right;">
 					11/9/2001
 				</div>
-				<div class="col s12" style="margin:10px auto auto auto;">
+				<div class="col s5" style="margin:10px auto auto auto;">
 					<div class="divider"></div>
 					<p> Una experiencia muy enriquecedora y gratificante </p>
+				</div>
+				<div class="divider"></div>
+				<div class="col s7" style="margin:10px auto auto auto">
+					<ul class="collection">
+						<li class="collection-item score_list_element">
+							<div class="col s6" style="font-size:14px; color: #6b6b6b">
+								Amabilidad:
+							</div>
+							<div class="col s6">
+								<div class="progress star_progress four_stars">
+									<div class="determinate" style="width: 90%"></div>
+									</div>
+							</div>
+						</li>
+						<li class="collection-item score_list_element">
+							<div class="col s6" style="font-size:14px; color: #6b6b6b">
+								Comida:
+							</div>
+							<div class="col s6">
+								<div class="progress star_progress four_stars">
+									<div class="determinate" style="width: 80%"></div>
+									</div>
+							</div>
+						</li>
+						<li class="collection-item score_list_element">
+							<div class="col s6 opinion_list_item">
+								Puntualidad:
+							</div>
+							<div class="col s6">
+								<div class="progress star_progress four_stars">
+									<div class="determinate" style="width: 70%"></div>
+									</div>
+							</div>
+						</li>
+						<li class="collection-item score_list_element">
+							<div class="col s6 opinion_list_item">
+								Programa de viajeros frecuentes:
+							</div>
+							<div class="col s6">
+								<div class="progress star_progress four_stars">
+									<div class="determinate" style="width: 80%"></div>
+									</div>
+							</div>
+						</li>
+						<li class="collection-item score_list_element">
+							<div class="col s6 opinion_list_item">
+								Confort:
+							</div>
+							<div class="col s6">
+								<div class="progress star_progress four_stars">
+									<div class="determinate" style="width: 90%"></div>
+									</div>
+							</div>
+						</li>
+						<li class="collection-item score_list_element">
+							<div class="col s6 opinion_list_item">
+								Relacion precio/calidad:
+							</div>
+							<div class="col s6">
+								<div class="progress star_progress four_stars">
+									<div class="determinate" style="width: 60%"></div>
+									</div>
+							</div>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
