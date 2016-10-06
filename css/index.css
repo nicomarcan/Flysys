@@ -2,8 +2,6 @@
   background-color: #263238 ;
 }
 
-
-
 .color2{
   background-color: #b0bec5;
 }
@@ -17,14 +15,6 @@
   float:left;
 }
 
-
-
-.row li[selected]{
-  color:white;
-}
-
-
-
 .row {
   margin-bottom: 0;
 }
@@ -34,20 +24,13 @@ footer.page-footer {
   padding-top: 0;
 }
 
-.material-icons{
+.material-icons,.datepicker,.row li[selected]{
   color:white;
 }
 
 .material-icons#search-icon{
   margin-left: 50px;
 }
-
-
-.datepicker{
-  color:white;
-}
-
-
 
 .parallax-container{
 min-height: 600px;
@@ -79,26 +62,19 @@ ul.photo-list{
   margin-left: 0;
 }
 
-.offer-img.small.top{
-   margin: 15px 10px 15px 5px;
-}
-.offer-img.small.bottom {
-   margin: 0px 10px 0px 5px;
-}
 
 .offer-img.small{
   height:140px;
   width: 200px;
+  margin: 15px 10px 0px 5px;
 }
-.offer-img:hover{
-  cursor:pointer;
-}
+
 
  .col#search{
   margin-top: 75px;
 }
 
-.row.input  .material-icons.clickable:hover{
+.clickable:hover{
   transition: .3s;
   cursor:pointer;
 }
@@ -110,8 +86,6 @@ ul.photo-list{
 
 .row.input .clickable:not([selected]):hover{
    color: #64b5f6 ;
-  transition: .3s;
-  cursor:pointer;
 }
 
   /* label color */
