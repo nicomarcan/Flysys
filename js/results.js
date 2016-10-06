@@ -1,8 +1,6 @@
 $(document).ready(function(){
   $(".dropdown-button").dropdown();
-  $(".datepicker").pickadate({
-    inline: true,
-  });
+  $(".datepicker").pickadate();
   $("#two-way").click(function(){
     $("#return-div").show();
   });

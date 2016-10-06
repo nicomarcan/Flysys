@@ -1,9 +1,9 @@
 .color1,.color1.page-footer {
-  background-color: #283593;
+  background-color: #263238 ;
 }
 
 .color2{
-  background-color: #b0bec5;
+  background-color: #e8eaf6    ;
 }
 
 .row {
@@ -95,7 +95,7 @@ div a.search{
   cursor:pointer;
 }
 
-.price #price-range {
+.filter-tool {
   margin-top: 3em;
   margin-bottom: 0;
 }
