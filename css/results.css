@@ -49,6 +49,18 @@ footer.page-footer {
   margin-bottom: 3em;
 }
 
+.tabs .tab a{
+  color: rgb(38, 166, 154);
+}
+
+.tabs .tab a:hover{
+  color: inherit;
+}
+
+.tabs .indicator {
+  background-color: rgb(38, 166, 154);
+}
+
 .search-panel{
   background-color: white;
   border-radius: .25em;
@@ -62,9 +74,13 @@ footer.page-footer {
   padding: .3em 0 .3em 0;
 }
 
-.search-panel form{
+.search-panel .row{
   width: 90%;
   margin: 0 auto;
+}
+
+.search-panel .tabs{
+  border-radius: .25em;
 }
 
 div a.search{
@@ -80,6 +96,10 @@ div a.search{
 
 .search-panel div label.active{
   margin-top: 1em;
+}
+
+.search-panel .input-field label.active {
+  margin-top: 2em;
 }
 
 .modes li{
