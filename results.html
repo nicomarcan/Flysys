@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
   <body>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
     <script type="text/javascript" src="js/nouislider.min.js"></script>
     <script type="text/javascript" src="js/results.js"></script>
@@ -50,8 +50,8 @@
             <div class="input-field row center-allign">
               <input type="date" placeholder="Partiendo" class="datepicker"/>
             </div>
-            <div class="input-field row center-allign" id="return-div">
-              <input type="date" placeholder="Volviendo" class="datepicker"/>
+            <div class="row center-allign" id="return-div">
+              <input type="date" class="datepicker" placeholder="Volviendo"/>
             </div>
             <div class="row center-allign">
               <a class="waves-effect waves-light btn search">
@@ -62,12 +62,12 @@
           </form>
           <div class="row center-allign price filter-element">
             <h5>Precio</h5>
-            <div id="price-range"></div>
+            <div id="price-range" class="filter-tool"></div>
           </div>
 
           <div class="row center-allign reputation filter-element stars">
             <h5>Reputación</h5>
-            <form>
+            <form class="filter-tool">
               <p>
                 <input type="checkbox" id="five-stars"></id>
                 <label for="five-stars">
@@ -112,7 +112,7 @@
           </div>
           <div class="row center-allign reputation filter-element airlines">
             <h5>Aerolíneas</h5>
-            <form>
+            <form class="filter-tool">
               <p>
                 <input type="checkbox" id="ar1"></id>
                 <label for="ar1">Air Syria</label>
@@ -142,14 +142,10 @@
               </ul>
               <ul class="right">
                 <li>
-                  <a class="dropdown-button btn" href="#" data-activates="dropdown1">Moneda
-                    <i class="material-icons">arrow_drop_down</i>
-                  </a>
+                  <a class="dropdown-button btn" href="#" data-activates="dropdown1">Moneda<i class="material-icons right">arrow_drop_down</i></a>
                 </li>
                 <li>
-                  <a class="dropdown-button btn" href="#" data-activates="dropdown2">Ordenar por
-                    <i class="material-icons right">arrow_drop_down</i>
-                  </a>
+                  <a class="dropdown-button btn" href="#" data-activates="dropdown2">Ordenar por<i class="material-icons right">arrow_drop_down</i></a>
                 </li>
               </ul>
             </div>
