@@ -29,7 +29,7 @@ footer.page-footer {
 }
 
 .material-icons#search-icon{
-  margin-right: 0;
+  margin-right: 2rem;
 }
 
 .parallax-container{
@@ -144,7 +144,10 @@ ul.photo-list{
    transition: .3s;
 }
 
-
+#crossicon{
+	margin-right:1rem;
+	margin-left:1rem;
+}
 
 
 
