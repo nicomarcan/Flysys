@@ -6,6 +6,11 @@
   background-color: #e8eaf6    ;
 }
 
+.central-space {
+  height: 100em;
+}
+
+
 .row {
   margin-bottom: 0;
 }
@@ -132,4 +137,26 @@ div a.search{
 
 .date-field {
   position: relative;
+}
+
+
+div.row.results-container {
+  height: 100%;
+}
+
+div.row.results-box {
+  margin: auto auto;
+}
+
+div.results-container div.individual-result {
+  width: 80%;
+  margin: 4em auto;
+}
+
+div.individual-result div.collapsible-header {
+  height: 4em;
+}
+
+.collapsible-header ul li {
+  float: right;
 }

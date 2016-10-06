@@ -21,4 +21,27 @@ $(document).ready(function(){
     format: 'd !de mmmm !de yyyy',
     formatSubmit: 'yyyy/mm/dd'
   });
+  $(".collapsible").collapsible({
+    accordion : false
+  });
+
+  $(".btn").click(function(event){
+    event.stopPropagation();
+  });
+
+  $(".collapsible").click(function(event){
+    event.stopPropagation();
+  });
+
+  $(window).click(function(){
+    collapseAll();
+  });
 });
+
+function collapseAll(){
+  $(".collapsible-header").removeClass(function(){
+    return "active";
+  });
+  $(".collapsible").collapsible({accordion: true});
+  $(".collapsible").collapsible({accordion: false});
+}

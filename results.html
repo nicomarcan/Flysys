@@ -34,7 +34,7 @@
     <div class="container-fluid">
       <div class="row">
 
-        <div class="col s3 color2 filters">
+        <div class="col s3 color2 filters central-space">
           <div class="row search-panel z-depth-1 filter-element">
 
             <ul class="tabs">
@@ -151,32 +151,61 @@
         </div>
 
 
-        <div class="col s9">
-          <div class="container-fluid">
-            <div class="row tools z-depth-1 color2">
-              <div class="tool-element">
-                <label>Moneda</label>
-                <select>
-                  <option value="1">ARS</option>
-                  <option value="2">USD</option>
-                </select>
-                <label>Moneda</label>
-              </div>
-              <div class="tool-element">
-                <label>Ordenar por</label>
-                <select>
-                  <option value="1">Precio</option>
-                  <option value="2">Calificación</option>
-                  <option value="3">Probabilidad de ataque terrorista</option>
-                </select>
-              </div>
+        <div class="col s9 central-space">
+
+
+          <div class="row tools z-depth-1 color2">
+            <div class="tool-element">
+              <label>Moneda</label>
+              <select>
+                <option value="1">ARS</option>
+                <option value="2">USD</option>
+              </select>
+              <label>Moneda</label>
+            </div>
+            <div class="tool-element">
+              <label>Ordenar por</label>
+              <select>
+                <option value="1">Precio</option>
+                <option value="2">Calificación</option>
+                <option value="3">Probabilidad de ataque terrorista</option>
+              </select>
             </div>
           </div>
 
-          <div class="row results">
 
+
+          <div class="row results-container">
+            <div class="results-box">
+
+              <div class="individual-result">
+                <ul class="collapsible" data-collapsible="accordion">
+                  <li>
+                    <div class="collapsible-header">
+                      <ul>
+                        <li><h5 class="stars">5 <i class="material-icons">star</i></h5></li>
+                        <li></li>
+                        <li><a class="waves-effect waves-light btn" style="z-index=10000;">button</a></li>
+                      </ul>
+                    </div>
+                    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                  </li>
+                  <li>
+                    <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+                    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                  </li>
+                  <li>
+                    <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+                    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
           </div>
-        </div>
+
+
+
       </div>
     </div>
     <footer class="page-footer color1">
