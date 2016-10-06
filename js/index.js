@@ -1,4 +1,5 @@
 $(document).ready(function(){
+		
 		$('li.clickable').on('click', function() {
 			 if(!$(this).attr("selected")){
 			 	$('li.clickable').removeAttr("selected");
@@ -11,6 +12,7 @@ $(document).ready(function(){
 				 }
 			  }
 		});
+
 		$('.datepicker').pickadate({
 	  		 inline: true,
 		});
@@ -19,12 +21,11 @@ $(document).ready(function(){
 		 $('input.autocomplete').autocomplete({
 			 data: {
 				  "Miami, FL - Miami": null,
-				   "Buenos Aires,Argentina": null,			
+				   "Buenos Aires,Argentina": null,
 			 }
 		  });
 		  $(".dropdown-button").dropdown({
 			    constrain_width: false,
 			    belowOrigin: true,
 		  });
-     
 });

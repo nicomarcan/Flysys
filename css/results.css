@@ -57,15 +57,14 @@ footer.page-footer {
   margin-bottom: 2em;
 }
 
-.search-panel div {
-  display: block;
-  width: 80%
-}
-
 .search-panel div input{
-  display: block;
   margin: 1em auto 1em auto;
   padding: .3em 0 .3em 0;
+}
+
+.search-panel form{
+  width: 90%;
+  margin: 0 auto;
 }
 
 div a.search{
@@ -83,7 +82,7 @@ div a.search{
   margin-top: 1em;
 }
 
-.row.modes li{
+.modes li{
   display: block;
   margin-top: 1em;
   float:left;
@@ -106,4 +105,8 @@ div a.search{
 
 .airlines form label{
   color: black;
+}
+
+.date-field {
+  position: relative;
 }
