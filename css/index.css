@@ -64,12 +64,41 @@ min-height: 600px;
 }
 
 
-.offer-img{
-  height:255px;
-  width: 255px;
-  margin: 20px 16px 20px 16px;
+.offer-img.big{
+  height:295px;
+  width: 450px;
+  margin: 15px 10px 0px 5px;
 }
 
+ul.photo-list{
+  margin-top: 0;
+}
+
+
+.col.s8 .offer-img.big{
+  margin-left: 0;
+}
+
+
+.offer-img.small.top{
+  height:140px;
+  width: 200px;
+   margin: 15px 10px 15px 5px;
+}
+.offer-img.small.bottom {
+  height:140px;
+  width: 200px;
+   margin: 0px 10px 0px 5px;
+}
+
+.offer-img.small{
+  height:140px;
+  width: 200px;
+}
+.offer-img.small{
+  height:140px;
+  width: 200px;
+}
 .offer-img:hover{
   cursor:pointer;
 }
