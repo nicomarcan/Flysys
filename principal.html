@@ -34,7 +34,7 @@
           <div class="col s10 offset-s1 color1" id="search">
 
             <div class = "row input ">
-              <ul >
+              <ul class="inline">
               <li class = "clickable" selected id="two-way">Ida y vuelta</li>
                 <li >&nbsp&nbsp  &nbsp&nbsp </li>
                   <li class = "clickable"  id="one-way">Ida</li>
@@ -44,54 +44,53 @@
               </div>
         
             <div class="row input color1 ">
-                <div class="col s12" >
-                    <div class="input-field col s2" id="from">
+                <ul class="inline">
+                    <li class="input-field " id="from">
                       <i class="material-icons prefix">location_on</i>
                      <input type="text" id="autocomplete-input" class="autocomplete">
                       <label for="autocomplete-input">Desde</label>
-                    </div>
-                   <div class=" col s1 ">
-                      <i class="material-icons small clickable">swap_horiz</i>
-                    </div>
-
-                    <div class="input-field col s2" id="to">
+                    </li>
+                    <li>
+                      <i class=" material-icons clickable">swap_horiz</i>
+                    </li>
+                 
+                    <li class="input-field " id="to">
                       <i class="material-icons prefix">location_on</i>
                       <input type="text" id="autocomplete-input" class="autocomplete">
                       <label for="autocomplete-input">Hacia</label>
-                    </div>
+                    </li>
 
-                    <div class=" input-field col s2 date-field" >
+                    <li class=" input-field  date-field" id="departing">
                       <i class="material-icons prefix">today</i>
                      <input type="date" class="datepicker" value = "Partiendo" >
-                    </div>
+                    </li>
 
-                    <div class=" input-field col s2 date-field" id="returning">
+                    <li class=" input-field  date-field" id="returning">
                       <i class="material-icons prefix">today</i>
                      <input type="date" class="datepicker" value = "Volviendo">
-                    </div>
+                    </li>
 
-                       <div class="input-field col s2 ">
-                          <i class="material-icons prefix" > perm_identity</i>                    
-					     <!-- Dropdown Trigger -->
-						  <a class='dropdown-button btn' href='#' data-activates='dropdown1' id="passengers">Pasajeros</a>
+                    <li class="input-field  " id="passengers">                                         
+            					     <!-- Dropdown Trigger -->
+                           <i class="material-icons prefix">perm_identity</i>
+            						  <a class='dropdown-button waves-light btn-flat' href='#' data-activates='dropdown1' id="passengers" > Pasajeros</a> 
 
-						  <!-- Dropdown Structure -->
-						  <ul id='dropdown1' class='dropdown-content'>
-						    <li><a href="#!">Adultos&nbsp&nbsp  &nbsp&nbsp<button>-</button>&nbsp&nbsp  1&nbsp&nbsp<button>+</button></a></li>
-						    <li class="divider"></li>
-						     <li><a href="#!">Niños  &nbsp&nbsp&nbsp&nbsp  &nbsp&nbsp<button>-</button>&nbsp&nbsp 1 &nbsp&nbsp<button>+</button></a></li>
-						       <li class="divider"></li>
-						     <li><a href="#!">Infantes&nbsp&nbsp  &nbsp&nbsp<button>-</button>&nbsp&nbsp  1&nbsp&nbsp<button>+</button></a></li>
-						     <li><a href="#!">DONE</a></li>
-						  </ul>
-					  </div>
+            						  <!-- Dropdown Structure -->
+            						  <ul id='dropdown1' class='dropdown-content'>
+            						    <li><a href="#!">Adultos&nbsp&nbsp  &nbsp&nbsp<button>-</button>&nbsp&nbsp  1&nbsp&nbsp<button>+</button></a></li>
+            						    <li class="divider"></li>
+            						     <li><a href="#!">Niños  &nbsp&nbsp&nbsp&nbsp  &nbsp&nbsp<button>-</button>&nbsp&nbsp 1 &nbsp&nbsp<button>+</button></a></li>
+            						       <li class="divider"></li>
+            						     <li><a href="#!">Infantes&nbsp&nbsp  &nbsp&nbsp<button>-</button>&nbsp&nbsp  1&nbsp&nbsp<button>+</button></a></li>
+            						     <li><a href="#!">DONE</a></li>
+            						  </ul>
+					         </li>
 
-
-                     <div class=" col s1 ">
+                    <li>
                       <a href="results.html" class="material-icons small clickable" id="search-icon">search</a>
-                    </div>
+                   </li> 
 
-                </div>
+                </ul>
             </div>
 
           </div>
@@ -114,7 +113,7 @@
     <div class="container-fluid offers-back">
       <div class="row " >
         <div class="col s10 offset-s2 " >
-          	<ul>
+          	<ul class="inline">
 	          	<li><img class="offer-img big materialboxed clickable" src= "http://wallpaperrs.com/uploads/travel-world/miami-wide-wallpaper-21632.jpg"/></li>
 	            <li><img class="offer-img small materialboxed clickable" src= "https://static.pexels.com/photos/247/city-cars-vehicles-street.jpg"/></li>
 	          	<li><img class="offer-img small materialboxed clickable" src= "https://static.pexels.com/photos/40815/youth-active-jump-happy-40815.jpeg"/> </li>
@@ -131,7 +130,7 @@
 	          
 	        </div>
 	        <div class="col s8 ">
-	        	<ul class="photo-list">
+	        	<ul class="photo-list inline">
 		       	  <li><img class="offer-img big materialboxed clickable" src= "https://static.pexels.com/photos/52697/pexels-photo-52697.jpeg"/></li>
 		          <li><img class="offer-img small  materialboxed clickable" src= "https://static.pexels.com/photos/9614/pexels-photo.jpg"/></li>
 		          <li><img class="offer-img small  materialboxed clickable" src= "https://static.pexels.com/photos/40992/man-iraq-men-portrait-40992.jpeg"/> </li>
