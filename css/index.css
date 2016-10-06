@@ -12,7 +12,7 @@
   background-color:#fffde7;
  }
 
-.row li{
+.container-fluid .row li{
   color:#1976d2;
   float:left;
 }
