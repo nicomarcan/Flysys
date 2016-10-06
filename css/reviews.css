@@ -10,11 +10,39 @@ body {
 	width:80px;
 	margin:0 auto;
 	background-color:#88b131;
-	font-size:36px;
+	font-size:32px;
 	padding: 15px;
 	color: rgba(235, 235, 235, 1);
 }
 
+li.star_list_element.collection-item {
+	overflow:hidden;
+	padding:5px 10px 5px 10px;
+}
+.star_list_element .col.star_group {
+	padding-top:2px;
+}
+.progress.star_progress {
+	margin: 10px;
+}
+.progress.star_progress {
+	background-color: #d4d4d4;
+}
+.progress.star_progress.five_stars .determinate {
+	background-color: #88b131;
+}
+.progress.star_progress.four_stars .determinate {
+	background-color: #99cc00;
+}
+.progress.star_progress.three_stars .determinate {
+	background-color: #ffcf02;
+}
+.progress.star_progress.two_stars .determinate {
+	background-color: #ff9f02;
+}
+.progress.star_progress.one_star .determinate {
+	background-color: #ff6f31;
+}
 .star_grade {
 	color:grey;
 
