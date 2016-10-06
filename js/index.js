@@ -8,13 +8,13 @@ $(document).ready(function(){
 				var to = $('#to')
 			 	if($(this).attr("id")=="one-way"){
 					$('#returning').hide();
-					from.attr("class","input-field col s3");
-					to.attr("class","input-field col s3 ");
+					from.css({"width":"27%"});
+					to.css({"width":"27%"});
 				 }
 				 else if($(this).attr("id")=="two-way"){
 				 	$('#returning').show();
-				 	from.attr("class","input-field col s2 ");
-					to.attr("class","input-field col s2 ");
+				 	from.css({"width":"18%"});
+					to.css({"width":"18%"});
 				 }
 			  }
 		});
