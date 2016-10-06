@@ -20,8 +20,17 @@
   padding-left: 0;
 }
 
-.row.tools li{
-  float: left;
+.row.tools div.tool-element{
+  margin: .5em 1em;
+  float: right;
+}
+
+.row.tools div.tool-element label{
+  color: black;
+}
+
+.select-wrapper input.select-dropdown {
+  margin: 0 0;
 }
 
 .dropdown-button.btn {
@@ -49,6 +58,18 @@ footer.page-footer {
   margin-bottom: 3em;
 }
 
+.tabs .tab a{
+  color: rgb(38, 166, 154);
+}
+
+.tabs .tab a:hover{
+  color: inherit;
+}
+
+.tabs .indicator {
+  background-color: rgb(38, 166, 154);
+}
+
 .search-panel{
   background-color: white;
   border-radius: .25em;
@@ -62,9 +83,13 @@ footer.page-footer {
   padding: .3em 0 .3em 0;
 }
 
-.search-panel form{
+.search-panel .row{
   width: 90%;
   margin: 0 auto;
+}
+
+.search-panel .tabs{
+  border-radius: .25em;
 }
 
 div a.search{
@@ -82,10 +107,8 @@ div a.search{
   margin-top: 1em;
 }
 
-.modes li{
-  display: block;
-  margin-top: 1em;
-  float:left;
+.search-panel .input-field label.active {
+  margin-top: 2em;
 }
 
 .row.modes .clickable:hover{

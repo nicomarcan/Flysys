@@ -24,7 +24,7 @@
 
     <nav class="color1">
       <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Allahu Akbar</a>
+        <a href="#" class="brand-logo">Flysys</a>
         <ul class="right hide-on-med-and-down">
           <li><a href="#"><i class="material-icons">info</i></a></li>
           <li><a href="#"><i class="material-icons">help</i></a></li>
@@ -36,14 +36,12 @@
 
         <div class="col s3 color2 filters">
           <div class="row search-panel z-depth-1 filter-element">
-            <form>
-              <div class = "row modes">
-                <ul>
-                  <li class ="clickable" id="two-way">Ida y vuelta</li>
-                  <li >&nbsp&nbsp |&nbsp&nbsp </li>
-                  <li class ="clickable" id="one-way">Ida</li>
-                </ul>
-              </div>
+
+            <ul class="tabs">
+              <li class="tab"><a class="active" href="#two-way">Ida y vuelta</a></li>
+              <li class="tab"><a href="#one-way">Ida</a></li>
+            </ul>
+            <form id="two-way">
               <div class="input-field row">
                 <input id="Origen" type="text" class="validate"/>
                 <label for="Origen">Origen</label>
@@ -55,8 +53,27 @@
               <div class="row date-field">
                 <input type="date" placeholder="Partiendo" class="datepicker"/>
               </div>
-              <div class="row date-field" id="return-div">
+              <div class="row date-field">
                 <input type="date" class="datepicker" placeholder="Volviendo"/>
+              </div>
+              <div class="row">
+                <a class="waves-effect waves-light btn search">
+                  <i class="material-icons left">search</i>
+                  Buscar
+                </a>
+              </div>
+            </form>
+            <form id="one-way">
+              <div class="input-field row">
+                <input id="Origen" type="text" class="validate"/>
+                <label for="Origen">Origen</label>
+              </div>
+              <div class="input-field row">
+                <input id="Destino" type="text" class="validate"/>
+                <label for="Destino">Destino</label>
+              </div>
+              <div class="row date-field">
+                <input type="date" placeholder="Partiendo" class="datepicker"/>
               </div>
               <div class="row">
                 <a class="waves-effect waves-light btn search">
@@ -125,7 +142,7 @@
               </p>
               <p>
                 <input type="checkbox" id="ar2"></id>
-                <label for="ar2">Flysis</label>
+                <label for="ar2">Emirates</label>
               </p>
             </form>
           </div>
@@ -137,23 +154,22 @@
         <div class="col s9">
           <div class="container-fluid">
             <div class="row tools z-depth-1 color2">
-              <ul id="dropdown1" class="dropdown-content">
-                <li><p>ARS</p></li>
-                <li><p>USD</p></li>
-              </ul>
-              <ul id="dropdown2" class="dropdown-content">
-                <li><p>Precio</p></li>
-                <li><p>Calificación</p></li>
-                <li><p>Probabilidad de ataque terrorista</p></li>
-              </ul>
-              <ul class="right">
-                <li>
-                  <a class="dropdown-button btn" href="#" data-activates="dropdown1">Moneda<i class="material-icons right">arrow_drop_down</i></a>
-                </li>
-                <li>
-                  <a class="dropdown-button btn" href="#" data-activates="dropdown2">Ordenar por<i class="material-icons right">arrow_drop_down</i></a>
-                </li>
-              </ul>
+              <div class="tool-element">
+                <label>Moneda</label>
+                <select>
+                  <option value="1">ARS</option>
+                  <option value="2">USD</option>
+                </select>
+                <label>Moneda</label>
+              </div>
+              <div class="tool-element">
+                <label>Ordenar por</label>
+                <select>
+                  <option value="1">Precio</option>
+                  <option value="2">Calificación</option>
+                  <option value="3">Probabilidad de ataque terrorista</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -167,8 +183,8 @@
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
-            <h5 class="white-text">Allahu Akbar</h5>
-            <p class="grey-text text-lighten-4">¡A volar por los aires!</p>
+            <h5 class="white-text">Flysys</h5>
+            <p class="grey-text text-lighten-4">¡Hacerlos volar es nuestra pasión!</p>
           </div>
           <div class="col l4 offset-l2 s12">
             <h5 class="white-text">Herramientas del sitio</h5>
