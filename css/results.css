@@ -20,8 +20,17 @@
   padding-left: 0;
 }
 
-.row.tools li{
-  float: left;
+.row.tools div.tool-element{
+  margin: .5em 1em;
+  float: right;
+}
+
+.row.tools div.tool-element label{
+  color: black;
+}
+
+.select-wrapper input.select-dropdown {
+  margin: 0 0;
 }
 
 .dropdown-button.btn {
@@ -100,12 +109,6 @@ div a.search{
 
 .search-panel .input-field label.active {
   margin-top: 2em;
-}
-
-.modes li{
-  display: block;
-  margin-top: 1em;
-  float:left;
 }
 
 .row.modes .clickable:hover{

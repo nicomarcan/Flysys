@@ -1,5 +1,6 @@
 $(document).ready(function(){
   $(".dropdown-button").dropdown();
+  $('select').material_select();
   noUiSlider.create(document.getElementById('price-range'), {
     start: [ 1000, 9000 ],
     connect: [false, true,false],
