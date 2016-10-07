@@ -127,9 +127,19 @@ div a.search{
   margin-bottom: 0;
 }
 
-.stars form i {
+.stars .important-star {
   color: black;
 }
+
+.stars .unimportant-star {
+  color: #b0bec5;
+}
+
+.stars i {
+  margin-right: .1em;
+}
+
+
 
 .airlines form label{
   color: black;
@@ -157,6 +167,30 @@ div.individual-result div.collapsible-header {
   height: 4em;
 }
 
-.collapsible-header ul li {
-  float: right;
+div.collapsible-header{
+  padding: 0;
+}
+
+ul.collapsible-header-row {
+  width: 100%;
+  height: 100%;
+}
+
+li.col.s4{
+  padding: 0;
+  height: 100%;
+}
+
+li.row-f1.col.s4 div {
+  margin-left: 1em;
+  margin-right: auto;
+}
+
+li.row-f2.col.s4 div {
+  margin: 0 auto;
+}
+
+li.row-f3.col.s4 div {
+  margin-left: auto;
+  margin-right: 1em;
 }
