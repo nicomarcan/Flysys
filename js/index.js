@@ -19,6 +19,10 @@ $(document).ready(function(){
 			  }
 		});
 
+
+		 $('.modal-trigger').leanModal();
+
+		
 		$('img.offer-img').on('click', function() {
 			var from = $("#from input");
 			var to = $("#to input");
@@ -67,4 +71,8 @@ $(document).ready(function(){
     		opacityVal = (s / 800.0);
     		$('.blurred-img').css('opacity', opacityVal);
 		});
+
+
+   
+
 });

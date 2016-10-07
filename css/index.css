@@ -35,7 +35,7 @@ footer.page-footer {
 }
 
 .parallax-container{
-min-height: 1900px;
+min-height: 1700px;
 }
 
 
@@ -83,6 +83,21 @@ min-height: 1900px;
 .row.input  .material-icons.clickable{
   margin-top:25px;
 }
+
+#opinion a.btn{
+  background-color:#f57f17 ;
+  text-transform: none;
+}
+
+#opinion .col p{
+  font-size: 20px ;
+}
+
+#opinion{
+   border-bottom: 3px solid black;
+  border-top: 3px solid black;
+}
+
 
 
 
