@@ -6,9 +6,11 @@
   background-color: #b0bec5;
 }
 
-.offers-back,.color3{
-  background-color:#fffde7;
+.offers-back{
+  background-color:#efebe9;
  }
+
+
 
 ul.inline li{
   color:#1976d2;
@@ -33,12 +35,17 @@ footer.page-footer {
 }
 
 .parallax-container{
-min-height: 600px;
-}
-.parallax.search-back{
-  background-image: URL("https://static.pexels.com/photos/5055/sea-sky-beach-holiday.jpeg");
+min-height: 1900px;
 }
 
+
+.search-back.blurred-img{
+  background-image: URL("http://www.splitshire.com/wp-content/uploads/2015/03/SplitShire-8098-1800x1200.jpg");
+}
+
+.search-back{
+  background-image: URL("https://static.pexels.com/photos/5055/sea-sky-beach-holiday.jpeg");
+}
 .parallax{
    background-attachment: fixed;
     background-position: top;
@@ -140,5 +147,15 @@ min-height: 600px;
 }
 
 
+div.container-fluid.center{
+  margin-left: 18%;
+  margin-right:18%;
+}
 
+div.offers-text{
+  margin-top:500px;
+  background-color: #263238;
+  color:white;
+}
 
+.blurred-img { opacity: 0; }

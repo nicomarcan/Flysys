@@ -60,4 +60,11 @@ $(document).ready(function(){
 			    constrain_width: false,
 			    belowOrigin: true,
 		  });
+
+		 $(window).scroll(function() {
+    		var s = $(window).scrollTop(),
+
+    		opacityVal = (s / 800.0);
+    		$('.blurred-img').css('opacity', opacityVal);
+		});
 });
