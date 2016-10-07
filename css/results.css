@@ -181,16 +181,21 @@ li.col.s4{
   height: 100%;
 }
 
-li.row-f1.col.s4 div {
-  margin-left: 1em;
+li.row-f1.col.s4 > div {
   margin-right: auto;
+  margin-left: 1em;
 }
 
-li.row-f2.col.s4 div {
+li.row-f2.col.s4 > div {
   margin: 0 auto;
 }
 
-li.row-f3.col.s4 div {
+li.row-f3.col.s4 > div {
   margin-left: auto;
   margin-right: 1em;
+}
+
+.collapsible-header i.arrow-right {
+  font-size: 4em;
+  margin-right: 2rem;
 }

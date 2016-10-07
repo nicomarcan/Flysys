@@ -30,6 +30,7 @@ $(document).ready(function(){
   });
 
   $(".collapsible").click(function(event){
+    collapseAll($(this));
     event.stopPropagation();
   });
 
@@ -38,10 +39,10 @@ $(document).ready(function(){
   });
 });
 
-function collapseAll(){
-  $(".collapsible-header").removeClass(function(){
+function collapseAll(o = null){
+  $(".collapsible-header").not(o).removeClass(function(){
     return "active";
   });
-  $(".collapsible").collapsible({accordion: true});
-  $(".collapsible").collapsible({accordion: false});
+  $(".collapsible").not(o).collapsible({accordion: true});
+  $(".collapsible").not(o).collapsible({accordion: false});
 }
