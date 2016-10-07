@@ -29,10 +29,17 @@ $(document).ready(function(){
     event.stopPropagation();
   });
 
-  $(".collapsible").click(function(event){
+  $("ul.collapsible").click(function(event){
     collapseAll($(this));
     event.stopPropagation();
   });
+
+  $("ul.collapsible li").click(function(event){
+    if($(this).is(".active")){
+      collapseAll();
+      event.stopPropagation();
+    }
+  })
 
   $(window).click(function(){
     collapseAll();
@@ -40,9 +47,6 @@ $(document).ready(function(){
 });
 
 function collapseAll(o = null){
-  $(".collapsible-header").not(o).removeClass(function(){
-    return "active";
-  });
+  $(".collapsible-header").not(o).removeClass("active");
   $(".collapsible").not(o).collapsible({accordion: true});
-  $(".collapsible").not(o).collapsible({accordion: false});
 }
