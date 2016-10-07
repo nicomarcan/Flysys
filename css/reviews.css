@@ -3,8 +3,8 @@ body.roboto {
 	font-family: roboto;
 }
 
-.color1{
-  background-color: #263238 ;
+.color1,.color1.page-footer {
+  background-color: #263238;
 }
 
 .score_corner {
@@ -63,8 +63,8 @@ li.score_list_element_header.collection-item {
 .progress.star_progress.one_star .determinate {
 	background-color: #ff6f31;
 }
-.star_grade {
-	color:grey;
+.star_gray {
+	color:#d4d4d4;
 }
 
 a.write_review_button.waves-effect.waves-light {
@@ -93,3 +93,5 @@ li.collection-item.score_list_element .opinion_list_item {
 	font-size:14px;
 	color: #6b6b6b;
 }
+
+
