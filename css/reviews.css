@@ -2,6 +2,11 @@ body.roboto {
 	background-color: #eeeeee;
 	font-family: roboto;
 }
+
+.color1{
+  background-color: #263238 ;
+}
+
 .score_corner {
 	text-align:center;
 }
@@ -17,7 +22,7 @@ body.roboto {
 	background-color:#88b131;
 	font-size:32px;
 	padding: 15px;
-	color: rgba(235, 235, 235, 1);
+	color: rgb(235, 235, 235);
 	font-weight:lighter;
 }
 .review_count {
@@ -68,12 +73,12 @@ a.write_review_button.waves-effect.waves-light {
 
 .opinions_header.col.s2 {
 	font-size: 32px;
-	color: #000000;
+	color: black;
 	font-weight: lighter;
 }
 span.order_by_indication {
 	font-size: 20px;
-	color: #000000;
+	color: black;
 	font-weight: lighter;
 }
 a.order_by_button.dropdown-button {
