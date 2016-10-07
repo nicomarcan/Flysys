@@ -128,12 +128,16 @@ div a.search{
   margin-bottom: 0;
 }
 
-.stars form i.important-star {
+.stars .important-star {
   color: black;
 }
 
-.stars form i.unimportant-star {
+.stars .unimportant-star {
   color: #b0bec5;
+}
+
+.stars i {
+  margin-right: .1em;
 }
 
 
@@ -170,26 +174,24 @@ div.collapsible-header{
 
 ul.collapsible-header-row {
   width: 100%;
-  height: inherit;
-  text-align: center;
+  height: 100%;
 }
 
-ul.collapsible-header-row li {
-  list-style: none;
-	display: inline-table;
+li.col.s4{
+  padding: 0;
+  height: 100%;
 }
 
-li.row1-1{
-  float: left;
+li.row-f1.col.s4 div {
+  margin-left: 1em;
+  margin-right: auto;
 }
 
-li.row1-2{
-  line-height: normal;
+li.row-f2.col.s4 div {
+  margin: 0 auto;
 }
 
-li.row1-3{
-  float: right;
-  line-height: normal;
-  margin-top: auto;
-  margin-bottom: auto;
+li.row-f3.col.s4 div {
+  margin-left: auto;
+  margin-right: 1em;
 }

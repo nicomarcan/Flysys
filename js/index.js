@@ -19,8 +19,34 @@ $(document).ready(function(){
 			  }
 		});
 
+		$('img.offer-img').on('click', function() {
+			var from = $("#from input");
+			var to = $("#to input");
+			var picker = $('#departing .datepicker').pickadate('picker');
+			from.attr("value","Buenos Aires");
+			from.focus();
+			to.attr("value","Miami"); /*$(this).attr("value") next update incoming*/
+			to.focus();
+			to.blur();
+			event.stopPropagation();
+			picker.open();
+
+		});
+
+		$('#crossicon').on('click', function() {
+			var from = $("#from input");
+			var to = $("#to input");
+			var from_val = from.attr("value");
+			var to_val = to.attr("value");
+			to.attr("value",from_val);
+			from.attr("value",to_val);
+			from.focus(); 
+			to.focus();
+			to.blur();
+
+		});
+
 		$('.datepicker').pickadate({
-	  		 inline: true,
 		});
 		 $('.parallax').parallax({});
 		 $('select').material_select();

@@ -29,7 +29,7 @@ footer.page-footer {
 }
 
 .material-icons#search-icon{
-  margin-right: 2rem;
+  margin-right: 0;
 }
 
 .parallax-container{
@@ -49,24 +49,18 @@ min-height: 600px;
 
 .offer-img.big{
   height:295px;
-  width: 450px;
-  margin: 15px 10px 0px 5px;
-}
-
-ul.photo-list{
-  margin-top: 0;
+  width: 400px;
 }
 
 
-.col.s8 .offer-img.big{
-  margin-left: 0;
+.offer-img:hover{
+  box-shadow: 0 0 5px 5px #bdbdbd
 }
 
 
 .offer-img.small{
-  height:140px;
+  height:145px;
   width: 200px;
-  margin: 15px 10px 0px 5px;
 }
 
 
@@ -84,11 +78,7 @@ ul.photo-list{
 }
 
 
-/* asqueroso*/
-.row.input  .material-icons.clickable#search-icon{
-  position:absolute;
-  right:140px;
-}
+
 
 .row.input .clickable:not([selected]):hover{
    color: #64b5f6 ;
@@ -146,7 +136,7 @@ ul.photo-list{
 
 #crossicon{
 	margin-right:1rem;
-	margin-left:1re;
+	margin-left:1rem;
 }
 
 
