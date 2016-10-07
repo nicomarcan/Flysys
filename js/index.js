@@ -22,12 +22,14 @@ $(document).ready(function(){
 		$('img.offer-img').on('click', function() {
 			var from = $("#from input");
 			var to = $("#to input");
-			var departing = $("#departing .datepicker");
+			var picker = $('#departing .datepicker').pickadate('picker');
 			from.attr("value","Buenos Aires");
 			from.focus();
 			to.attr("value","Miami"); /*$(this).attr("value") next update incoming*/
 			to.focus();
 			to.blur();
+			event.stopPropagation();
+			picker.open();
 
 		});
 
