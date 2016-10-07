@@ -23,9 +23,9 @@ $(document).ready(function(){
 			var from = $("#from input");
 			var to = $("#to input");
 			var picker = $('#departing .datepicker').pickadate('picker');
-			from.attr("value","Buenos Aires");
+			from.val("Buenos Aires");
 			from.focus();
-			to.attr("value","Miami"); /*$(this).attr("value") next update incoming*/
+			to.val("Miami"); /*$(this).attr("value") next update incoming*/
 			to.focus();
 			to.blur();
 			event.stopPropagation();
@@ -36,10 +36,10 @@ $(document).ready(function(){
 		$('#crossicon').on('click', function() {
 			var from = $("#from input");
 			var to = $("#to input");
-			var from_val = from.attr("value");
-			var to_val = to.attr("value");
-			to.attr("value",from_val);
-			from.attr("value",to_val);
+			var from_val = from.val();
+			var to_val = to.val();
+			to.val(from_val)
+			from.val(to_val);
 			from.focus(); 
 			to.focus();
 			to.blur();
