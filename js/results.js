@@ -72,27 +72,35 @@ $(document).ready(function(){
     collapseAll();
   });
 
+
+  var date2_picker = null ;
+  var prevdate = null;
   $("#two-way #date1 input[name='_submit']").attrchange({
     trackValues: true,
     callback: function(event){
       var d = event.newValue ;
       var date = new Date(d.split("/")[0],d.split("/")[1]-1,d.split("/")[2]);
       $("#date2 > input").removeAttr("disabled");
-      $("#date2 .datepicker").pickadate({
-        monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-        monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
-        weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-        weekdaysShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
-        today: 'Hoy',
-        clear: 'Borrar',
-        close: 'Cerrar',
-        firstDay: 1,
-        format: 'd !de mmmm !de yyyy',
-        formatSubmit: 'yyyy/mm/dd' ,
-        disable: [
-          { from: [0,0,0], to: date }
-        ]
-      });
+      if(date2_picker == null){
+        date2_picker = $("#date2 .datepicker").pickadate({
+          monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+          monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
+          weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+          weekdaysShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
+          today: 'Hoy',
+          clear: 'Borrar',
+          close: 'Cerrar',
+          firstDay: 1,
+          format: 'd !de mmmm !de yyyy',
+          formatSubmit: 'yyyy/mm/dd' ,
+          disable: [{ from: [0,0,0], to: date }]
+        });
+      } else {
+        var picker = date2_picker.pickadate('picker');
+        picker.set('enable', [{from: [0,0,0], to: prevdate}]);
+        picker.set('disable', [{ from: [0,0,0], to: date }]);
+      }
+      prevdate = date ;
     }
   });
 
