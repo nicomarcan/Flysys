@@ -99,6 +99,8 @@ $(document).ready(function(){
         var picker = date2_picker.pickadate('picker');
         picker.set('enable', [{from: [0,0,0], to: prevdate}]);
         picker.set('disable', [{ from: [0,0,0], to: date }]);
+        $("#two-way #date2 .picker__input").val("");
+        $("#two-way #date2 input[name='_submit']").removeAttr("value");
       }
       prevdate = date ;
     }
