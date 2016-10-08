@@ -52,14 +52,14 @@ $(document).ready(function(){
 
 		$('.datepicker').pickadate({
 		});
-		 $('.parallax').parallax({});
+		//$('.parallax').parallax({});
 		 $('select').material_select();
-		 $('input.autocomplete').autocomplete({
+		/* $('input.autocomplete').autocomplete({
 			 data: {
 				  "Miami, FL - Miami": null,
 				   "Buenos Aires,Argentina": null,
 			 }
-		  });
+		  });*/
 		  $(".dropdown-button").dropdown({
 			    constrain_width: false,
 			    belowOrigin: true,
@@ -71,8 +71,28 @@ $(document).ready(function(){
     		opacityVal = (s / 800.0);
     		$('.blurred-img').css('opacity', opacityVal);
 		});
+		/*EXPERIMENTO DE OTAAAAAAAAAAAAAAAAAAAA*/
+		var valores={}
+		$.ajax({
+			url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities',
+			dataType: 'jsonp',
+			success: function(alfa){
+				if(alfa.error==undefined){
+					ciudades=alfa.cities
+					for (i = 0; i < ciudades.length; i++) { 
+						var cache=ciudades[i].name.split(",")[0];
+						valores[cache]=null;
+					}
+					var datos={};
+					datos["data"]=valores;
+					$('input.autocomplete').autocomplete(datos);
+				}
+			}
+		});
 
-
+		console.log(datos);
+		
+		/* FIN DEL EXPERIMENTO DE OTAAAAAAAAAAAAAAAAAAAA*/
    
 
 });
