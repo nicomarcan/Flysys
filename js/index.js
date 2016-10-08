@@ -52,7 +52,7 @@ $(document).ready(function(){
 
 		$('.datepicker').pickadate({
 		});
-		//$('.parallax').parallax({});
+		$('.parallax').parallax({});
 		 $('select').material_select();
 		/* $('input.autocomplete').autocomplete({
 			 data: {
