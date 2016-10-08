@@ -7,9 +7,11 @@ $(document).ready(function(){
     range: {
       'min': [  0 ],
       'max': [ 10000 ]
-    }
+    } ,
+    tooltips: true
   });
-  $(".datepicker").pickadate({
+
+  $("#date1 .datepicker").pickadate({
     monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
     monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
     weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
@@ -19,7 +21,8 @@ $(document).ready(function(){
     close: 'Cerrar',
     firstDay: 1,
     format: 'd !de mmmm !de yyyy',
-    formatSubmit: 'yyyy/mm/dd'
+    formatSubmit: 'yyyy/mm/dd' ,
+    min: true
   });
 
   var airports_url = 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getairports';
@@ -67,6 +70,30 @@ $(document).ready(function(){
 
   $(window).click(function(){
     collapseAll();
+  });
+
+  $("#two-way #date1 input[name='_submit']").attrchange({
+    trackValues: true,
+    callback: function(event){
+      var d = event.newValue ;
+      var date = new Date(d.split("/")[0],d.split("/")[1]-1,d.split("/")[2]);
+      $("#date2 > input").removeAttr("disabled");
+      $("#date2 .datepicker").pickadate({
+        monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+        monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
+        weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+        weekdaysShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
+        today: 'Hoy',
+        clear: 'Borrar',
+        close: 'Cerrar',
+        firstDay: 1,
+        format: 'd !de mmmm !de yyyy',
+        formatSubmit: 'yyyy/mm/dd' ,
+        disable: [
+          { from: [0,0,0], to: date }
+        ]
+      });
+    }
   });
 
 });

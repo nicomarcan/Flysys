@@ -20,8 +20,9 @@
     <script type="text/javascript" src="js/nouislider.min.js"></script>
     <script type="text/javascript" src="js/picker.js"></script>
     <script type="text/javascript" src="js/picker.date.js"></script>
+    <script src="js/attrchange.js"></script>
+    <script src="js/attrchange_ext.js"></script>
     <script type="text/javascript" src="js/results.js"></script>
-
     <nav class="color1">
       <div class="nav-wrapper">
         <a href="#" class="brand-logo">Flysis</a>
@@ -50,11 +51,11 @@
                 <input id="Destino" type="text" class="autocomplete"/>
                 <label for="Destino">Destino</label>
               </div>
-              <div class="row date-field">
+              <div class="row date-field" id="date1">
                 <input type="date" placeholder="Partiendo" class="datepicker"/>
               </div>
-              <div class="row date-field">
-                <input type="date" class="datepicker" placeholder="Volviendo"/>
+              <div class="row date-field" id="date2">
+                <input disabled type="date" class="datepicker" placeholder="Volviendo"/>
               </div>
               <div class="row">
                 <a class="waves-effect waves-light btn search">
@@ -72,7 +73,7 @@
                 <input id="Destino" type="text" class="autocomplete"/>
                 <label for="Destino">Destino</label>
               </div>
-              <div class="row date-field">
+              <div class="row date-field" id="date1">
                 <input type="date" placeholder="Partiendo" class="datepicker"/>
               </div>
               <div class="row">

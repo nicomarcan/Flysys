@@ -221,3 +221,7 @@ li.row-f3.col.s4 > div {
 .collapsible-header-row li > div > .right-s {
   margin-left: .5em;
 }
+
+div.noUi-tooltip {
+  font-size: 75%;
+}
