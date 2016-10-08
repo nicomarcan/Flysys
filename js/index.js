@@ -71,10 +71,40 @@ $(document).ready(function(){
 				   "Buenos Aires,Argentina": null,
 			 }
 		  });*/
-		  $(".dropdown-button").dropdown({
-			    constrain_width: false,
-			    belowOrigin: true,
-		  });
+
+		  /*solucion fea*/
+		$(".dropdown-button#passengers").on('click',function(){
+			if(!$(this).attr("closed")){
+				$(this).attr("closed","true");
+				$(this).click();
+			}else{
+				$(this).removeAttr("closed");
+				$("#open-button").click();
+			}
+				
+		});
+
+		$("#open-button").on('click',function(){
+			$('.dropdown-button#passengers').dropdown('open');
+		});
+
+		$("#done-button").on('click',function(){
+			$('.dropdown-button#passengers').dropdown('close');
+		});
+
+		$(".minus").on('click',function(){
+			var number = Number($(this).next().next().text());
+			if(number > 0){
+				$(this).next().next().text(number-1);
+			}
+		});
+
+		$(".plus").on('click',function(){
+			var number = Number($(this).prev().prev().text());
+			if(number < 20){
+				$(this).prev().prev().text(number+1);
+			}
+		});
 
 		 $(window).scroll(function() {
     		var s = $(window).scrollTop(),

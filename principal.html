@@ -73,24 +73,24 @@
 
                     <li class="input-field  " id="passengers">                                         
             					     <!-- Dropdown Trigger -->
-                           <i class="material-icons prefix">perm_identity</i>
-            						  <a class='dropdown-button waves-light btn-flat' href='#' data-activates='dropdown1' id="passengers" > Pasajeros</a> 
+                           <i class="material-icons prefix " id="open-button"  >perm_identity</i>                           		
+            						   <a class='dropdown-button waves-light btn-flat' disabled href='#' data-activates="dropdown1" id="passengers" > Pasajeros</a>
 
             						  <!-- Dropdown Structure -->
-            						  <ul id='dropdown1' class='dropdown-content'>
-            						    <li><a href="#!">Adultos&nbsp&nbsp  &nbsp&nbsp<button>-</button>&nbsp&nbsp  1&nbsp&nbsp<button>+</button></a></li>
+            						  <ul id='dropdown1' class='dropdown-content '>
+            						    <li class="inline"><a href="#!" id="adulto"><p>Adultos&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p> 1</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
             						    <li class="divider"></li>
-            						     <li><a href="#!">Niños  &nbsp&nbsp&nbsp&nbsp  &nbsp&nbsp<button>-</button>&nbsp&nbsp 1 &nbsp&nbsp<button>+</button></a></li>
+            						     <li class="inline"><a href="#!" id="niños"><p>Niños&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p> 1</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
             						       <li class="divider"></li>
-            						     <li><a href="#!">Infantes&nbsp&nbsp  &nbsp&nbsp<button>-</button>&nbsp&nbsp  1&nbsp&nbsp<button>+</button></a></li>
-            						     <li><a href="#!">DONE</a></li>
+            						     <li class="inline"><a href="#!" id="infantes"><p>Infantes&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p> 1</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
+            						     <li class="inline"><a href="#!" id="done-button">DONE</a></li>
             						  </ul>
 					         </li>
 
                     <li>
                       <a href="results.html" class="material-icons small clickable" id="search-icon">search</a>
                    </li> 
-
+                    
                 </ul>
             </div>
 
