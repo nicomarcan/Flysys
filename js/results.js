@@ -21,6 +21,30 @@ $(document).ready(function(){
     format: 'd !de mmmm !de yyyy',
     formatSubmit: 'yyyy/mm/dd'
   });
+
+  var airports_url = 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getairports';
+  $.ajax({
+    type: 'GET',
+    url: airports_url,
+    dataType: 'json' ,
+    success: function(d){
+      if(d.total<=d.page_size){
+        fillAirportsAutocomplte(d);
+      } else {
+        $.ajax({
+          type: 'GET',
+          url: airports_url,
+          dataType: 'json',
+          data: {page_size:d.total},
+          success: function(f){
+            fillAirportsAutocomplte(f);
+          }
+        });
+      }
+    }
+  });
+
+
   $(".collapsible").collapsible({
     accordion : false
   });
@@ -44,9 +68,25 @@ $(document).ready(function(){
   $(window).click(function(){
     collapseAll();
   });
+
 });
 
 function collapseAll(o = null){
   $(".collapsible-header").not(o).removeClass("active");
   $(".collapsible").not(o).collapsible({accordion: true});
+}
+
+function fillAirportsAutocomplte(data){
+  console.log(data.total);
+  var total = data.total;
+  var airports = data.airports;
+  var airportObj = {};
+  for(var x = 0 ; x<total ; x++ ){
+    var city = airports[x].description.split(", ")[1];
+    airportObj[city] = null;
+    airportObj[airports[x].description] = null;
+  }
+  $('#Origen,#Destino').autocomplete({
+    data: airportObj,
+  });
 }
