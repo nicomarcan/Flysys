@@ -30,6 +30,11 @@ footer.page-footer {
   color:white;
 }
 
+.star_group .material-icons{
+  color:black;
+  margin-top: 10px;
+}
+
 .material-icons#search-icon{
   margin-right: 0;
 }
@@ -173,3 +178,4 @@ div.offers-text{
 }
 
 .blurred-img { opacity: 0; }
+

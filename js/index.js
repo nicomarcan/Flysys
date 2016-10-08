@@ -50,6 +50,17 @@ $(document).ready(function(){
 
 		});
 
+		$('.star_group .material-icons.clickable').on('click', function() {
+			var stars_before= $(this).prevAll();
+			var stars_next= $(this).nextAll();
+				$(this).attr("class"," material-icons");
+			stars_before.attr("class"," material-icons clickable");
+			stars_next.attr("class"," material-icons grey-text text-lighten-1 clickable");
+		
+
+			
+		});
+
 		$('.datepicker').pickadate({
 		});
 		$('.parallax').parallax({});
