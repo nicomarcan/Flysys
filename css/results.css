@@ -168,11 +168,20 @@ div.individual-result div.collapsible-header {
   height: 4em;
 }
 
+div.individual-result div.collapsible-body {
+  height: 6em;
+}
+
 div.collapsible-header{
   padding: 0;
 }
 
 ul.collapsible-header-row {
+  width: 100%;
+  height: 100%;
+}
+
+ul.collapsible-body-row {
   width: 100%;
   height: 100%;
 }
