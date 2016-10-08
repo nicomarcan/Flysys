@@ -200,3 +200,15 @@ li.row-f3.col.s4 > div {
   font-size: 4em;
   margin-right: 2rem;
 }
+
+.collapsible-header-row li.row-f1 div > * {
+  display: inline;
+}
+
+.collapsible-header-row li > div > .left-s {
+  margin-right: .5em;
+}
+
+.collapsible-header-row li > div > .right-s {
+  margin-left: .5em;
+}
