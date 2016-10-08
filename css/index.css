@@ -179,3 +179,9 @@ div.offers-text{
 
 .blurred-img { opacity: 0; }
 
+li.inline p{
+  display: inline;
+}
+
+
+
