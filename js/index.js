@@ -130,9 +130,6 @@ $(document).ready(function(){
 				}
 			}
 		});
-
-		console.log(datos);
-		
 		/* FIN DEL EXPERIMENTO DE OTAAAAAAAAAAAAAAAAAAAA*/
    
 

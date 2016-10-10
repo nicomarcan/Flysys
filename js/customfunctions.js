@@ -15,6 +15,17 @@ function fajax(aurl,fsuccess,ferror){
         error: function(jqxhr,status,errorthrown) {
             ferror();
         }
-
     });
+}
+
+function getGETparam(paramName) {
+    var query = location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) === paramName) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+    return null;
 }
