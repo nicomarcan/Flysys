@@ -2,6 +2,18 @@
   background-color: #263238;
 }
 
+.btn:hover {
+  background-color: #455a64;
+}
+
+.btn.dropdown-button {
+  background-color: #eceff1 ;
+  color: black;
+}
+
+.btn.dropdown-button:hover {
+  background-color: #ffffff;
+}
 
 .color2{
   background-color: #e8eaf6    ;
@@ -98,7 +110,7 @@ footer.page-footer {
   border-radius: .25em;
 }
 
-div a.search{
+div a.btn{
   float: right;
   margin: 1em auto 1em auto;
 }
@@ -224,4 +236,8 @@ li.row-f3.col.s4 > div {
 
 div.noUi-tooltip {
   font-size: 75%;
+}
+
+#date1 > input,#date2 > input {
+  margin-bottom: 0;
 }
