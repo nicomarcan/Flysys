@@ -14,16 +14,18 @@ body.roboto {
 	margin:auto auto 10px auto;
 	height:80px;
 	text-align:center;
-	float:none; margin-top:10px;
+	margin-top:10px;
 }
 .global_score {
-	width:80px;
 	margin:0 auto;
 	background-color:#88b131;
 	font-size:32px;
 	padding: 15px;
 	color: rgb(235, 235, 235);
 	font-weight:lighter;
+  line-height: normal;
+  width: 65px;
+  height: 65px;
 }
 .review_count {
 	margin:auto;
@@ -68,10 +70,11 @@ li.score_list_element_header.collection-item {
 }
 
 a.write_review_button.waves-effect.waves-light {
-	margin:auto; font-size:14px;
+	margin:10px auto 10px auto;
+  font-size:14px;
 }
 
-.opinions_header.col.s2 {
+.opinions_header {
 	font-size: 32px;
 	color: black;
 	font-weight: lighter;
@@ -93,5 +96,22 @@ li.collection-item.score_list_element .opinion_list_item {
 	font-size:14px;
 	color: #6b6b6b;
 }
+span.review_title {
+  font-size: 20px;
+  font-weight: bold;
+}
 
-
+.error_header {
+  font-size: 20px;
+  font-weight: bold;
+}
+a.info_breadcrumbs.breadcrumb {
+  font-size: 32px;
+	color: black;
+	font-weight: lighter;
+}
+a.info_breadcrumbs.breadcrumb::before {
+  font-size: 32px;
+	color: #a9a9a9;
+  font-weight: lighter;
+}
