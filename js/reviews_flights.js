@@ -1,5 +1,6 @@
 $(document).ready( function() {
   $("dropdown-button").dropdown();
+  var params = parseGET();
 
   $.ajax({
     url: "http://hci.it.itba.edu.ar/v1/api/status.groovy",
@@ -7,8 +8,8 @@ $(document).ready( function() {
     dataType: "jsonp",
     data: {
       method: "getflightstatus",
-      airline_id: "AR",
-      flight_number: "5260"
+      airline_id: params["airline_id"],
+      flight_number: params["flight_number"]
     },
     success: function(response) {
       updateFlightInfoCard(response);
@@ -21,8 +22,8 @@ $(document).ready( function() {
     dataType: "jsonp",
     data: {
       method: "getairlinereviews",
-      airline_id: "AR",
-      flight_number: "5260"
+      airline_id: params["airline_id"],
+      flight_number: params["flight_number"]
     },
     success: function(response) {
       var sum = 0;
