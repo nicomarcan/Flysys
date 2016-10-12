@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
   $(".dropdown-button").dropdown();
   $('select').material_select();
   noUiSlider.create(document.getElementById('price-range'), {
@@ -21,7 +22,7 @@ $(document).ready(function(){
     close: 'Cerrar',
     firstDay: 1,
     format: 'd !de mmmm !de yyyy',
-    formatSubmit: 'yyyy/mm/dd' ,
+    formatSubmit: 'yyyy-mm-dd' ,
     min: true
   });
 
@@ -92,7 +93,7 @@ $(document).ready(function(){
           close: 'Cerrar',
           firstDay: 1,
           format: 'd !de mmmm !de yyyy',
-          formatSubmit: 'yyyy/mm/dd' ,
+          formatSubmit: 'yyyy-mm-dd' ,
           disable: [{ from: [0,0,0], to: date }]
         });
       } else {
@@ -105,6 +106,68 @@ $(document).ready(function(){
       prevdate = date ;
     }
   });
+
+
+
+  /*
+  * Begin results request.
+  * Structure of URL parameters expected:
+  * ?mode={one-way;two-way}&src=&dst=&adults=&children=&infants=&d1=&d2=&
+  * page=&sort_by={total;duration;airline}
+  *
+  * d2 is only required when specifying "two-way" as the mode.
+  * All other parameters are mandatory.
+  *
+  * Example:
+  * ?mode=two-way&src=BUE&dst=MIA&adults=1&children=0&infants=0&d1=2016-12-01&d2=2016-12-20&page=1&sort_by=total
+  */
+
+  var mode;
+  var src,dst;
+  var adults,children,infants;
+  var d1,d2;
+  var page,sort_by;
+  var owf_url = 'http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getonewayflights' ;
+
+  mode=getUrlParameter("mode");
+  src=getUrlParameter("src");
+  dst=getUrlParameter("dst");
+  adults=getUrlParameter("adults");
+  children=getUrlParameter("children");
+  infants=getUrlParameter("infants");
+  d1=getUrlParameter("d1");
+  if( mode == "two-way" ) {
+    d2=getUrlParameter("d2");
+  }
+  page=getUrlParameter("page");
+  sort_by=getUrlParameter("sort_by");
+
+
+  var r1,r2;
+  $.ajax({
+    type: 'GET',
+    url: owf_url,
+    dataType: 'json',
+    data: {
+      from: src ,
+      to: dst ,
+      dep_date: d1,
+      adults: adults,
+      children: children,
+      infants: infants,
+      page: page,
+      sort_key: sort_by
+    },
+    success : function(d){
+      r1 = d ;
+    }
+  });
+
+  
+
+  /*
+  * End results request.
+  */
 
 });
 
@@ -127,3 +190,17 @@ function fillAirportsAutocomplte(data){
     data: airportObj,
   });
 }
+
+var getUrlParameter = function getUrlParameter(sParam) {
+  var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+      sURLVariables = sPageURL.split('&'),
+      sParameterName,
+      i;
+
+  for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split('=');
+      if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : sParameterName[1];
+      }
+  }
+};
