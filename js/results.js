@@ -48,67 +48,6 @@ $(document).ready(function(){
     }
   });
 
-
-  $(".collapsible").collapsible({
-    accordion : false
-  });
-
-  $(".btn").click(function(event){
-    event.stopPropagation();
-  });
-
-  $("ul.collapsible").click(function(event){
-    collapseAll($(this));
-    event.stopPropagation();
-  });
-
-  $("ul.collapsible li").click(function(event){
-    if($(this).is(".active")){
-      collapseAll();
-      event.stopPropagation();
-    }
-  })
-
-  $(window).click(function(){
-    collapseAll();
-  });
-
-
-  var date2_picker = null ;
-  var prevdate = null;
-  $("#two-way #date1 input[name='_submit']").attrchange({
-    trackValues: true,
-    callback: function(event){
-      var d = event.newValue ;
-      var date = new Date(d.split("/")[0],d.split("/")[1]-1,d.split("/")[2]);
-      $("#date2 > input").removeAttr("disabled");
-      if(date2_picker == null){
-        date2_picker = $("#date2 .datepicker").pickadate({
-          monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-          monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
-          weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-          weekdaysShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
-          today: 'Hoy',
-          clear: 'Borrar',
-          close: 'Cerrar',
-          firstDay: 1,
-          format: 'd !de mmmm !de yyyy',
-          formatSubmit: 'yyyy-mm-dd' ,
-          disable: [{ from: [0,0,0], to: date }]
-        });
-      } else {
-        var picker = date2_picker.pickadate('picker');
-        picker.set('enable', [{from: [0,0,0], to: prevdate}]);
-        picker.set('disable', [{ from: [0,0,0], to: date }]);
-        $("#two-way #date2 .picker__input").val("");
-        $("#two-way #date2 input[name='_submit']").removeAttr("value");
-      }
-      prevdate = date ;
-    }
-  });
-
-
-
   /*
   * Begin results request.
   * Structure of URL parameters expected:
@@ -162,12 +101,68 @@ $(document).ready(function(){
       r1 = d ;
     }
   });
-
-  
-
   /*
   * End results request.
   */
+
+
+  $(".collapsible").collapsible({
+    accordion : false
+  });
+
+  $(".btn").click(function(event){
+    event.stopPropagation();
+  });
+
+  $("ul.collapsible").click(function(event){
+    collapseAll($(this));
+    event.stopPropagation();
+  });
+
+  $("ul.collapsible li").click(function(event){
+    if($(this).is(".active")){
+      collapseAll();
+      event.stopPropagation();
+    }
+  })
+
+  $(window).click(function(){
+    collapseAll();
+  });
+
+
+  var date2_picker = null ;
+  var prevdate = null;
+  $("#two-way #date1 input[name='_submit']").attrchange({
+    trackValues: true,
+    callback: function(event){
+      var d = event.newValue ;
+      var date = new Date(d.split("-")[0],d.split("-")[1]-1,d.split("-")[2]);
+      $("#date2 > input").removeAttr("disabled");
+      if(date2_picker == null){
+        date2_picker = $("#date2 .datepicker").pickadate({
+          monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+          monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
+          weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+          weekdaysShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
+          today: 'Hoy',
+          clear: 'Borrar',
+          close: 'Cerrar',
+          firstDay: 1,
+          format: 'd !de mmmm !de yyyy',
+          formatSubmit: 'yyyy-mm-dd' ,
+          disable: [{ from: [0,0,0], to: date }]
+        });
+      } else {
+        var picker = date2_picker.pickadate('picker');
+        picker.set('enable', [{from: [0,0,0], to: prevdate}]);
+        picker.set('disable', [{ from: [0,0,0], to: date }]);
+        $("#two-way #date2 .picker__input").val("");
+        $("#two-way #date2 input[name='_submit']").removeAttr("value");
+      }
+      prevdate = date ;
+    }
+  });
 
 });
 
@@ -191,7 +186,7 @@ function fillAirportsAutocomplte(data){
   });
 }
 
-var getUrlParameter = function getUrlParameter(sParam) {
+function getUrlParameter(sParam) {
   var sPageURL = decodeURIComponent(window.location.search.substring(1)),
       sURLVariables = sPageURL.split('&'),
       sParameterName,
@@ -203,4 +198,4 @@ var getUrlParameter = function getUrlParameter(sParam) {
           return sParameterName[1] === undefined ? true : sParameterName[1];
       }
   }
-};
+}

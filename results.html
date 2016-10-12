@@ -20,6 +20,7 @@
     <script type="text/javascript" src="js/nouislider.min.js"></script>
     <script type="text/javascript" src="js/picker.js"></script>
     <script type="text/javascript" src="js/picker.date.js"></script>
+    <script type="text/javascript" src="js/mustache.min.js"></script>
     <script src="js/attrchange.js"></script>
     <script src="js/attrchange_ext.js"></script>
     <script type="text/javascript" src="js/results.js"></script>
@@ -60,7 +61,7 @@
               <div class="row">
                 <a class="dropdown-button waves-effect waves-light btn left" data-activates="pass-select">Pasajeros</span></a>
                 <ul id='pass-select' class='dropdown-content'>
-                  <li><a href="#!">one</a></li>
+                  <li><input id="spinner" type="number"/></li>
                   <li><a href="#!">two</a></li>
                   <li class="divider"></li>
                   <li><a href="#!">three</a></li>
@@ -329,9 +330,9 @@
               </div>
 
             </div>
+
+
           </div>
-
-
 
       </div>
     </div>
