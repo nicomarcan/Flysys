@@ -46,13 +46,13 @@
                     </ul>
               </div>
         
-            <div class="row input color1 " >
+            <form class="row input color1 " id="search-form">
                 <ul class="inline">
                     <li class="input-field " id="from">
                       <i class="material-icons prefix">location_on</i>
 
-                     <input type="text" id="autocomplete-input" class="autocomplete ">
-                      <label for="autocomplete-input" data-error="wrong" data-success="right">Desde</label>
+                     <input type="text" id="from_input" name="from_input" class="autocomplete " >
+                      <label for="from_input" data-error="wrong" data-success="right">Desde</label>
                     </li>
                     <li>
                       <i class=" material-icons clickable" id="crossicon">swap_horiz</i>
@@ -60,8 +60,8 @@
                  
                     <li class="input-field " id="to">
                       <i class="material-icons prefix">location_on</i>
-                      <input  type="text" id="autocomplete-input2" class="autocomplete ">
-                      <label for="autocomplete-input"  data-error="wrong" data-success="right">Hacia</label>
+                      <input  type="text" id="to_input" name="to_input" class="autocomplete ">
+                      <label for="to_input"  data-error="wrong" data-success="right">Hacia</label>
                     </li>
 
                     <li class=" input-field  date-field" id="departing">
@@ -99,9 +99,8 @@
 
           </div>
 
-        </div>
+        </form>
 
-    
 
     <div class="section  container-fluid center offers-text offers-back" >
       <div class="row container">
@@ -371,6 +370,7 @@
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
       <script type="text/javascript" src="js/index.js"></script>
+      <script type="text/javascript" src="js/jquery.validate.min.js"></script>
       <script type="text/javascript" src="js/picker.js"></script>
 	  <script type="text/javascript" src="js/common.js"></script>
 	  <script type="text/javascript" src="js/picker.date.js"></script>
