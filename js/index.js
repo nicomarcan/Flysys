@@ -1,7 +1,7 @@
 
 var valores=new Array();/*feo*/
 $(document).ready(function(){
-	
+
 		$('li.clickable').on('click', function() {
 			 if(!$(this).attr("selected")){
 			 	$('li.clickable').removeAttr("selected");
@@ -22,7 +22,7 @@ $(document).ready(function(){
 		});
 
 		var nameToId={};
-		
+
 		  var airports_url = 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getairports';
 		  $.ajax({
 		    type: 'GET',
@@ -45,13 +45,13 @@ $(document).ready(function(){
 		    }
 		  });
 /*
-		
+
 	     $.ajax({
 	     	type: 'GET',
 			url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities',
 			dataType: 'jsonp',
 			success: function (alfa) {
-					if (alfa.error == undefined) {	
+					if (alfa.error == undefined) {
 						if(alfa.total<=alfa.page_size){
 					        fillCitiesAutocomplte(alfa);
 					      } else {
@@ -62,20 +62,20 @@ $(document).ready(function(){
 					          data: {page_size:alfa.total},
 					          success: function(f){
 					            fillCitiesAutocomplte(f);
-					            
+
 					          }
 					        });
-					      }	
-								
+					      }
+
 					}
-			}			
+			}
 		});
 
 
 */
 		 $('.modal-trigger').leanModal();
 
-		
+
 		$('img.offer-img').on('click', function() {
 			var from = $("#from input");
 			var to = $("#to input");
@@ -97,7 +97,7 @@ $(document).ready(function(){
 			var to_val = to.val();
 			to.val(from_val)
 			from.val(to_val);
-			from.focus(); 
+			from.focus();
 			to.focus();
 			to.blur();
 
@@ -109,9 +109,9 @@ $(document).ready(function(){
 				$(this).attr("class"," material-icons");
 			stars_before.attr("class"," material-icons clickable");
 			stars_next.attr("class"," material-icons grey-text text-lighten-1 clickable");
-		
 
-			
+
+
 		});
 
 		 $(".datepicker").pickadate({
@@ -145,7 +145,7 @@ $(document).ready(function(){
 				$(this).removeAttr("closed");
 				$("#open-button").click();
 			}
-				
+
 		});
 
 		$("#open-button").on('click',function(){
@@ -197,7 +197,7 @@ $(document).ready(function(){
 		    data: airportObj,
 		  });
 		}
-/*
+
 			function fillCitiesAutocomplte(data){
 			  console.log(data.total);
 			  var total = data.total;
@@ -211,7 +211,7 @@ $(document).ready(function(){
 			  $('#from_input,#to_input').autocomplete({
 			    data: cityObj,
 			  });
-			}*/
+			}
 
 		/*
 		//segundo experimento de ota
@@ -249,26 +249,26 @@ $(document).ready(function(){
 
 		$('#search-icon').on('click',function(){
 			var mode= $('#search [selected]').attr("id");
-			var src = nameToId[$('#from input').val()];		
+			var src = nameToId[$('#from input').val()];
 			var dst = nameToId[$('#to input').val()];
 			var d1 = $('#departing input[name=_submit]').val();
-			var d2 = $('#returning input[name=_submit]').val();	
+			var d2 = $('#returning input[name=_submit]').val();
 			var adults= $('#passengers #adults #adults_val').text();
 			var children= $('#passengers #children #children_val').text();
 			var infants= $('#passengers #infants #infants_val').text();
 			var url= "results.html?"+"mode="+mode+"&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1+"&d2="+d2+"&page=1&sort_by=total";
 			console.log(url);
-			window.location=url;	
+			window.location=url;
 		});
 
-	
 
 
-		
-		     
-	 
 
-	
+
+
+
+
+
   	 $('#textarea1').trigger('autoresize');
 
   $.validator.setDefaults({
@@ -284,8 +284,8 @@ $(document).ready(function(){
         console.log('form ok');
     }
 });
-  
- 
+
+
    $("#search-form").validate({
 
     rules: {
@@ -299,5 +299,5 @@ $(document).ready(function(){
         }
     }
 });
-  
+
 });
