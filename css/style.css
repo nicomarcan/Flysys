@@ -1,0 +1,554 @@
+.color1,.color1.page-footer{
+  background-color: #263238 ;
+}
+
+.color2{
+  background-color: #b0bec5;
+}
+
+.offers-back{
+  background-color:#efebe9;
+ }
+
+
+
+ul.inline li{
+  color:#1976d2;
+  float:left;
+}
+
+.row {
+  margin-bottom: 0;
+}
+
+footer.page-footer {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.material-icons,.datepicker, ul li[selected]{
+  color:white;
+}
+
+.star_group .material-icons{
+  color:black;
+  margin-top: 10px;
+}
+
+.material-icons#search-icon{
+  margin-right: 0;
+}
+
+.parallax-container{
+min-height: 1700px;
+}
+
+
+.search-back.blurred-img{
+  background-image: URL("http://www.splitshire.com/wp-content/uploads/2015/03/SplitShire-8098-1800x1200.jpg");
+}
+
+.search-back{
+  background-image: URL("https://static.pexels.com/photos/5055/sea-sky-beach-holiday.jpeg");
+}
+.parallax{
+   background-attachment: fixed;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover; 
+}
+
+
+.offer-img.big{
+  height:295px;
+  width: 400px;
+}
+
+
+.offer-img:hover{
+  box-shadow: 0 0 5px 5px #bdbdbd
+}
+
+
+.offer-img.small{
+  height:145px;
+  width: 200px;
+}
+
+
+ .col#search{
+  margin-top: 75px;
+}
+
+.clickable:hover{
+  transition: .3s;
+  cursor:pointer;
+}
+
+.row.input  .material-icons.clickable{
+  margin-top:25px;
+}
+
+#opinion a.btn{
+  background-color:#f57f17 ;
+  text-transform: none;
+}
+
+#opinion .col p{
+  font-size: 20px ;
+}
+
+#opinion{
+   border-bottom: 3px solid black;
+  border-top: 3px solid black;
+}
+
+
+
+
+
+.row.input .clickable:not([selected]):hover{
+   color: #64b5f6 ;
+}
+
+  /* label color */
+   .input .input-field label {
+     color: white;
+   }
+
+
+
+ .input .input-field input[type=text] {
+     color: white;
+   }
+
+   /* label focus color */
+   .input .input-field input[type=text]:focus + label {
+     color: white;
+   }
+   /* label underline focus color */
+   .input .input-field input[type=text]:focus {
+     border-bottom: 1px solid white;
+     box-shadow: 0 1px 0 0 white;
+   }
+/* icon prefix focus color */
+   .input-field .prefix.active {
+     color: white;
+   }
+
+
+#departing,#returning,#from,#to{
+  width:18%;
+}
+
+
+
+.collection a.collection-item{
+  display:inline;
+}
+
+.btn-flat#passengers{
+  color:white;
+  width: 190px;
+  margin-top:9px;
+  margin-left:20px;
+  border-bottom: 1px solid;
+  border-color: #9e9e9e ;
+  text-transform: none;
+}
+.btn-flat#passengers:hover{
+   border-color: white ;
+   transition: .3s;
+}
+
+#crossicon{
+	margin-right:1rem;
+	margin-left:1rem;
+}
+
+
+div.container-fluid.center{
+  margin-left: 18%;
+  margin-right:18%;
+}
+
+div.offers-text{
+  margin-top:500px;
+  color:black;
+}
+
+.blurred-img { opacity: 0; }
+
+li.inline p{
+  display: inline;
+}
+
+/* comienzo de results*/
+.color1,.color1.page-footer {
+    background-color: #263238;
+}
+
+.btn:hover {
+    background-color: #455a64;
+}
+
+.btn.dropdown-button {
+    background-color: #eceff1 ;
+    color: black;
+}
+
+.btn.dropdown-button:hover {
+    background-color: #ffffff;
+}
+
+.color2{
+    background-color: #e8eaf6    ;
+}
+
+.central-space {
+    height: 100em;
+}
+
+
+.row {
+    margin-bottom: 0;
+}
+
+.col.s3{
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.col.s9{
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.row.tools div.tool-element{
+    margin: .5em 1em;
+    float: right;
+}
+
+.row.tools div.tool-element label{
+    color: black;
+}
+
+.select-wrapper input.select-dropdown {
+    margin: 0 0;
+}
+
+.dropdown-button.btn {
+    margin-right: 10px;
+}
+
+ul.dropdown-content li p{
+    text-align: left;
+    margin-left: 10px;
+}
+
+ul.dropdown-content li:hover{
+    background-color: #80cbc4 ;
+    transition: .3s;
+}
+
+footer.page-footer {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.filter-element {
+    width: 80%;
+    margin-top: 3em;
+    margin-bottom: 3em;
+}
+
+.tabs .tab a{
+    color: rgb(38, 166, 154);
+}
+
+.tabs .tab a:hover{
+    color: inherit;
+}
+
+.tabs .indicator {
+    background-color: rgb(38, 166, 154);
+}
+
+.search-panel{
+    background-color: white;
+    border-radius: .25em;
+    padding: 0 0 0 0;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.search-panel div input{
+    margin: 1em auto 1em auto;
+    padding: .3em 0 .3em 0;
+}
+
+.search-panel .row{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.search-panel .tabs{
+    border-radius: .25em;
+}
+
+div a.btn{
+    float: right;
+    margin: 1em auto 1em auto;
+}
+
+.search-panel div label{
+    display: block;
+    margin: 1em auto 1em auto;
+    padding: .3em auto .3em auto;
+}
+
+.search-panel div label.active{
+    margin-top: 1em;
+}
+
+.search-panel .input-field label.active {
+    margin-top: 2em;
+}
+
+.row.modes .clickable:hover{
+    color: #4db6ac;
+    transition: .2s;
+    cursor:pointer;
+}
+
+.filter-tool {
+    margin-top: 3em;
+    margin-bottom: 0;
+}
+
+.stars .important-star {
+    color: black;
+}
+
+.stars .unimportant-star {
+    color: #b0bec5;
+}
+
+.stars i {
+    margin-right: .1em;
+}
+
+
+
+.airlines form label{
+    color: black;
+}
+
+.date-field {
+    position: relative;
+}
+
+
+div.row.results-container {
+    height: 100%;
+}
+
+div.row.results-box {
+    margin: auto auto;
+}
+
+div.results-container div.individual-result {
+    width: 80%;
+    margin: 4em auto;
+}
+
+div.individual-result div.collapsible-header {
+    height: 4em;
+}
+
+div.individual-result div.collapsible-body {
+    height: 6em;
+}
+
+div.collapsible-header{
+    padding: 0;
+}
+
+ul.collapsible-header-row {
+    width: 100%;
+    height: 100%;
+}
+
+ul.collapsible-body-row {
+    width: 100%;
+    height: 100%;
+}
+
+li.col.s4{
+    padding: 0;
+    height: 100%;
+}
+
+li.row-f1.col.s4 > div {
+    margin-right: auto;
+    margin-left: 1em;
+}
+
+li.row-f2.col.s4 > div {
+    margin: 0 auto;
+}
+
+li.row-f3.col.s4 > div {
+    margin-left: auto;
+    margin-right: 1em;
+}
+
+.collapsible-header i.arrow-right {
+    font-size: 4em;
+    margin-right: 2rem;
+}
+
+.collapsible-header-row li.row-f1 div > * {
+    display: inline;
+}
+
+.collapsible-header-row li > div > .left-s {
+    margin-right: .5em;
+}
+
+.collapsible-header-row li > div > .right-s {
+    margin-left: .5em;
+}
+
+div.noUi-tooltip {
+    font-size: 75%;
+}
+
+#date1 > input,#date2 > input {
+    margin-bottom: 0;
+}
+
+/* fin de results*/
+/* comiezo de reviews de results*/
+body.roboto {
+    background-color: #eeeeee;
+    font-family: roboto;
+}
+
+.color1,.color1.page-footer {
+    background-color: #263238;
+}
+
+.score_corner {
+    text-align:center;
+}
+.global_score_wrapper.valign-wrapper.col{
+    margin:auto auto 10px auto;
+    height:80px;
+    text-align:center;
+    margin-top:10px;
+}
+.global_score {
+    margin:0 auto;
+    background-color:#88b131;
+    font-size:32px;
+    padding: 15px;
+    color: rgb(235, 235, 235);
+    font-weight:lighter;
+    line-height: normal;
+    width: 65px;
+    height: 65px;
+}
+.review_count {
+    margin:auto;
+    text-align: center;
+}
+li.score_list_element.collection-item {
+    overflow:hidden;
+    padding:5px 10px 5px 10px;
+}
+li.score_list_element_header.collection-item {
+    font-weight:bold;
+    background-color: #f5f4f3;
+    padding:5px 10px 5px 20px;
+    overflow:hidden;
+}
+.score_list_element .col.star_group {
+    padding-top:2px;
+}
+.progress.star_progress {
+    margin: 10px;
+}
+.progress.star_progress {
+    background-color: #d4d4d4;
+}
+.progress.star_progress.five_stars .determinate {
+    background-color: #88b131;
+}
+.progress.star_progress.four_stars .determinate {
+    background-color: #99cc00;
+}
+.progress.star_progress.three_stars .determinate {
+    background-color: #ffcf02;
+}
+.progress.star_progress.two_stars .determinate {
+    background-color: #ff9f02;
+}
+.progress.star_progress.one_star .determinate {
+    background-color: #ff6f31;
+}
+.star_gray {
+    color:#d4d4d4;
+}
+
+a.write_review_button.waves-effect.waves-light {
+    margin:10px auto 10px auto;
+    font-size:14px;
+}
+
+.opinions_header {
+    font-size: 32px;
+    color: black;
+    font-weight: lighter;
+}
+span.order_by_indication {
+    font-size: 20px;
+    color: black;
+    font-weight: lighter;
+}
+a.order_by_button.dropdown-button {
+    display:inline-block;
+    background-color:#3ca7d9;
+    color:white;
+    font-size:20px;
+    font-weight:normal;
+    margin-bottom:5px;
+}
+li.collection-item.score_list_element .opinion_list_item {
+    font-size:14px;
+    color: #6b6b6b;
+}
+span.review_title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.error_header {
+    font-size: 20px;
+    font-weight: bold;
+}
+a.info_breadcrumbs.breadcrumb {
+    font-size: 32px;
+    color: black;
+    font-weight: lighter;
+}
+a.info_breadcrumbs.breadcrumb::before {
+    font-size: 32px;
+    color: #a9a9a9;
+    font-weight: lighter;
+}
+
+/* fin de reviews*/
+
+
+
