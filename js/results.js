@@ -82,7 +82,6 @@ $(document).ready(function(){
   sort_by=getUrlParameter("sort_by");
 
 
-  var r1,r2;
   $.ajax({
     type: 'GET',
     url: owf_url,
@@ -98,37 +97,25 @@ $(document).ready(function(){
       sort_key: sort_by
     },
     success : function(d){
-      r1 = d ;
+      var flights = d.flights , i;
+      for(i = 0; i<flights.length ; i++){
+        //function addOWResult(total,from,dep,ac,fn,duration,to)
+        addOWResult(
+          flights[i].price.total.total,
+          flights[i].outbound_routes[0].segments[0].departure.airport.id,
+          flights[i].outbound_routes[0].segments[0].departure.date,
+          flights[i].outbound_routes[0].segments[0].airline.id,
+          flights[i].outbound_routes[0].segments[0].number,
+          flights[i].outbound_routes[0].segments[0].duration,
+          flights[i].outbound_routes[0].segments[0].arrival.airport.id
+        );
+      }
+      initializeCollapsibles();
     }
   });
   /*
   * End results request.
   */
-
-
-  $(".collapsible").collapsible({
-    accordion : false
-  });
-
-  $(".btn").click(function(event){
-    event.stopPropagation();
-  });
-
-  $("ul.collapsible").click(function(event){
-    collapseAll($(this));
-    event.stopPropagation();
-  });
-
-  $("ul.collapsible li").click(function(event){
-    if($(this).is(".active")){
-      collapseAll();
-      event.stopPropagation();
-    }
-  })
-
-  $(window).click(function(){
-    collapseAll();
-  });
 
 
   var date2_picker = null ;
@@ -166,10 +153,37 @@ $(document).ready(function(){
 
 });
 
+function initializeCollapsibles() {
+  $(".collapsible").collapsible({
+    accordion : false
+  });
+
+  $(".btn").click(function(event){
+    event.stopPropagation();
+  });
+
+  $("ul.collapsible").click(function(event){
+    collapseAll($(this));
+    event.stopPropagation();
+  });
+
+  $("ul.collapsible li").click(function(event){
+    if($(this).is(".active")){
+      collapseAll();
+      event.stopPropagation();
+    }
+  })
+
+  $(window).click(function(){
+    collapseAll();
+  });
+}
+
 function collapseAll(o = null){
   $(".collapsible-header").not(o).removeClass("active");
   $(".collapsible").not(o).collapsible({accordion: true});
 }
+
 
 function fillAirportsAutocomplte(data){
   console.log(data.total);
@@ -198,4 +212,20 @@ function getUrlParameter(sParam) {
           return sParameterName[1] === undefined ? true : sParameterName[1];
       }
   }
+}
+
+
+function addOWResult(total,from,dep,ac,fn,duration,to) {
+  var template = $('#row').html();
+  Mustache.parse(template);
+  var rendered = Mustache.render(template, {
+    total: total ,
+    from_1: from ,
+    departure_1: dep,
+    airline_code_1: ac,
+    flight_number_1: fn ,
+    duration_1: duration,
+    to_1: to
+  });
+  $('#results').append(rendered);
 }

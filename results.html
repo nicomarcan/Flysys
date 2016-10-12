@@ -13,9 +13,228 @@
     <link type="text/css" href="css/classic.date.css" rel="stylesheet">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <script src="js/reviews.js"></script>
   </head>
   <body>
+    <script type="x-tmpl-mustache" id="row">
+
+      <div class="individual-result">
+        <ul class="collapsible" data-collapsible="accordion">
+          <li>
+            <div class="collapsible-header">
+
+              <ul class="collapsible-header-row container-fluid">
+                <li class="row-f1 col s4 valign-wrapper">
+                  <div class="stars valign">
+                    <i class="material-icons important-star">star</i>
+                    <i class="material-icons important-star">star</i>
+                    <i class="material-icons important-star">star</i>
+                    <i class="material-icons important-star">star</i>
+                    <i class="material-icons important-star">star</i>
+                  </div>
+                </li>
+                <li class="row-f2 col s4 valign-wrapper">
+                  <div>
+                    <h4 class="valign">{{total}}</h4>
+                  </div>
+                </li>
+                <li class="row-f3 col s4 valign-wrapper">
+                  <div>
+                    <a class="waves-effect waves-light btn valign color1">COMPRAR</a>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
+            <div class="collapsible-body"><p>Aca va el detalle de la tarifa</p></div>
+          </li>
+          <li>
+            <div class="collapsible-header">
+
+              <ul class="collapsible-header-row container-fluid flight1">
+                <li class="row-f1 col s4 valign-wrapper depart">
+                  <div class="valign-wrapper">
+                    <h4 class="valign airp-code left-s">{{from_1}}</h4>
+                    <h3 class="valign">|</h3>
+                    <h5 class="valign date right-s">{{departure_1}}</h5>
+                  </div>
+                </li>
+                <li class="row-f2 col s4 valign-wrapper">
+                  <div class="valign-wrapper">
+                    <p class="valign left-s">{{airline_code_1}}</p>
+                    <i class="valign material-icons arrow-right">trending_flat</i>
+                    <p class="valign right-s">{{flight_number_1}}</p>
+                  </div>
+                </li>
+                <li class="row-f3 col s4 valign-wrapper arrive">
+                  <div class="valign-wrapper">
+                    <h5 class="valign date left-s">{{duration_1}}</h5>
+                    <h3 class="valign">|</h3>
+                    <h4 class="valign airp-code right-s">{{to_1}}</h4>
+                  </div>
+                </li>
+              </ul>
+
+
+            </div>
+            <div class="collapsible-body">
+              <ul class="collapsible-body-row container-fluid">
+                <li class="row-f1 col s4 valign-wrapper">
+                  <div class="valign-wrapper">
+
+                  </div>
+                </li>
+                <li class="row-f2 col s4 valign-wrapper">
+                  <div class="valign-wrapper">
+
+                  </div>
+                </li>
+                <li class="row-f3 col s4 valign-wrapper">
+                  <div class="valign-wrapper">
+                    <a class="waves-effect waves-light btn valign color1">Ver reputación</a>
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </script>
+    <script type="x-tmpl-mustache" id="rtw">
+
+      <div class="individual-result">
+        <ul class="collapsible" data-collapsible="accordion">
+          <li>
+            <div class="collapsible-header">
+
+              <ul class="collapsible-header-row container-fluid">
+                <li class="row-f1 col s4 valign-wrapper">
+                  <div class="stars valign">
+                    <i class="material-icons important-star">star</i>
+                    <i class="material-icons important-star">star</i>
+                    <i class="material-icons important-star">star</i>
+                    <i class="material-icons important-star">star</i>
+                    <i class="material-icons important-star">star</i>
+                  </div>
+                </li>
+                <li class="row-f2 col s4 valign-wrapper">
+                  <div>
+                    <h4 class="valign">{{total}}</h4>
+                  </div>
+                </li>
+                <li class="row-f3 col s4 valign-wrapper">
+                  <div>
+                    <a class="waves-effect waves-light btn valign color1">COMPRAR</a>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
+            <div class="collapsible-body"><p>Aca va el detalle de la tarifa</p></div>
+          </li>
+          <li>
+            <div class="collapsible-header">
+
+              <ul class="collapsible-header-row container-fluid flight1">
+                <li class="row-f1 col s4 valign-wrapper depart">
+                  <div class="valign-wrapper">
+                    <h4 class="valign airp-code left-s">{{from_1}}</h4>
+                    <h3 class="valign">|</h3>
+                    <h5 class="valign date right-s">{{departure_1}}</h5>
+                  </div>
+                </li>
+                <li class="row-f2 col s4 valign-wrapper">
+                  <div class="valign-wrapper">
+                    <p class="valign left-s">{{airline_code_1}}</p>
+                    <i class="valign material-icons arrow-right">trending_flat</i>
+                    <p class="valign right-s">{{flight_number_1}}</p>
+                  </div>
+                </li>
+                <li class="row-f3 col s4 valign-wrapper arrive">
+                  <div class="valign-wrapper">
+                    <h5 class="valign date left-s">{{duration_1}}</h5>
+                    <h3 class="valign">|</h3>
+                    <h4 class="valign airp-code right-s">{{to_1}}</h4>
+                  </div>
+                </li>
+              </ul>
+
+
+            </div>
+            <div class="collapsible-body">
+              <ul class="collapsible-body-row container-fluid">
+                <li class="row-f1 col s4 valign-wrapper">
+                  <div class="valign-wrapper">
+
+                  </div>
+                </li>
+                <li class="row-f2 col s4 valign-wrapper">
+                  <div class="valign-wrapper">
+
+                  </div>
+                </li>
+                <li class="row-f3 col s4 valign-wrapper">
+                  <div class="valign-wrapper">
+                    <a class="waves-effect waves-light btn valign color1">Ver reputación</a>
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header">
+
+              <ul class="collapsible-header-row container-fluid flight2">
+                <li class="row-f1 col s4 valign-wrapper depart">
+                  <div class="valign-wrapper">
+                    <h4 class="valign airp-code left-s">{{from_2}}</h4>
+                    <h3 class="valign">|</h3>
+                    <h5 class="valign date right-s">{{departure_2}}</h5>
+                  </div>
+                </li>
+                <li class="row-f2 col s4 valign-wrapper">
+                  <div class="valign-wrapper">
+                    <p class="valign left-s">{{airline_code_2}}</p>
+                    <i class="valign material-icons arrow-right">trending_flat</i>
+                    <p class="valign right-s">{{flight_number_2}}</p>
+                  </div>
+                </li>
+                <li class="row-f3 col s4 valign-wrapper arrive">
+                  <div class="valign-wrapper">
+                    <h5 class="valign date left-s">{{duration_2}}</h5>
+                    <h3 class="valign">|</h3>
+                    <h4 class="valign airp-code right-s">{{to_2}}</h4>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
+            <div class="collapsible-body">
+              <ul class="collapsible-body-row container-fluid">
+                <li class="row-f1 col s4 valign-wrapper">
+                  <div class="valign-wrapper">
+                    <h5></h5>
+                  </div>
+                </li>
+                <li class="row-f2 col s4 valign-wrapper">
+                  <div class="valign-wrapper">
+
+                  </div>
+                </li>
+                <li class="row-f3 col s4 valign-wrapper">
+                  <div class="valign-wrapper">
+                    <a class="waves-effect waves-light btn valign color1">Ver reputación</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/nouislider.min.js"></script>
@@ -197,8 +416,10 @@
 
 
           <div class="row results-container">
-            <div class="results-box">
+            <div class="results-box" id="results">
 
+
+              <!--
               <div class="individual-result">
                 <ul class="collapsible" data-collapsible="accordion">
                   <li>
@@ -279,6 +500,7 @@
                       </ul>
                     </div>
                   </li>
+
                   <li>
                     <div class="collapsible-header">
 
@@ -327,8 +549,10 @@
                       </ul>
                     </div>
                   </li>
+
                 </ul>
               </div>
+              -->
 
             </div>
 
