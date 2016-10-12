@@ -49,7 +49,7 @@ min-height: 1700px;
 }
 
 .search-back{
-  background-image: URL("https://static.pexels.com/photos/5055/sea-sky-beach-holiday.jpeg");
+  background-image: URL("../img/beach.jpg");
 }
 .parallax{
    background-attachment: fixed;

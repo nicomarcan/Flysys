@@ -61,8 +61,19 @@ $(document).ready(function(){
 			
 		});
 
-		$('.datepicker').pickadate({
-		});
+		 $(".datepicker").pickadate({
+		    monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+		    monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
+		    weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+		    weekdaysShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
+		    today: 'Hoy',
+		    clear: 'Borrar',
+		    close: 'Cerrar',
+		    firstDay: 1,
+		    format: 'd !de mmmm !de yyyy',
+		    formatSubmit: 'yyyy-mm-dd' ,
+		    min: true
+		  });
 		$('.parallax').parallax({});
 		 $('select').material_select();
 		/* $('input.autocomplete').autocomplete({
@@ -94,8 +105,15 @@ $(document).ready(function(){
 
 		$(".minus").on('click',function(){
 			var number = Number($(this).next().next().text());
-			if(number > 0){
-				$(this).next().next().text(number-1);
+			console.log($(this).parent().attr("id"));
+			if($(this).parent().attr("id")=="adults"){
+				if(number > 1){
+					$(this).next().next().text(number-1);
+				}
+			}else{
+				if(number > 0){
+					$(this).next().next().text(number-1);
+				}
 			}
 		});
 
@@ -134,6 +152,43 @@ $(document).ready(function(){
 			});
 		});
 		/* FIN DEL EXPERIMENTO DE OTAAAAAAAAAAAAAAAAAAAA*/
-   
 
+
+		$('#search-icon').on('click',function(){
+			var mode= $('#search [selected]').attr("id");
+			var src = $('#from input').val();		
+			var dst = $('#to input').val();
+			var d1 = $('#departing input[name=_submit]').val();
+			var d2 = $('#returning input[name=_submit]').val();	
+			var adults= $('#passengers #adults #adults_val').text();
+			var children= $('#passengers #children #children_val').text();
+			var infants= $('#passengers #infants #infants_val').text();
+			var url= "results.html?"+"mode="+mode+"&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1+"&d2="+d2+"&page=1&sort_by=total";
+			console.log(url);	
+		});
+
+
+
+/*
+		
+		     var valores=new Array();
+					$.ajax({
+						url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities',
+						dataType: 'jsonp',
+						success: function (alfa) {
+							if (alfa.error == undefined) {
+								ciudades = alfa.cities;
+								for (i = 0; i < ciudades.length ; i++) {
+									valores.push(ciudades[i].name.split(",")[0]);
+									
+								}
+							}
+						}
+					});
+					return jQuery.inArray(city,valores);
+	 */
+
+  	 $('#textarea1').trigger('autoresize');
+   
+  
 });

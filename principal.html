@@ -48,8 +48,8 @@
                 <ul class="inline">
                     <li class="input-field " id="from">
                       <i class="material-icons prefix">location_on</i>
-                     <input type="text" id="autocomplete-input" class="autocomplete">
-                      <label for="autocomplete-input">Desde</label>
+                     <input type="text" id="autocomplete-input" class="autocomplete ">
+                      <label for="autocomplete-input" data-error="wrong" data-success="right">Desde</label>
                     </li>
                     <li>
                       <i class=" material-icons clickable" id="crossicon">swap_horiz</i>
@@ -57,8 +57,8 @@
                  
                     <li class="input-field " id="to">
                       <i class="material-icons prefix">location_on</i>
-                      <input  type="text" id="autocomplete-input2" class="autocomplete">
-                      <label for="autocomplete-input">Hacia</label>
+                      <input  type="text" id="autocomplete-input2" class="autocomplete ">
+                      <label for="autocomplete-input"  data-error="wrong" data-success="right">Hacia</label>
                     </li>
 
                     <li class=" input-field  date-field" id="departing">
@@ -78,17 +78,17 @@
 
             						  <!-- Dropdown Structure -->
             						  <ul id='dropdown1' class='dropdown-content '>
-            						    <li class="inline"><a href="#!" id="adulto"><p>Adultos&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p> 1</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
+            						    <li class="inline"><a  id="adults"><p>Adultos&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p id="adults_val">1</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
             						    <li class="divider"></li>
-            						     <li class="inline"><a href="#!" id="niños"><p>Niños&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p> 1</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
+            						     <li class="inline"><a  id="children"><p>Niños&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p id="children_val">0</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
             						       <li class="divider"></li>
-            						     <li class="inline"><a href="#!" id="infantes"><p>Infantes&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p> 1</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
+            						     <li class="inline"><a  id="infants"><p>Infantes&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p id="infants_val">0</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
             						     <li class="inline"><a href="#!" id="done-button">DONE</a></li>
             						  </ul>
 					         </li>
 
                     <li>
-                      <a href="results.html" class="material-icons small clickable" id="search-icon">search</a>
+                      <a  class="material-icons small clickable" id="search-icon">search</a>
                    </li> 
                     
                 </ul>
