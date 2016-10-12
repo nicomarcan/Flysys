@@ -1,5 +1,7 @@
+
+var valores=new Array();/*feo*/
 $(document).ready(function(){
-		
+	
 		$('li.clickable').on('click', function() {
 			 if(!$(this).attr("selected")){
 			 	$('li.clickable').removeAttr("selected");
@@ -19,7 +21,58 @@ $(document).ready(function(){
 			  }
 		});
 
+		var nameToId={};
+		
+		  var airports_url = 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getairports';
+		  $.ajax({
+		    type: 'GET',
+		    url: airports_url,
+		    dataType: 'json' ,
+		    success: function(d){
+		      if(d.total<=d.page_size){
+		        fillAirportsAutocomplte(d);
+		      } else {
+		        $.ajax({
+		          type: 'GET',
+		          url: airports_url,
+		          dataType: 'json',
+		          data: {page_size:d.total},
+		          success: function(f){
+		            fillAirportsAutocomplte(f);
+		          }
+		        });
+		      }
+		    }
+		  });
+/*
+		
+	     $.ajax({
+	     	type: 'GET',
+			url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities',
+			dataType: 'jsonp',
+			success: function (alfa) {
+					if (alfa.error == undefined) {	
+						if(alfa.total<=alfa.page_size){
+					        fillCitiesAutocomplte(alfa);
+					      } else {
+					        $.ajax({
+					          type: 'GET',
+					          url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities',
+					          dataType: 'json',
+					          data: {page_size:alfa.total},
+					          success: function(f){
+					            fillCitiesAutocomplte(f);
+					            
+					          }
+					        });
+					      }	
+								
+					}
+			}			
+		});
 
+
+*/
 		 $('.modal-trigger').leanModal();
 
 		
@@ -129,28 +182,38 @@ $(document).ready(function(){
     		opacityVal = (s / 800.0);
     		$('.blurred-img').css('opacity', opacityVal);
 		});
-		/*EXPERIMENTO DE OTAAAAAAAAAAAAAAAAAAAA*/
-		$('input.autocomplete').keydown(function() {
-            var valores={}
-			$.ajax({
-				url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcitiesbyname&name='+$(this).val(),
-				dataType: 'jsonp',
-				success: function (alfa) {
-					if (alfa.error == undefined) {
-						ciudades = alfa.cities
-						for (i = 0; i < ciudades.length && i<3; i++) {
-							var cache = ciudades[i].name.split(",")[0];
-							valores[cache] = null;
-						}
-						var datos = {};
-						datos["data"] = valores;
-                        $('.autocomplete-content').remove();
-						$('input.autocomplete').autocomplete(datos);
-					}
-				}
-			});
-		});
-		
+
+		function fillAirportsAutocomplte(data){
+		  console.log(data.total);
+		  var total = data.total;
+		  var airports = data.airports;
+		  var airportObj = {};
+		  for(var x = 0 ; x<total ; x++ ){
+		    airportObj[airports[x].description] = null;
+		    valores.push(airports[x].description);
+		    nameToId[airports[x].description] = airports[x].id;
+		  }
+		  $('#from_input,#to_input').autocomplete({
+		    data: airportObj,
+		  });
+		}
+/*
+			function fillCitiesAutocomplte(data){
+			  console.log(data.total);
+			  var total = data.total;
+			  var cities = data.cities;
+			  var cityObj = {};
+			  for(var x = 0 ; x<total ; x++ ){
+			    cityObj[cities[x].name] = null;
+			    valores.push(cities[x].name);
+			    nameToId[cities[x].name] = cities[x].id;
+			  }
+			  $('#from_input,#to_input').autocomplete({
+			    data: cityObj,
+			  });
+			}*/
+
+		/*
 		//segundo experimento de ota
 		//function fajax(aurl,fsuccess,ferror){
 		$('input.autocomplete').focusout(function() {
@@ -172,27 +235,30 @@ $(document).ready(function(){
 							$('input.autocomplete').addClass("invalid");
 													console.log("Alaaa2");
 
+						}else{
+							console.log("anda");
 						}
 
 					}
 				}
 			});
 		});
-		
+		*/
 		/* FIN DEL EXPERIMENTO DE OTAAAAAAAAAAAAAAAAAAAA*/
 
 
 		$('#search-icon').on('click',function(){
 			var mode= $('#search [selected]').attr("id");
-			var src = $('#from input').val();		
-			var dst = $('#to input').val();
+			var src = nameToId[$('#from input').val()];		
+			var dst = nameToId[$('#to input').val()];
 			var d1 = $('#departing input[name=_submit]').val();
 			var d2 = $('#returning input[name=_submit]').val();	
 			var adults= $('#passengers #adults #adults_val').text();
 			var children= $('#passengers #children #children_val').text();
 			var infants= $('#passengers #infants #infants_val').text();
 			var url= "results.html?"+"mode="+mode+"&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1+"&d2="+d2+"&page=1&sort_by=total";
-			console.log(url);	
+			console.log(url);
+			window.location=url;	
 		});
 
 	
