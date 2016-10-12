@@ -105,7 +105,6 @@ $(document).ready(function(){
 
 		$(".minus").on('click',function(){
 			var number = Number($(this).next().next().text());
-			console.log($(this).parent().attr("id"));
 			if($(this).parent().attr("id")=="adults"){
 				if(number > 1){
 					$(this).next().next().text(number-1);
