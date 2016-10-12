@@ -168,26 +168,41 @@ $(document).ready(function(){
 
 
 
-/*
-		
-		     var valores=new Array();
-					$.ajax({
-						url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities',
-						dataType: 'jsonp',
-						success: function (alfa) {
-							if (alfa.error == undefined) {
-								ciudades = alfa.cities;
-								for (i = 0; i < ciudades.length ; i++) {
-									valores.push(ciudades[i].name.split(",")[0]);
-									
-								}
-							}
-						}
-					});
-					return jQuery.inArray(city,valores);
-	 */
 
+		
+		     
+	 
+
+	
   	 $('#textarea1').trigger('autoresize');
-   
+
+  $.validator.setDefaults({
+    errorClass: 'invalid',
+    validClass: "valid",
+    errorPlacement: function (error, element) {
+        $(element)
+            .closest("form")
+            .find("label[for='" + element.attr("id") + "']")
+            .attr('data-error', error.text());
+    },
+    submitHandler: function (form) {
+        console.log('form ok');
+    }
+});
+  
+ 
+   $("#search-form").validate({
+
+    rules: {
+        from_input:{
+        	required: true,
+        	city:true
+        },
+         to_input:{
+        	required: true,
+        	city:true
+        }
+    }
+});
   
 });
