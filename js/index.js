@@ -113,22 +113,25 @@ $(document).ready(function(){
     		$('.blurred-img').css('opacity', opacityVal);
 		});
 		/*EXPERIMENTO DE OTAAAAAAAAAAAAAAAAAAAA*/
-		var valores={}
-		$.ajax({
-			url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities',
-			dataType: 'jsonp',
-			success: function(alfa){
-				if(alfa.error==undefined){
-					ciudades=alfa.cities
-					for (i = 0; i < ciudades.length; i++) { 
-						var cache=ciudades[i].name.split(",")[0];
-						valores[cache]=null;
+		$('input.autocomplete').keydown(function() {
+            var valores={}
+			$.ajax({
+				url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcitiesbyname&name='+$(this).val(),
+				dataType: 'jsonp',
+				success: function (alfa) {
+					if (alfa.error == undefined) {
+						ciudades = alfa.cities
+						for (i = 0; i < ciudades.length && i<3; i++) {
+							var cache = ciudades[i].name.split(",")[0];
+							valores[cache] = null;
+						}
+						var datos = {};
+						datos["data"] = valores;
+                        $('.autocomplete-content').remove();
+						$('input.autocomplete').autocomplete(datos);
 					}
-					var datos={};
-					datos["data"]=valores;
-					$('input.autocomplete').autocomplete(datos);
 				}
-			}
+			});
 		});
 		/* FIN DEL EXPERIMENTO DE OTAAAAAAAAAAAAAAAAAAAA*/
    
