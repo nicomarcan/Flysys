@@ -216,6 +216,23 @@ $(document).ready(function(){
 
 		});
 
+		$('#recommend .material-icons.clickable').on('click', function() {
+			if($(this).attr("id") == "yes"){
+				$(this).attr("class","material-icons green-text  clickable ");
+				$(this).attr("selected","");
+				$("#recommend .material-icons.clickable#no").attr("class","material-icons grey-text text-lighten-1 clickable");
+				$("#recommend .material-icons.clickable#no").removeAttr("selected");
+			}else{
+				$(this).attr("class","material-icons red-text  clickable");
+				$(this).attr("selected","");
+				$("#recommend .material-icons.clickable#yes").attr("class","material-icons grey-text text-lighten-1 clickable");
+				$("#recommend .material-icons.clickable#yes").removeAttr("selected");
+			}
+
+
+
+		});
+
 		 $("#departing .datepicker").pickadate({
 		    monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
 		    monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
@@ -348,7 +365,27 @@ $(document).ready(function(){
 		// 	  });
 		// 	}
 
+		$('#send-review').on('click',function(){
+			var review = {};
+			var airline = {};
+			var flight = {};
+			var rating = {};
+			airline["id"] = $("#review-modal #aerolinea").val();
+			flight["airline"]=airline;
+			flight["number"]=$("#review-modal #vuelo").val();
+			review["flight"]=flight;
+			for(var x = 1 ; x<7 ; x++){
+				var type = $("#review-modal #opinion-row-"+x).children(":first-child").attr("id");
+				var score = $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children(":not(.grey-text)").length * 2;
+				rating[type]= score;
+	
+			}
+			review["rating"]=rating;
+			review["yes recommend"]= ($("#recommend .material-icons.clickable[selected]").attr("id") == "yes")+"";
+			review["comments"]= $("#review-modal #comments").val();
+			console.log(review);
 
+		})
 
 		$('#search-icon').on('click',function(){
 			var mode= $('#search [selected]').attr("id");

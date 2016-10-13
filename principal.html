@@ -151,30 +151,30 @@
        <div class="section  container-fluid center  offers-back" >
       <div class="row " id="opinion">
       	<div class="col s8 offset-s2">
-        	<p>¿Comentarios acerca de un vuelo?&nbsp&nbsp<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Cuéntenos</a></p>
+        	<p>¿Comentarios acerca de un vuelo?&nbsp&nbsp<a class="waves-effect waves-light btn modal-trigger" href="#review-modal">Cuéntenos</a></p>
         </div>
       </div>
     </div>
 
 
-    <div id="modal1" class="modal">
+    <div id="review-modal" class="modal">
 		    <div class="modal-content">
 		            <form >
 					  <div class="row">
 						  <div class="input-field col s6 ">
-			                <input id="nombre" type="text" class="validate"/>
-			                <label for="nombre">Nombre de Aerolinea</label>
+			                <input id="aerolinea" type="text" class="validate"/>
+			                <label for="aerolinea">Nombre de Aerolinea</label>
 			              </div>
 							<div class="input-field col s6">
-			                <input id="apellido" type="text" class="validate"/>
-			                <label for="apellido">Número de Vuelo</label>
+			                <input id="vuelo" type="text" class="validate"/>
+			                <label for="vuelo">Número de Vuelo</label>
 			              </div>
 			          </div>
 			           <div class="row" id="opinion-row-1" >
-			           <div class="col s3 ">
+			           <div class="col s3 " id ="friendliness" >
 				            <p>Amabilidad</p>
 			            </div>
-						 <div class="col s3 star_group offset-s1">
+						 <div class="col s3 star_group offset-s1" id="entro">
 
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
@@ -197,7 +197,7 @@
 			          </div>
 
 			           <div class="row" id="opinion-row-2" >
-			           <div class="col s3 ">
+			           <div class="col s3 " id="food">
 				            <p>Comida</p>
 			            </div>
 						 <div class="col s3 star_group offset-s1">
@@ -223,7 +223,7 @@
 			          </div>
 
 			           <div class="row" id="opinion-row-3" >
-			           <div class="col s3 ">
+			           <div class="col s3 " id="punctuality">
 				            <p>Puntualidad</p>
 			            </div>
 						 <div class="col s3 star_group offset-s1">
@@ -249,7 +249,7 @@
 			          </div>
 
 			           <div class="row" id="opinion-row-4" >
-			           <div class="col s3 ">
+			           <div class="col s3 " id="mileage_program">
 				            <p>Programa de viajeros frecuentes</p>
 			            </div>
 						 <div class="col s3 star_group offset-s1">
@@ -275,7 +275,7 @@
 			          </div>
 
 			           <div class="row" id="opinion-row-5" >
-			           <div class="col s3 ">
+			           <div class="col s3 " id="comfort">
 				            <p>Confort</p>
 			            </div>
 						 <div class="col s3 star_group offset-s1">
@@ -301,7 +301,7 @@
 			          </div>
 
 			           <div class="row" id="opinion-row-6" >
-			           <div class="col s3 ">
+			           <div class="col s3 " id="quality_price">
 				            <p>Relación precio/calidad</p>
 			            </div>
 						 <div class="col s3 star_group offset-s1">
@@ -326,16 +326,35 @@
 
 			          </div>
 
+                <div class="row">
+               
+                <div class="col s3 ">
+                     <p> Recomendaría el vuelo? </p>
+                 </div>
+                      <div class="col s3  offset-s1" id="recommend">
+                      
+                    <i class=" material-icons grey-text text-lighten-1 clickable" id="no">
+                      thumb_down
+                    </i>
+                    &nbsp&nbsp&nbsp&nbsp
+                    
+                    <i class=" material-icons grey-text text-lighten-1 clickable" id="yes">
+                      thumb_up
+                    </i>                
+           
+                  </div>
+              </div>
+
 			          <div class="row">
 				        <div class="input-field col s12">
-				          <textarea id="textarea1" class="materialize-textarea"></textarea>
-				          <label for="textarea1">Comentarios</label>
+				          <textarea id="comments" class="materialize-textarea"></textarea>
+				          <label for="comments">Comentarios</label>
 				        </div>
 				      </div>
 		            </form>
 		    </div>
 		    <div class="modal-footer">
-		      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+		      <a id="send-review" class=" modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
 		    </div>
 	  </div>
 
