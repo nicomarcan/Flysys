@@ -1,5 +1,6 @@
 
 var valores=new Array();/*feo*/
+var airlines=new Array();
 $(document).ready(function(){
 
 		$('li.clickable').on('click', function() {
@@ -47,6 +48,65 @@ $(document).ready(function(){
 		  });
 
 
+		  var airlines_url = 'http://hci.it.itba.edu.ar/v1/api/misc.groovy?method=getairlines';
+		  $.ajax({
+		    type: 'GET',
+		    url: airlines_url,
+		    dataType: 'json' ,
+		    success: function(d){
+		      if(d.total<=d.page_size){
+		        cargaTypeAHeadAirlines(d);
+		      } else {
+		        $.ajax({
+		          type: 'GET',
+		          url: airports_url,
+		          dataType: 'json',
+		          data: {page_size:d.total},
+		          success: function(f){
+		            //fillAirportsAutocomplte(f);
+		            cargaTypeAHeadAirlines(f);
+		          }
+		        });
+		      }
+		    }
+		  });
+
+
+		  function cargaTypeAHeadAirlines(data){
+			var total = data.total;
+			var airl = data.airlines;
+			var obj = [];
+			for(var x = 0 ; x<total ; x++ ){
+				obj.push(airl[x].name) ;
+				airlines.push(airl[x].name);
+				nameToId[airl[x].name] = airl[x].id;
+			}
+			var blood_ciudades = new Bloodhound({
+				datumTokenizer: Bloodhound.tokenizers.whitespace,
+				queryTokenizer: Bloodhound.tokenizers.whitespace,
+				local: obj
+			});
+
+
+				$('.typeahead#airlines_input').typeahead(
+								{
+										minLength: 1,
+										highlight: true
+								},
+							// {
+							// 		name: 'Aeropuertos',
+							// 		source: blood_aeropuertos,
+							// 		limit: 2,
+							// },
+								{
+										name: 'Aerolineas',
+										limit: 3,
+										source: blood_ciudades,
+								}
+				);
+			};
+
+
 
 		function cargaTypeAHead(data){
 			var total = data.total;
@@ -68,7 +128,7 @@ $(document).ready(function(){
 
 
 
-			$('.typeahead').typeahead(
+			$('.typeahead:not(#airlines_input)').typeahead(
 							{
 									minLength: 1,
 									highlight: true
@@ -164,7 +224,6 @@ $(document).ready(function(){
 			var to = $("#to_input");
 			var from_val = from.typeahead('val');
 			var to_val = to.typeahead('val');
-			alert(from.typeahead('val'));
 			var cache=from_val
 			from.typeahead('val',to_val);
 			to.typeahead('val',cache);
@@ -342,9 +401,10 @@ $(document).ready(function(){
 			var airline = {};
 			var flight = {};
 			var rating = {};
-			airline["id"] = $("#review-modal #aerolinea").val();
+
+			airline["id"] = nameToId[$("#review-modal #airlines_input").val()];
 			flight["airline"]=airline;
-			flight["number"]=$("#review-modal #vuelo").val();
+			flight["number"]=parseInt($("#review-modal #vuelo").val());
 			review["flight"]=flight;
 			for(var x = 1 ; x<7 ; x++){
 				var type = $("#review-modal #opinion-row-"+x).children(":first-child").attr("id");
@@ -353,9 +413,25 @@ $(document).ready(function(){
 
 			}
 			review["rating"]=rating;
-			review["yes recommend"]= ($("#recommend .material-icons.clickable[selected]").attr("id") == "yes")+"";
+			review["yes recommend"]= ($("#recommend .material-icons.clickable[selected]").attr("id") == "yes");
 			review["comments"]= $("#review-modal #comments").val();
-			console.log(review);
+			
+			 var review_url = 'http://hci.it.itba.edu.ar/v1/api/review.groovy?method=reviewairline';
+			  $.ajax({
+			    type: 'POST',
+			    data:review,
+			    url: review_url,
+			    dataType: 'json' ,
+			    success: function(d){
+			      if(d.error == undefined){
+			      	alert("jeje");
+			      }else{
+			      	console.log(d);
+			      	console.log(review);
+			      	
+			      }
+			    }
+			  });
 
 		})
 
@@ -407,6 +483,10 @@ $(document).ready(function(){
          to_input:{
         	required: true,
         	city:true
+        },
+        airlines_input:{
+        	required: true,
+        	airline:true
         }
     }
 });
