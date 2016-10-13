@@ -2,11 +2,11 @@ function updateAirlineInfoCard(airline) {
   $("img#info_airline_logo").attr("src", airline.logo);
   $("#info_airline_name").text(airline.name);
   $("#info_airline_code").text(airline.id);
-  if (airline.score == null) {
+  if (airline.rating == null) {
     $("#info_global_score").text("?");
   }
   else {
-    $("#info_global_score").text(airline.score);
+    $("#info_global_score").text(airline.rating);
   }
   $("#info_charges").text(airline.charges * 100 + "%");
   $("#info_taxes").text(airline.taxes * 100 + "%");
