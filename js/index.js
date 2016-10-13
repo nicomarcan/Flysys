@@ -44,7 +44,7 @@ $(document).ready(function(){
 		      }
 		    }
 		  });
-/*
+
 
 	     $.ajax({
 	     	type: 'GET',
@@ -72,7 +72,7 @@ $(document).ready(function(){
 		});
 
 
-*/
+
 		 $('.modal-trigger').leanModal();
 
 
@@ -129,14 +129,7 @@ $(document).ready(function(){
 		  });
 		$('.parallax').parallax({});
 		 $('select').material_select();
-		/* $('input.autocomplete').autocomplete({
-			 data: {
-				  "Miami, FL - Miami": null,
-				   "Buenos Aires,Argentina": null,
-			 }
-		  });*/
 
-		  /*solucion fea*/
 		$(".dropdown-button#passengers").on('click',function(){
 			if(!$(this).attr("closed")){
 				$(this).attr("closed","true");
@@ -213,38 +206,6 @@ $(document).ready(function(){
 			  });
 			}
 
-		/*
-		//segundo experimento de ota
-		//function fajax(aurl,fsuccess,ferror){
-		$('input.autocomplete').focusout(function() {
-			$.ajax({
-				url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcitiesbyname&name='+$(this).val(),
-				dataType: 'jsonp',
-				success: function (alfa) {
-					if (alfa.error == undefined) {
-						console.log("Alaaa");
-						var flag=false;
-						ciudades = alfa.cities
-						for (i = 0; i < ciudades.length; i++) {
-							var cache = ciudades[i].name.split(",")[0];
-							if($(this).val()==cache){
-								flag=true;
-							}
-						}
-						if(flag==false){
-							$('input.autocomplete').addClass("invalid");
-													console.log("Alaaa2");
-
-						}else{
-							console.log("anda");
-						}
-
-					}
-				}
-			});
-		});
-		*/
-		/* FIN DEL EXPERIMENTO DE OTAAAAAAAAAAAAAAAAAAAA*/
 
 
 		$('#search-icon').on('click',function(){
