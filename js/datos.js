@@ -1,10 +1,10 @@
-
+var i=1;
 var form='<div class="container-fluid row passangerform">\
 <div class="col s10 offset-s1">\
     <div class="card-panel row">\
     <div class="row" style="padding:5px; margin:0px;">\
     <div class="col s10">\
-    Informacion del pasajero '+cantpasajeros+'\
+    Informacion del pasajero '+i+'\
 </div>\
 </div>\
 <form id="pasajero1">\
@@ -37,21 +37,18 @@ var form='<div class="container-fluid row passangerform">\
     <label for="test2">Hembra</label>\
     </p>\
     </div>\
-    <div class="row">\
-    <div class="col offset-s11"> <a class="btn-floating btn-large waves-effect waves-light green probandoboton"><i class="material-icons">add</i></a>\
-    <a class="btn-floating btn-large waves-effect waves-light red eliminar"><i class="material-icons">not_interested</i></a>\
-    </div>\
-    </div>\
     </div>\
     </form>\
     </div>\
     </div>\
     </div>';
-var cantpasajeros=5;
+
 $(document).ready(function(){
-    $(".probandoboton").click(function(){
-        $(".passangerform").after(form);
-    });
+    var cant_pa=getUrlParameter("pasajeros");
+    for (i = 1; i < parseInt(cant_pa); i++) {
+      $(".passangerform").after(form);
+      console.log(i);
+    }
     $('.eliminar').click(function(){
         $(this).closest(".passangerform").remove();
     })

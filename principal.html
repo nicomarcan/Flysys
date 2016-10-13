@@ -13,7 +13,7 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	  <script src="js/results.js"></script>
-	  
+
   </head>
 
     <body>
@@ -45,23 +45,32 @@
                     <li class = "clickable" id="multiple-destinys">Multiples destinos</li>
                     </ul>
               </div>
-        
+
             <form class="row input color1 " id="search-form">
                 <ul class="inline">
                     <li class="input-field " id="from">
+                      <div class="col s2">
                       <i class="material-icons prefix">location_on</i>
-
-                     <input type="text" id="from_input" name="from_input" class="autocomplete " >
-                      <label for="from_input" data-error="wrong" data-success="right">Desde</label>
+                    </div>
+                      <div class="col s10">
+                      <input type="text" id="from_input" name="from_input" class="typeahead " placeholder="Desde">
+                      <label for="from_input" data-error="wrong" data-success="right"></label>
+                      <span id="from_input_error" class="red-text"></span>
+                      <div>
                     </li>
                     <li>
                       <i class=" material-icons clickable" id="crossicon">swap_horiz</i>
                     </li>
-                 
+
                     <li class="input-field " id="to">
-                      <i class="material-icons prefix">location_on</i>
-                      <input  type="text" id="to_input" name="to_input" class="autocomplete ">
-                      <label for="to_input"  data-error="wrong" data-success="right">Hacia</label>
+                      <div class="col s2">
+                          <i class="material-icons prefix">location_on</i>
+                      </div>
+                      <div class="col s10">
+                        <input  type="text"   name="to_input"  id="to_input" class=" typeahead" placeholder="Hacia">
+                        <label for="to_input"  data-error="wrong" data-success="right"> </label>
+                        <span id="to_input_error" class="red-text"></span>
+                      </div>
                     </li>
 
                     <li class=" input-field  date-field" id="departing">
@@ -74,9 +83,9 @@
                      <input type="date" class="datepicker" value = "Volviendo">
                     </li>
 
-                    <li class="input-field  " id="passengers">                                         
+                    <li class="input-field  " id="passengers">
             					     <!-- Dropdown Trigger -->
-                           <i class="material-icons prefix " id="open-button"  >perm_identity</i>                           		
+                           <i class="material-icons prefix " id="open-button"  >perm_identity</i>
             						   <a class='dropdown-button waves-light btn-flat' disabled href='#' data-activates="dropdown1" id="passengers" > Pasajeros</a>
 
             						  <!-- Dropdown Structure -->
@@ -92,8 +101,8 @@
 
                     <li>
                       <a  class="material-icons small clickable" id="search-icon">search</a>
-                   </li> 
-                    
+                   </li>
+
                 </ul>
             </div>
 
@@ -112,18 +121,18 @@
 
 
     <div class="container-fluid offers-back center"  id="offer-photos">
-      <div class="row " >    	
-        <div class="col s6  " >   	
+      <div class="row " >
+        <div class="col s6  " >
 	          <img  class="offer-img big clickable" id="offer-img-1" />
         </div>
-      	
-        <div class="col s3 " > 
+
+        <div class="col s3 " >
       			<img  class="offer-img small  clickable" id="offer-img-2"/>
-	          	<img class="offer-img small  clickable" id="offer-img-3"/> 
+	          	<img class="offer-img small  clickable" id="offer-img-3"/>
 	    </div>
 
-	     <div class="col s3 " > 
-	          	<img class="offer-img small clickable" id="offer-img-4"/>	     
+	     <div class="col s3 " >
+	          	<img class="offer-img small clickable" id="offer-img-4"/>
 	            <img class="offer-img small  clickable" id="offer-img-5"/>
 	     </div>
 
@@ -133,7 +142,7 @@
 	        <div class="col s3 ">
 	          	<img class="offer-img small clickable" id="offer-img-6"/>
 		         <img class="offer-img small  clickable" id="offer-img-7"/>
-	          
+
 	        </div>
 
 	        <div class="col s6 ">
@@ -141,18 +150,18 @@
 		    </div>
 		    <div class="col s3">
 		          <img class="offer-img small  clickable" id="offer-img-9"/>
-		          <img class="offer-img small  clickable" id="offer-img-10"/> 	      
+		          <img class="offer-img small  clickable" id="offer-img-10"/>
 	    	</div>
 
     	</div>
-      
-       
+
+
     </div>
 
        <div class="section  container-fluid center  offers-back" >
       <div class="row " id="opinion">
       	<div class="col s8 offset-s2">
-        	<p>¿Comentarios acerca de un vuelo?&nbsp&nbsp<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Cuéntenos</a></p>
+        	<p>¿Comentarios acerca de un vuelo?<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Cuéntenos</a></p>
         </div>
       </div>
     </div>
@@ -173,10 +182,10 @@
 			          </div>
 			           <div class="row" id="opinion-row-1" >
 			           <div class="col s3 ">
-				            <p>Amabilidad</p>			           
+				            <p>Amabilidad</p>
 			            </div>
 						 <div class="col s3 star_group offset-s1">
-									
+
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
 										</i>
@@ -192,17 +201,17 @@
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
 										</i>
-									
+
 						</div>
-								
+
 			          </div>
 
 			           <div class="row" id="opinion-row-2" >
 			           <div class="col s3 ">
-				            <p>Comida</p>			           
+				            <p>Comida</p>
 			            </div>
 						 <div class="col s3 star_group offset-s1">
-									
+
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
 										</i>
@@ -218,17 +227,17 @@
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
 										</i>
-									
+
 						</div>
-								
+
 			          </div>
 
 			           <div class="row" id="opinion-row-3" >
 			           <div class="col s3 ">
-				            <p>Puntualidad</p>			           
+				            <p>Puntualidad</p>
 			            </div>
 						 <div class="col s3 star_group offset-s1">
-									
+
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
 										</i>
@@ -244,17 +253,17 @@
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
 										</i>
-									
+
 						</div>
-								
+
 			          </div>
 
 			           <div class="row" id="opinion-row-4" >
 			           <div class="col s3 ">
-				            <p>Programa de viajeros frecuentes</p>			           
+				            <p>Programa de viajeros frecuentes</p>
 			            </div>
 						 <div class="col s3 star_group offset-s1">
-									
+
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
 										</i>
@@ -270,17 +279,17 @@
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
 										</i>
-									
+
 						</div>
-								
+
 			          </div>
 
 			           <div class="row" id="opinion-row-5" >
 			           <div class="col s3 ">
-				            <p>Confort</p>			           
+				            <p>Confort</p>
 			            </div>
 						 <div class="col s3 star_group offset-s1">
-									
+
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
 										</i>
@@ -296,17 +305,17 @@
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
 										</i>
-									
+
 						</div>
-								
+
 			          </div>
 
 			           <div class="row" id="opinion-row-6" >
 			           <div class="col s3 ">
-				            <p>Relación precio/calidad</p>			           
+				            <p>Relación precio/calidad</p>
 			            </div>
 						 <div class="col s3 star_group offset-s1">
-									
+
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
 										</i>
@@ -322,9 +331,9 @@
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
 										</i>
-									
+
 						</div>
-								
+
 			          </div>
 
 			          <div class="row">
@@ -340,7 +349,7 @@
 		    </div>
 	  </div>
 
-    
+
 </div>
 
 
@@ -374,6 +383,7 @@
       <script type="text/javascript" src="js/picker.js"></script>
 	  <script type="text/javascript" src="js/common.js"></script>
 	  <script type="text/javascript" src="js/picker.date.js"></script>
+    <script type="text/javascript" src="js/typeahead.bundle.js"></script>
 	  <script type="text/javascript" src="http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities"></script>
   </body>
 </html>

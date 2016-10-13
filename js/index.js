@@ -61,7 +61,8 @@ $(document).ready(function(){
 					          dataType: 'json',
 					          data: {page_size:alfa.total},
 					          success: function(f){
-					            fillCitiesAutocomplte(f);
+					            //fillCitiesAutocomplte(f);
+											cargaTypeAHead(f);
 
 					          }
 					        });
@@ -70,52 +71,103 @@ $(document).ready(function(){
 					}
 			}
 		});
-
-	    var apiurl=new Array();
-		var j = 1;
-		var src;
-		var photo;
-	      $.ajax({
-	     	type: 'GET',
-			url: 'http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getflightdeals&from=BUE',
-			dataType: 'jsonp',
-			success: function (alfa) {
-					if (alfa.error == undefined) {				
-						var ciudades = alfa.deals;	
-						var size = ciudades.length;
-						var random = parseInt((Math.random() * (ciudades.length-12 + 1)), 10) ;
-						var limit = random+11;
-						for( ; random< limit ; random++ ){
-							var split = ciudades[random].city.name.split(",")[0].split(" ");
-							var noSpacesCity="";
-							$.each(split,function(i,item){
-								noSpacesCity+=item;
-							});
-							console.log(noSpacesCity);
-							apiurl.push('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e3dae01fb6981aeab9b4b352ceb8a59a&tags='+noSpacesCity+'&tag_mode=all&format=json&jsoncallback=?');									  
-						}      
-				}
-				getImages(apiurl);
+		function cargaTypeAHead(data){
+			console.log(data);
+			var total = data.total;
+			var cities = data.cities;
+			var cityObj = [];
+			for(var x = 0 ; x<total ; x++ ){
+				cityObj.push(cities[x].name) ;
+				valores.push(cities[x].name);
+				nameToId[cities[x].name] = cities[x].id;
 			}
-		});
+			console.log(cityObj);
+			var blood_ciudades = new Bloodhound({
+				datumTokenizer: Bloodhound.tokenizers.whitespace,
+				queryTokenizer: Bloodhound.tokenizers.whitespace,
+				local: cityObj
+			});
+
+			var blood_aeropuertos = new Bloodhound({
+				datumTokenizer: Bloodhound.tokenizers.whitespace,
+				queryTokenizer: Bloodhound.tokenizers.whitespace,
+				local: []
+			});
+
+			$('.typeahead').typeahead(
+							{
+									minLength: 1,
+									highlight: true
+							},
+							{
+									name: 'Aeropuertos',
+									source: blood_aeropuertos,
+									limit: 2,
+									templates: {
+											header: '<p class="center dataset-title">Aeropuertos</p><div class="divider"></div>',
+											notFound: '<p class="center dataset-title">Aeropuertos</p><div class="divider"></div><div class="center">Sin resultados</div>'
+									}
+							},
+							{
+									name: 'Ciudades',
+
+									limit: 3,
+									source: blood_ciudades,
+									templates: {
+											header: '<div class="divider"></div><p class="center dataset-title">Ciudades</p><div class="divider"></div>',
+											notFound: '<div class="divider"></div><p class="center dataset-title">Ciudades</p><div class="divider"></div><div class="center">Sin resultados</div>'
+									}
+							}
+			);
+			};
+
+
+			//Implementacion de Flickr
+		  var apiurl=new Array();
+			var j = 1;
+			var src;
+			var photo;
+		      $.ajax({
+		     	type: 'GET',
+				url: 'http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getflightdeals&from=BUE',
+				dataType: 'jsonp',
+				success: function (alfa) {
+						if (alfa.error == undefined) {
+							var ciudades = alfa.deals;
+							var size = ciudades.length;
+							var random = parseInt((Math.random() * (ciudades.length-12 + 1)), 10) ;
+							var limit = random+11;
+							for( ; random< limit ; random++ ){
+								var split = ciudades[random].city.name.split(",")[0].split(" ");
+								var noSpacesCity="";
+								$.each(split,function(i,item){
+									noSpacesCity+=item;
+								});
+								//console.log(noSpacesCity);
+								apiurl.push('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e3dae01fb6981aeab9b4b352ceb8a59a&tags='+noSpacesCity+'&tag_mode=all&format=json&jsoncallback=?');
+							}
+					}
+					getImages(apiurl);
+				}
+			});
 
 	      function getImages(apiurl){
 
 		      for(var k = 0;k<11;k++){
 		      	console.log(apiurl[k]);
-		    	 $.getJSON(apiurl[k] , function(data){			
-									    var item = data.photos.photo[0];				
-									    var photo= $('#offer-img-'+j); 
+		    	 $.getJSON(apiurl[k] , function(data){
+									    var item = data.photos.photo[0];
+									    var photo= $('#offer-img-'+j);
 									    j++;
 									     src = "http://farm"+ item.farm +".static.flickr.com/"+ item.server +"/"+ item.id +"_"+ item.secret +"_m.jpg";
-									     photo.attr("src",src);							
+									     photo.attr("src",src);
 										return false;
 				});
 		    	 console.log(k);
 		   	}
 		  }
-		
- 
+
+
 
 
 		 $('.modal-trigger').leanModal();
@@ -221,42 +273,43 @@ $(document).ready(function(){
     		$('.blurred-img').css('opacity', opacityVal);
 		});
 
-		function fillAirportsAutocomplte(data){
-		  console.log(data.total);
-		  var total = data.total;
-		  var airports = data.airports;
-		  var airportObj = {};
-		  for(var x = 0 ; x<total ; x++ ){
-		    airportObj[airports[x].description] = null;
-		    valores.push(airports[x].description);
-		    nameToId[airports[x].description] = airports[x].id;
-		  }
-		  $('#from_input,#to_input').autocomplete({
-		    data: airportObj,
-		  });
-		}
 
-			function fillCitiesAutocomplte(data){
-			  console.log(data.total);
-			  var total = data.total;
-			  var cities = data.cities;
-			  var cityObj = {};
-			  for(var x = 0 ; x<total ; x++ ){
-			    cityObj[cities[x].name] = null;
-			    valores.push(cities[x].name);
-			    nameToId[cities[x].name] = cities[x].id;
-			  }
-			  $('#from_input,#to_input').autocomplete({
-			    data: cityObj,
-			  });
-			}
+		// function fillAirportsAutocomplte(data){
+		//   console.log(data.total);
+		//   var total = data.total;
+		//   var airports = data.airports;
+		//   var airportObj = {};
+		//   for(var x = 0 ; x<total ; x++ ){
+		//     airportObj[airports[x].description] = null;
+		//     valores.push(airports[x].description);
+		//     nameToId[airports[x].description] = airports[x].id;
+		//   }
+		//   $('#from_input,#to_input').autocomplete({
+		//     data: airportObj,
+		//   });
+		// }
+		//
+		// 	function fillCitiesAutocomplte(data){
+		// 	  console.log(data.total);
+		// 	  var total = data.total;
+		// 	  var cities = data.cities;
+		// 	  var cityObj = {};
+		// 	  for(var x = 0 ; x<total ; x++ ){
+		// 	    cityObj[cities[x].name] = null;
+		// 	    valores.push(cities[x].name);
+		// 	    nameToId[cities[x].name] = cities[x].id;
+		// 	  }
+		// 	  $('#from_input,#to_input').autocomplete({
+		// 	    data: cityObj,
+		// 	  });
+		// 	}
 
 
 
 		$('#search-icon').on('click',function(){
 			var mode= $('#search [selected]').attr("id");
-			var src = nameToId[$('#from input').val()];
-			var dst = nameToId[$('#to input').val()];
+			var src = nameToId[$('#from_input').val()];
+			var dst = nameToId[$('#to_input').val()];
 			var d1 = $('#departing input[name=_submit]').val();
 			var d2 = $('#returning input[name=_submit]').val();
 			var adults= $('#passengers #adults #adults_val').text();
@@ -275,7 +328,7 @@ $(document).ready(function(){
 
 
 
-  	 $('#textarea1').trigger('autoresize');
+  $('#textarea1').trigger('autoresize');
 
   $.validator.setDefaults({
     errorClass: 'invalid',
@@ -284,7 +337,7 @@ $(document).ready(function(){
         $(element)
             .closest("form")
             .find("label[for='" + element.attr("id") + "']")
-            .attr('data-error', error.text());
+            .attr('data-error', error);
     },
     submitHandler: function (form) {
         console.log('form ok');
@@ -293,7 +346,6 @@ $(document).ready(function(){
 
 
    $("#search-form").validate({
-
     rules: {
         from_input:{
         	required: true,
@@ -306,11 +358,11 @@ $(document).ready(function(){
     }
 });
 
-   
-	
-	
-	
-	
+
+
+
+
+
 
 
 });
