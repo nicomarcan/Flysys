@@ -59,7 +59,25 @@ function getCountries(data){
     // nameToId[airports[x].description.split(", ")[1]] = airports[x].id;
   }
   console.log(valores);
-}
+  var paises = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: valores
+  });
+
+  $('.typeaheadpaises').typeahead(
+          {
+              minLength: 1,
+              highlight: true
+          },
+          {
+              name: 'Paises',
+              limit: 3,
+              source: paises,
+          }
+  );
+  }
+
 function getCities(data){
   var ciudades = data.cities;
   var valores=[];
@@ -72,14 +90,35 @@ function getCities(data){
     // nameToId[airports[x].description] = airports[x].id;
     // nameToId[airports[x].description.split(", ")[1]] = airports[x].id;
   }
-  console.log(valores);
-}
-fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcountries",getCountries,undefined);
-fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities",getCities,undefined);
+  var ciudades = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: valores
+  });
+
+  $('.typeaheadciudades').typeahead(
+          {
+              minLength: 1,
+              highlight: true
+          },
+          {
+              name: 'Ciudades',
+              limit: 3,
+              source: ciudades,
+          }
+  );
+  };
+
+
+fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy",{"method": "getcountries"},getCountries,undefined);
+fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy",{"method": "getcities"},getCities,undefined);
 
   $('select').material_select();
-  var cant_pa=getUrlParameter("pasajeros");
-  for (i = 1; i < parseInt(cant_pa); i++) {
+  var cant_adultos=parseInt(getUrlParameter("adults"));
+  var cant_chicos=parseInt(getUrlParameter("children"));
+  var cant_infantes=parseInt(getUrlParameter("infants_val"));
+
+  for (i = 1; i < (cant_adultos+cant_chicos+cant_infantes); i++) {
     $(".passangerform").after(form);
     console.log(i);
   }
@@ -87,5 +126,28 @@ fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities",getCities,u
       $(this).closest(".passangerform").remove();
   })
   $('.datepicker').pickadate({
+     monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+     monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
+     weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+     weekdaysShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
+     today: 'Hoy',
+     clear: 'Borrar',
+     close: 'Cerrar',
+     firstDay: 1,
+     format: 'd !de mmmm !de yyyy',
+     formatSubmit: 'yyyy-mm-dd' ,
+     min: true
+   });
+  $(".tipo_id").mouseleave(function(){
+    if($(".selected").text()=="Pasaporte"){
+        $("#pasaporte").removeAttr("pattern");
+        $("#pasaporte").attr("pattern","\\w{1,50}");
+        $("#text_id").text("Pasaporte");
+        console.log($("#pasaporte"))
+    }else{
+        $("#pasaporte").removeAttr("pattern");
+        $("#pasaporte").attr("pattern","\\d{1,50}");
+        $("#text_id").text("Documento");
+    }
   });
 });

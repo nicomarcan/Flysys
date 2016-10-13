@@ -38,7 +38,7 @@
                             </div>
                               <div class="row">
 																	<div class="input-field col s3">
-																		<select>
+																		<select class="tipo_id">
 																			<option value="" disabled selected>Pasaporte/DNI</option>
 																			<option value="1">Pasaporte</option>
 																			<option value="2">DNI</option>
@@ -46,23 +46,13 @@
 																		<label>Identificador</label>
 																	</div>
                                   <div class="input-field col s6">
-                                    <input id="Pasaporte" type="text" class="validate"/>
-                                    <label for="Pasaporte">Pasaporte</label>
+                                    <input id="pasaporte" type="text" class="validate"/>
+                                    <label for="pasaporte" id="text_id">Pasaporte</label>
                                   </div>
                                   <div class="date-field col s3">
                                     <label for="Destino">Fecha de nacimiento</label>
                                     <input type="date" class="datepicker"/>
                                   </div>
-                              </div>
-                              <div class="row">
-                                <p>
-                                  <input name="group1" type="radio" id="test1" />
-                                  <label for="test1">Masculino</label>
-                                </p>
-                                <p>
-                                  <input name="group1" type="radio" id="test2" />
-                                  <label for="test2">Femenino</label>
-                                </p>
                               </div>
                               <!-- <div class="row">
                                   <div class="col offset-s11"> <a class="btn-floating btn-large waves-effect waves-light green probandoboton" id=""><i class="material-icons">add</i></a>
@@ -80,11 +70,10 @@
 			<div class="col s10 offset-s1">
 				<div class="card-panel row">
 
-			<div class="row" style="padding:5px; margin:0px;">
+			<div class="row">
 				<div class="col s8">
-					Informacion del pago
+					<h5>Informacion de la tarjeta</h5>
 				</div>
-
 			</div>
 
             <div class="row">
@@ -100,17 +89,31 @@
                 <input id="cvv" type="text" pattern="^([0-9]{2,4})"  class="validate"/>
                 <label for="CVV" data-error="Ingrese los 3-4digitos">CCV</label>
 			  		</div>
-
+						<div class="row">
+							<div class="col s8">
+								<h5>Informacion del pago</h5>
+							</div>
+						</div>
             <div class="row">
-                  <div class="input-field col s6">
+							<div class="input-field col s4">
+									<input id="dni" type="number" class="validate"/>
+									<label for="dni"  data-error="No debe contener mas de 50 caracteres">DNI</label>
+							</div>
+                  <div class="input-field col s4">
                     <input id="nombre" type="text" class="validate" pattern="^\w{1,50}"/>
                     <label for="nombre"  data-error="No debe contener mas de 50 caracteres">Nombre</label>
                   </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s4">
                         <input id="apellido" type="text" class="validate" pattern="^\w{1,50}"/>
                         <label for="apellido"  data-error="No debe contener mas de 50 caracteres">Apellido</label>
                     </div>
+
             </div>
+						<div class="row">
+							<div class="col s8">
+								<h5>Domicilio y contacto</h5>
+							</div>
+						</div>
 						<div class="row">
 									<div class="input-field col s4">
 										<input id="calle" type="text" class="validate" pattern="^\w{1,50}"/>
@@ -132,12 +135,10 @@
 						</div>
 						<div class="row">
 									<div class="input-field col s4">
-											<input id="ciudad" type="text" class="validate" pattern="\w{1,50}"/>
-											<label for="ciudad"  data-error="Debe contener una ciudad valida">Ciudad</label>
+											<input id="ciudad" type="text" class="validate typeaheadciudades" placeholder="Ciudad" style="position:relative;width:100% "/>
 									</div>
 									<div class="input-field col s2">
-											<input id="pais" type="text" class="validate" pattern=""/>
-											<label for="pais"  data-error="Debe ser un pais valido">Pais</label>
+											<input id="pais" type="text" class="validate typeaheadpaises" pattern="\w{1,100}" placeholder="Pais"/>
 									</div>
 									<div class="input-field col s4">
 										<input id="email" type="email" class="validate"/>
@@ -185,6 +186,7 @@
 		<script src="js/common.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
     <script src="js/datos.js"></script>
+		<script src="js/typeahead.bundle.js"></script>
 
 
 </html>
