@@ -19,33 +19,54 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
     <script type="text/javascript" src="./js/reviews.js"></script>
     <script type="text/javascript" src="./js/reviews_airlines.js"></script>
+		<script type="text/javascript" src="js/typeahead.bundle.js"></script>
 	</head>
 	<body class="roboto">
 		<nav>
-			<div class="nav-wrapper color1">
-				<a href="#" class="brand-logo">Flysis</a>
-				<ul class="right hide-on-med-and-down">
-					<li><a href="#"><i class="material-icons">info</i></a></li>
-					<li><a href="#"><i class="material-icons">help</i></a></li>
-				</ul>
+			<div class="nav-wrapper color1 container-fluid">
+					<div class="row">
+					<div class="col s2">
+						<a href="#" class="brand-logo">Flysis</a>
+					</div>
+					<ul class="right hide-on-med-and-down">
+						<li>
+							<form id="airline_search_form" action="./reviews_airlines.html" method="GET">
+
+								<input id="airline_search_id" type="hidden" name="airline_id" required></input>
+								<!--<label for="search" ><i class="material-icons" style="color:black">search</i></label>-->
+								<input id="airline_search" type="search" class="typeahead" placeholder="Buscar aerolineas.">
+								</input>
+								<button class="btn-floating waves-effect waves-light transparent " type="submit" name="action" style="padding: 0px; background: #eeeeee;color: #252525;">
+									<i class="material-icons" style="line-height:normal; padding:2px; color:white">
+										search
+									</i>
+  							</button>
+							</form>
+						</li>
+
+						<li><a href="#"><i class="material-icons">info</i></a></li>
+						<li><a href="#"><i class="material-icons">help</i></a></li>
+					</ul>
+				</div>
 			</div>
 		</nav>
 		<div class="container-fluid">
 			<div class="row">
+				<!--
         <nav class="col s8 push-s2"  style="background-color:#eeeeee; padding:0; margin-top:10px;">
           <div class="nav-wrapper">
             <form id="airline_search_form" action="./reviews_airlines.html" method="GET">
-              <div class="input-field">
+              <div class="input-field row">
                 <input id="airline_search_id" type="hidden" name="airline_id" required></input>
-                <input id="airline_search" type="search">
+								<input id="airline_search" type="search" class="typeahead">
                 <label for="search"><i class="material-icons" style="color:black">search</i></label>
-                <i class="material-icons">close</i>
-                </input>
+								<i class="material-icons" style="color:black">close</i>
+								</input>
               </div>
             </form>
           </div>
         </nav>
-
+			-->
         <div class="col s8 push-s2" style="padding:5px; margin:0px;">
   				<div class="col s12">
             <a href="#!" class="breadcrumb info_breadcrumbs" id="airline_breadcrumb"></a>
