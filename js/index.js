@@ -45,7 +45,7 @@ $(document).ready(function(){
 		    }
 		  });
 
-
+/*
 	     $.ajax({
 	     	type: 'GET',
 			url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities',
@@ -71,6 +71,7 @@ $(document).ready(function(){
 					}
 			}
 		});
+
 		function cargaTypeAHead(data){
 			console.log(data);
 			var total = data.total;
@@ -112,9 +113,10 @@ $(document).ready(function(){
 			);
 			};
 
-
+*/
 			//Implementacion de Flickr
 		  var apiurl=new Array();
+		  var to=new Array();
 			var j = 1;
 			var src;
 			var photo;
@@ -129,6 +131,7 @@ $(document).ready(function(){
 							var random = parseInt((Math.random() * (ciudades.length-12 + 1)), 10) ;
 							var limit = random+11;
 							for( ; random< limit ; random++ ){
+								to.push(ciudades[random].city.name.split(", ")[0]);
 								var split = ciudades[random].city.name.split(",")[0].split(" ");
 								var noSpacesCity="";
 								$.each(split,function(i,item){
@@ -152,6 +155,8 @@ $(document).ready(function(){
 									    j++;
 									     src = "http://farm"+ item.farm +".static.flickr.com/"+ item.server +"/"+ item.id +"_"+ item.secret +"_m.jpg";
 									     photo.attr("src",src);
+									     photo.attr("to",to[j-1]);
+									     photo.attr("from","Buenos Aires");
 										return false;
 				});
 		    	 console.log(k);
@@ -168,9 +173,9 @@ $(document).ready(function(){
 			var from = $("#from input");
 			var to = $("#to input");
 			var picker = $('#departing .datepicker').pickadate('picker');
-			from.val("Buenos Aires");
+			from.val($(this).attr("from"));
 			from.focus();
-			to.val("Miami"); /*$(this).attr("value") next update incoming*/
+			to.val($(this).attr("to")); /*$(this).attr("value") next update incoming*/
 			to.focus();
 			to.blur();
 			event.stopPropagation();
@@ -202,7 +207,7 @@ $(document).ready(function(){
 
 		});
 
-		 $(".datepicker").pickadate({
+		 $("#departing .datepicker").pickadate({
 		    monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
 		    monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
 		    weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
@@ -215,6 +220,42 @@ $(document).ready(function(){
 		    formatSubmit: 'yyyy-mm-dd' ,
 		    min: true
 		  });
+
+		 var date2_picker = null ;
+		  var prevdate = null;
+		  $("#departing input[name='_submit']").attrchange({
+		    trackValues: true,
+		    callback: function(event){
+		      var d = event.newValue ;
+		      var date = new Date(d.split("-")[0],d.split("-")[1]-1,d.split("-")[2]);
+		      $("#returning > input").removeAttr("disabled");
+		      if(date2_picker == null){
+		        date2_picker = $("#returning .datepicker").pickadate({
+		          monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+		          monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
+		          weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+		          weekdaysShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
+		          today: 'Hoy',
+		          clear: 'Borrar',
+		          close: 'Cerrar',
+		          firstDay: 1,
+		          format: 'd !de mmmm !de yyyy',
+		          formatSubmit: 'yyyy-mm-dd' ,
+		          disable: [{ from: [0,0,0], to: date }]
+		        });
+		      } else {
+		        var picker = date2_picker.pickadate('picker');
+		        picker.set('enable', [{from: [0,0,0], to: prevdate}]);
+		        picker.set('disable', [{ from: [0,0,0], to: date }]);
+		        $("#returning .picker__input").val("");
+		        $("#returning input[name='_submit']").removeAttr("value");
+		      }
+		      prevdate = date ;
+		    }
+		  });
+
+
+
 		$('.parallax').parallax({});
 		 $('select').material_select();
 
@@ -265,21 +306,24 @@ $(document).ready(function(){
 		});
 
 
-		// function fillAirportsAutocomplte(data){
-		//   console.log(data.total);
-		//   var total = data.total;
-		//   var airports = data.airports;
-		//   var airportObj = {};
-		//   for(var x = 0 ; x<total ; x++ ){
-		//     airportObj[airports[x].description] = null;
-		//     valores.push(airports[x].description);
-		//     nameToId[airports[x].description] = airports[x].id;
-		//   }
-		//   $('#from_input,#to_input').autocomplete({
-		//     data: airportObj,
-		//   });
-		// }
-		//
+		function fillAirportsAutocomplte(data){
+		  console.log(data.total);
+		  var total = data.total;
+		  var airports = data.airports;
+		  var airportObj = {};
+		  for(var x = 0 ; x<total ; x++ ){
+		    airportObj[airports[x].description] = null;
+		    airportObj[airports[x].description.split(", ")[1]] = null;
+		    valores.push(airports[x].description);
+		    valores.push(airports[x].description.split(", ")[1]);
+		    nameToId[airports[x].description] = airports[x].id;
+		    nameToId[airports[x].description.split(", ")[1]] = airports[x].id;
+		  }
+		  $('#from_input,#to_input').autocomplete({
+		    data: airportObj,
+		  });
+		}
+		
 		// 	function fillCitiesAutocomplte(data){
 		// 	  console.log(data.total);
 		// 	  var total = data.total;
@@ -328,7 +372,7 @@ $(document).ready(function(){
         $(element)
             .closest("form")
             .find("label[for='" + element.attr("id") + "']")
-            .attr('data-error', error);
+            .attr('data-error', error.text());
     },
     submitHandler: function (form) {
         console.log('form ok');
