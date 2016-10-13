@@ -6,11 +6,7 @@
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 	    <link type="text/css" rel="stylesheet" href="css/style.css"/>
-
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <script src="js/datos.js"></script>
-
-
     </head>
 	<body class="roboto">
 		<nav>
@@ -102,8 +98,8 @@
                 </div>
               <div class="input-field col s3">
                 <input id="cvv" type="text" pattern="^([0-9]{2,4})"  class="validate"/>
-                <label for="CVV" data-error="Ingrese los 3 digitos">CCV</label>
-			  </div>
+                <label for="CVV" data-error="Ingrese los 3-4digitos">CCV</label>
+			  		</div>
 
             <div class="row">
                   <div class="input-field col s6">
@@ -121,12 +117,12 @@
 										<label for="calle"  data-error="No debe contener mas de 50 caracteres">Calle</label>
 									</div>
 									<div class="input-field col s5">
-											<input id="callnro" type="text" class="validate" pattern=""/>
+											<input id="callnro" type="text" class="validate" pattern="\w{1,100}"/>
 											<label for="callnro"  data-error="No debe contener mas de 50 caracteres">Nro. Calle</label>
 									</div>
 									<div class="input-field col s2">
-											<input id="piso" type="text" class="validate" pattern=""/>
-											<label for="piso"  data-error="No debe contener mas de 50 caracteres">Piso</label>
+											<input id="piso" type="text" class="validate" pattern="\d{0,}"/>
+											<label for="piso"  data-error="Debe ser el piso">Piso</label>
 									</div>
 									<div class="input-field col s1">
 											<input id="depto" type="text" class="validate" pattern=""/>
@@ -136,20 +132,20 @@
 						</div>
 						<div class="row">
 									<div class="input-field col s4">
-											<input id="ciudad" type="text" class="validate" pattern=""/>
-											<label for="ciudad"  data-error="No debe contener mas de 50 caracteres">Ciudad</label>
+											<input id="ciudad" type="text" class="validate" pattern="\w{1,50}"/>
+											<label for="ciudad"  data-error="Debe contener una ciudad valida">Ciudad</label>
 									</div>
 									<div class="input-field col s2">
 											<input id="pais" type="text" class="validate" pattern=""/>
-											<label for="pais"  data-error="No debe contener mas de 50 caracteres">Pais</label>
+											<label for="pais"  data-error="Debe ser un pais valido">Pais</label>
 									</div>
 									<div class="input-field col s4">
 										<input id="email" type="email" class="validate"/>
 										<label for="email"  data-error="Debe ser un email valido">Email</label>
 									</div>
 									<div class="input-field col s2">
-										<input id="telefono" type="text" class="validate"/>
-										<label for="telefono"  data-error="Debe ser un  vali-------do">Telefono</label>
+										<input id="telefono" type="text" class="validate" pattern=""/>
+										<label for="telefono"  data-error="Debe se un telefono valido">Telefono</label>
 									</div>
 						</div>
                 <div class="row">
@@ -186,8 +182,9 @@
       </div>
     </footer>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="js/common.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
     <script src="js/datos.js"></script>
-    <script src="js/common.js"></script>
+
 
 </html>
