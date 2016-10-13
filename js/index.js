@@ -29,8 +29,8 @@ $(document).ready(function(){
 		    url: airports_url,
 		    dataType: 'json' ,
 		    success: function(d){
-		      if(d.total<=d.page_size){
-		        fillAirportsAutocomplte(d);
+		      if(d.total<=d.page_size){		      	
+		        cargaTypeAHead(d);
 		      } else {
 		        $.ajax({
 		          type: 'GET',
@@ -38,62 +38,36 @@ $(document).ready(function(){
 		          dataType: 'json',
 		          data: {page_size:d.total},
 		          success: function(f){
-		            fillAirportsAutocomplte(f);
+		            //fillAirportsAutocomplte(f);
+		            cargaTypeAHead(f);
 		          }
 		        });
 		      }
 		    }
 		  });
 
-/*
-	     $.ajax({
-	     	type: 'GET',
-			url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities',
-			dataType: 'jsonp',
-			success: function (alfa) {
-					if (alfa.error == undefined) {
-						if(alfa.total<=alfa.page_size){
-					        fillCitiesAutocomplte(alfa);
-					      } else {
-					        $.ajax({
-					          type: 'GET',
-					          url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities',
-					          dataType: 'json',
-					          data: {page_size:alfa.total},
-					          success: function(f){
-					            //fillCitiesAutocomplte(f);
-											cargaTypeAHead(f);
 
-					          }
-					        });
-					      }
-
-					}
-			}
-		});
 
 		function cargaTypeAHead(data){
-			console.log(data);
 			var total = data.total;
-			var cities = data.cities;
-			var cityObj = [];
+			var airports = data.airports;
+			var obj = [];
 			for(var x = 0 ; x<total ; x++ ){
-				cityObj.push(cities[x].name) ;
-				valores.push(cities[x].name);
-				nameToId[cities[x].name] = cities[x].id;
+				obj.push(airports[x].description.split(", ")[1]) ;
+				valores.push(airports[x].description.split(", ")[1]);
+				obj.push(airports[x].description) ;
+				valores.push(airports[x].description);			
+				nameToId[airports[x].description.split(", ")[1]] = airports[x].id;
+				nameToId[airports[x].description] = airports[x].id;
 			}
-			console.log(cityObj);
+			console.log(obj);
 			var blood_ciudades = new Bloodhound({
 				datumTokenizer: Bloodhound.tokenizers.whitespace,
 				queryTokenizer: Bloodhound.tokenizers.whitespace,
-				local: cityObj
+				local: obj
 			});
 
-			var blood_aeropuertos = new Bloodhound({
-				datumTokenizer: Bloodhound.tokenizers.whitespace,
-				queryTokenizer: Bloodhound.tokenizers.whitespace,
-				local: []
-			});
+			
 
 			$('.typeahead').typeahead(
 							{
@@ -113,7 +87,9 @@ $(document).ready(function(){
 			);
 			};
 
-*/
+		
+
+
 			//Implementacion de Flickr
 		  var apiurl=new Array();
 		  var to=new Array();
@@ -186,8 +162,9 @@ $(document).ready(function(){
 		$('#crossicon').on('click', function() {
 			var from = $("#from input");
 			var to = $("#to input");
-			var from_val = from.val();
-			var to_val = to.val();
+			var from_val = from.typeahead('val');
+			var to_val = to.typeahead('val');
+			alert($('#from input').typeahead('val'));
 			to.val(from_val)
 			from.val(to_val);
 			from.focus();
@@ -275,6 +252,7 @@ $(document).ready(function(){
 
 		$('.parallax').parallax({});
 		 $('select').material_select();
+		 
 
 		$(".dropdown-button#passengers").on('click',function(){
 			if(!$(this).attr("closed")){
@@ -323,23 +301,23 @@ $(document).ready(function(){
 		});
 
 
-		function fillAirportsAutocomplte(data){
-		  console.log(data.total);
-		  var total = data.total;
-		  var airports = data.airports;
-		  var airportObj = {};
-		  for(var x = 0 ; x<total ; x++ ){
-		    airportObj[airports[x].description] = null;
-		    airportObj[airports[x].description.split(", ")[1]] = null;
-		    valores.push(airports[x].description);
-		    valores.push(airports[x].description.split(", ")[1]);
-		    nameToId[airports[x].description] = airports[x].id;
-		    nameToId[airports[x].description.split(", ")[1]] = airports[x].id;
-		  }
-		  $('#from_input,#to_input').autocomplete({
-		    data: airportObj,
-		  });
-		}
+		// function fillAirportsAutocomplte(data){
+		//   console.log(data.total);
+		//   var total = data.total;
+		//   var airports = data.airports;
+		//   var airportObj = {};
+		//   for(var x = 0 ; x<total ; x++ ){
+		//     airportObj[airports[x].description] = null;
+		//     airportObj[airports[x].description.split(", ")[1]] = null;
+		//     valores.push(airports[x].description);
+		//     valores.push(airports[x].description.split(", ")[1]);
+		//     nameToId[airports[x].description] = airports[x].id;
+		//     nameToId[airports[x].description.split(", ")[1]] = airports[x].id;
+		//   }
+		//   $('#from_input,#to_input').autocomplete({
+		//     data: airportObj,
+		//   });
+		// }
 		
 		// 	function fillCitiesAutocomplte(data){
 		// 	  console.log(data.total);
