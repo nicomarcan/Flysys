@@ -39,7 +39,7 @@
                 </li>
                 <li class="row-f3 col s4 valign-wrapper">
                   <div>
-                    <a class="waves-effect waves-light btn valign color1">COMPRAR</a>
+                    <a class="waves-effect waves-light btn valign color3">COMPRAR</a>
                   </div>
                 </li>
               </ul>
@@ -90,7 +90,7 @@
                 </li>
                 <li class="row-f3 col s4 valign-wrapper">
                   <div class="valign-wrapper">
-                    <a class="waves-effect waves-light btn valign color1">Ver reputación</a>
+                    <a class="waves-effect waves-light btn valign color3">Ver reputación</a>
                   </div>
                 </li>
 
@@ -125,7 +125,7 @@
                 </li>
                 <li class="row-f3 col s4 valign-wrapper">
                   <div>
-                    <a class="waves-effect waves-light btn valign color1">COMPRAR</a>
+                    <a class="waves-effect waves-light btn valign color3">COMPRAR</a>
                   </div>
                 </li>
               </ul>
@@ -176,7 +176,7 @@
                 </li>
                 <li class="row-f3 col s4 valign-wrapper">
                   <div class="valign-wrapper">
-                    <a class="waves-effect waves-light btn valign color1">Ver reputación</a>
+                    <a class="waves-effect waves-light btn valign color3">Ver reputación</a>
                   </div>
                 </li>
 
@@ -225,7 +225,7 @@
                 </li>
                 <li class="row-f3 col s4 valign-wrapper">
                   <div class="valign-wrapper">
-                    <a class="waves-effect waves-light btn valign color1">Ver reputación</a>
+                    <a class="waves-effect waves-light btn valign color3">Ver reputación</a>
                   </div>
                 </li>
               </ul>
@@ -243,6 +243,7 @@
     <script type="text/javascript" src="js/mustache.min.js"></script>
     <script src="js/attrchange.js"></script>
     <script src="js/attrchange_ext.js"></script>
+    <script type="text/javascript" src="js/typeahead.bundle.js"></script>
     <script type="text/javascript" src="js/results.js"></script>
     <nav class="color1">
       <div class="nav-wrapper">
@@ -257,7 +258,7 @@
       <div class="row">
 
         <div class="col s3 color2 filters central-space">
-          <div class="row search-panel z-depth-1 filter-element">
+          <div class="row search-panel z-depth-1 filter-element color1">
 
             <ul class="tabs">
               <li class="tab"><a class="active" href="#two-way">Ida y vuelta</a></li>
@@ -265,17 +266,15 @@
             </ul>
             <form id="two-way">
               <div class="input-field row">
-                <input id="Origen" type="text" class="autocomplete"/>
-                <label for="Origen">Origen</label>
+                <input type="text" id="from_input" name="from_input" class="typeahead " placeholder="Origen"/>
               </div>
               <div class="input-field row">
-                <input id="Destino" type="text" class="autocomplete"/>
-                <label for="Destino">Destino</label>
+                <input type="text" id="to_imput" name="from_input" class="typeahead " placeholder="Destino"/>
               </div>
               <div class="row date-field" id="date1">
                 <input type="date" placeholder="Partiendo" class="datepicker"/>
               </div>
-              <div class="row date-field" id="date2">
+              <div class="row date-field last" id="date2">
                 <input disabled type="date" class="datepicker" placeholder="Volviendo"/>
               </div>
               <div class="row">
@@ -286,7 +285,7 @@
                   <li class="divider"></li>
                   <li><a href="#!">three</a></li>
                 </ul>
-                <a class="waves-effect waves-light btn search color1 right">
+                <a class="waves-effect waves-light btn search color3 right">
                   <i class="material-icons left">search</i>
                   Buscar
                 </a>
@@ -294,19 +293,17 @@
             </form>
             <form id="one-way">
               <div class="input-field row">
-                <input id="Origen" type="text" class="autocomplete"/>
-                <label for="Origen">Origen</label>
+                <input type="text" id="from_input" name="from_input" class="typeahead" placeholder="Origen"/>
               </div>
               <div class="input-field row">
-                <input id="Destino" type="text" class="autocomplete"/>
-                <label for="Destino">Destino</label>
+                <input type="text" id="to_imput" name="from_input" class="typeahead" placeholder="Destino"/>
               </div>
-              <div class="row date-field" id="date1">
+              <div class="row date-field last" id="date1">
                 <input type="date" placeholder="Partiendo" class="datepicker"/>
               </div>
               <div class="row">
                 <a class="dropdown-button waves-effect waves-light btn left">Pasajeros</span></a>
-                <a class="waves-effect waves-light btn search color1 right">
+                <a class="waves-effect waves-light btn search color3 right">
                   <i class="material-icons left">search</i>
                   Buscar
                 </a>
@@ -419,144 +416,7 @@
             <div class="results-box" id="results">
 
 
-              <!--
-              <div class="individual-result">
-                <ul class="collapsible" data-collapsible="accordion">
-                  <li>
-                    <div class="collapsible-header">
-
-                      <ul class="collapsible-header-row container-fluid">
-                        <li class="row-f1 col s4 valign-wrapper">
-                          <div class="stars valign">
-                            <i class="material-icons important-star">star</i>
-                            <i class="material-icons important-star">star</i>
-                            <i class="material-icons important-star">star</i>
-                            <i class="material-icons important-star">star</i>
-                            <i class="material-icons important-star">star</i>
-                          </div>
-                        </li>
-                        <li class="row-f2 col s4 valign-wrapper">
-                          <div>
-                            <h4 class="valign">$9112,001</h4>
-                          </div>
-                        </li>
-                        <li class="row-f3 col s4 valign-wrapper">
-                          <div>
-                            <a class="waves-effect waves-light btn valign color1">COMPRAR</a>
-                          </div>
-                        </li>
-                      </ul>
-
-                    </div>
-                    <div class="collapsible-body"><p>Aca va el detalle de la tarifa</p></div>
-                  </li>
-                  <li>
-                    <div class="collapsible-header">
-
-                      <ul class="collapsible-header-row container-fluid flight1">
-                        <li class="row-f1 col s4 valign-wrapper depart">
-                          <div class="valign-wrapper">
-                            <h4 class="valign airp-code left-s">EZE</h4>
-                            <h3 class="valign">|</h3>
-                            <h5 class="valign date right-s">10/1/2017</h5>
-                          </div>
-                        </li>
-                        <li class="row-f2 col s4 valign-wrapper">
-                          <div class="valign-wrapper">
-                            <p class="valign left-s">AA</p>
-                            <i class="valign material-icons arrow-right">trending_flat</i>
-                            <p class="valign right-s">123</p>
-                          </div>
-                        </li>
-                        <li class="row-f3 col s4 valign-wrapper arrive">
-                          <div class="valign-wrapper">
-                            <h5 class="valign date left-s">+8:00 hs</h5>
-                            <h3 class="valign">|</h3>
-                            <h4 class="valign airp-code right-s">MIA</h4>
-                          </div>
-                        </li>
-                      </ul>
-
-
-                    </div>
-                    <div class="collapsible-body">
-                      <ul class="collapsible-body-row container-fluid">
-                        <li class="row-f1 col s4 valign-wrapper">
-                          <div class="valign-wrapper">
-
-                          </div>
-                        </li>
-                        <li class="row-f2 col s4 valign-wrapper">
-                          <div class="valign-wrapper">
-
-                          </div>
-                        </li>
-                        <li class="row-f3 col s4 valign-wrapper">
-                          <div class="valign-wrapper">
-                            <a class="waves-effect waves-light btn valign color1">Ver reputación</a>
-                          </div>
-                        </li>
-
-                      </ul>
-                    </div>
-                  </li>
-
-                  <li>
-                    <div class="collapsible-header">
-
-                      <ul class="collapsible-header-row container-fluid flight2">
-                        <li class="row-f1 col s4 valign-wrapper depart">
-                          <div class="valign-wrapper">
-                            <h4 class="valign airp-code left-s">MIA</h4>
-                            <h3 class="valign">|</h3>
-                            <h5 class="valign date right-s">25/1/2017</h5>
-                          </div>
-                        </li>
-                        <li class="row-f2 col s4 valign-wrapper">
-                          <div class="valign-wrapper">
-                            <p class="valign left-s">AA</p>
-                            <i class="valign material-icons arrow-right">trending_flat</i>
-                            <p class="valign right-s">456</p>
-                          </div>
-                        </li>
-                        <li class="row-f3 col s4 valign-wrapper arrive">
-                          <div class="valign-wrapper">
-                            <h5 class="valign date left-s">+8:00 hs</h5>
-                            <h3 class="valign">|</h3>
-                            <h4 class="valign airp-code right-s">EZE</h4>
-                          </div>
-                        </li>
-                      </ul>
-
-                    </div>
-                    <div class="collapsible-body">
-                      <ul class="collapsible-body-row container-fluid">
-                        <li class="row-f1 col s4 valign-wrapper">
-                          <div class="valign-wrapper">
-                            <h5>American Airlines - Vuelo 456</h5>
-                          </div>
-                        </li>
-                        <li class="row-f2 col s4 valign-wrapper">
-                          <div class="valign-wrapper">
-
-                          </div>
-                        </li>
-                        <li class="row-f3 col s4 valign-wrapper">
-                          <div class="valign-wrapper">
-                            <a class="waves-effect waves-light btn valign color1">Ver reputación</a>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-
-                </ul>
-              </div>
-              -->
-
             </div>
-
-
           </div>
 
       </div>
