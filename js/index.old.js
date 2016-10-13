@@ -30,7 +30,7 @@ $(document).ready(function(){
 		    dataType: 'json' ,
 		    success: function(d){
 		      if(d.total<=d.page_size){
-		        cargaTypeAHead(d);
+		        fillAirportsAutocomplte(d);
 		      } else {
 		        $.ajax({
 		          type: 'GET',
@@ -38,8 +38,7 @@ $(document).ready(function(){
 		          dataType: 'json',
 		          data: {page_size:d.total},
 		          success: function(f){
-		            //fillAirportsAutocomplte(f);
-		            cargaTypeAHead(f);
+		            fillAirportsAutocomplte(f);
 		          }
 		        });
 		      }
@@ -47,49 +46,83 @@ $(document).ready(function(){
 		  });
 
 
+	     $.ajax({
+	     	type: 'GET',
+			url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities',
+			dataType: 'jsonp',
+			success: function (alfa) {
+					if (alfa.error == undefined) {
+						if(alfa.total<=alfa.page_size){
+					        fillCitiesAutocomplte(alfa);
+					      } else {
+					        $.ajax({
+					          type: 'GET',
+					          url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities',
+					          dataType: 'json',
+					          data: {page_size:alfa.total},
+					          success: function(f){
+					            //fillCitiesAutocomplte(f);
+											cargaTypeAHead(f);
+
+					          }
+					        });
+					      }
+
+					}
+			}
+		});
 
 		function cargaTypeAHead(data){
+			console.log(data);
 			var total = data.total;
-			var airports = data.airports;
-			var obj = [];
+			var cities = data.cities;
+			var cityObj = [];
 			for(var x = 0 ; x<total ; x++ ){
-				obj.push(airports[x].description.split(", ")[1]) ;
-				valores.push(airports[x].description.split(", ")[1]);
-				obj.push(airports[x].description) ;
-				valores.push(airports[x].description);
-				nameToId[airports[x].description.split(", ")[1]] = airports[x].id;
-				nameToId[airports[x].description] = airports[x].id;
+				cityObj.push(cities[x].name) ;
+				valores.push(cities[x].name);
+				nameToId[cities[x].name] = cities[x].id;
 			}
-			console.log(obj);
+			console.log(cityObj);
 			var blood_ciudades = new Bloodhound({
 				datumTokenizer: Bloodhound.tokenizers.whitespace,
 				queryTokenizer: Bloodhound.tokenizers.whitespace,
-				local: obj
+				local: cityObj
 			});
 
-
+			var blood_aeropuertos = new Bloodhound({
+				datumTokenizer: Bloodhound.tokenizers.whitespace,
+				queryTokenizer: Bloodhound.tokenizers.whitespace,
+				local: []
+			});
 
 			$('.typeahead').typeahead(
 							{
 									minLength: 1,
 									highlight: true
 							},
-						// {
-						// 		name: 'Aeropuertos',
-						// 		source: blood_aeropuertos,
-						// 		limit: 2,
-						// },
+							{
+									name: 'Aeropuertos',
+									source: blood_aeropuertos,
+									limit: 2,
+									templates: {
+											header: '<p class="center dataset-title">Aeropuertos</p><div class="divider"></div>',
+											notFound: '<p class="center dataset-title">Aeropuertos</p><div class="divider"></div><div class="center">Sin resultados</div>'
+									}
+							},
 							{
 									name: 'Ciudades',
+
 									limit: 3,
 									source: blood_ciudades,
+									templates: {
+											header: '<div class="divider"></div><p class="center dataset-title">Ciudades</p><div class="divider"></div>',
+											notFound: '<div class="divider"></div><p class="center dataset-title">Ciudades</p><div class="divider"></div><div class="center">Sin resultados</div>'
+									}
 							}
 			);
 			};
 
-
-
-
+*/
 			//Implementacion de Flickr
 		  var apiurl=new Array();
 		  var to=new Array();
@@ -146,12 +179,12 @@ $(document).ready(function(){
 
 
 		$('img.offer-img').on('click', function() {
-			var from = $("#from_input");
-			var to = $("#to_input");
+			var from = $("#from input");
+			var to = $("#to input");
 			var picker = $('#departing .datepicker').pickadate('picker');
-			from.typeahead('val',$(this).attr("from"));
+			from.val($(this).attr("from"));
 			from.focus();
-			to.typeahead('val',$(this).attr("to")); /*$(this).attr("value") next update incoming*/
+			to.val($(this).attr("to")); /*$(this).attr("value") next update incoming*/
 			to.focus();
 			to.blur();
 			event.stopPropagation();
@@ -160,17 +193,13 @@ $(document).ready(function(){
 		});
 
 		$('#crossicon').on('click', function() {
-			var from = $("#from_input");
-			var to = $("#to_input");
-			var from_val = from.typeahead('val');
-			var to_val = to.typeahead('val');
-			alert(from.typeahead('val'));
-			var cache=from_val
-			from.typeahead('val',to_val);
-			to.typeahead('val',cache);
-			// to.val(from_val)
-			// from.val(to_val);
-			// from.focus();
+			var from = $("#from_`input");
+			var to = $("#to input");
+			var from_val = from.val();
+			var to_val = to.val();
+			to.val(from_val)
+			from.val(to_val);
+			from.focus();
 			to.focus();
 			to.blur();
 
@@ -182,23 +211,6 @@ $(document).ready(function(){
 				$(this).attr("class"," material-icons");
 			stars_before.attr("class"," material-icons clickable");
 			stars_next.attr("class"," material-icons grey-text text-lighten-1 clickable");
-
-
-
-		});
-
-		$('#recommend .material-icons.clickable').on('click', function() {
-			if($(this).attr("id") == "yes"){
-				$(this).attr("class","material-icons green-text  clickable ");
-				$(this).attr("selected","");
-				$("#recommend .material-icons.clickable#no").attr("class","material-icons grey-text text-lighten-1 clickable");
-				$("#recommend .material-icons.clickable#no").removeAttr("selected");
-			}else{
-				$(this).attr("class","material-icons red-text  clickable");
-				$(this).attr("selected","");
-				$("#recommend .material-icons.clickable#yes").attr("class","material-icons grey-text text-lighten-1 clickable");
-				$("#recommend .material-icons.clickable#yes").removeAttr("selected");
-			}
 
 
 
@@ -256,7 +268,6 @@ $(document).ready(function(){
 		$('.parallax').parallax({});
 		 $('select').material_select();
 
-
 		$(".dropdown-button#passengers").on('click',function(){
 			if(!$(this).attr("closed")){
 				$(this).attr("closed","true");
@@ -304,23 +315,23 @@ $(document).ready(function(){
 		});
 
 
-		// function fillAirportsAutocomplte(data){
-		//   console.log(data.total);
-		//   var total = data.total;
-		//   var airports = data.airports;
-		//   var airportObj = {};
-		//   for(var x = 0 ; x<total ; x++ ){
-		//     airportObj[airports[x].description] = null;
-		//     airportObj[airports[x].description.split(", ")[1]] = null;
-		//     valores.push(airports[x].description);
-		//     valores.push(airports[x].description.split(", ")[1]);
-		//     nameToId[airports[x].description] = airports[x].id;
-		//     nameToId[airports[x].description.split(", ")[1]] = airports[x].id;
-		//   }
-		//   $('#from_input,#to_input').autocomplete({
-		//     data: airportObj,
-		//   });
-		// }
+		function fillAirportsAutocomplte(data){
+		  console.log(data.total);
+		  var total = data.total;
+		  var airports = data.airports;
+		  var airportObj = {};
+		  for(var x = 0 ; x<total ; x++ ){
+		    airportObj[airports[x].description] = null;
+		    airportObj[airports[x].description.split(", ")[1]] = null;
+		    valores.push(airports[x].description);
+		    valores.push(airports[x].description.split(", ")[1]);
+		    nameToId[airports[x].description] = airports[x].id;
+		    nameToId[airports[x].description.split(", ")[1]] = airports[x].id;
+		  }
+		  $('#from_input,#to_input').autocomplete({
+		    data: airportObj,
+		  });
+		}
 
 		// 	function fillCitiesAutocomplte(data){
 		// 	  console.log(data.total);
@@ -337,27 +348,7 @@ $(document).ready(function(){
 		// 	  });
 		// 	}
 
-		$('#send-review').on('click',function(){
-			var review = {};
-			var airline = {};
-			var flight = {};
-			var rating = {};
-			airline["id"] = $("#review-modal #aerolinea").val();
-			flight["airline"]=airline;
-			flight["number"]=$("#review-modal #vuelo").val();
-			review["flight"]=flight;
-			for(var x = 1 ; x<7 ; x++){
-				var type = $("#review-modal #opinion-row-"+x).children(":first-child").attr("id");
-				var score = $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children(":not(.grey-text)").length * 2;
-				rating[type]= score;
 
-			}
-			review["rating"]=rating;
-			review["yes recommend"]= ($("#recommend .material-icons.clickable[selected]").attr("id") == "yes")+"";
-			review["comments"]= $("#review-modal #comments").val();
-			console.log(review);
-
-		})
 
 		$('#search-icon').on('click',function(){
 			var mode= $('#search [selected]').attr("id");

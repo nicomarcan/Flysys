@@ -44,15 +44,48 @@ var form='<div class="container-fluid row passangerform">\
     </div>';
 
 $(document).ready(function(){
-    $('select').material_select();
-    var cant_pa=getUrlParameter("pasajeros");
-    for (i = 1; i < parseInt(cant_pa); i++) {
-      $(".passangerform").after(form);
-      console.log(i);
-    }
-    $('.eliminar').click(function(){
-        $(this).closest(".passangerform").remove();
-    })
-    $('.datepicker').pickadate({
-    });
+
+
+function getCountries(data){
+  var paises = data.countries;
+  var valores=[];
+  var airportObj = {};
+  for(var x = 0 ; x<paises.length ; x++ ){
+    // airportObj[airports[x].description] = null;
+    // airportObj[airports[x].description.split(", ")[1]] = null;
+     valores.push(paises[x].name);
+    // valores.push(airports[x].description.split(", ")[1]);
+    // nameToId[airports[x].description] = airports[x].id;
+    // nameToId[airports[x].description.split(", ")[1]] = airports[x].id;
+  }
+  console.log(valores);
+}
+function getCities(data){
+  var ciudades = data.cities;
+  var valores=[];
+  var airportObj = {};
+  for(var x = 0 ; x<ciudades.length ; x++ ){
+    // airportObj[airports[x].description] = null;
+    // airportObj[airports[x].description.split(", ")[1]] = null;
+     valores.push(ciudades[x].name.split(',')[0]);
+    // valores.push(airports[x].description.split(", ")[1]);
+    // nameToId[airports[x].description] = airports[x].id;
+    // nameToId[airports[x].description.split(", ")[1]] = airports[x].id;
+  }
+  console.log(valores);
+}
+fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcountries",getCountries,undefined);
+fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities",getCities,undefined);
+
+  $('select').material_select();
+  var cant_pa=getUrlParameter("pasajeros");
+  for (i = 1; i < parseInt(cant_pa); i++) {
+    $(".passangerform").after(form);
+    console.log(i);
+  }
+  $('.eliminar').click(function(){
+      $(this).closest(".passangerform").remove();
+  })
+  $('.datepicker').pickadate({
+  });
 });
