@@ -57,10 +57,9 @@ $(document).ready(function(){
 				valores.push(airports[x].description.split(", ")[1]);
 				obj.push(airports[x].description) ;
 				valores.push(airports[x].description);
-				nameToId[airports[x].description.split(", ")[1]] = airports[x].id;
+				nameToId[airports[x].description.split(", ")[1]] = airports[x].city.id;
 				nameToId[airports[x].description] = airports[x].id;
 			}
-			console.log(obj);
 			var blood_ciudades = new Bloodhound({
 				datumTokenizer: Bloodhound.tokenizers.whitespace,
 				queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -85,6 +84,7 @@ $(document).ready(function(){
 									source: blood_ciudades,
 							}
 			);
+			console.log(nameToId);
 			};
 
 
@@ -124,7 +124,7 @@ $(document).ready(function(){
 	      function getImages(apiurl){
 
 		      for(var k = 0;k<11;k++){
-		      	console.log(apiurl[k]);
+		      	//console.log(apiurl[k]);
 		    	 $.getJSON(apiurl[k] , function(data){
 									    var item = data.photos.photo[0];
 									    var photo= $('#offer-img-'+j);
@@ -135,7 +135,7 @@ $(document).ready(function(){
 									     photo.attr("from","Buenos Aires");
 										return false;
 				});
-		    	 console.log(k);
+		    	// console.log(k);
 		   	}
 		  }
 
