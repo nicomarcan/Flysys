@@ -44,6 +44,7 @@ var form='<div class="container-fluid row passangerform">\
     </div>';
 
 $(document).ready(function(){
+    $('select').material_select();
     var cant_pa=getUrlParameter("pasajeros");
     for (i = 1; i < parseInt(cant_pa); i++) {
       $(".passangerform").after(form);
