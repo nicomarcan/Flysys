@@ -100,24 +100,15 @@ $(document).ready(function(){
 									minLength: 1,
 									highlight: true
 							},
-							{
-									name: 'Aeropuertos',
-									source: blood_aeropuertos,
-									limit: 2,
-									templates: {
-											header: '<p class="center dataset-title">Aeropuertos</p><div class="divider"></div>',
-											notFound: '<p class="center dataset-title">Aeropuertos</p><div class="divider"></div><div class="center">Sin resultados</div>'
-									}
-							},
+						// {
+						// 		name: 'Aeropuertos',
+						// 		source: blood_aeropuertos,
+						// 		limit: 2,
+						// },
 							{
 									name: 'Ciudades',
-
 									limit: 3,
 									source: blood_ciudades,
-									templates: {
-											header: '<div class="divider"></div><p class="center dataset-title">Ciudades</p><div class="divider"></div>',
-											notFound: '<div class="divider"></div><p class="center dataset-title">Ciudades</p><div class="divider"></div><div class="center">Sin resultados</div>'
-									}
 							}
 			);
 			};

@@ -216,30 +216,28 @@ li.inline p{
 .tt-menu {
     overflow-y: auto;
     margin: 0;
-    padding: 8px 0;
     background-color: #fff;
     border: 1px solid #ccc;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
     box-shadow: 0 5px 10px rgba(0,0,0,.2);
 }
 
 .tt-suggestion {
-    padding: 3px 20px;
+    color: #26a69a;
+    padding: 10px 20px 10px 20px;
     font-size: 1rem;
-    text-align: center;
     line-height: 24px;
+    transition:background-color .3s;
 }
 
 .tt-suggestion:hover {
     cursor: pointer;
     color: #fff;
-    background-color: #0097cf;
+    background-color: #26a69a;
 }
 
 .tt-suggestion.tt-cursor {
     color: #fff;
-    background-color: #0097cf;
+    background-color: #26a69a;
 }
 
 .tt-suggestion p {
