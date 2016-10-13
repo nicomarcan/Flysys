@@ -71,6 +71,51 @@ $(document).ready(function(){
 			}
 		});
 
+	    var apiurl=new Array();
+		var j = 1;
+		var src;
+		var photo;
+	      $.ajax({
+	     	type: 'GET',
+			url: 'http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getflightdeals&from=BUE',
+			dataType: 'jsonp',
+			success: function (alfa) {
+					if (alfa.error == undefined) {				
+						var ciudades = alfa.deals;	
+						var size = ciudades.length;
+						var random = parseInt((Math.random() * (ciudades.length-12 + 1)), 10) ;
+						var limit = random+11;
+						for( ; random< limit ; random++ ){
+							var split = ciudades[random].city.name.split(",")[0].split(" ");
+							var noSpacesCity="";
+							$.each(split,function(i,item){
+								noSpacesCity+=item;
+							});
+							console.log(noSpacesCity);
+							apiurl.push('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e3dae01fb6981aeab9b4b352ceb8a59a&tags='+noSpacesCity+'&tag_mode=all&format=json&jsoncallback=?');									  
+						}      
+				}
+				getImages(apiurl);
+			}
+		});
+
+	      function getImages(apiurl){
+
+		      for(var k = 0;k<11;k++){
+		      	console.log(apiurl[k]);
+		    	 $.getJSON(apiurl[k] , function(data){			
+									    var item = data.photos.photo[0];				
+									    var photo= $('#offer-img-'+j); 
+									    j++;
+									     src = "http://farm"+ item.farm +".static.flickr.com/"+ item.server +"/"+ item.id +"_"+ item.secret +"_m.jpg";
+									     photo.attr("src",src);							
+										return false;
+				});
+		    	 console.log(k);
+		   	}
+		  }
+		
+ 
 
 
 		 $('.modal-trigger').leanModal();
@@ -260,5 +305,12 @@ $(document).ready(function(){
         }
     }
 });
+
+   
+	
+	
+	
+	
+
 
 });
