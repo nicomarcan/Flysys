@@ -185,6 +185,7 @@ li.inline p{
 
 /*ESTILOS DEL AUTOCOMPLETE*/
 /*estilo css para typeahead*/
+/*
 .typeahead {
     display: block;
 }
@@ -192,7 +193,7 @@ li.inline p{
 .typeahead,
 .tt-query,
 .tt-hint {
-    /*width: 396px;*/
+    /*width: 396px;*//*
     height: 30px;
     padding: 8px 12px;
     font-size: 24px;
@@ -252,4 +253,6 @@ li.inline p{
 .miniText {
     font-size: 3px;
 }
+*/
 /*fin de typeahead*/
+
