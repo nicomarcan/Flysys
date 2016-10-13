@@ -55,7 +55,7 @@ min-height: 1700px;
    background-attachment: fixed;
     background-position: top;
     background-repeat: no-repeat;
-    background-size: cover; 
+    background-size: cover;
 }
 
 
@@ -552,3 +552,76 @@ a.info_breadcrumbs.breadcrumb::before {
 
 
 
+/*ESTILOS DEL AUTOCOMPLETE*/
+/*estilo css para typeahead*/
+
+.typeahead {
+    display: block;
+}
+.twitter-typeahead{
+  display:block !important;
+}
+
+.typeahead,
+.tt-query,
+.tt-hint {
+    /*width: 396px;*/
+    height: 30px;
+    padding: 8px 12px;
+    font-size: 24px;
+    line-height: 30px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+
+
+
+.tt-query {
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+    color: #999
+}
+
+.tt-menu {
+    overflow-y: auto;
+    margin: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+    color: #26a69a;
+    padding: 10px 20px 10px 20px;
+    font-size: 1rem;
+    line-height: 24px;
+    transition: background-color .3s;
+}
+
+.tt-suggestion:hover {
+    cursor: pointer;
+    color: #fff;
+    background-color: #26a69a;
+}
+
+.tt-suggestion.tt-cursor {
+    color: #fff;
+    background-color: #26a69a;
+}
+
+.tt-suggestion p {
+    margin: 0;
+}
+
+.gist {
+    font-size: 14px;
+}
+
+.miniText {
+    font-size: 3px;
+}
+
+/*fin de typeahead*/

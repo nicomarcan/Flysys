@@ -1,5 +1,13 @@
-.color1,.color1.page-footer {
+.color1,.color1.page-footer,.search-panel.color1 {
   background-color: #263238;
+}
+
+.color3 {
+  background-color: #455a64;
+}
+
+.btn {
+  padding: 0 1em 0 1em;
 }
 
 .btn:hover {
@@ -15,12 +23,12 @@
   background-color: #ffffff;
 }
 
-.color2{
-  background-color: #e8eaf6    ;
+.color2 {
+  background-color: #e8eaf6 ;
 }
 
 .central-space {
-  height: 100em;
+  min-height: 100em;
 }
 
 
@@ -76,16 +84,22 @@ footer.page-footer {
   margin-bottom: 3em;
 }
 
+.tabs {
+  background-color: transparent;
+}
+
 .tabs .tab a{
-  color: rgb(38, 166, 154);
+  background-color: transparent;
+  color: #eceff1;
 }
 
 .tabs .tab a:hover{
-  color: inherit;
+  color: #eceff1;
 }
 
 .tabs .indicator {
-  background-color: rgb(38, 166, 154);
+  background-color: transparent;
+  background-color: #eceff1;
 }
 
 .search-panel{
@@ -97,8 +111,16 @@ footer.page-footer {
 }
 
 .search-panel div input{
-  margin: 1em auto 1em auto;
+  margin: 1em auto 0 auto;
   padding: .3em 0 .3em 0;
+}
+
+.search-panel div.last{
+  margin-bottom: 1em;
+}
+
+.search-panel div > span.twitter-typeahead {
+  width: 100%;
 }
 
 .search-panel .row{
@@ -240,4 +262,79 @@ div.noUi-tooltip {
 
 #date1 > input,#date2 > input {
   margin-bottom: 0;
+}
+
+/*ESTILOS DEL AUTOCOMPLETE*/
+/*estilo css para typeahead*/
+
+.typeahead {
+    display: block;
+}
+
+.typeahead,
+.tt-query,
+.tt-hint {
+    /*width: 396px;*/
+    height: 30px;
+    padding: 8px 12px;
+    font-size: 24px;
+    line-height: 30px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+
+
+
+.tt-query {
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+    color: #999
+}
+
+.tt-menu {
+    overflow-y: auto;
+    margin: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+    color: #26a69a;
+    padding: 10px 20px 10px 20px;
+    font-size: 1rem;
+    line-height: 24px;
+    transition:background-color .3s;
+}
+
+.tt-suggestion:hover {
+    cursor: pointer;
+    color: #fff;
+    background-color: #26a69a;
+}
+
+.tt-suggestion.tt-cursor {
+    color: #fff;
+    background-color: #26a69a;
+}
+
+.tt-suggestion p {
+    margin: 0;
+}
+
+.gist {
+    font-size: 14px;
+}
+
+.miniText {
+    font-size: 3px;
+}
+
+/*fin de typeahead*/
+
+.row.results-container {
+  background-color: #efebe8
 }

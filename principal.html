@@ -56,7 +56,7 @@
                        <input type="text" id="from_input" name="from_input" class="typeahead " placeholder="Desde"/>
                         <label for="from_input" data-error="wrong" data-success="right"></label>
                         <span id="from_input_error" class="red-text"></span>
-                     <div>
+                     </div>
                     </li>
                     <li>
                       <i class=" material-icons clickable" id="crossicon">swap_horiz</i>
@@ -104,11 +104,12 @@
                    </li>
 
                 </ul>
+              </form>
             </div>
 
           </div>
 
-        </form>
+        
 
 
     <div class="section  container-fluid center offers-text offers-back" >
@@ -169,17 +170,22 @@
 
     <div id="review-modal" class="modal">
 		    <div class="modal-content">
-		            <form >
+
+		      <form >
 					  <div class="row">
-						  <div class="input-field col s6 ">
-			                <input id="aerolinea" type="text" class="validate"/>
-			                <label for="aerolinea">Nombre de Aerolinea</label>
-			              </div>
+						  <div class="input-field col s6 " style="">
+                       <input type="text" id="airlines_input" name="airlines_input" class="typeahead" placeholder="Nombre de la Aerolinea"/>
+                        <label for="airlines_input" data-error="wrong" data-success="right"></label>
+                        <span id="airlines_input_error" class="red-text"></span>
+			         </div>
+
 							<div class="input-field col s6">
 			                <input id="vuelo" type="text" class="validate"/>
 			                <label for="vuelo">Número de Vuelo</label>
-			              </div>
-			          </div>
+			       </div>
+			       </div>
+
+
 			           <div class="row" id="opinion-row-1" >
 			           <div class="col s3 " id ="friendliness" >
 				            <p>Amabilidad</p>

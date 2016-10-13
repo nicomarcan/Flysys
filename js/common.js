@@ -1,8 +1,9 @@
-function fajax(aurl,fsuccess,ferror){
-    var urlfinal="http://hci.it.itba.edu.ar/v1/api/misc.groovy?"+aurl;
-    console.log('Iniciando ajax a:'+urlfinal);
+function fajax(aurl,datos,fsuccess,ferror){
+    var urlfinal=aurl;
+    // console.log('Iniciando ajax a:'+urlfinal);
     $.ajax({
         type:'GET',
+        data: datos,
         dataType: 'json',
         url: urlfinal,
         success: function(data){
