@@ -25,7 +25,8 @@ $(document).ready(function(){
     formatSubmit: 'yyyy-mm-dd' ,
     min: true
   });
-
+  var values=new Array();
+	var nameToId={};
   var airports_url = 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getairports';
   $.ajax({
     type: 'GET',
@@ -33,7 +34,7 @@ $(document).ready(function(){
     dataType: 'json' ,
     success: function(d){
       if(d.total<=d.page_size){
-        fillAirportsAutocomplte(d);
+        fillAirportsAutocomplte(d,values,nameToId);
       } else {
         $.ajax({
           type: 'GET',
@@ -41,7 +42,7 @@ $(document).ready(function(){
           dataType: 'json',
           data: {page_size:d.total},
           success: function(f){
-            fillAirportsAutocomplte(f);
+            fillAirportsAutocomplte(f,values,nameToId);
           }
         });
       }
@@ -184,22 +185,6 @@ function collapseAll(o = null){
   $(".collapsible").not(o).collapsible({accordion: true});
 }
 
-
-function fillAirportsAutocomplte(data){
-  console.log(data.total);
-  var total = data.total;
-  var airports = data.airports;
-  var airportObj = {};
-  for(var x = 0 ; x<total ; x++ ){
-    var city = airports[x].description.split(", ")[1];
-    airportObj[city] = null;
-    airportObj[airports[x].description] = null;
-  }
-  $('#Origen,#Destino').autocomplete({
-    data: airportObj,
-  });
-}
-
 function getUrlParameter(sParam) {
   var sPageURL = decodeURIComponent(window.location.search.substring(1)),
       sURLVariables = sPageURL.split('&'),
@@ -229,3 +214,37 @@ function addOWResult(total,from,dep,ac,fn,duration,to) {
   });
   $('#results').append(rendered);
 }
+
+function fillAirportsAutocomplte(data,values,nameToId){
+  var total = data.total;
+  var airports = data.airports;
+  var obj = [];
+  for(var x = 0 ; x<total ; x++ ){
+    obj.push(airports[x].description.split(", ")[1]) ;
+    values.push(airports[x].description.split(", ")[1]);
+    obj.push(airports[x].description) ;
+    values.push(airports[x].description);
+    nameToId[airports[x].description.split(", ")[1]] = airports[x].id;
+    nameToId[airports[x].description] = airports[x].id;
+  }
+  console.log(obj);
+  var blood_ciudades = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: obj
+  });
+
+
+
+  $('.typeahead').typeahead(
+          {
+              minLength: 3,
+              highlight: true
+          },
+          {
+              name: 'Ciudades',
+              limit: 3,
+              source: blood_ciudades,
+          }
+  );
+  };
