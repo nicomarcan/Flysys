@@ -122,27 +122,35 @@
 
 			</div>
 			<div class="row" style="padding:5px; margin:0px;">
-				<div class="col s2 opinions_header">
-					OPINIONES
-				</div>
-				<div class="col s4 push-s6" style="top:5px">
-					<ul id="dropdown2" class="dropdown-content">
-	                  <li style="padding:7px;text-align:center;min-height:0px">
-                      Menor puntaje
-                    </li>
-	                  <li style="padding:7px;text-align:center;min-height:0px">
-                      Mayor puntaje
-                    </li>
+				<div class="valign-wrapper">
+					<div class="valign col s8 opinions_header">
+						OPINIONES
+					</div>
+					<div class="valign col s4 tools">
+							<label>ORDENAR POR</label>
+							<select>
+								<option value="1">Menor puntaje</option>
+								<option value="2">Mayor puntaje</option>
+							</select>
+					</div>
+						<!--
+						<div style="float: right">
+							<span class="order_by_indication"> ORDENAR POR: </span>
+							<a class="order_by_button dropdown-button btn" href="#" data-activates="dropdown2" >Menor puntaje</a>
+							<ul id="dropdown2" class="dropdown-content">
+			                  <li style="padding:7px;text-align:center;min-height:0px">
+		                      Menor puntaje
+		                    </li>
+			                  <li style="padding:7px;text-align:center;min-height:0px">
+		                      Mayor puntaje
+		                    </li>
 
-	        </ul>
-					<span class="order_by_indication"> ORDENAR POR: </span>
-
-					<a class="order_by_button dropdown-button btn" href="#" data-activates="dropdown2" >Menor puntaje
-                    </a>
-					<a class="order_by_button dropdown-button btn" href="#" data-activates="dropdown2" style="display:none;">Mayor puntaje
-                    </a>
-				</div>
-
+			        </ul>
+						</div>
+					-->
+						<a class="order_by_button dropdown-button btn" href="#" data-activates="dropdown2" style="display:none;">Mayor puntaje
+	                    </a>
+										</div>
 			</div>
 			<div class="divider" style="margin-bottom:10px"></div>
 			<div id="reviews-container">

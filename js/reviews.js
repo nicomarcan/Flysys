@@ -5,6 +5,8 @@ function displayError(errorcode, errormsg) {
   return errorel;
 }
 
+color_scheme = ["#ff6f31", "#ff9f02", "#ff9f02", "#ffcf02", "#99cc00", "#88b131"];
+
 function parseGET() {
   var ret = {};
   var arr = location.search.substr(1).split("&");
@@ -30,9 +32,10 @@ function updateFlightInfoCard(info) {
   $("#info_arriving_airport").text(arriving_airport.description);
 
 }
-function addScoreBar(name, score) {
-  var ret = "<li class=\"collection-item score_list_element\">";
-  ret += "<div class=\" col s6 \" style=\"font-size:14px; color: #6b6b6b\">";
+
+function addGlobalScoreBar(name, score) {
+  var ret = "<li class=\"collection-item score_list_element\" style='background-color: #f5f4f3;'>";
+  ret += "<div class=\" col s6 \" style=\"font-size:14px; color: #4c4c4c;font-weight: bolder;\">";
   ret += name;
   ret += "</div>";
   ret += "<div class =\"col s6 \" >"
@@ -40,11 +43,25 @@ function addScoreBar(name, score) {
   ret += "<div class=\"determinate\" style=\"width: " + score + "0%\" ></div>";
   ret += "</div></div>";
   return ret;
+
+
+}
+function addScoreBar(name, score) {
+  var ret = "<li class=\"collection-item score_list_element\">";
+  var color_i = parseInt(score / 2);
+  ret += "<div class=\" col s6 \" style=\"font-size:14px; color: #6b6b6b\">";
+  ret += name;
+  ret += "</div>";
+  ret += "<div class =\"col s6 \" >"
+  ret += "<div class =\"progress star_progress \" >";
+  ret += "<div class=\"determinate\" style=\"width: " + score + "0%\; background-color: "+color_scheme[color_i]+"\"></div>";
+  ret += "</div></div>";
+  return ret;
 }
 function addScores(scores) {
-  var ret = "<div class=\"col s7\" style=\"margin:10px auto auto auto\"> \
+  var ret = "<div class=\"col s8\" style=\"margin:10px auto auto auto\"> \
              <ul class=\"collection\">";
-  ret += addScoreBar("Global", scores.overall);
+  ret += addGlobalScoreBar("Global", scores.overall);
   ret += addScoreBar("Amabilidad", scores.friendliness);
   ret += addScoreBar("Comida", scores.food);
   ret += addScoreBar("Puntualidad", scores.punctuality);
@@ -55,7 +72,7 @@ function addScores(scores) {
   return ret;
 }
 function addComment(comment) {
-  var com = "<div class=\"col s5\" style=\"margin:10px auto auto auto;\"> \
+  var com = "<div class=\"col s12\" style=\"margin:10px auto auto auto;\"> \
             <div class = \" divider\"> </div>";
   com += comment.replace(/</g, "&lt;").replace(/>/g, "&gt;");
   com += "</div>";
@@ -65,10 +82,20 @@ function addComment(comment) {
 function addRecomendation(yes_recommend) {
   var rec = "";
   if (yes_recommend) {
-    rec += "<span style=\"color: green; font-size:22px;float:right;\" > RECOMIENDA</span>";
+    rec += "<span style=\"color: green; font-size:22px;\" > \
+              <i class='material-icons tiny'> \
+                thumb_up \
+              </i> \
+              RECOMIENDA \
+            </span>";
   }
   else {
-    rec += "<span style=\"color: red; font-size:22px;float:right;\" > NO RECOMIENDA</span>";
+    rec += "<span style=\"color: red; font-size:22px;\" > \
+              <i class='material-icons tiny'> \
+                thumb_down \
+              </i> \
+              NO RECOMIENDA \
+            </span>";
   }
   return rec;
 }
@@ -98,12 +125,10 @@ function addTitle(comments) {
 
 function createReviewCard(review) {
   var el = "<div class=\" card-panel row hoverable clickable \">";
-  el += "<div class=\"col s12\">";
-  el += addTitle(review.comments);
-  el += addGrade(review.rating.overall);
+  el += "<div class=\"col s4\">";
   el += addRecomendation(review.yes_recommend);
-  el += "</div>"
   el += addComment(review.comments);
+  el += "</div>"
   el += addScores(review.rating);
   el += "</div>";
   return el;
@@ -112,6 +137,7 @@ function createReviewCard(review) {
 $(document).ready(function() {
 
   var airlines = []
+  $('select').material_select();
   /*
   $.ajax({
     url: "http://hci.it.itba.edu.ar/v1/api/misc.groovy",
