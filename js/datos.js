@@ -1,4 +1,4 @@
-var i=1;
+
 var citiesObj = {};
 var countryObj={};
 
@@ -11,10 +11,9 @@ function getCountries(data){
   var airportObj = {};
   for(var x = 0 ; x<paises.length ; x++ ){
      valores.push(paises[x].name);
-     countryObj[paises[x].name.split(',')[0]]=paises[x].id;
+     countryObj[paises[x].id]=paises[x].name;
 
   }
-  console.log(valores);
   var paises = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
     queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -39,9 +38,8 @@ function getCities(data){
   var valores=[];
   for(var x = 0 ; x<ciudades.length ; x++ ){
      valores.push(ciudades[x].name.split(',')[0]);
-     citiesObj[ciudades[x].name.split(',')[0]]=ciudades[x].id;
-  }
-//  localStorage.setItem('citiesObject', citiesObj);
+     citiesObj[ciudades[x].name.split(',')[0]]=[ciudades[x].id,ciudades[x].name.split(',')[1],ciudades[x].country.id];
+   }
   var ciudades = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
     queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -61,35 +59,31 @@ function getCities(data){
   );
   };
 
+  $.ajax({
+    type: 'GET',
+    url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities',
+    dataType: 'json' ,
+    success: function(d){
+      if(d.total<=d.page_size){
+        getCities(d);
+      } else {
+        $.ajax({
+          type: 'GET',
+          url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities',
+          dataType: 'json',
+          data: {page_size:d.total},
+          success: function(f){
+            //fillAirportsAutocomplte(f);
+            getCities(f);
+          }
+        });
+      }
+    }
+  });
 
 fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy",{"method": "getcountries"},getCountries,undefined);
-fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy",{"method": "getcities"},getCities,undefined);
+//fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy",{"method": "getcities"},getCities,undefined);
 
-  $('select').material_select();
-  var cant_adultos=parseInt(getUrlParameter("adults"));
-  var cant_chicos=parseInt(getUrlParameter("children"));
-  var cant_infantes=parseInt(getUrlParameter("infants_val"));
-
-  for (i = 1; i < (cant_adultos+cant_chicos+cant_infantes); i++) {
-    $(".passangerform").after(form);
-    console.log(i);
-  }
-  $('.eliminar').click(function(){
-      $(this).closest(".passangerform").remove();
-  })
-  $('.datepicker').pickadate({
-     monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-     monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
-     weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-     weekdaysShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
-     today: 'Hoy',
-     clear: 'Borrar',
-     close: 'Cerrar',
-     firstDay: 1,
-     format: 'd !de mmmm !de yyyy',
-     formatSubmit: 'yyyy-mm-dd' ,
-     min: true
-   });
   $("#pais").focusout(function(){
     if(countryObj[$(this).val()]==undefined){
         $(this).removeClass("valid");
@@ -106,18 +100,51 @@ fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy",{"method": "getcities"},getC
     }else{
         $(this).removeClass("invalid");
         $(this).addClass("valid");
+        $("#provincia").val(citiesObj[$(this).val()][1]);
+        $("#pais").val(countryObj[citiesObj[$(this).val()][2]]);
     }
   });
-  $(".tipo_id").mouseleave(function(){
-    if($(".selected").text()=="Pasaporte"){
-        $("#pasaporte").removeAttr("pattern");
-        $("#pasaporte").attr("pattern","\\w{1,50}");
-        $("#text_id").text("Pasaporte");
-        console.log($("#pasaporte"))
-    }else{
-        $("#pasaporte").removeAttr("pattern");
-        $("#pasaporte").attr("pattern","\\d{1,50}");
-        $("#text_id").text("Documento");
-    }
-  });
+  function addPassager(num) {
+    var template = $('#pasajero_form').html();
+    Mustache.parse(template);
+    var rendered = Mustache.render(template,{
+      indenti: num
+    });
+    $('nav').after(rendered);
+  }
+
+  function cargoPasajero(nim){
+    addPassager(nim);
+    $('select').material_select();
+    $(".tipo_id"+nim).mouseleave(function(){
+      if($(".selected").text()=="Pasaporte"){
+          $("#pasaporte"+nim).removeAttr("pattern");
+          $("#pasaporte"+nim).attr("pattern","\\w{1,16}");
+          $("#text_id"+nim).text("Pasaporte");
+          console.log($("#pasaporte"))
+      }else{
+          $("#pasaporte"+nim).removeAttr("pattern");
+          $("#pasaporte"+nim).attr("pattern","\\d{1,16}");
+          $("#text_id"+nim).text("Documento");
+      }
+    });
+  }
+
+  var cant_adultos=parseInt(getUrlParameter("adults"));
+  var cant_chicos=parseInt(getUrlParameter("children"));
+  var cant_infantes=parseInt(getUrlParameter("infants"));
+
+  for (var i = 0; i < cant_infantes; i++) {
+    var numero_actual=cant_infantes - i
+    cargoPasajero("infante"+numero_actual);
+  }
+  for (var i = 0; i < cant_chicos; i++) {
+    var numero_actual=cant_chicos - i
+    cargoPasajero("chico"+numero_actual);
+  }
+  for (var i = 0; i < cant_adultos; i++) {
+    var numero_actual=cant_adultos - i
+    cargoPasajero("adulto"+numero_actual);
+  }
+
 });

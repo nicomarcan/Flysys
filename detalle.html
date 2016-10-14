@@ -8,7 +8,6 @@
 	    <link type="text/css" rel="stylesheet" href="css/style.css"/>
 
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <script src="js/datos.js"></script>
 
 
     </head>
@@ -25,9 +24,9 @@
 		<div class="container-fluid row passangerform">
 			<div class="col s7 offset-s1">
 
-				<div class="card-panel row">
-            <div class="col">
-                Detalle del vuelo
+				<div class="card-panel row" id="contenedor_detalle">
+            <div class="col" id="detalle">
+                Detalle del vuelo<br/>
 								Numero de vuelo<br/>
 								Fecha<br/>
 								Hora de salida<br/>
@@ -36,15 +35,13 @@
 								Aeropuerto destino:<br/>
 								Precio:<br/>
 								Precio por infante:<br/>
-
-
             </div>
 
         </div>
       </div>
 
 			<div class="col s3">
-				<div class="card-panel row">
+				<div class="card-panel row " id="facturacion">
 					Detalle de facturacion<br/>
 					Adultos:<br/>
 					Ninios:<br/>
@@ -118,9 +115,34 @@
           </div>
       </div>
     </footer>
+		<script type="x-tmpl-mustache" id="detallevuelo">
+			Detalle del vuelo<br/>
+			Numero de vuelo{{id_vuelo}}<br/>
+			Fecha{{fecha_vuelo}}<br/>
+			Hora de salida{{hora_sal_vuelo}}<br/>
+			Hora de llegada{{hora_lle_vuelo}}<br/>
+			Aeropuerto de origen:{{origen_vuelo}}<br/>
+			Aeropuerto destino:{{destino_vuelo}}<br/>
+			Precio:{{precio_vuelo}}<br/>
+			Precio por chico:{{precio_chico_vuelo}}<br/>
+			Precio por infante:{{precio_infante_vuelo}}<br/>
+		</script>
+		<script type="x-tmpl-mustache" id="detalletarjeta">
+			Numero de tarjeta:{{id}}<br/>
+			DNI:{{dni}}<br/>
+			Nombre:{{fname}}<br/>
+			Apellido:{{lname}}<br/>
+			Calle:{{street}}<br/>
+			Piso:{{floor}}<br/>
+			Departamento:{{section}}<br/>
+			Ciudad:{{city}}<br/>
+			Provincia:{{State}}<br/>
+			Pais:{{Country}}<br/>
+		</script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-    <script src="js/datos.js"></script>
+		<script type="text/javascript" src="js/mustache.min.js"></script>
     <script src="js/common.js"></script>
+		<script src="js/detalle.js"></script>
 </body>
 </html>
