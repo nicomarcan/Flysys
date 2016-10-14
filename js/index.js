@@ -88,7 +88,7 @@ $(document).ready(function(){
 			});
 
 
-				$('.typeahead#airlines_input').typeahead(
+				$('.typeahead#airlines_input,.typeahead#airline_search').typeahead(
 								{
 										minLength: 1,
 										highlight: true
@@ -128,7 +128,7 @@ $(document).ready(function(){
 
 
 
-			$('.typeahead:not(#airlines_input)').typeahead(
+			$('.typeahead#from_input,.typeahead#to_input').typeahead(
 							{
 									minLength: 1,
 									highlight: true
@@ -173,6 +173,7 @@ $(document).ready(function(){
 								$.each(split,function(i,item){
 									noSpacesCity+=item;
 								});
+
 								//console.log(noSpacesCity);
 								apiurl.push('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e3dae01fb6981aeab9b4b352ceb8a59a&tags='+noSpacesCity+'&tag_mode=all&format=json&jsoncallback=?');
 							}
@@ -238,13 +239,40 @@ $(document).ready(function(){
 		$('.star_group .material-icons.clickable').on('click', function() {
 			var stars_before= $(this).prevAll();
 			var stars_next= $(this).nextAll();
-				$(this).attr("class"," material-icons");
+			$(this).attr("class"," material-icons");
+			stars_before.attr("class"," material-icons clickable");
+			stars_next.attr("class"," material-icons grey-text text-lighten-1 clickable");
+			$(this).attr("clicked","clicked");
+			stars_before.attr("clicked","clicked");
+			stars_next.removeAttr("clicked");
+
+
+
+		});
+
+		$('.star_group .material-icons.clickable').on('mouseover', function() {
+
+			var stars_before= $(this).prevAll();
+			var stars_next= $(this).nextAll();
+			$(this).attr("class"," material-icons");
 			stars_before.attr("class"," material-icons clickable");
 			stars_next.attr("class"," material-icons grey-text text-lighten-1 clickable");
 
 
 
 		});
+
+		$('.star_group .material-icons.clickable').on('mouseleave', function() {
+
+			if($(this).attr("clicked")=="clicked"){
+				$(this).nextAll(":not([clicked])").attr("class"," material-icons grey-text text-lighten-1 clickable");
+				$(this).nextAll("[clicked]").attr("class"," material-icons  clickable");
+			}else{
+				$(this).attr("class"," material-icons grey-text text-lighten-1 clickable");
+				$(this).prevAll(":not([clicked])").attr("class"," material-icons grey-text text-lighten-1 clickable");
+			}
+		});
+
 
 		$('#recommend .material-icons.clickable').on('click', function() {
 			if($(this).attr("id") == "yes"){
@@ -317,6 +345,7 @@ $(document).ready(function(){
 
 
 		$(".dropdown-button#passengers").on('click',function(){
+			event.stopPropagation();
 			if(!$(this).attr("closed")){
 				$(this).attr("closed","true");
 				$(this).click();
@@ -326,10 +355,12 @@ $(document).ready(function(){
 			}
 
 		});
-		$("#dropdown1").mouseleave(function(){
+	
+
+		$("#dropdown1").on("mouseleave",function(){
 			$('.dropdown-button#passengers').dropdown('close');
 		});
-
+	
 		$("#open-button").on('click',function(){
 			$('.dropdown-button#passengers').dropdown('open');
 		});
@@ -417,27 +448,41 @@ $(document).ready(function(){
 			}
 			review["rating"]=rating;
 			review["yes_recommend"]= ($("#recommend .material-icons.clickable[selected]").attr("id") == "yes");
-			review["comments"]= $("#review-modal #comments").val();
+			review["comments"]= encodeURIComponent($("#review-modal #comments").val());
 
 
 
-			 var review_url = 'http://hci.it.itba.edu.ar/v1/api/review.groovy?method=reviewairline';
-			  $.ajax({
-			     type: "POST",
-		        url: review_url,
-                  contentType: 'application/json',
-	         	 data: JSON.stringify(review),
-			    success: function(d){
-			      if(d.error == undefined){
+			 // var review_url = 'http://hci.it.itba.edu.ar/v1/api/review.groovy?method=reviewairline';
+			 //  $.ajax({
+			 //     type: "POST",
+		  //       url: review_url,
+    //               contentType: 'application/json',
+	   //       	 data: JSON.stringify(review),
+			 //    success: function(d){
+			 //      if(d.error == undefined){
 			      	
-			      }else{
-			      	console.log(d);
-			      	console.log(review);
+			 //      }else{
+			 //      	console.log(d);
+			 //      	console.log(review);
 
-			      }
-			    }
-			  });
+			 //      }
+			 //    }
+			 //  });
 
+
+		
+
+		});
+
+		$('#review-btn').on('click',function(){
+			$("#review-modal #airlines_input").val("") ;
+			$("#review-modal #vuelo").val("");
+			 for(var x = 1 ; x<7 ; x++){
+				 $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children().attr("class"," material-icons grey-text text-lighten-1 clickable")
+			 }
+           $("#recommend .material-icons.clickable").removeAttr("selected");
+           $("#recommend .material-icons.clickable").attr("class","material-icons grey-text text-lighten-1 clickable");
+			$("#review-modal #comments").val("");
 		});
 
 		$('#search-icon').on('click',function(){
@@ -456,7 +501,14 @@ $(document).ready(function(){
 
 
 
-
+		  $("form#airline_search_form").submit(function(event) {
+		    var search_info = $("input#airline_search").typeahead('val');
+		    if (nameToId[search_info] != undefined) {
+		      $("input#airline_search_id").val(nameToId[search_info]);
+		      return true;
+		    }
+		    return false;
+		  });
 
 
 
