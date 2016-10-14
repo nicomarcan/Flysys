@@ -137,7 +137,7 @@ function createReviewCard(review) {
   el += "<div class=\"col s4\">";
   el += addFlightNumber(review.flight.airline.id, review.flight.number)
   el += "<div class='divider'></div>";
-  el += addComment(review.comments);
+  el += addComment(decodeURIComponent(review.comments));
   el += "</div>"
   el += "<div class='col s8'>";
   el += addRecomendation(review.yes_recommend);
