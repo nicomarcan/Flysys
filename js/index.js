@@ -416,18 +416,20 @@ $(document).ready(function(){
 
 			}
 			review["rating"]=rating;
-			review["yes recommend"]= ($("#recommend .material-icons.clickable[selected]").attr("id") == "yes");
+			review["yes_recommend"]= ($("#recommend .material-icons.clickable[selected]").attr("id") == "yes");
 			review["comments"]= $("#review-modal #comments").val();
+
+
 
 			 var review_url = 'http://hci.it.itba.edu.ar/v1/api/review.groovy?method=reviewairline';
 			  $.ajax({
-			    type: 'POST',
-			    data:review,
-			    url: review_url,
-			    dataType: 'json' ,
+			     type: "POST",
+		        url: review_url,
+                  contentType: 'application/json',
+	         	 data: JSON.stringify(review),
 			    success: function(d){
 			      if(d.error == undefined){
-			      	alert("jeje");
+			      	
 			      }else{
 			      	console.log(d);
 			      	console.log(review);
@@ -436,7 +438,7 @@ $(document).ready(function(){
 			    }
 			  });
 
-		})
+		});
 
 		$('#search-icon').on('click',function(){
 			var mode= $('#search [selected]').attr("id");
