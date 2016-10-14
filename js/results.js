@@ -15,7 +15,7 @@ var s1,s2;
 * and airline names.
 */
 var total,duration,airline;
-var currCrit;
+var currCrit,currPage;
 
 $(document).ready(function(){
 
@@ -142,11 +142,10 @@ $(document).ready(function(){
         total = t_total.inOrder() ;
         duration = t_duration.inOrder();
         airline = t_airline.inOrder();
-        addOWResultS(total,0,pageSize);
-        initializeCollapsibles();
         var pages = s1.length/pageSize + (s1.length%pageSize == 0 ? 0:1);
         insertPaginator(pages);
         currCrit = 0;
+        setCurrPage(0);
       } else {
         /*
         * Request return flights from dst to src
@@ -248,28 +247,47 @@ $(document).ready(function(){
 
   $("div.tool-element.currency ul.dropdown-content.select-dropdown li").click(function(event){
     var criterium = $(this).text();
-    $('#results').empty();
     switch (criterium) {
       case "Precio":
-        addOWResultS(total,0,pageSize);
         currCrit = 0;
+        setCurrPage(0);
         break;
       case "Duración":
-        addOWResultS(duration,0,pageSize);
         currCrit = 1;
+        setCurrPage(0);
         break;
       case "Aerolínea":
-        addOWResultS(airline,0,pageSize);
         currCrit = 2;
+        setCurrPage(0);
         break;
       default:
         return false;
     }
     return true;
   });
-
-
 });
+
+function setCurrPage(page){
+  $('#results').empty();
+  switch (currCrit) {
+    case 0:
+      addOWResultS(total,page,pageSize);
+      break;
+    case 1:
+      addOWResultS(duration,page,pageSize);
+      break;
+    case 2:
+      addOWResultS(airline,page,pageSize);
+      break;
+    default:
+      return false;
+  }
+  var paginators = $('#paginator li');
+  $(paginators[currPage]).removeClass("active");
+  $(paginators[page]).addClass("active");
+  currPage=page;
+  initializeCollapsibles();
+}
 
 function initializeCollapsibles() {
   $(".collapsible").collapsible({
@@ -317,7 +335,6 @@ function getUrlParameter(sParam) {
 }
 
 function insertPaginator(npags){
-  $('#paginator').append('<li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>');
   var template = $("#paginator-item").html();
   Mustache.parse(template);
   for(var i=1; i<=npags; i++){
@@ -328,7 +345,6 @@ function insertPaginator(npags){
     });
     $("#paginator").append(rendered);
   }
-  $('#paginator').append('<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>');
 }
 
 function addOWResult(total,from,dep,ac,fn,duration,to) {

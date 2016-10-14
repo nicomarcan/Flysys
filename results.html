@@ -16,7 +16,7 @@
   </head>
   <body>
     <script type="x-tmpl-mustache" id="paginator-item">
-      <li class="{{activeness}} waves-effect"><a href="#!">{{number}}</a></li>
+      <li class="{{activeness}} waves-effect"><a onclick="setCurrPage(parseInt($(this).text()-1))">{{number}}</a></li>
     </script>
 
     <script type="x-tmpl-mustache" id="row">
