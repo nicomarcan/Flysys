@@ -17,7 +17,8 @@ var total,duration,airline;
 
 $(document).ready(function(){
 
-  var url = 'http://hci.it.itba.edu.ar/v1/api/booking.groovy' ;
+  var booking = 'http://hci.it.itba.edu.ar/v1/api/booking.groovy' ;
+  var geo = 'http://hci.it.itba.edu.ar/v1/api/geo.groovy';
 
   $(".dropdown-button").dropdown();
   $('select').material_select();
@@ -48,7 +49,7 @@ $(document).ready(function(){
 	var nameToId={};
   $.ajax({
     type: 'GET',
-    url: url,
+    url: geo,
     dataType: 'json' ,
     data: {
       method: 'getairports'
@@ -59,9 +60,12 @@ $(document).ready(function(){
       } else {
         $.ajax({
           type: 'GET',
-          url: airports_url,
+          url: geo,
           dataType: 'json',
-          data: {page_size:d.total},
+          data: {
+            method: 'getairports',
+            page_size:d.total
+          },
           success: function(f){
             fillAirportsAutocomplte(f,values,nameToId);
           }
@@ -98,7 +102,7 @@ $(document).ready(function(){
 
   $.ajax({
     type: 'GET',
-    url: url,
+    url: booking,
     dataType: 'json',
     data: {
       method: 'getonewayflights',
@@ -128,7 +132,7 @@ $(document).ready(function(){
                  s1[b].outbound_routes[0].segments[0].airline.name
           );
         });
-        for(var i = 0; i<flights.length ; i++){
+        for(var i = 0; i<s1.length ; i++){
           t_total.insert(i);
           t_duration.insert(i);
           t_airline.insert(i);
@@ -144,7 +148,7 @@ $(document).ready(function(){
         */
         $.ajax({
           type: 'GET',
-          url: url,
+          url: booking,
           dataType: 'json',
           data: {
             method: 'getonewayflights',
@@ -358,5 +362,5 @@ function fillAirportsAutocomplte(data,values,nameToId){
 
   function timeToMins(t){
     var s = t.split(":");
-    return s[0].parseInt()*60 + s[1].parseInt();
+    return parseInt(s[0])*60 + parseInt(s[1]);
   }
