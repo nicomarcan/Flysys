@@ -74,6 +74,15 @@ a.write_review_button.waves-effect.waves-light {
   font-size:14px;
 }
 
+a.flight_number_link {
+	font-size: 32px;
+	color: black;
+	font-weight: lighter;
+}
+a.flight_number_link:hover {
+	border-bottom: solid 1px black;
+}
+
 .opinions_header {
 	font-size: 32px;
 	color: black;
@@ -115,6 +124,19 @@ a.info_breadcrumbs.breadcrumb::before {
 	color: #a9a9a9;
   font-weight: lighter;
 }
+
+.row.tools div.tool-element{
+  margin: .5em 1em;
+}
+
+.row.tools div.tool-element label{
+  color: black;
+}
+
+.select-wrapper input.select-dropdown {
+  margin: 0 0;
+}
+
 /*ESTILOS DEL AUTOCOMPLETE*/
 /*estilo css para typeahead*/
 

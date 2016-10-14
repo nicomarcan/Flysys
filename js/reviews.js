@@ -5,6 +5,14 @@ function displayError(errorcode, errormsg) {
   return errorel;
 }
 
+color_scheme = [
+  "#ff6f31",
+  "#ff9f02",
+  "#ffcf02",
+  "#99cc00",
+  "#88b131"
+];
+
 function parseGET() {
   var ret = {};
   var arr = location.search.substr(1).split("&");
@@ -30,21 +38,37 @@ function updateFlightInfoCard(info) {
   $("#info_arriving_airport").text(arriving_airport.description);
 
 }
+
+function addGlobalScoreBar(name, score) {
+  var ret = "<li class=\"collection-item score_list_element\" style='background-color: #f5f4f3;'>";
+  var color_i = parseInt((score + 1) / 2) - 1;
+  ret += "<div class=\" col s6 \" style=\"font-size:14px; color: #4c4c4c;font-weight: bolder;\">";
+  ret += name;
+  ret += "</div>";
+  ret += "<div class =\"col s6 \" >"
+  ret += "<div class =\"progress star_progress \" >";
+  ret += "<div class=\"determinate\" style=\"width: " + parseInt(score * 10) + "%; background-color: "+color_scheme[color_i]+"\"></div>";
+  ret += "</div></div>";
+  return ret;
+
+
+}
 function addScoreBar(name, score) {
   var ret = "<li class=\"collection-item score_list_element\">";
+  var color_i = parseInt( (score + 1) / 2) - 1;
   ret += "<div class=\" col s6 \" style=\"font-size:14px; color: #6b6b6b\">";
   ret += name;
   ret += "</div>";
   ret += "<div class =\"col s6 \" >"
-  ret += "<div class =\"progress star_progress four_stars\">";
-  ret += "<div class=\"determinate\" style=\"width: " + score + "0%\" ></div>";
+  ret += "<div class =\"progress star_progress \" >";
+  ret += "<div class=\"determinate\" style=\"width: " + parseInt(score) + "0%; background-color: "+color_scheme[color_i]+"\"></div>";
   ret += "</div></div>";
   return ret;
 }
 function addScores(scores) {
-  var ret = "<div class=\"col s7\" style=\"margin:10px auto auto auto\"> \
+  var ret = "<div class='col s12' style=\"margin:10px auto auto auto\"> \
              <ul class=\"collection\">";
-  ret += addScoreBar("Global", scores.overall);
+  ret += addGlobalScoreBar("Global", scores.overall);
   ret += addScoreBar("Amabilidad", scores.friendliness);
   ret += addScoreBar("Comida", scores.food);
   ret += addScoreBar("Puntualidad", scores.punctuality);
@@ -55,8 +79,7 @@ function addScores(scores) {
   return ret;
 }
 function addComment(comment) {
-  var com = "<div class=\"col s5\" style=\"margin:10px auto auto auto;\"> \
-            <div class = \" divider\"> </div>";
+  var com = "<div class=\"col s12\" style=\"margin:10px auto auto auto;\">";
   com += comment.replace(/</g, "&lt;").replace(/>/g, "&gt;");
   com += "</div>";
   return com;
@@ -65,10 +88,24 @@ function addComment(comment) {
 function addRecomendation(yes_recommend) {
   var rec = "";
   if (yes_recommend) {
-    rec += "<span style=\"color: green; font-size:22px;float:right;\" > RECOMIENDA</span>";
+    rec += "<div class='col s12'> \
+            <div style=\"color: green; font-size:22px; float:right;\" > \
+              <i class='material-icons tiny'> \
+                thumb_up \
+              </i> \
+              RECOMIENDA \
+            </div> \
+            </div>";
   }
   else {
-    rec += "<span style=\"color: red; font-size:22px;float:right;\" > NO RECOMIENDA</span>";
+    rec += "<div class='col s12'> \
+            <div style=\"color: red; font-size:22px; float:right;\" > \
+              <i class='material-icons tiny'> \
+                thumb_down \
+              </i> \
+              NO RECOMIENDA \
+            </div> \
+            </div>";
   }
   return rec;
 }
@@ -86,24 +123,24 @@ function addGrade(score) {
   return res;
 }
 
-function addTitle(comments) {
-  var com = "<span class=\"review_title\" >";
-  var arr = comments.split('\n');
-  if (arr.length > 0) {
-    com += arr[0].split(0,20);
-  }
-  com += "</span>";
+function addFlightNumber(airline_id, number) {
+  var com = "<div class=\"flight_number\" style='font-size: 32px;color: black;font-weight: lighter;' >";
+  com += "<a class='flight_number_link' href='./reviews_flights.html?airline_id="+ airline_id+"&flight_number="+ number +"'>"
+  com += "Vuelo "+ number;
+  com += "</a>"
+  com += "</div>";
   return com;
 }
 
 function createReviewCard(review) {
   var el = "<div class=\" card-panel row hoverable clickable \">";
-  el += "<div class=\"col s12\">";
-  el += addTitle(review.comments);
-  el += addGrade(review.rating.overall);
-  el += addRecomendation(review.yes_recommend);
-  el += "</div>"
+  el += "<div class=\"col s4\">";
+  el += addFlightNumber(review.flight.airline.id, review.flight.number)
+  el += "<div class='divider'></div>";
   el += addComment(review.comments);
+  el += "</div>"
+  el += "<div class='col s8'>";
+  el += addRecomendation(review.yes_recommend);
   el += addScores(review.rating);
   el += "</div>";
   return el;
@@ -112,6 +149,7 @@ function createReviewCard(review) {
 $(document).ready(function() {
 
   var airlines = []
+  $('select').material_select();
   /*
   $.ajax({
     url: "http://hci.it.itba.edu.ar/v1/api/misc.groovy",
