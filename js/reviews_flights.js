@@ -31,5 +31,5 @@ $(document).ready( function() {
         $("#reviews-container").append(createReviewCard(response.reviews[x]));
       }
     }
-  })
+  });
 })

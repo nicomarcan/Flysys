@@ -1,4 +1,4 @@
-color_scheme = ["#ff6f31", "#ff9f02", "#ff9f02", "#ffcf02", "#99cc00", "#88b131"];
+color_scheme = ["#ff6f31", "#ff9f02", "#ffcf02", "#99cc00", "#88b131"];
 
 function updateAirlineInfoCard(airline) {
   $("img#info_airline_logo").attr("src", airline.logo);
@@ -11,10 +11,10 @@ function updateAirlineInfoCard(airline) {
   else {
     var r_score = Math.round(airline.rating);
     $("#info_global_score").text(r_score);
-    $("#info_global_score").css("background-color", color_scheme[r_score / 2]);
+    $("#info_global_score").css("background-color", color_scheme[parseInt((r_score+1) / 2) - 1]);
   }
-  $("#info_charges").text(airline.charges * 100 + "%");
-  $("#info_taxes").text(airline.taxes * 100 + "%");
+  $("#info_charges").text(parseInt(airline.charges * 100) + "%");
+  $("#info_taxes").text(parseInt(airline.taxes * 100) + "%");
   $("a#airline_breadcrumb").text(airline.name);
 }
 
