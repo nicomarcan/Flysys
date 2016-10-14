@@ -1,3 +1,4 @@
+var pageSize = 4 ;
 
 var mode;
 var src,dst;
@@ -14,6 +15,7 @@ var s1,s2;
 * and airline names.
 */
 var total,duration,airline;
+var currCrit;
 
 $(document).ready(function(){
 
@@ -140,8 +142,11 @@ $(document).ready(function(){
         total = t_total.inOrder() ;
         duration = t_duration.inOrder();
         airline = t_airline.inOrder();
-        addOWResultS(total,0,4);
+        addOWResultS(total,0,pageSize);
         initializeCollapsibles();
+        var pages = s1.length/pageSize + (s1.length%pageSize == 0 ? 0:1);
+        insertPaginator(pages);
+        currCrit = 0;
       } else {
         /*
         * Request return flights from dst to src
@@ -240,6 +245,30 @@ $(document).ready(function(){
     }
   });
 
+
+  $("div.tool-element.currency ul.dropdown-content.select-dropdown li").click(function(event){
+    var criterium = $(this).text();
+    $('#results').empty();
+    switch (criterium) {
+      case "Precio":
+        addOWResultS(total,0,pageSize);
+        currCrit = 0;
+        break;
+      case "Duración":
+        addOWResultS(duration,0,pageSize);
+        currCrit = 1;
+        break;
+      case "Aerolínea":
+        addOWResultS(airline,0,pageSize);
+        currCrit = 2;
+        break;
+      default:
+        return false;
+    }
+    return true;
+  });
+
+
 });
 
 function initializeCollapsibles() {
@@ -287,6 +316,20 @@ function getUrlParameter(sParam) {
   }
 }
 
+function insertPaginator(npags){
+  $('#paginator').append('<li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>');
+  var template = $("#paginator-item").html();
+  Mustache.parse(template);
+  for(var i=1; i<=npags; i++){
+    var activeness = i==1 ? "active" : "";
+    var rendered = Mustache.render(template, {
+      activeness: activeness,
+      number: i
+    });
+    $("#paginator").append(rendered);
+  }
+  $('#paginator').append('<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>');
+}
 
 function addOWResult(total,from,dep,ac,fn,duration,to) {
   var template = $('#row').html();
