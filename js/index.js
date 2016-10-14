@@ -326,6 +326,9 @@ $(document).ready(function(){
 			}
 
 		});
+		$("#dropdown1").mouseleave(function(){
+			$('.dropdown-button#passengers').dropdown('close');
+		});
 
 		$("#open-button").on('click',function(){
 			$('.dropdown-button#passengers').dropdown('open');
@@ -415,7 +418,7 @@ $(document).ready(function(){
 			review["rating"]=rating;
 			review["yes recommend"]= ($("#recommend .material-icons.clickable[selected]").attr("id") == "yes");
 			review["comments"]= $("#review-modal #comments").val();
-			
+
 			 var review_url = 'http://hci.it.itba.edu.ar/v1/api/review.groovy?method=reviewairline';
 			  $.ajax({
 			    type: 'POST',
@@ -428,7 +431,7 @@ $(document).ready(function(){
 			      }else{
 			      	console.log(d);
 			      	console.log(review);
-			      	
+
 			      }
 			    }
 			  });

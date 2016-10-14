@@ -1,4 +1,23 @@
+
+var mode;
+var src,dst;
+var adults,children,infants;
+var d1,d2;
+var page,sort_by;
+
+/*
+* Segment 1 and Segment 2
+*/
+var s1,s2;
+/*
+* All combinations sorted by total price, duration
+* and airline names.
+*/
+var total,duration,airline;
+
 $(document).ready(function(){
+
+  var url = 'http://hci.it.itba.edu.ar/v1/api/booking.groovy' ;
 
   $(".dropdown-button").dropdown();
   $('select').material_select();
@@ -27,11 +46,13 @@ $(document).ready(function(){
   });
   var values=new Array();
 	var nameToId={};
-  var airports_url = 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getairports';
   $.ajax({
     type: 'GET',
-    url: airports_url,
+    url: url,
     dataType: 'json' ,
+    data: {
+      method: 'getairports'
+    },
     success: function(d){
       if(d.total<=d.page_size){
         fillAirportsAutocomplte(d,values,nameToId);
@@ -62,13 +83,6 @@ $(document).ready(function(){
   * ?mode=two-way&src=BUE&dst=MIA&adults=1&children=0&infants=0&d1=2016-12-01&d2=2016-12-20&page=1&sort_by=total
   */
 
-  var mode;
-  var src,dst;
-  var adults,children,infants;
-  var d1,d2;
-  var page,sort_by;
-  var owf_url = 'http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getonewayflights' ;
-
   mode=getUrlParameter("mode");
   src=getUrlParameter("src");
   dst=getUrlParameter("dst");
@@ -82,36 +96,106 @@ $(document).ready(function(){
   page=getUrlParameter("page");
   sort_by=getUrlParameter("sort_by");
 
-
   $.ajax({
     type: 'GET',
-    url: owf_url,
+    url: url,
     dataType: 'json',
     data: {
+      method: 'getonewayflights',
       from: src ,
       to: dst ,
       dep_date: d1,
       adults: adults,
       children: children,
       infants: infants,
-      page: page,
-      sort_key: sort_by
+      /*
+      * TODO: CHANGE
+      */
+      page_size:'1000'
     },
     success : function(d){
-      var flights = d.flights , i;
-      for(i = 0; i<flights.length ; i++){
-        //function addOWResult(total,from,dep,ac,fn,duration,to)
-        addOWResult(
-          flights[i].price.total.total,
-          flights[i].outbound_routes[0].segments[0].departure.airport.id,
-          flights[i].outbound_routes[0].segments[0].departure.date,
-          flights[i].outbound_routes[0].segments[0].airline.id,
-          flights[i].outbound_routes[0].segments[0].number,
-          flights[i].outbound_routes[0].segments[0].duration,
-          flights[i].outbound_routes[0].segments[0].arrival.airport.id
-        );
+      s1 = d.flights;
+      if(mode == "one-way"){
+        var t_total = new Tree(function(a,b){
+          return s1[a].price.total.total - s1[b].price.total.total;
+        });
+        var t_duration = new Tree(function(a,b){
+          return timeToMins(s1[a].outbound_routes[0].segments[0].duration)-
+                 timeToMins(s1[b].outbound_routes[0].segments[0].duration);
+        });
+        var t_airline = new Tree(function(a,b){
+          return s1[a].outbound_routes[0].segments[0].airline.name.localeCompare(
+                 s1[b].outbound_routes[0].segments[0].airline.name
+          );
+        });
+        for(var i = 0; i<flights.length ; i++){
+          t_total.insert(i);
+          t_duration.insert(i);
+          t_airline.insert(i);
+        }
+        total = t_total.inOrder() ;
+        duration = t_duration.inOrder();
+        airline = t_airline.inOrder();
+        addOWResultS(total,0,4);
+        initializeCollapsibles();
+      } else {
+        /*
+        * Request return flights from dst to src
+        */
+        $.ajax({
+          type: 'GET',
+          url: url,
+          dataType: 'json',
+          data: {
+            method: 'getonewayflights',
+            from: dst ,
+            to: src ,
+            dep_date: d2,
+            adults: adults,
+            children: children,
+            infants: infants,
+            /*
+            * TODO: CHANGE
+            */
+            page_size: '1000'
+          },
+          success : function(d1){
+            s2 = d1.flights;
+            var t_total = new Tree(function(a,b){
+              return (s1[a[0]].price.total.total + s2[a[1]].price.total.total)-
+                     (s1[b[0]].price.total.total + s2[b[1]].price.total.total);
+            });
+            var t_duration = new Tree(function(a,b){
+              return (timeToMins(s1[a[0]].outbound_routes[0].segments[0].duration) +
+                      timeToMins(s2[a[1]].outbound_routes[0].segments[0].duration)) -
+                     (timeToMins(s1[b[0]].outbound_routes[0].segments[0].duration) +
+                      timeToMins(s2[b[1]].outbound_routes[0].segments[0].duration));
+            });
+            var t_airline = new Tree(function(a,b){
+              return s1[a[0]].outbound_routes[0].segments[0].airline.name.concat(
+                     s2[a[1]].outbound_routes[0].segments[0].airline.name).localeCompare(
+                     s1[b[0]].outbound_routes[0].segments[0].airline.name.concat(
+                     s2[b[1]].outbound_routes[0].segments[0].airline.name));
+            });
+            for(var i=0, total=0 ; i<s1.length ; i++) {
+              for(var j=0; j<s2.length; j++) {
+                var cmb = [];
+                cmb[0]=i;cmb[1]=j;
+                t_total.insert(cmb);
+                t_duration.insert(cmb);
+                t_airline.insert(cmb);
+              }
+            }
+            total = t_total.inOrder() ;
+            duration = t_duration.inOrder();
+            airline = t_airline.inOrder();
+            /*
+            * TODO: Print here results
+            */
+            initializeCollapsibles();
+          }
+        });
       }
-      initializeCollapsibles();
     }
   });
   /*
@@ -215,6 +299,29 @@ function addOWResult(total,from,dep,ac,fn,duration,to) {
   $('#results').append(rendered);
 }
 
+function addOWResultS(criterium,pageNo,pageSize){
+  var length = criterium.length;
+  var start = pageNo*pageSize;
+  if(start>=length){
+    /*
+    * No such page
+    */
+    return false;
+  }
+  for(var i = start ; i<length && i < start + pageSize ; i++){
+    addOWResult(
+      s1[criterium[i]].price.total.total,
+      s1[criterium[i]].outbound_routes[0].segments[0].departure.airport.id,
+      s1[criterium[i]].outbound_routes[0].segments[0].departure.date,
+      s1[criterium[i]].outbound_routes[0].segments[0].airline.id,
+      s1[criterium[i]].outbound_routes[0].segments[0].number,
+      s1[criterium[i]].outbound_routes[0].segments[0].duration,
+      s1[criterium[i]].outbound_routes[0].segments[0].arrival.airport.id
+    );
+  }
+  return true;
+}
+
 function fillAirportsAutocomplte(data,values,nameToId){
   var total = data.total;
   var airports = data.airports;
@@ -246,5 +353,10 @@ function fillAirportsAutocomplte(data,values,nameToId){
               limit: 3,
               source: blood_ciudades,
           }
-  );
+        );
   };
+
+  function timeToMins(t){
+    var s = t.split(":");
+    return s[0].parseInt()*60 + s[1].parseInt();
+  }
