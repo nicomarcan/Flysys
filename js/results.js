@@ -6,6 +6,8 @@ var adults,children,infants;
 var d1,d2;
 var page,sort_by;
 
+
+var req1,req2;
 /*
 * Segment 1 and Segment 2
 */
@@ -16,6 +18,7 @@ var s1,s2;
 */
 var total,duration,airline;
 var currCrit,currPage;
+var currMin,currMax;
 
 $(document).ready(function(){
 
@@ -24,15 +27,6 @@ $(document).ready(function(){
 
   $(".dropdown-button").dropdown();
   $('select').material_select();
-  noUiSlider.create(document.getElementById('price-range'), {
-    start: [ 1000, 9000 ],
-    connect: [false, true,false],
-    range: {
-      'min': [  0 ],
-      'max': [ 10000 ]
-    } ,
-    tooltips: true
-  });
 
   $("#date1 .datepicker").pickadate({
     monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
@@ -121,6 +115,7 @@ $(document).ready(function(){
       page_size:'1000'
     },
     success : function(d){
+      req1=d;
       s1 = d.flights;
       if(mode == "one-way"){
         var t_total = new Tree(function(a,b){
@@ -147,6 +142,8 @@ $(document).ready(function(){
         insertPaginator(pages);
         currCrit = 0;
         setCurrPage(0);
+        initializeSlider(req1.filters[2].min ,
+                         req1.filters[2].max);
       } else {
         /*
         * Request return flights from dst to src
@@ -169,6 +166,7 @@ $(document).ready(function(){
             page_size: '1000'
           },
           success : function(d1){
+            req2=d1;
             s2 = d1.flights;
             var t_total = new Tree(function(a,b){
               return (s1[a[0]].price.total.total + s2[a[1]].price.total.total)-
@@ -203,6 +201,8 @@ $(document).ready(function(){
             insertPaginator(pages);
             currCrit=0;
             setCurrPage(0);
+            initializeSlider(req1.filters[2].min+req2.filters[2].min,
+                             req1.filters[2].max+req2.filters[2].max);
           }
         });
       }
@@ -267,6 +267,14 @@ $(document).ready(function(){
     }
     return true;
   });
+
+
+  $("#price-update").click(function(event){
+     currMin = parseFloat($("#price-range .noUi-base .noUi-origin .noUi-handle[data-handle=0]").text());
+     currMax = parseFloat($("#price-range .noUi-base .noUi-origin .noUi-handle[data-handle=1]").text());
+     setCurrPage(0);
+  });
+
 });
 
 function setCurrPage(page){
@@ -408,16 +416,16 @@ function addOWResultS(criterium,pageNo,pageSize){
     */
     return false;
   }
-  for(var i = start ; i<length && i < start + pageSize ; i++){
-    addOWResult(
-      s1[criterium[i]].price.total.total,
-      s1[criterium[i]].outbound_routes[0].segments[0].departure.airport.id,
-      s1[criterium[i]].outbound_routes[0].segments[0].departure.date,
-      s1[criterium[i]].outbound_routes[0].segments[0].airline.id,
-      s1[criterium[i]].outbound_routes[0].segments[0].number,
-      s1[criterium[i]].outbound_routes[0].segments[0].duration,
-      s1[criterium[i]].outbound_routes[0].segments[0].arrival.airport.id
-    );
+  for(var i = start; i<length && i < start + pageSize ; i++){
+    var ret = addOWResult(
+        s1[criterium[i]].price.total.total,
+        s1[criterium[i]].outbound_routes[0].segments[0].departure.airport.id,
+        s1[criterium[i]].outbound_routes[0].segments[0].departure.date,
+        s1[criterium[i]].outbound_routes[0].segments[0].airline.id,
+        s1[criterium[i]].outbound_routes[0].segments[0].number,
+        s1[criterium[i]].outbound_routes[0].segments[0].duration,
+        s1[criterium[i]].outbound_routes[0].segments[0].arrival.airport.id
+      );
   }
   return true;
 }
@@ -431,27 +439,24 @@ function addTWResultS(criterium,pageNo,pageSize){
     */
     return false;
   }
-  for(var i = start ; i<length && i < start + pageSize ; i++){
-    addTWResult(
-      s1[criterium[i][0]].price.total.total + s2[criterium[i][1]].price.total.total,
-      s1[criterium[i][0]].outbound_routes[0].segments[0].departure.airport.id,
-      s1[criterium[i][0]].outbound_routes[0].segments[0].departure.date,
-      s1[criterium[i][0]].outbound_routes[0].segments[0].airline.id,
-      s1[criterium[i][0]].outbound_routes[0].segments[0].number,
-      s1[criterium[i][0]].outbound_routes[0].segments[0].duration,
-      s1[criterium[i][0]].outbound_routes[0].segments[0].arrival.airport.id,
-      s2[criterium[i][1]].outbound_routes[0].segments[0].departure.airport.id,
-      s2[criterium[i][1]].outbound_routes[0].segments[0].departure.date,
-      s2[criterium[i][1]].outbound_routes[0].segments[0].airline.id,
-      s2[criterium[i][1]].outbound_routes[0].segments[0].number,
-      s2[criterium[i][1]].outbound_routes[0].segments[0].duration,
-      s2[criterium[i][1]].outbound_routes[0].segments[0].arrival.airport.id
-    );
+  for(var i = start ; i<length && i < start + pageSize; i++){
+    var ret = addTWResult(
+        s1[criterium[i][0]].price.total.total + s2[criterium[i][1]].price.total.total,
+        s1[criterium[i][0]].outbound_routes[0].segments[0].departure.airport.id,
+        s1[criterium[i][0]].outbound_routes[0].segments[0].departure.date,
+        s1[criterium[i][0]].outbound_routes[0].segments[0].airline.id,
+        s1[criterium[i][0]].outbound_routes[0].segments[0].number,
+        s1[criterium[i][0]].outbound_routes[0].segments[0].duration,
+        s1[criterium[i][0]].outbound_routes[0].segments[0].arrival.airport.id,
+        s2[criterium[i][1]].outbound_routes[0].segments[0].departure.airport.id,
+        s2[criterium[i][1]].outbound_routes[0].segments[0].departure.date,
+        s2[criterium[i][1]].outbound_routes[0].segments[0].airline.id,
+        s2[criterium[i][1]].outbound_routes[0].segments[0].number,
+        s2[criterium[i][1]].outbound_routes[0].segments[0].duration,
+        s2[criterium[i][1]].outbound_routes[0].segments[0].arrival.airport.id
+      );
   }
   return true;
-
-
-
 }
 
 function fillAirportsAutocomplte(data,values,nameToId){
@@ -491,4 +496,17 @@ function fillAirportsAutocomplte(data,values,nameToId){
   function timeToMins(t){
     var s = t.split(":");
     return parseInt(s[0])*60 + parseInt(s[1]);
+  }
+
+
+  function initializeSlider(min,max){
+    noUiSlider.create(document.getElementById('price-range'), {
+      start: [ min, max ],
+      connect: [false, true,false],
+      range: {
+        'min': [min],
+        'max': [max]
+      } ,
+      tooltips: true
+    });
   }
