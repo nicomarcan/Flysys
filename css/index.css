@@ -139,10 +139,12 @@ min-height: 1700px;
      color: white;
    }
 
-
+#departing_two,#departing,#returning,#from,#to{
+  width:19.5%;
+}
 
 #one-way #from,#one-way #to{
-  width: 27%;
+  width: 28%;
 }
 
 #from_input,#to_input{
