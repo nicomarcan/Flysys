@@ -102,6 +102,8 @@ $(document).ready(function(){
   page=getUrlParameter("page");
   sort_by=getUrlParameter("sort_by");
 
+  $("#result-description").text("Vuelos de " + src + " a " + dst + " , del " + d1 + (mode=="one-way" ? "." : " , al " + d2));
+
   $.ajax({
     type: 'GET',
     url: booking,
@@ -513,7 +515,6 @@ function fillAirportsAutocomplte(data,values,nameToId){
     nameToId[airports[x].description.split(", ")[1]] = airports[x].id;
     nameToId[airports[x].description] = airports[x].id;
   }
-  console.log(obj);
   var blood_ciudades = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
     queryTokenizer: Bloodhound.tokenizers.whitespace,

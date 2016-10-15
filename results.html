@@ -260,10 +260,34 @@
         </ul>
       </div>
     </nav>
-    <div class="container-fluid">
+    <div class="container-fluid color2" id="main-container">
+
+      <div class="row tools z-depth-2 color2 valign-wrapper">
+        <div class="col s10 valign-wrapper">
+          <p class="valign" id="result-description"></p>
+        </div>
+        <div class="col s1 tool-element currency">
+          <label>Ordenar por</label>
+          <select>
+            <option value="1">Precio</option>
+            <option value="2">Duración</option>
+            <option value="3">Aerolínea</option>
+          </select>
+        </div>
+        <div class="col s1 tool-element order">
+          <label>Moneda</label>
+          <select>
+            <option value="1">ARS</option>
+            <option value="2">USD</option>
+          </select>
+          <label>Moneda</label>
+        </div>
+      </div>
+
+
       <div class="row">
 
-        <div class="col s3 color2 filters central-space">
+        <div class="col s3 filters central-space">
           <div class="row search-panel z-depth-1 filter-element color1">
 
             <ul class="tabs">
@@ -316,14 +340,14 @@
               </div>
             </form>
           </div>
-          <div class="row center-allign price filter-element">
-            <h5>Precio</h5>
-            <div id="price-range" class="filter-tool"></div>
-            <a class="dropdown-button waves-effect waves-light btn" id="price-update">Actualizar</a>
+          <div class="row center-allign price filter-element z-depth-1 search-panel color1">
+            <div class="row title"><h5>Precio</h5></div>
+            <div class="row"><div id="price-range" class="filter-tool"></div></div>
+            <div class="row"><a class="dropdown-button waves-effect waves-light btn" id="price-update">Actualizar</a></div>
           </div>
 
-          <div class="row center-allign reputation filter-element stars">
-            <h5>Reputación</h5>
+          <div class="row center-allign reputation search-panel color1 filter-element stars">
+            <div class="row title"><h5>Reputación</h5></div>
             <form class="filter-tool">
               <p>
                 <input type="checkbox" id="five-stars"></id>
@@ -377,8 +401,8 @@
               </p>
             </form>
           </div>
-          <div class="row center-allign reputation filter-element airlines">
-            <h5>Aerolíneas</h5>
+          <div class="row center-allign reputation filter-element search-panel color1 airlines">
+            <div class="row title"><h5>Aerolíneas</h5></div>
             <form class="filter-tool">
               <p>
                 <input type="checkbox" id="ar1"></id>
@@ -397,32 +421,17 @@
 
         <div class="col s9 central-space container-fluid">
 
-
-          <div class="row tools z-depth-1 color2">
-            <div class="tool-element order">
-              <label>Moneda</label>
-              <select>
-                <option value="1">ARS</option>
-                <option value="2">USD</option>
-              </select>
-              <label>Moneda</label>
-            </div>
-            <div class="tool-element currency">
-              <label>Ordenar por</label>
-              <select>
-                <option value="1">Precio</option>
-                <option value="2">Duración</option>
-                <option value="3">Aerolínea</option>
-              </select>
-            </div>
-          </div>
-
-
-
           <div class="results-container">
             <div class="results-box" id="results">
-
-
+              <div class="preloader">
+                <div>
+                  <p>Buscando el vuelo más explosivo</p>
+                </div>
+                <div class="progress">
+                  <h5>Buscando el vuelo más oneroso</h5>
+                  <div class="indeterminate"></div>
+                </div>
+              </div>
             </div>
           </div>
 
