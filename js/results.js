@@ -85,8 +85,9 @@ $(document).ready(function(){
   * d2 is only required when specifying "two-way" as the mode.
   * All other parameters are mandatory.
   *
-  * Example:
-  * ?mode=two-way&src=BUE&dst=MIA&adults=1&children=0&infants=0&d1=2016-12-01&d2=2016-12-20&page=1&sort_by=total
+  * Examples:
+  * ?mode=two-way&src=BUE&dst=MIA&adults=1&children=0&infants=0&d1=2016-12-01&d2=2016-12-20
+  * ?mode=one-way&src=BUE&dst=MAD&adults=1&children=0&infants=0&d1=2016-12-01&d2=2016-12-20
   */
 
   mode=getUrlParameter("mode");
@@ -185,7 +186,7 @@ $(document).ready(function(){
                      s1[b[0]].outbound_routes[0].segments[0].airline.name.concat(
                      s2[b[1]].outbound_routes[0].segments[0].airline.name));
             });
-            for(var i=0, total=0 ; i<s1.length ; i++) {
+            for(var i=0 ; i<s1.length ; i++) {
               for(var j=0; j<s2.length; j++) {
                 var cmb = [];
                 cmb[0]=i;cmb[1]=j;
@@ -197,10 +198,11 @@ $(document).ready(function(){
             total = t_total.inOrder() ;
             duration = t_duration.inOrder();
             airline = t_airline.inOrder();
-            /*
-            * TODO: Print here results
-            */
-            initializeCollapsibles();
+            var pages = (s1.length*s2.length)/pageSize +
+                        ((s1.length*s2.length)%pageSize == 0 ? 0:1);
+            insertPaginator(pages);
+            currCrit=0;
+            setCurrPage(0);
           }
         });
       }
@@ -268,16 +270,27 @@ $(document).ready(function(){
 });
 
 function setCurrPage(page){
+  var resultsProcessor ;
+  switch (mode) {
+    case "one-way":
+      resultsProcessor = addOWResultS;
+      break;
+    case "two-way":
+      resultsProcessor = addTWResultS;
+      break;
+    default:
+      return false;
+  }
   $('#results').empty();
   switch (currCrit) {
     case 0:
-      addOWResultS(total,page,pageSize);
+      resultsProcessor(total,page,pageSize);
       break;
     case 1:
-      addOWResultS(duration,page,pageSize);
+      resultsProcessor(duration,page,pageSize);
       break;
     case 2:
-      addOWResultS(airline,page,pageSize);
+      resultsProcessor(airline,page,pageSize);
       break;
     default:
       return false;
@@ -348,6 +361,7 @@ function insertPaginator(npags){
 }
 
 function addOWResult(total,from,dep,ac,fn,duration,to) {
+  total = Math.floor(total * 100)/100;
   var template = $('#row').html();
   Mustache.parse(template);
   var rendered = Mustache.render(template, {
@@ -358,6 +372,29 @@ function addOWResult(total,from,dep,ac,fn,duration,to) {
     flight_number_1: fn ,
     duration_1: duration,
     to_1: to
+  });
+  $('#results').append(rendered);
+}
+
+function addTWResult(total,from,dep,ac,fn,duration,to,
+                           from1,dep1,ac1,fn1,duration1,to1) {
+  total = Math.floor(total * 100)/100;
+  var template = $('#rtw').html();
+  Mustache.parse(template);
+  var rendered = Mustache.render(template, {
+    total: total ,
+    from_1: from ,
+    departure_1: dep,
+    airline_code_1: ac,
+    flight_number_1: fn ,
+    duration_1: duration,
+    to_1: to,
+    from_2: from1 ,
+    departure_2: dep1,
+    airline_code_2: ac1,
+    flight_number_2: fn1 ,
+    duration_2: duration1,
+    to_2: to1
   });
   $('#results').append(rendered);
 }
@@ -383,6 +420,38 @@ function addOWResultS(criterium,pageNo,pageSize){
     );
   }
   return true;
+}
+
+function addTWResultS(criterium,pageNo,pageSize){
+  var length = criterium.length;
+  var start = pageNo*pageSize;
+  if(start>=length){
+    /*
+    * No such page
+    */
+    return false;
+  }
+  for(var i = start ; i<length && i < start + pageSize ; i++){
+    addTWResult(
+      s1[criterium[i][0]].price.total.total + s2[criterium[i][1]].price.total.total,
+      s1[criterium[i][0]].outbound_routes[0].segments[0].departure.airport.id,
+      s1[criterium[i][0]].outbound_routes[0].segments[0].departure.date,
+      s1[criterium[i][0]].outbound_routes[0].segments[0].airline.id,
+      s1[criterium[i][0]].outbound_routes[0].segments[0].number,
+      s1[criterium[i][0]].outbound_routes[0].segments[0].duration,
+      s1[criterium[i][0]].outbound_routes[0].segments[0].arrival.airport.id,
+      s2[criterium[i][1]].outbound_routes[0].segments[0].departure.airport.id,
+      s2[criterium[i][1]].outbound_routes[0].segments[0].departure.date,
+      s2[criterium[i][1]].outbound_routes[0].segments[0].airline.id,
+      s2[criterium[i][1]].outbound_routes[0].segments[0].number,
+      s2[criterium[i][1]].outbound_routes[0].segments[0].duration,
+      s2[criterium[i][1]].outbound_routes[0].segments[0].arrival.airport.id
+    );
+  }
+  return true;
+
+
+
 }
 
 function fillAirportsAutocomplte(data,values,nameToId){

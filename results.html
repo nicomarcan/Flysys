@@ -16,6 +16,7 @@
   </head>
   <body>
     <script type="x-tmpl-mustache" id="paginator-item">
+      <!--This will be fixed-->
       <li class="{{activeness}} waves-effect"><a onclick="setCurrPage(parseInt($(this).text()-1))">{{number}}</a></li>
     </script>
 
@@ -38,7 +39,7 @@
                 </li>
                 <li class="row-f2 col s4 valign-wrapper">
                   <div>
-                    <h4 class="valign">{{total}}</h4>
+                    <h4 class="valign">${{total}}.-</h4>
                   </div>
                 </li>
                 <li class="row-f3 col s4 valign-wrapper">
@@ -124,7 +125,7 @@
                 </li>
                 <li class="row-f2 col s4 valign-wrapper">
                   <div>
-                    <h4 class="valign">{{total}}</h4>
+                    <h4 class="valign">${{total}}.-</h4>
                   </div>
                 </li>
                 <li class="row-f3 col s4 valign-wrapper">
