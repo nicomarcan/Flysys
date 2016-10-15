@@ -2,24 +2,7 @@
 var valores=new Array();/*feo*/
 var airlines=new Array();
 $(document).ready(function(){
-		$('li.clickable').on('click', function() {
-			 if(!$(this).attr("selected")){
-			 	$('li.clickable').removeAttr("selected");
-			 	$(this).attr("selected","");
-			 	var from = $('#from');
-				var to = $('#to')
-			 	if($(this).attr("id")=="one-way"){
-					$('#returning').hide();
-					from.css({"width":"27%"});
-					to.css({"width":"27%"});
-				 }
-				 else if($(this).attr("id")=="two-way"){
-				 	$('#returning').show();
-				 	from.css({"width":"18%"});
-					to.css({"width":"18%"});
-				 }
-			  }
-		});
+	
 
 		var nameToId={};
 
@@ -127,7 +110,7 @@ $(document).ready(function(){
 
 
 
-			$('.typeahead#from_input,.typeahead#to_input').typeahead(
+			$('.typeahead#from_input,.typeahead#to_input,.typeahead#from_input_two,.typeahead#to_input_two').typeahead(
 							{
 									minLength: 1,
 									highlight: true
@@ -206,9 +189,18 @@ $(document).ready(function(){
 
 
 		$('img.offer-img').on('click', function() {
-			var from = $("#from_input");
-			var to = $("#to_input");
-			var picker = $('#departing .datepicker').pickadate('picker');
+			var from;
+			var to;
+			var picker;
+			if($("#search a.active").attr("href")=="#one-way"){
+				 from = $("#from_input");
+				 to = $("#to_input");
+				picker = $('#departing .datepicker').pickadate('picker');
+			}else{
+				from = $("#from_input_two");
+				to = $("#to_input_two");
+				picker = $('#departing_two .datepicker').pickadate('picker');
+			}
 			from.typeahead('val',$(this).attr("from"));
 			from.focus();
 			to.typeahead('val',$(this).attr("to")); /*$(this).attr("value") next update incoming*/
@@ -222,6 +214,22 @@ $(document).ready(function(){
 		$('#crossicon').on('click', function() {
 			var from = $("#from_input");
 			var to = $("#to_input");
+			var from_val = from.typeahead('val');
+			var to_val = to.typeahead('val');
+			var cache=from_val
+			from.typeahead('val',to_val);
+			to.typeahead('val',cache);
+			// to.val(from_val)
+			// from.val(to_val);
+			// from.focus();
+			to.focus();
+			to.blur();
+
+		});
+
+			$('#crossicon-two').on('click', function() {
+			var from = $("#from_input_two");
+			var to = $("#to_input_two");
 			var from_val = from.typeahead('val');
 			var to_val = to.typeahead('val');
 			var cache=from_val
@@ -290,7 +298,7 @@ $(document).ready(function(){
 
 		});
 
-		 $("#departing .datepicker").pickadate({
+		 $("#departing .datepicker,#departing_two .datepicker").pickadate({
 		    monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
 		    monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
 		    weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
@@ -306,7 +314,7 @@ $(document).ready(function(){
 
 		 var date2_picker = null ;
 		  var prevdate = null;
-		  $("#departing input[name='_submit']").attrchange({
+		  $("#departing_two input[name='_submit']").attrchange({
 		    trackValues: true,
 		    callback: function(event){
 		      var d = event.newValue ;
@@ -343,7 +351,19 @@ $(document).ready(function(){
 		 $('select').material_select();
 
 
-		$(".dropdown-button#passengers").on('click',function(){
+		$(".dropdown-button#passengers_two").on('click',function(){
+			event.stopPropagation();
+			if(!$(this).attr("closed")){
+				$(this).attr("closed","true");
+				$(this).click();
+			}else{
+				$(this).removeAttr("closed");
+				$("#open-button-two").click();
+			}
+
+		});
+
+			$(".dropdown-button#passengers").on('click',function(){
 			event.stopPropagation();
 			if(!$(this).attr("closed")){
 				$(this).attr("closed","true");
@@ -363,9 +383,15 @@ $(document).ready(function(){
 		$("#open-button").on('click',function(){
 			$('.dropdown-button#passengers').dropdown('open');
 		});
+		$("#open-button-two").on('click',function(){
+			$('.dropdown-button#passengers_two').dropdown('open');
+		});
 
 		$("#done-button").on('click',function(){
 			$('.dropdown-button#passengers').dropdown('close');
+		});
+		$("#done-button-two").on('click',function(){
+			$('.dropdown-button#passengers_two').dropdown('close');
 		});
 
 		$(".minus").on('click',function(){
@@ -510,19 +536,27 @@ $(document).ready(function(){
 			  $("#error-review").hide();
 		});
 
+		$('#search-icon-two').on('click',function(){
+			var src = nameToId[$('#from_input_two').val()];
+			var dst = nameToId[$('#to_input_two').val()];
+			var d1 = $('#departing_two input[name=_submit]').val();
+			var d2 = $('#returning input[name=_submit]').val();
+			var adults= $('#passenger_two #adults #adults_val').text();
+			var children= $('#passenger_two #children #children_val').text();
+			var infants= $('#passenger_two #infants #infants_val').text();
+			var url= "results.html?"+"mode=two-way&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1+"&d2="+d2;
+			console.log(url);
+			window.location=url;
+		});
+
 		$('#search-icon').on('click',function(){
-			var mode= $('#search [selected]').attr("id");
 			var src = nameToId[$('#from_input').val()];
 			var dst = nameToId[$('#to_input').val()];
 			var d1 = $('#departing input[name=_submit]').val();
-			var d2 = $('#returning input[name=_submit]').val();
-			var adults= $('#passengers #adults #adults_val').text();
-			var children= $('#passengers #children #children_val').text();
-			var infants= $('#passengers #infants #infants_val').text();
-			var url= "results.html?"+"mode="+mode+"&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1;
-			if(mode=="two-way"){
-				url+="&d2="+d2;
-			}
+			var adults= $('#passenger #adults #adults_val').text();
+			var children= $('#passenger #children #children_val').text();
+			var infants= $('#passenger #infants #infants_val').text();
+			var url= "results.html?"+"mode=one-way&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1;
 			console.log(url);
 			window.location=url;
 		});
@@ -559,7 +593,25 @@ $(document).ready(function(){
 });
 
 
-   $("#search-form").validate({
+   $("#two-way").validate({
+    rules: {
+        from_input:{
+        	required: true,
+        	city:true
+        },
+         to_input:{
+        	required: true,
+        	city:true
+        },
+        airlines_input:{
+        	required: true,
+        	airline:true
+        }
+    }
+});
+
+
+   $("#one-way").validate({
     rules: {
         from_input:{
         	required: true,

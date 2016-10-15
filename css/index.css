@@ -38,7 +38,7 @@ footer.page-footer {
   margin-top: 10px;
 }
 
-.material-icons#search-icon{
+.material-icons#search-icon,.material-icons#search-icon-two{
   margin-right: 0;
 }
 
@@ -140,8 +140,13 @@ min-height: 1700px;
    }
 
 
-#departing,#returning,#from,#to{
-  width:18%;
+
+#one-way #from,#one-way #to{
+  width: 27%;
+}
+
+#from_input,#to_input{
+  margin-right:7rem;
 }
 
 
@@ -150,7 +155,7 @@ min-height: 1700px;
   display:inline;
 }
 
-.btn-flat#passengers{
+.btn-flat#passengers,.btn-flat#passengers_two{
   color:white;
   width: 190px;
   margin-top:9px;
@@ -159,7 +164,7 @@ min-height: 1700px;
   border-color: #9e9e9e ;
   text-transform: none;
 }
-.btn-flat#passengers:hover{
+.btn-flat#passengers:hover,.btn-flat#passengers_two:hover{
    border-color: white ;
    transition: .3s;
 }
@@ -169,6 +174,23 @@ min-height: 1700px;
 	margin-left:1rem;
 }
 
+
+.tabs {
+  background-color: transparent;
+}
+
+.tabs .tab a{
+  color: #eceff1;
+}
+
+.tabs .tab a:hover{
+  color: #eceff1;
+}
+
+.tabs .indicator {
+  background-color: transparent;
+  background-color: #eceff1;
+}
 
 div.container-fluid.center{
   margin-left: 18%;
