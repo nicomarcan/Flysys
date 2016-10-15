@@ -182,7 +182,14 @@
 
 
     <div id="review-modal" class="modal">
-		    <div class="modal-content">
+    		<div class="modal-content" id= "post-review"  >
+		     	<p>Gracias por dejarnos su comentario! Eso nos ayuda a poder darle un buen feedback a nuestros usuarios!!!</p>
+				<a class="clickable" id="link-airline">Para ver los demás comentarios de esa Aerolinea haga click aqui</a>
+		    </div>
+		    <div class="modal-content" id="review-form">
+		        <div class="modal-content" id= "error-review"  >
+		     	<p class="red-text">Ingreso mal algun dato</p>
+		    </div>
 
 		      <form >
 					  <div class="row">
@@ -377,14 +384,18 @@
 
 			          <div class="row">
 				        <div class="input-field col s12">
-				          <textarea id="comments" class="materialize-textarea"></textarea>
+				          <textarea id="comments" class="materialize-textarea" length="256"></textarea>
 				          <label for="comments">Comentarios</label>
 				        </div>
 				      </div>
 		            </form>
 		    </div>
+		
 		    <div class="modal-footer">
-		      <a id="send-review" class=" modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+		      <a id="send-review" class="  waves-effect waves-green btn-flat">Enviar</a>
+		    </div>
+		    <div class="modal-footer"  >
+		      <a id="close-modal" class=" modal-action modal-close waves-effect waves-green btn-flat" >Cerrar</a>
 		    </div>
 	  </div>
 
