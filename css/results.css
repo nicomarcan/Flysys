@@ -16,7 +16,7 @@ div.filter-element > div.row > div.filter-tool {
 }
 
 #result-description {
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 
 #results > div.preloader {
@@ -220,13 +220,13 @@ div.results-container {
   height: 100%;
 }
 
-div.row.results-box {
-  margin: auto auto;
+div.results-box {
+  margin: 3.5em auto;
 }
 
 div.results-container div.individual-result {
   width: 80%;
-  margin: 4em auto;
+  margin: 0 auto 3.5em auto;
 }
 
 div.individual-result div.collapsible-header {

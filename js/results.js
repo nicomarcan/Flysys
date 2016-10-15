@@ -103,7 +103,7 @@ $(document).ready(function(){
   page=getUrlParameter("page");
   sort_by=getUrlParameter("sort_by");
 
-  $("#result-description").text("Vuelos de " + src + " a " + dst + " , del " + d1 + (mode=="one-way" ? "." : " , al " + d2));
+  $("#result-description").text("Vuelos de " + src + " a " + dst + " , partiendo el " + d1 + (mode=="one-way" ? "." : " y retornando el " + d2));
 
   $.ajax({
     type: 'GET',
