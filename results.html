@@ -253,11 +253,17 @@
     <script type="text/javascript" src="js/results.js"></script>
     <nav class="color1">
       <div class="nav-wrapper">
-        <a href="index.html" class="brand-logo">Flysis</a>
-        <ul class="right hide-on-med-and-down">
-          <li><a href="#"><i class="material-icons">info</i></a></li>
-          <li><a href="#"><i class="material-icons">help</i></a></li>
-        </ul>
+        <div class="valign-wrapper">
+          <div>
+            <a href="index.html"><img src="logo.png" class="valign" width="120"></a>
+          </div>
+          <div>
+            <ul class="right">
+              <li><a href="#"><i class="material-icons">info</i></a></li>
+              <li><a href="#"><i class="material-icons">help</i></a></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </nav>
     <div class="container-fluid color2" id="main-container">
@@ -309,12 +315,6 @@
               </div>
               <div class="row">
                 <a class="dropdown-button waves-effect waves-light btn left" data-activates="pass-select">Pasajeros</span></a>
-                <ul id='pass-select' class='dropdown-content'>
-                  <li><input id="spinner" type="number"/></li>
-                  <li><a href="#!">two</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#!">three</a></li>
-                </ul>
                 <a class="waves-effect waves-light btn search color3 right">
                   <i class="material-icons left">search</i>
                   Buscar
@@ -332,7 +332,7 @@
                 <input type="date" placeholder="Partiendo" class="datepicker"/>
               </div>
               <div class="row">
-                <a class="dropdown-button waves-effect waves-light btn left">Pasajeros</a>
+                <a class="dropdown-button waves-effect waves-light btn left" data-activates="pass-select">Pasajeros</span></a>
                 <a class="waves-effect waves-light btn search color3 right">
                   <i class="material-icons left">search</i>
                   Buscar

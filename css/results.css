@@ -2,6 +2,10 @@
   background-color: #263238;
 }
 
+nav .nav-wrapper > div > div {
+  width: 50%;
+}
+
 div.filter-element > form > * {
   margin-left: 3em;
 }
