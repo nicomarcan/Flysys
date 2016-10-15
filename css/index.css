@@ -9,8 +9,9 @@
 .offers-back{
   background-color:#efebe9;
  }
-
-
+#airline_search{
+  margin-bottom: 0;
+}
 
 ul.inline li{
   color:#1976d2;
