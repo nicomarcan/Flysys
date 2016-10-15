@@ -17,8 +17,13 @@ var s1,s2;
 * and airline names.
 */
 var total,duration,airline;
+/*
+* Filter settings
+*/
 var currCrit,currPage;
 var currMin,currMax;
+var currAirlines,currStars;
+var applied,result;
 
 $(document).ready(function(){
 
@@ -141,9 +146,12 @@ $(document).ready(function(){
         var pages = s1.length/pageSize + (s1.length%pageSize == 0 ? 0:1);
         insertPaginator(pages);
         currCrit = 0;
+        currMin = req1.filters[2].min;
+        currMax = req1.filters[2].max;
+        applied = true ;
+        result = total;
         setCurrPage(0);
-        initializeSlider(req1.filters[2].min ,
-                         req1.filters[2].max);
+        initializeSlider(currMin,currMax);
       } else {
         /*
         * Request return flights from dst to src
@@ -200,9 +208,12 @@ $(document).ready(function(){
                         ((s1.length*s2.length)%pageSize == 0 ? 0:1);
             insertPaginator(pages);
             currCrit=0;
+            currMin = req1.filters[2].min+req2.filters[2].min;
+            currMax = req1.filters[2].max+req2.filters[2].max;
+            applied = true ;
+            result = total;
             setCurrPage(0);
-            initializeSlider(req1.filters[2].min+req2.filters[2].min,
-                             req1.filters[2].max+req2.filters[2].max);
+            initializeSlider(currMin,currMax);
           }
         });
       }
@@ -252,19 +263,18 @@ $(document).ready(function(){
     switch (criterium) {
       case "Precio":
         currCrit = 0;
-        setCurrPage(0);
         break;
       case "Duración":
         currCrit = 1;
-        setCurrPage(0);
         break;
       case "Aerolínea":
         currCrit = 2;
-        setCurrPage(0);
         break;
       default:
         return false;
     }
+    applied = false ;
+    setCurrPage(0);
     return true;
   });
 
@@ -272,37 +282,68 @@ $(document).ready(function(){
   $("#price-update").click(function(event){
      currMin = parseFloat($("#price-range .noUi-base .noUi-origin .noUi-handle[data-handle=0]").text());
      currMax = parseFloat($("#price-range .noUi-base .noUi-origin .noUi-handle[data-handle=1]").text());
+     applied = false;
      setCurrPage(0);
   });
 
 });
 
 function setCurrPage(page){
-  var resultsProcessor ;
+  var resultsRenderer ;
   switch (mode) {
     case "one-way":
-      resultsProcessor = addOWResultS;
+      resultsRenderer = addOWResultS;
       break;
     case "two-way":
-      resultsProcessor = addTWResultS;
+      resultsRenderer = addTWResultS;
       break;
     default:
       return false;
   }
   $('#results').empty();
-  switch (currCrit) {
-    case 0:
-      resultsProcessor(total,page,pageSize);
-      break;
-    case 1:
-      resultsProcessor(duration,page,pageSize);
-      break;
-    case 2:
-      resultsProcessor(airline,page,pageSize);
-      break;
-    default:
-      return false;
+  if(!applied){
+    var tmp ;
+    result = [];
+    switch (currCrit) {
+      case 0:
+        tmp = total;
+        break;
+      case 1:
+        tmp = duration;
+        break;
+      case 2:
+        tmp = airline;
+        break;
+      default:
+        return false;
+    }
+    for(var i=0,k=0 ; i<tmp.length ; i++){
+      /*
+      * Insert the appropriate flights:
+      * currMin,currMax,currStars,currAirlines
+      * are the criteria to consider
+      */
+      var price,stars,airlines;
+      switch (mode) {
+        case "one-way":
+          price = s1[tmp[i]].price.total.total;
+          break;
+        case "two-way":
+          price = s1[tmp[i][0]].price.total.total +
+                  s2[tmp[i][1]].price.total.total
+          break;
+        default:
+          return false;
+      }
+      if(price>=currMin && price<=currMax){
+        result[k++]=tmp[i];
+      }
+    }
+    var pages = result.length/pageSize + (result.length%pageSize == 0 ? 0:1);
+    insertPaginator(pages);
+    applied = true;
   }
+  resultsRenderer(result,page,pageSize);
   var paginators = $('#paginator li');
   $(paginators[currPage]).removeClass("active");
   $(paginators[page]).addClass("active");
@@ -356,6 +397,7 @@ function getUrlParameter(sParam) {
 }
 
 function insertPaginator(npags){
+  $("#paginator").empty();
   var template = $("#paginator-item").html();
   Mustache.parse(template);
   for(var i=1; i<=npags; i++){
