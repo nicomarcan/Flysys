@@ -30,9 +30,6 @@ function getGETparam(paramName) {
     }
     return null;
 }
-//aaa
-
-
 
 function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -46,4 +43,17 @@ function getUrlParameter(sParam) {
             return sParameterName[1] === undefined ? true : sParameterName[1];
         }
     }
+}
+
+function setLocalObject(nombre,objeto){
+  localStorage.setItem(nombre, JSON.stringify(objeto));
+}
+
+function getLocalObject(nombre){
+  var cache= localStorage.getItem(nombre);
+  if (cache==null){
+    console.log("No existe "+nombre+" en localStorage");
+  }else{
+    return JSON.parse(cache);
+  }
 }
