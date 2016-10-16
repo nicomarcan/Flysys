@@ -2,12 +2,39 @@
   background-color: #263238;
 }
 
+nav .nav-wrapper > div > div {
+  width: 50%;
+}
+
 div.filter-element > form > * {
   margin-left: 3em;
 }
 
-#price-update {
-  
+div.filter-element > div.row > div.filter-tool {
+  width: 85%;
+  margin: 3em auto .3em auto;
+}
+
+#result-description {
+  font-size: 1.2em;
+}
+
+#results > div.preloader {
+  font-size: 2em;
+  margin-top: 3em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
+
+div.search-panel div.row.title{
+  padding-top: .5em;
+}
+
+div.search-panel div.row.title h5{
+  padding-top: .5em;
+  margin: 0;
+  padding: 0;
 }
 
 .color3 {
@@ -32,7 +59,7 @@ div.filter-element > form > * {
 }
 
 .color2 {
-  background-color: #80939b ;
+  background-color: #efebe9;
 }
 
 .central-space {
@@ -67,10 +94,6 @@ div.filter-element > form > * {
   margin: 0 0;
 }
 
-.dropdown-button.btn {
-  margin-right: 10px;
-}
-
 ul.dropdown-content li p{
   text-align: left;
   margin-left: 10px;
@@ -97,7 +120,6 @@ footer.page-footer {
 }
 
 .tabs .tab a{
-  background-color: transparent;
   color: #eceff1;
 }
 
@@ -111,11 +133,10 @@ footer.page-footer {
 }
 
 .search-panel{
-  background-color: white;
   border-radius: .25em;
   padding: 0 0 0 0;
-  margin-top: 2em;
-  margin-bottom: 2em;
+  margin-top: 3.5em;
+  margin-bottom: 3.5em;
   color: #eceff1;
 }
 
@@ -167,26 +188,27 @@ div a.btn{
 }
 
 .filter-tool {
-  margin-top: 3em;
-  margin-bottom: 0;
+  margin: 1.5em auto;
 }
 
-.stars .important-star {
+.important-star {
   color: black;
 }
 
+.search-panel.stars .important-star {
+  color: #eceff1;
+}
+
 .stars .unimportant-star {
-  color: #b0bec5;
+  color: black;
 }
 
 .stars i {
   margin-right: .1em;
 }
 
-
-
 .airlines form label{
-  color: black;
+  color: white;
 }
 
 .date-field {
@@ -198,13 +220,13 @@ div.results-container {
   height: 100%;
 }
 
-div.row.results-box {
-  margin: auto auto;
+div.results-box {
+  margin: 3.5em auto;
 }
 
 div.results-container div.individual-result {
   width: 80%;
-  margin: 4em auto;
+  margin: 0 auto 3.5em auto;
 }
 
 div.individual-result div.collapsible-header {

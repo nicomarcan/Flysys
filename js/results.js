@@ -1,4 +1,4 @@
-var pageSize = 4 ;
+var pageSize = 7 ;
 
 var mode;
 var src,dst;
@@ -29,6 +29,7 @@ $(document).ready(function(){
 
   var booking = 'http://hci.it.itba.edu.ar/v1/api/booking.groovy' ;
   var geo = 'http://hci.it.itba.edu.ar/v1/api/geo.groovy';
+
 
   $(".dropdown-button").dropdown();
   $('select').material_select();
@@ -101,6 +102,8 @@ $(document).ready(function(){
   }
   page=getUrlParameter("page");
   sort_by=getUrlParameter("sort_by");
+
+  $("#result-description").text("Vuelos de " + src + " a " + dst + " , partiendo el " + d1 + (mode=="one-way" ? "." : " y retornando el " + d2));
 
   $.ajax({
     type: 'GET',
@@ -513,7 +516,6 @@ function fillAirportsAutocomplte(data,values,nameToId){
     nameToId[airports[x].description.split(", ")[1]] = airports[x].id;
     nameToId[airports[x].description] = airports[x].id;
   }
-  console.log(obj);
   var blood_ciudades = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
     queryTokenizer: Bloodhound.tokenizers.whitespace,

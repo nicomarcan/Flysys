@@ -50,23 +50,82 @@
           <div class="col s10 offset-s1 color1" id="search">
 
             <div class = "row input ">
-              <ul class="inline">
-              <li class = "clickable" selected id="two-way">Ida y vuelta</li>
-                <li >&nbsp&nbsp  &nbsp&nbsp </li>
-                  <li class = "clickable"  id="one-way">Ida</li>
-                  <li >&nbsp&nbsp  &nbsp&nbsp </li>
-                    <li class = "clickable" id="multiple-destinys">Multiples destinos</li>
-                    </ul>
+	             <ul class="tabs">
+	              <li class="tab"><a class="active" href="#two-way">Ida y vuelta</a></li>
+	              <li class="tab"><a href="#one-way">Ida</a></li>
+	            </ul>
               </div>
 
-            <form class="row input color1 " id="search-form">
+            <form class="row input color1 " id="two-way">
                 <ul class="inline">
                     <li class="input-field " id="from">
                       <div class="col s2">
                        <i class="material-icons prefix">location_on</i>
                     </div>
                       <div class="col s10">
-                       <input type="text" id="from_input" name="from_input" class="typeahead " placeholder="Desde"/>
+                       <input type="text" id="from_input_two" name="from_input" class="typeahead " placeholder="Desde"/>
+                        <label for="from_input_two" data-error="wrong" data-success="right"></label>
+                        <span id="from_input_error" class="red-text"></span>
+                     </div>
+                    </li>
+                    <li>
+                      <i class=" material-icons clickable" id="crossicon-two">swap_horiz</i>
+                    </li>
+
+                    <li class="input-field " id="to">
+                          <div class="col s2">
+                              <i class="material-icons prefix">location_on</i>
+                     </div>
+                         <div class="col s10">
+                           <input  type="text"   name="to_input"  id="to_input_two" class=" typeahead" placeholder="Hacia"/>
+                           <label for="to_input_two"  data-error="wrong" data-success="right"> </label>
+                           <span id="to_input_error" class="red-text"></span>
+                         </div>
+                    </li>
+
+                    <li class=" input-field  date-field" id="departing_two">
+                      <i class="material-icons prefix">today</i>
+                     <input type="date" class="datepicker" value = "Partiendo" >
+                    </li>
+
+                    <li class=" input-field  date-field" id="returning">
+                      <i class="material-icons prefix">today</i>
+                     <input  disabled type="date" class="datepicker" value = "Volviendo">
+                    </li>
+
+                    <li class="input-field  " id="passenger_two" >
+            					     <!-- Dropdown Trigger -->
+                           <i class="material-icons prefix " id="open-button-two"  >perm_identity</i>
+            						   <a class='dropdown-button waves-light btn-flat' disabled href='#' data-activates="dropdown2" id="passengers_two" > Pasajeros</a>
+
+            						  <!-- Dropdown Structure -->
+            						  <ul id='dropdown2' class='dropdown-content '>
+            						    <li class="inline"><a  id="adults"><p>Adultos&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p id="adults_val">1</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
+            						    <li class="divider"></li>
+            						     <li class="inline"><a  id="children"><p>Niños&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p id="children_val">0</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
+            						       <li class="divider"></li>
+            						     <li class="inline"><a  id="infants"><p>Infantes&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p id="infants_val">0</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
+            						     <li class="inline"><a href="#!" id="done-button-two">DONE</a></li>
+            						  </ul>
+
+  
+					         </li>
+
+                    <li>
+                      <a  class="material-icons small clickable" id="search-icon-two">search</a>
+                   </li>
+
+                </ul>
+              </form>
+
+               <form class="row input color1 " id="one-way">
+                <ul class="inline">
+                    <li class="input-field " id="from">
+                      <div class="col s2">
+                       <i class="material-icons prefix">location_on</i>
+                    </div>
+                      <div class="col s10">
+                       <input type="text" id="from_input" name="from_input" class="typeahead " placeholder="Desde" />
                         <label for="from_input" data-error="wrong" data-success="right"></label>
                         <span id="from_input_error" class="red-text"></span>
                      </div>
@@ -91,17 +150,14 @@
                      <input type="date" class="datepicker" value = "Partiendo" >
                     </li>
 
-                    <li class=" input-field  date-field" id="returning">
-                      <i class="material-icons prefix">today</i>
-                     <input  disabled type="date" class="datepicker" value = "Volviendo">
-                    </li>
+         
 
-                    <li class="input-field  " id="passengers">
+                    <li class="input-field  " id="passenger">
             					     <!-- Dropdown Trigger -->
                            <i class="material-icons prefix " id="open-button"  >perm_identity</i>
             						   <a class='dropdown-button waves-light btn-flat' disabled href='#' data-activates="dropdown1" id="passengers" > Pasajeros</a>
 
-            						  <!-- Dropdown Structure -->
+            						   			  <!-- Dropdown Structure -->
             						  <ul id='dropdown1' class='dropdown-content '>
             						    <li class="inline"><a  id="adults"><p>Adultos&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p id="adults_val">1</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
             						    <li class="divider"></li>
@@ -110,14 +166,13 @@
             						     <li class="inline"><a  id="infants"><p>Infantes&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p id="infants_val">0</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
             						     <li class="inline"><a href="#!" id="done-button">DONE</a></li>
             						  </ul>
-					         </li>
-
                     <li>
                       <a  class="material-icons small clickable" id="search-icon">search</a>
                    </li>
 
                 </ul>
               </form>
+
             </div>
 
           </div>
@@ -182,7 +237,14 @@
 
 
     <div id="review-modal" class="modal">
-		    <div class="modal-content">
+    		<div class="modal-content" id= "post-review"  >
+		     	<p>Gracias por dejarnos su comentario! Eso nos ayuda a poder darle un buen feedback a nuestros usuarios!!!</p>
+				<a class="clickable" id="link-airline">Para ver los demás comentarios de esa Aerolinea haga click aqui</a>
+		    </div>
+		    <div class="modal-content" id="review-form">
+		        <div class="modal-content" id= "error-review"  >
+		     	<p class="red-text">Ingreso mal algun dato</p>
+		    </div>
 
 		      <form >
 					  <div class="row">
@@ -377,14 +439,18 @@
 
 			          <div class="row">
 				        <div class="input-field col s12">
-				          <textarea id="comments" class="materialize-textarea"></textarea>
+				          <textarea id="comments" class="materialize-textarea" length="256"></textarea>
 				          <label for="comments">Comentarios</label>
 				        </div>
 				      </div>
 		            </form>
 		    </div>
+		
 		    <div class="modal-footer">
-		      <a id="send-review" class=" modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+		      <a id="send-review" class="  waves-effect waves-green btn-flat">Enviar</a>
+		    </div>
+		    <div class="modal-footer"  >
+		      <a id="close-modal" class=" modal-action modal-close waves-effect waves-green btn-flat" >Cerrar</a>
 		    </div>
 	  </div>
 
