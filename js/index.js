@@ -203,7 +203,7 @@ $(document).ready(function(){
 						 photo.attr("from","Buenos Aires");
 						
 						 k++;
-						 if(k<6){
+						 if(k<9){
 						 	getImages(apiurl,k);
 						 }
 				    }
@@ -553,7 +553,8 @@ $(document).ready(function(){
 			$("#review-modal #vuelo").val("");
 			$("#review-modal #vuelo").blur();
 			 for(var x = 1 ; x<7 ; x++){
-				 $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children().attr("class"," material-icons grey-text text-lighten-1 clickable")
+				 $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children().attr("class"," material-icons grey-text text-lighten-1 clickable");
+				  $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children().removeAttr("clicked");
 			 }
            $("#recommend .material-icons.clickable").removeAttr("selected");
            $("#recommend .material-icons.clickable").attr("class","material-icons grey-text text-lighten-1 clickable");
