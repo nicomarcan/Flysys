@@ -89,6 +89,26 @@ $(document).ready(function(){
 			};
 
 
+      $('.slider').slider({indicators:false,transition:400});
+  
+        
+        $('.slider').slider('pause');
+       
+        $(".slider").removeAttr("style");
+        $("ul.slides").removeAttr("style");
+
+        $(".slider").on('mouseenter',function(){
+        	$(this).slider('next');
+        });
+
+         $(".slider").on('mouseleave',function(){
+        	$(this).slider('next');
+        });
+
+
+
+
+
 
 		function cargaTypeAHead(data){
 			var total = data.total;
@@ -135,6 +155,7 @@ $(document).ready(function(){
 			//Implementacion de Flickr
 		  var apiurl=new Array();
 		  var to=new Array();
+		   var price=new Array();
 			var j = 1;
 			var src;
 			var photo;
@@ -144,12 +165,14 @@ $(document).ready(function(){
 				dataType: 'jsonp',
 				success: function (alfa) {
 						if (alfa.error == undefined) {
+							   console.log(alfa.deals);
 							var ciudades = alfa.deals;
 							var size = ciudades.length;
 							var random = parseInt((Math.random() * (ciudades.length-12 + 1)), 10) ;
 							var limit = random+11;
 							for( ; random< limit ; random++ ){
 								to.push(ciudades[random].city.name.split(", ")[0]);
+								price.push(alfa.deals[random].price);
 								
 								//console.log(noSpacesCity);
 				
@@ -161,6 +184,7 @@ $(document).ready(function(){
 			});
 
 		      console.log(to);
+
 	      function getImages(apiurl,k){	      	   	
 		    	   $.ajax({
 				    type: 'GET',
@@ -168,12 +192,18 @@ $(document).ready(function(){
 				    dataType: 'jsonp',
 				    success: function(d){		
 				  		var item = d.photos[0].photo_file_url;
-						 var photo= $('#offer-img-'+(k+1));	
+						 var photo= $('#offer-img-'+(k+1));
+						 photo.attr("src",item);
+						 photo= $('#offer-img-back-'+(k+1));
+						
+						photo.next().children("h5").text(to[k]);
+						photo.next().children("p").text("Desde "+ price[k]+ " dolares");
 						 photo.attr("src",item);
 						 photo.attr("to",to[k]);
 						 photo.attr("from","Buenos Aires");
+						
 						 k++;
-						 if(k<10){
+						 if(k<6){
 						 	getImages(apiurl,k);
 						 }
 				    }

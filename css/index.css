@@ -43,8 +43,10 @@ footer.page-footer {
 }
 
 .parallax-container{
-min-height: 1700px;
+min-height: 17000px;
 }
+
+
 
 
 .search-back.blurred-img{
@@ -63,8 +65,7 @@ min-height: 1700px;
 
 
 .offer-img.big{
-  height:295px;
-  width: 400px;
+  height:250px;
 }
 
 
