@@ -74,27 +74,27 @@
         </nav>
 			-->
         <div class="col s8 push-s2" style="padding:5px; margin:0px;">
-  				<div class="col s12">
+  				<div class="col s12" style="margin-top: 1rem;">
             <a href="#!" class="breadcrumb info_breadcrumbs" id="airline_breadcrumb"></a>
   				</div>
         </div>
 				<div id="flight-info-card" class="col s8 offset-s2">
 				<div class="card-panel row">
-          <div class="col s7 push-s1">
-						<div style="font-size:26px; font-weight:bold">
+          <div class="col s8">
+						<div style="font-size:2rem; font-weight:lighter">
               <img id="info_airline_logo"></img>
               <span id="info_airline_name"></span>
               ,&nbsp
               <span id="info_airline_code"></span>
             </div>
-            <div style="font-size:16px">
-              Tarifa: &nbsp
-              <span id="info_charges" style="font-weight:bold;"></span>
-            </div>
-            <div style="font-size:16px">
-              Impuestos: &nbsp
-              <span id="info_taxes" style="font-weight:bold;"></span>
-            </div>
+			<div style="margin-top: 0.5rem">
+				<span class="info_flight_descr"> Tarifa </span>
+				<span id="info_charges"></span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info_flight_descr"> Impuestos </span>
+				<span id="info_taxes"></span>
+			</div>
 
 					</div>
 
@@ -123,7 +123,7 @@
 			</div>
 			<div class="row" style="padding:5px; margin:0px;">
 				<div class="valign-wrapper">
-					<div class="valign col s8 opinions_header">
+					<div id="opinion_header" class="valign col s8 opinions_header">
 						OPINIONES
 					</div>
 					<div class="valign col s4 tools">
@@ -157,6 +157,9 @@
 			<div class="divider" style="margin-bottom:10px"></div>
 			<div id="reviews-container">
       </div>
+	<ul id="page_sel" class="pagination col s12" style="text-align: center">
+
+	</ul>
 		</div>
 			</div>
 		<footer class="page-footer color1">
