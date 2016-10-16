@@ -1,4 +1,4 @@
-color_scheme = ["#ff6f31", "#ff9f02", "#ffcf02", "#99cc00", "#88b131"];
+color_scheme = ["#ff6f31", "#ff9f02", "#cabc0b", "#99cc00", "#88b131"];
 
 function updateAirlineInfoCard(airline) {
   $("img#info_airline_logo").attr("src", airline.logo);

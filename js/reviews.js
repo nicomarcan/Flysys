@@ -8,7 +8,7 @@ function displayError(errorcode, errormsg) {
 color_scheme = [
   "#ff6f31",
   "#ff9f02",
-  "#ffcf02",
+  "#cabc0b",
   "#99cc00",
   "#88b131"
 ];
@@ -23,6 +23,23 @@ function parseGET() {
   }
   return ret;
 }
+
+var rad = function(x) {
+  return x * Math.PI / 180;
+};
+
+var getDistance = function(p1, p2) {
+  var R = 6378137; // Earth’s mean radius in meter
+  var dLat = rad(p2.latitude - p1.latitude);
+  var dLong = rad(p2.longitude - p1.longitude);
+  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(rad(p1.latitude)) * Math.cos(rad(p2.latitude)) *
+    Math.sin(dLong / 2) * Math.sin(dLong / 2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  var d = R * c;
+  return Math.floor(d / 1000); // returns the distance in meter
+};
+
 function updateFlightInfoCard(info) {
   var airline = info.status.airline;
   $("img#info_airline_logo").attr("src", airline.logo);
@@ -34,8 +51,13 @@ function updateFlightInfoCard(info) {
   $("a#flight_breadcrumb").text("Vuelo " +info.status.number);
   var departing_airport = info.status.departure.airport;
   var arriving_airport = info.status.arrival.airport;
-  $("#info_departing_airport").text(departing_airport.description);
-  $("#info_arriving_airport").text(arriving_airport.description);
+  $("#info_departing_airport").text(departing_airport.description.split(',')[0] + ' (' + departing_airport.id + ')' );
+  $("#info_arriving_airport").text(arriving_airport.description.split(',')[0] + ' (' + arriving_airport.id + ')');
+  var departing_city = info.status.departure.airport.city;
+  var arriving_city = info.status.arrival.airport.city;
+  $("#info_departing_city").text(departing_city.name);
+  $("#info_arriving_city").text(arriving_city.name);
+  $("#info_flight_distance").text(getDistance(departing_airport, arriving_airport)+ " km");
 
 }
 

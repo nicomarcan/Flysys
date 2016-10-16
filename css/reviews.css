@@ -23,9 +23,9 @@ body.roboto {
 	padding: 15px;
 	color: rgb(235, 235, 235);
 	font-weight:lighter;
-  line-height: normal;
-  width: 65px;
-  height: 65px;
+	line-height: normal;
+	width: 65px;
+	height: 65px;
 }
 .review_count {
 	margin:auto;
@@ -80,7 +80,7 @@ a.flight_number_link {
 	font-weight: lighter;
 }
 a.flight_number_link:hover {
-	border-bottom: solid 1px black;
+	color: #167ac6;
 }
 
 .opinions_header {
@@ -137,6 +137,10 @@ a.info_breadcrumbs.breadcrumb::before {
   margin: 0 0;
 }
 
+.info_flight_descr {
+	font-weight: lighter;
+	font-size: 1rem;
+}
 /*ESTILOS DEL AUTOCOMPLETE*/
 /*estilo css para typeahead*/
 
