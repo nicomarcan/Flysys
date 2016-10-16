@@ -203,7 +203,7 @@ $(document).ready(function(){
 						 photo.attr("from","Buenos Aires");
 						
 						 k++;
-						 if(k<6){
+						 if(k<9){
 						 	getImages(apiurl,k);
 						 }
 				    }

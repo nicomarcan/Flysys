@@ -43,7 +43,7 @@ footer.page-footer {
 }
 
 .parallax-container{
-min-height: 17000px;
+min-height: 1900px;
 }
 
 
@@ -66,6 +66,7 @@ min-height: 17000px;
 
 .offer-img.big{
   height:250px;
+  width: 75%;
 }
 
 
@@ -74,10 +75,7 @@ min-height: 17000px;
 }
 
 
-.offer-img.small{
-  height:145px;
-  width: 200px;
-}
+
 
 
  .col#search{
@@ -103,8 +101,8 @@ min-height: 17000px;
 }
 
 #opinion{
-   border-bottom: 3px solid black;
-  border-top: 3px solid black;
+   border-bottom: 3px solid grey;
+  border-top: 3px solid grey;
 }
 
 
@@ -154,7 +152,7 @@ min-height: 17000px;
 
 
 
-.collection a.collection-item{
+.collection a.collection-item {
   display:inline;
 }
 
@@ -201,7 +199,7 @@ div.container-fluid.center{
 }
 
 div.offers-text{
-  margin-top:500px;
+  margin-top:20%;
   color:black;
 }
 
