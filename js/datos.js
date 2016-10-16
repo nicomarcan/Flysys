@@ -147,4 +147,77 @@ fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy",{"method": "getcountries"},g
     cargoPasajero("adulto"+numero_actual);
   }
 
+  function pullPassager(string_nombre){
+    var fesplit=$("#nacimiento"+string_nombre).val().split("/");
+    var fecha_obj=fesplit[2]+"-"+fesplit[1]+"-"+fesplit[0];
+    var passeger={
+
+      "first_name": $("#nombre"+string_nombre).val(),
+      "birthdate": fecha_obj,
+      "id_type": parseInt($("select#tipo_id"+string_nombre).val()),
+      "last_name": $("#apellido"+string_nombre).val(),
+      "id_number": $("#pasaporte"+string_nombre).val()
+    }
+    console.log($("#apellido"+string_nombre).val());
+    return passeger;
+  }
+
+  function pullPayment(){
+    var payment={
+          installments:1, //cantidad de cuotas
+          credit_card:{
+            number: $("#tarjeta").val(),
+            expiration: $("#fecaducidad").val().split("/")[0]+$("#fecaducidad").val().split("/")[1],
+            security_code: $("#ccv").val(),
+            first_name: $("#nombre").val(),
+            last_name: $("#apellido").val(),
+          },
+          billing_address:{
+            city:{
+              id: $("#ciudad").val(),
+              state: $("#provincia").val(),
+              country:{
+                id: $("#pais").val()
+              }
+            },
+            zip_code:  $("#postal").val(),
+            street: ($("#calle").val() + " " + $("#callnro").val()),
+            floor: $("#piso").val(),
+            apartment: $("#depto").val()
+          }
+        };
+        return payment;
+  }
+
+  function pullContact(){
+    var contact={
+      email: $("#email").val(),
+      phones: [ $("#telefono").val() ]
+    }
+    return contact;
+  }
+
+  $("#continuar").click(function(){
+// TODO FALTA CHEQUYEAR LOS DATOS
+    var payment=pullPayment();
+    var contact=pullContact();
+    var passengers=[];
+    for (var i = 0; i < cant_infantes; i++) {
+      var numero_actual=cant_infantes - i
+      passengers.push(pullPassager("infante"+numero_actual));
+    }
+    for (var i = 0; i < cant_chicos; i++) {
+      var numero_actual=cant_chicos - i
+      passengers.push(pullPassager("chico"+numero_actual));
+    }
+    for (var i = 0; i < cant_adultos; i++) {
+      var numero_actual=cant_adultos - i
+      passengers.push(pullPassager("adulto"+numero_actual));
+    }
+    setLocalObject("contact",contact);
+    setLocalObject("payment",payment);
+    setLocalObject("passengers",passengers);
+    window.location="./detalle.html"+location.search;
+  });
+
 });

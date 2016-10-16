@@ -89,6 +89,26 @@ $(document).ready(function(){
 			};
 
 
+      $('.slider').slider({indicators:false,transition:400});
+  
+        
+        $('.slider').slider('pause');
+       
+        $(".slider").removeAttr("style");
+        $("ul.slides").removeAttr("style");
+
+        $(".slider").on('mouseenter',function(){
+        	$(this).slider('next');
+        });
+
+         $(".slider").on('mouseleave',function(){
+        	$(this).slider('next');
+        });
+
+
+
+
+
 
 		function cargaTypeAHead(data){
 			var total = data.total;
@@ -135,6 +155,7 @@ $(document).ready(function(){
 			//Implementacion de Flickr
 		  var apiurl=new Array();
 		  var to=new Array();
+		   var price=new Array();
 			var j = 1;
 			var src;
 			var photo;
@@ -144,43 +165,52 @@ $(document).ready(function(){
 				dataType: 'jsonp',
 				success: function (alfa) {
 						if (alfa.error == undefined) {
+							   console.log(alfa.deals);
 							var ciudades = alfa.deals;
 							var size = ciudades.length;
 							var random = parseInt((Math.random() * (ciudades.length-12 + 1)), 10) ;
 							var limit = random+11;
 							for( ; random< limit ; random++ ){
 								to.push(ciudades[random].city.name.split(", ")[0]);
-								var split = ciudades[random].city.name.split(",")[0].split(" ");
-								var noSpacesCity="";
-								$.each(split,function(i,item){
-									noSpacesCity+=item;
-								});
-
+								price.push(alfa.deals[random].price);
+								
 								//console.log(noSpacesCity);
-								apiurl.push('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e3dae01fb6981aeab9b4b352ceb8a59a&tags='+noSpacesCity+'&tag_mode=all&format=json&jsoncallback=?');
+				
+								apiurl.push("http://www.panoramio.com/map/get_panoramas.php?set=public&from=0&to=20&minx="+ciudades[random].city.longitude+"&miny="+ciudades[random].city.latitude+"&maxx="+(ciudades[random].city.longitude+1)+"&maxy="+(ciudades[random].city.latitude+1)+"&size=medium&mapfilter=false");
 							}
 					}
-					getImages(apiurl);
+					getImages(apiurl,0);
 				}
 			});
 
-	      function getImages(apiurl){
+		      console.log(to);
 
-		      for(var k = 0;k<11;k++){
-		      	//console.log(apiurl[k]);
-		    	 $.getJSON(apiurl[k] , function(data){
-									    var item = data.photos.photo[0];
-									    var photo= $('#offer-img-'+j);
-									    j++;
-									     src = "http://farm"+ item.farm +".static.flickr.com/"+ item.server +"/"+ item.id +"_"+ item.secret +"_m.jpg";
-									     photo.attr("src",src);
-									     photo.attr("to",to[j-1]);
-									     photo.attr("from","Buenos Aires");
-										return false;
-				});
+	      function getImages(apiurl,k){	      	   	
+		    	   $.ajax({
+				    type: 'GET',
+				    url: apiurl[k],
+				    dataType: 'jsonp',
+				    success: function(d){		
+				  		var item = d.photos[0].photo_file_url;
+						 var photo= $('#offer-img-'+(k+1));
+						 photo.attr("src",item);
+						 photo= $('#offer-img-back-'+(k+1));
+						
+						photo.next().children("h5").text(to[k]);
+						photo.next().children("p").text("Desde "+ price[k]+ " dolares");
+						 photo.attr("src",item);
+						 photo.attr("to",to[k]);
+						 photo.attr("from","Buenos Aires");
+						
+						 k++;
+						 if(k<6){
+						 	getImages(apiurl,k);
+						 }
+				    }
+				  });
 		    	// console.log(k);
 		   	}
-		  }
+		  
 
 
 
@@ -572,7 +602,33 @@ $(document).ready(function(){
 		    return false;
 		  });
 
+$("#one-way-tab").on('click',function(){
+		var from_two = $("#from_input_two");
+		var to_two = $("#to_input_two");
+		var from_val = from_two.typeahead('val');
+		var to_val = to_two.typeahead('val');
+		var from = $("#from_input");
+		var to = $("#to_input");
+		from.typeahead('val',from_val);
+		to.typeahead('val',to_val);
+		to.focus();
+		to.blur();
+});
 
+
+
+$("#two-way-tab").on('click',function(){
+		var from = $("#from_input");
+		var to = $("#to_input");
+		var from_val = from.typeahead('val');
+		var to_val = to.typeahead('val');
+		var from_two = $("#from_input_two");
+		var to_two = $("#to_input_two");
+		from_two.typeahead('val',from_val);
+		to_two.typeahead('val',to_val);
+		to_two.focus();
+		to_two.blur();
+});
 
 
 

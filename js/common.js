@@ -10,7 +10,7 @@ function fajax(aurl,datos,fsuccess,ferror){
             if(data.error==undefined){
                 fsuccess(data);
             }else{
-                console.log("ERROR REQUEST:"+data.error.message+" in request "+urlfinal);
+                console.log("ERROR REQUEST: "+data.error.message+"     in request "+urlfinal);
             }
         },
         error: function(jqxhr,status,errorthrown) {
@@ -18,21 +18,6 @@ function fajax(aurl,datos,fsuccess,ferror){
         }
     });
 }
-//DEPRECATED: getUrlParameter hace lo mismo
-function getGETparam(paramName) {
-    var query = location.search.substring(1);
-    var vars = query.split('&');
-    for (var i = 0; i < vars.length; i++) {
-        var pair = vars[i].split('=');
-        if (decodeURIComponent(pair[0]) === paramName) {
-            return decodeURIComponent(pair[1]);
-        }
-    }
-    return null;
-}
-//aaa
-
-
 
 function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -46,4 +31,17 @@ function getUrlParameter(sParam) {
             return sParameterName[1] === undefined ? true : sParameterName[1];
         }
     }
+}
+
+function setLocalObject(nombre,objeto){
+  localStorage.setItem(nombre, JSON.stringify(objeto));
+}
+
+function getLocalObject(nombre){
+  var cache= localStorage.getItem(nombre);
+  if (cache==null){
+    console.log("No existe "+nombre+" en localStorage");
+  }else{
+    return JSON.parse(cache);
+  }
 }
