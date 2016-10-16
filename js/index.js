@@ -150,37 +150,37 @@ $(document).ready(function(){
 							var limit = random+11;
 							for( ; random< limit ; random++ ){
 								to.push(ciudades[random].city.name.split(", ")[0]);
-								var split = ciudades[random].city.name.split(",")[0].split(" ");
-								var noSpacesCity="";
-								$.each(split,function(i,item){
-									noSpacesCity+=item;
-								});
-
+								
 								//console.log(noSpacesCity);
-								apiurl.push('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e3dae01fb6981aeab9b4b352ceb8a59a&tags='+noSpacesCity+'&tag_mode=all&format=json&jsoncallback=?');
+				
+								apiurl.push("http://www.panoramio.com/map/get_panoramas.php?set=public&from=0&to=20&minx="+ciudades[random].city.longitude+"&miny="+ciudades[random].city.latitude+"&maxx="+(ciudades[random].city.longitude+1)+"&maxy="+(ciudades[random].city.latitude+1)+"&size=medium&mapfilter=false");
 							}
 					}
-					getImages(apiurl);
+					getImages(apiurl,0);
 				}
 			});
 
-	      function getImages(apiurl){
-
-		      for(var k = 0;k<11;k++){
-		      	//console.log(apiurl[k]);
-		    	 $.getJSON(apiurl[k] , function(data){
-									    var item = data.photos.photo[0];
-									    var photo= $('#offer-img-'+j);
-									    j++;
-									     src = "http://farm"+ item.farm +".static.flickr.com/"+ item.server +"/"+ item.id +"_"+ item.secret +"_m.jpg";
-									     photo.attr("src",src);
-									     photo.attr("to",to[j-1]);
-									     photo.attr("from","Buenos Aires");
-										return false;
-				});
+		      console.log(to);
+	      function getImages(apiurl,k){	      	   	
+		    	   $.ajax({
+				    type: 'GET',
+				    url: apiurl[k],
+				    dataType: 'jsonp',
+				    success: function(d){		
+				  		var item = d.photos[0].photo_file_url;
+						 var photo= $('#offer-img-'+(k+1));	
+						 photo.attr("src",item);
+						 photo.attr("to",to[k]);
+						 photo.attr("from","Buenos Aires");
+						 k++;
+						 if(k<10){
+						 	getImages(apiurl,k);
+						 }
+				    }
+				  });
 		    	// console.log(k);
 		   	}
-		  }
+		  
 
 
 
@@ -572,7 +572,33 @@ $(document).ready(function(){
 		    return false;
 		  });
 
+$("#one-way-tab").on('click',function(){
+		var from_two = $("#from_input_two");
+		var to_two = $("#to_input_two");
+		var from_val = from_two.typeahead('val');
+		var to_val = to_two.typeahead('val');
+		var from = $("#from_input");
+		var to = $("#to_input");
+		from.typeahead('val',from_val);
+		to.typeahead('val',to_val);
+		to.focus();
+		to.blur();
+});
 
+
+
+$("#two-way-tab").on('click',function(){
+		var from = $("#from_input");
+		var to = $("#to_input");
+		var from_val = from.typeahead('val');
+		var to_val = to.typeahead('val');
+		var from_two = $("#from_input_two");
+		var to_two = $("#to_input_two");
+		from_two.typeahead('val',from_val);
+		to_two.typeahead('val',to_val);
+		to_two.focus();
+		to_two.blur();
+});
 
 
 
