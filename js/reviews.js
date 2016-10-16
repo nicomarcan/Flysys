@@ -61,6 +61,29 @@ function updateFlightInfoCard(info) {
 
 }
 
+function insertFlightInfoCard(info) {
+	var template = $("#flight_info_card").html();
+	var airline = info.status.airline;
+	var departing_city = info.status.arrival.airport.city;
+	var departing_airport = info.status.departure.airport;
+	var arriving_city = info.status.arrival.airport.city;
+	var arriving_airport = info.status.arrival.airport;
+	Mustache.parse(template);
+	var render = Mustache.render(template, {
+		logo: airline.logo,
+		name: airline.name,
+		number: airline.id,
+		departing_city: departing_city.name,
+		departing_airport: departing_airport.description+ '(' + departing_airport.id+ ')',
+		arriving_city: arriving_city.name,
+		arriving_airport: arriving_airport.description + '(' + arriving_airport.id+ ')',
+		distance: getDistance(departing_airport, arriving_airport) + " km"
+	});
+	$("#flight-info-card").append(render);
+	$("a#airline_breadcrumb").text(airline.name);
+	$("a#airline_breadcrumb").attr("href","./reviews_airlines.html?airline_id="+airline.id);
+	$("a#flight_breadcrumb").text("Vuelo " +info.status.number);
+}
 function addGlobalScoreBar(name, score) {
   var ret = "<li class=\"collection-item score_list_element\" style='background-color: #f5f4f3;'>";
   var color_i = parseInt((score + 1) / 2) - 1;

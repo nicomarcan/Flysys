@@ -11,11 +11,77 @@ function updateAirlineInfoCard(airline) {
   else {
     var r_score = Math.round(airline.rating);
     $("#info_global_score").text(r_score);
-    $("#info_global_score").css("background-color", color_scheme[parseInt((r_score+1) / 2) - 1]);
   }
-  $("#info_charges").text(parseInt(airline.charges * 100) + "%");
-  $("#info_taxes").text(parseInt(airline.taxes * 100) + "%");
+
   $("a#airline_breadcrumb").text(airline.name);
+}
+
+function insertFlightInfoCard(info) {
+	var template = $("#flight_info_card").html();
+	var airline = info.status.airline;
+	var departing_city = info.status.arrival.airport.city;
+	var departing_airport = info.status.departure.airport;
+	var arriving_city = info.status.arrival.airport.city;
+	var arriving_airport = info.status.arrival.airport;
+	Mustache.parse(template);
+	var render = Mustache.render(template, {
+		logo: airline.logo,
+		name: airline.name,
+		number: airline.id,
+		departing_city: departing_city.name,
+		departing_airport: departing_airport.description+ '(' + departing_airport.id+ ')',
+		arriving_city: arriving_city.name,
+		arriving_airport: arriving_airport.description + '(' + arriving_airport.id+ ')',
+		distance: getDistance(departing_airport, arriving_airport) + " km"
+	});
+	$("#flight-info-card").append(render);
+	$("a#airline_breadcrumb").text(airline.name);
+	$("a#airline_breadcrumb").attr("href","./reviews_airlines.html?airline_id="+airline.id);
+	$("a#flight_breadcrumb").text("Vuelo " +info.status.number);
+}
+
+function insertAirlineInfoCard(airline) {
+	var template = $("#airline_card_info").html();
+	Mustache.parse(template);
+	var rating;
+	var rating_color;
+	if (airline.rating) {
+		rating = Math.round(airline.rating);
+		rating_color = color_scheme[parseInt((rating+1) / 2) - 1];
+	}
+	else {
+		rating = "?";
+		rating_color = "grey";
+	}
+	var charges = parseInt(airline.charges * 100) + "%";
+	var taxes = parseInt(airline.taxes * 100) + "%";
+	var render = Mustache.render(template, {
+		logo: airline.logo,
+		name: airline.name,
+		code: airline.id,
+		rating: rating,
+		rating_color: rating_color,
+		charges: charges,
+		taxes: taxes
+	});
+	$("#flight-info-card").append(render);
+}
+
+function insertReviewCards(reviews) {
+	for (var r in reviews) {
+		for (var s in reviews[r].rating) {
+			var int_score = parseInt((reviews[r].rating[s] + 1)/ 2 - 1);
+			reviews[r].rating[s+"_color"] = color_scheme[int_score];
+			reviews[r].rating[s] = parseInt(reviews[r].rating[s] * 10);
+		}
+		reviews[r].comments = decodeURIComponent(reviews[r].comments);
+	}
+	var template = $("#review_card").html();
+	Mustache.parse(template);
+	var render = Mustache.render(template, {
+		reviews: reviews
+	});
+	$("#reviews-container").append(render);
 }
 
 function startPagination(pages, page) {
@@ -40,13 +106,51 @@ function startPagination(pages, page) {
 function loadReviews(reviews) {
 	$("#reviews-container").html('');
 	$("#reviews-container").css("opacity", "1");
-	for ( var x in reviews) {
-		$("#reviews-container").append(createReviewCard(reviews[x]));
-	}
+	insertReviewCards(reviews);
+}
+
+function ajaxAirlineInfo(params) {
+	$.ajax({
+      url: "http://hci.it.itba.edu.ar/v1/api/misc.groovy",
+      jsonp: "callback",
+      data: {
+        method: "getairlinebyid",
+        id: params["airline_id"],
+
+      },
+      success: function(response) {
+        if (response.error) {
+          displayError()
+        }
+		$("a#airline_breadcrumb").html(response.airline.name);
+        insertAirlineInfoCard(response.airline);
+      }
+    });
+}
+
+function ajaxFlightInfo(params) {
+	$.ajax({
+		url: "http://hci.it.itba.edu.ar/v1/api/status.groovy",
+		jsonp: "callback",
+		dataType: "jsonp",
+		data: {
+			method: "getflightstatus",
+			airline_id: params["airline_id"],
+			flight_number: params["flight_number"]
+		},
+		success: function(response) {
+		insertFlightInfoCard(response);
+		flight_info = response.status;
+		api_ready = true;
+		if (google_maps_ready == true) {
+			loadMap();
+		}
+		}
+    })
 }
 
 var total_pages;
-function ajaxAirlineInfo(params, sort_key, sort_order, page, option) {
+function ajaxAirlineReviews(params, sort_key, sort_order, page, option) {
 	$.ajax({
 		url: "http://hci.it.itba.edu.ar/v1/api/review.groovy",
 		jsonp: "callback",
@@ -63,9 +167,8 @@ function ajaxAirlineInfo(params, sort_key, sort_order, page, option) {
 			if (response.error) {
 				$("#reviews-container").append(displayError(response.error.code, "La busqueda de opiniones por aerolinea no esta andando desde la api"))
 			}
-			for ( var x in response.reviews) {
-				$("#reviews-container").append(createReviewCard(response.reviews[x]));
-			}
+			insertReviewCards(response.reviews);
+
 			option.pages[page] = response.reviews;
 			if ($("ul#page_sel").html() == false) {
 				total_pages = parseInt(response.total / response.page_size) + 1;
@@ -104,8 +207,10 @@ $(document).ready(function() {
 	}
 	else {
 		/* searching for airline */
-		$("select#order_select").append('<option class="order_option" value="2">Menor numero de vuelo</option>');
+
+		/* add aditional search options */
 		$('select#order_select').append('<option class="order_option" value="3">Mayor numero de vuelo</option>');
+		$("select#order_select").append('<option class="order_option" value="2">Menor numero de vuelo</option>');
 		$('select').material_select();
 		options[2] = {
 			option: 2,
@@ -119,7 +224,14 @@ $(document).ready(function() {
 			sort_order: 'desc',
 			pages: []
 		}
+
+		/* ajax airline info */
 		ajaxAirlineInfo(
+			params
+		);
+
+		/* ajax airline reviews */
+		ajaxAirlineReviews(
 			params,
 			options[op].sort_key,
 			options[op].sort_order,
@@ -128,21 +240,7 @@ $(document).ready(function() {
 		);
 	}
 
-  $.ajax({
-    url: "http://hci.it.itba.edu.ar/v1/api/misc.groovy",
-    jsonp: "callback",
-    data: {
-      method: "getairlinebyid",
-      id: params["airline_id"],
 
-    },
-    success: function(response) {
-      if (response.error) {
-        displayError()
-      }
-      updateAirlineInfoCard(response.airline);
-    }
-  });
 	$(document).on("click", "li.page_button", function(){
 		var auxpage = parseInt($(this).attr('value'));
 		if (auxpage == page) {

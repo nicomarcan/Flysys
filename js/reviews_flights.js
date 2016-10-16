@@ -140,7 +140,7 @@ $(document).ready( function() {
       flight_number: params["flight_number"]
     },
     success: function(response) {
-      updateFlightInfoCard(response);
+      insertFlightInfoCard(response);
 	  flight_info = response.status;
 	  api_ready = true;
 	  if (google_maps_ready == true) {

@@ -19,6 +19,8 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
     <script type="text/javascript" src="./js/reviews.js"></script>
     <script type="text/javascript" src="./js/reviews_flights.js"></script>
+	<script type="text/javascript" src="js/mustache.min.js"></script>
+
 	<!-- Google Maps Api -->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW8Zq1p2J_A1tExsMjmcov8t4b4ZAqFko&callback=initMap"
   type="text/javascript"></script>
@@ -53,99 +55,12 @@
 
         <div class="col s8 push-s2" style="padding:5px; margin:0px;">
   				<div class="col s12" style="margin-top: 1rem;">
-            <a href="#!" class="breadcrumb info_breadcrumbs" id="airline_breadcrumb">Aerolineas Argentinas</a>
+            <a href="#!" class="breadcrumb info_breadcrumbs" id="airline_breadcrumb"></a>
             <a href="#!" class="breadcrumb info_breadcrumbs" id="flight_breadcrumb"></a>
   				</div>
         </div>
         <div id="flight-info-card" class="col s8 offset-s2" style="height:100%">
-				<div class="card-panel row">
-					<div class="col s12">
-						<div style="font-size:2rem; font-weight:lighter">
-							<img id="info_airline_logo"></img>
-							<span id="info_airline_name"></span>
-							,&nbsp
-							<span id="info_airline_code"></span>
-							<span id="info_flight_number"></span>
-							&nbsp&nbsp
-						 </div>
-					</div>
 
-					<div class="col s12" style="height:30rem">
-						<div class="col s6" style="height:100%; position:relative;">
-								<div style="margin-top: 0.5rem">
-		 							<span class="info_flight_descr"> Origen </span>
-		 							<span id="info_departing_city"></span>
-		 						</div>
-								<div style="margin-top: 0.5rem">
-									<span class="info_flight_descr"> Aeropuerto de origen </span>
-									<span id="info_departing_airport"></span>
-								</div>
-
-								<div style="margin-top: 0.5rem">
-									<span class="info_flight_descr" > Llegada </span>
-									<span id="info_arriving_city"></span>
-								</div>
-	              				<div style="margin-top: 0.5rem">
-									<span class="info_flight_descr" > Aeropuerto de llegada </span>
-									<span id="info_arriving_airport"></span>
-								</div>
-								<div style="margin-top: 0.5rem">
-									<span class="info_flight_descr" > Distancia </span>
-									<span id="info_flight_distance"></span>
-								</div>
-								<a class="write_review_button waves-effect waves-light btn clickable col s6 push-s3" style="position:absolute; bottom:0" >
-									Escribir una resena
-									<i class="tiny material-icons right">
-										mode_edit
-									</i>
-								</a>
-			  			</div>
-						  <div id="map" class="col s6" style="height:100% ">
-							  <div class="col s2 push-s5 valign-wrapper" style="height:100%">
-							  <div class="preloader-wrapper big active valign">
-							      <div class="spinner-layer spinner-blue">
-							        <div class="circle-clipper left">
-							          <div class="circle"></div>
-							        </div><div class="gap-patch">
-							          <div class="circle"></div>
-							        </div><div class="circle-clipper right">
-							          <div class="circle"></div>
-							        </div>
-							      </div>
-
-						      <div class="spinner-layer spinner-red">
-						        <div class="circle-clipper left">
-						          <div class="circle"></div>
-						        </div><div class="gap-patch">
-						          <div class="circle"></div>
-						        </div><div class="circle-clipper right">
-						          <div class="circle"></div>
-						        </div>
-						      </div>
-
-						      <div class="spinner-layer spinner-yellow">
-						        <div class="circle-clipper left">
-						          <div class="circle"></div>
-						        </div><div class="gap-patch">
-						          <div class="circle"></div>
-						        </div><div class="circle-clipper right">
-						          <div class="circle"></div>
-						        </div>
-						      </div>
-
-						      <div class="spinner-layer spinner-green">
-						        <div class="circle-clipper left">
-						          <div class="circle"></div>
-						        </div><div class="gap-patch">
-						          <div class="circle"></div>
-						        </div><div class="circle-clipper right">
-						          <div class="circle"></div>
-						        </div>
-						      </div>
-						    </div>
-						</div>
-					</div>
-				</div>
             <!--
 						<div style="font-size:16px;">
 							<span> Duracion: </span> <span style="font-weight:bold;"> 7 hs</span>
@@ -166,7 +81,7 @@
         </div>
       -->
 			</div>
-			<div class="row" style="padding:5px; margin:0px;">
+			<div class="col s8 push-s2" style="padding:5px; margin:0px;">
 				<div class="col s2 opinions_header">
 					OPINIONES
 				</div>
@@ -189,8 +104,8 @@
 				</div>
 
 			</div>
-			<div class="divider" style="margin-bottom:10px"></div>
-			<div id="reviews-container"></div>
+			<div class="divider col s8 push-s2" style="margin-bottom:10px"></div>
+			<div id="reviews-container" class="col s8 push-s2"></div>
 		</div>
 			</div>
 		<footer class="page-footer color1">
@@ -215,7 +130,95 @@
           </div>
       </div>
     </footer>
+	<script type="x-tmpl-mustache" id="flight_info_card">
+	<div class="card-panel row">
+		<div class="col s12">
+			<div style="font-size:2rem; font-weight:lighter">
+				<img id="info_airline_logo" src='{{logo}}'></img>
+				<span id="info_airline_name">{{name}}</span>
+				,&nbsp
+				<span id="info_airline_code">{{code}}</span>
+				<span id="info_flight_number"> {{number}}</span>
+				&nbsp&nbsp
+			 </div>
+		</div>
+		<div class="col s12" style="height:30rem">
+			<div class="col s6" style="height:100%; position:relative;">
+					<div style="margin-top: 0.5rem">
+						<span class="info_flight_descr"> Origen </span>
+						<span id="info_departing_city"> {{ departing_city }}</span>
+					</div>
+					<div style="margin-top: 0.5rem">
+						<span class="info_flight_descr"> Aeropuerto de origen </span>
+						<span id="info_departing_airport"> {{departing_airport}}</span>
+					</div>
 
+					<div style="margin-top: 0.5rem">
+						<span class="info_flight_descr" > Llegada </span>
+						<span id="info_arriving_city"> {{arriving_city}}</span>
+					</div>
+					<div style="margin-top: 0.5rem">
+						<span class="info_flight_descr" > Aeropuerto de llegada </span>
+						<span id="info_arriving_airport"> {{arriving_airport}}</span>
+					</div>
+					<div style="margin-top: 0.5rem">
+						<span class="info_flight_descr" > Distancia </span>
+						<span id="info_flight_distance"> {{distance}}</span>
+					</div>
+					<a class="write_review_button waves-effect waves-light btn clickable col s6 push-s3" style="position:absolute; bottom:0" >
+						Escribir una resena
+						<i class="tiny material-icons right">
+							mode_edit
+						</i>
+					</a>
+			</div>
+			  <div id="map" class="col s6" style="height:100% ">
+				  <div class="col s2 push-s5 valign-wrapper" style="height:100%">
+				  <div class="preloader-wrapper big active valign">
+					  <div class="spinner-layer spinner-blue">
+						<div class="circle-clipper left">
+						  <div class="circle"></div>
+						</div><div class="gap-patch">
+						  <div class="circle"></div>
+						</div><div class="circle-clipper right">
+						  <div class="circle"></div>
+						</div>
+					  </div>
+
+				  <div class="spinner-layer spinner-red">
+					<div class="circle-clipper left">
+					  <div class="circle"></div>
+					</div><div class="gap-patch">
+					  <div class="circle"></div>
+					</div><div class="circle-clipper right">
+					  <div class="circle"></div>
+					</div>
+				  </div>
+
+				  <div class="spinner-layer spinner-yellow">
+					<div class="circle-clipper left">
+					  <div class="circle"></div>
+					</div><div class="gap-patch">
+					  <div class="circle"></div>
+					</div><div class="circle-clipper right">
+					  <div class="circle"></div>
+					</div>
+				  </div>
+
+				  <div class="spinner-layer spinner-green">
+					<div class="circle-clipper left">
+					  <div class="circle"></div>
+					</div><div class="gap-patch">
+					  <div class="circle"></div>
+					</div><div class="circle-clipper right">
+					  <div class="circle"></div>
+					</div>
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</script>
 	</body>
 
 </html>
