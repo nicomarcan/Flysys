@@ -19,7 +19,7 @@ function updateAirlineInfoCard(airline) {
 }
 
 function startPagination(pages, page) {
-	var el = '<li id="left_chevron" class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>';
+	var el = '<li id="left_chevron" class="disabled"><a href="#opinion_header"><i class="material-icons">chevron_left</i></a></li>';
 	for (var i = 1; i <= pages; i++) {
 		if (i == page) {
 			el += '<li class="page_button active" value="'+ i +'"><a href="#opinion_header">'+ i +'</a></li>';
@@ -47,9 +47,34 @@ function loadReviews(reviews) {
 
 $(document).ready(function() {
 	var params = parseGET();
-	var pages = [];
+	var options = [{
+			option: 0,
+			sort_key: 'rating',
+			sort_order: 'asc',
+			pages: []
+		},
+		{
+			option: 1,
+			sort_key: 'rating',
+			sort_order: 'desc',
+			pages: []
+		},
+		{
+			option: 2,
+			sort_key: 'flight',
+			sort_order: 'asc',
+			pages: []
+		},
+		{
+			option: 3,
+			sort_key: 'flight',
+			sort_order: 'desc',
+			pages: []
+		}
+	];
 	var total_pages;
 	var page = 1;
+	var op = 0;
   $.ajax({
     url: "http://hci.it.itba.edu.ar/v1/api/review.groovy",
     jsonp: "callback",
@@ -57,7 +82,9 @@ $(document).ready(function() {
     data: {
       method: "getairlinereviews",
       airline_id: params["airline_id"],
-	  page: 1,
+	  sort_key: options[op].sort_key,
+	  sort_order: options[op].sort_order,
+	  page: page,
 	  page_size: 5
     },
     success: function(response) {
@@ -67,7 +94,7 @@ $(document).ready(function() {
       for ( var x in response.reviews) {
         $("#reviews-container").append(createReviewCard(response.reviews[x]));
       }
-	  pages[1] = response.reviews;
+	  options[op].pages[page] = response.reviews;
 	  total_pages = parseInt(response.total / response.page_size) + 1;
 	  $("ul#page_sel").append(startPagination( total_pages , response.page));
     }
@@ -109,8 +136,8 @@ $(document).ready(function() {
 			$("li#right_chevron").removeClass("disabled");
 		}
 		$("#reviews-container").css("opacity", "0.5");
-		if (pages[page]) {
-			loadReviews(pages[page]);
+		if (options[op].pages[page]) {
+			loadReviews(options[op].pages[page]);
 		}
 		else {
 			$.ajax({
@@ -120,6 +147,8 @@ $(document).ready(function() {
 			    data: {
 			      method: "getairlinereviews",
 			      airline_id: params["airline_id"],
+				  sort_key: options[op].sort_key,
+				  sort_order: options[op].sort_order,
 				  page: page,
 				  page_size: 5
 			    },
@@ -129,7 +158,7 @@ $(document).ready(function() {
 					}
 					else {
 						loadReviews(response.reviews);
-						pages[page] = response.reviews;
+						options[op].pages[page] = response.reviews;
 					}
 				}
 			});
@@ -145,7 +174,7 @@ $(document).ready(function() {
 			return $(this).attr("value") == page - 1;
 		}).click();
 		return true;
-	})
+	});
 
 	$(document).on('click', 'li#right_chevron', function() {
 		if ($(this).hasClass('disabled')) {
@@ -155,7 +184,39 @@ $(document).ready(function() {
 			return $(this).attr("value") == (page + 1);
 		}).click();
 		return true;
-	})
+	});
 
+	$('select.order_select').on('change', function() {
+		$("#reviews-container").css("opacity", "0.5");
+		op = $(this).children('option.order_option:selected').attr('value');
+		page = 0;
+		if (options[op].pages[page]) {
+			loadReviews(options[op].pages[page])
+		}
+		else {
+			$.ajax({
+				url: "http://hci.it.itba.edu.ar/v1/api/review.groovy",
+			    jsonp: "callback",
+			    dataType: "jsonp",
+			    data: {
+			      method: "getairlinereviews",
+			      airline_id: params["airline_id"],
+				  sort_key: options[op].sort_key,
+				  sort_order: options[op].sort_order,
+				  page: page,
+				  page_size: 5
+			    },
+			    success: function(response) {
+					if (response.error) {
+						$("#reviews-container").append(displayError(response.error.code, "La busqueda de opiniones por aerolinea no esta andando desde la api"))
+					}
+					else {
+						loadReviews(response.reviews);
+						options[op].pages[page] = response.reviews;
+					}
+				}
+			});
+		}
+	});
 
 });
