@@ -54,7 +54,7 @@
 		</div>
 
 
-		<div class="container-fluid row">
+		<div class="container-fluid row" id="correcto">
 			<div class="col s7 offset-s1">
 				<div class="card-panel row">
 					<div class="col s8">
@@ -66,30 +66,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="container-fluid row">
-		<div class="col s7 offset-s1">
-			<div class="card-panel row">
-				<div class="col s8">
-					Informacion del pasajero2
-				</div>
-				<div class="col s4">
-					<a class="waves-effect waves-light btn valign center">MODIFICAR</a>
-				</div>
-		</div>
-	</div>
-</div>
-<div class="container-fluid row">
-	<div class="col s7 offset-s1">
-		<div class="card-panel row">
-			<div class="col s8">
-				Informacion del pasajero3
-			</div>
-			<div class="col s4">
-				<a class="waves-effect waves-light btn valign center">MODIFICAR</a>
-			</div>
-	</div>
-</div>
-</div>
 
 
 
@@ -129,15 +105,35 @@
 		</script>
 		<script type="x-tmpl-mustache" id="detalletarjeta">
 			Numero de tarjeta:{{id}}<br/>
-			DNI:{{dni}}<br/>
+			Cuotas:{{cuotas}}<br/>
 			Nombre:{{fname}}<br/>
 			Apellido:{{lname}}<br/>
 			Calle:{{street}}<br/>
 			Piso:{{floor}}<br/>
 			Departamento:{{section}}<br/>
 			Ciudad:{{city}}<br/>
-			Provincia:{{State}}<br/>
-			Pais:{{Country}}<br/>
+			Provincia:{{state}}<br/>
+			Pais:{{country}}<br/>
+			Telefono:{{phone}}<br/>
+			Email:{{email}}<br/>
+		</script>
+		<script type=" x-tmpl-mustache" id="detallepasajero">
+			<div class="container-fluid row">
+				<div class="col s7 offset-s1">
+					<div class="card-panel row">
+						<div class="col s8">
+							Informacion del {{idpasajero}}<br/>
+							Nombre:{{fname}}<br/>
+							Apellido:{{lname}}<br/>
+							Fecha de nacimiento:{{bdate}}<br/>
+							Documento/Pasaporte:{{passport}}<br/>
+						</div>
+						<div class="col s4">
+							<a class="waves-effect waves-light btn valign center" id="{{idpasajero}}">MODIFICAR</a>
+						</div>
+				</div>
+			</div>
+			</div>
 		</script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
