@@ -81,8 +81,8 @@
 									<label for="fecaducidad" data-error="Ingrese una fecha valida">Caducidad</label>
 								</div>
               <div class="input-field col s2">
-                <input id="cvv" type="text" pattern="^([0-9]{2,4})"  class="validate"/>
-                <label for="ccv" data-error="Ingrese los 3-4digitos">CCV</label>
+                <input id="cvv" type="text" pattern="^([0-9][0-9][0-9])"  class="validate"/>
+                <label for="ccv" data-error="Ingrese los 3 digitos">CCV</label>
 			  		</div>
 						<div class="row">
 							<div class="col s8">
@@ -201,8 +201,8 @@
 																	<div class="input-field col s3">
 																		<select id="tipo_id{{indenti}}">
 																			<option value="" disabled selected>Pasaporte/DNI</option>
-																			<option value="1">Pasaporte</option>
-																			<option value="2">DNI</option>
+																			<option value="2">Pasaporte</option>
+																			<option value="1">DNI</option>
 																		</select>
 																		<label>Identificador</label>
 																	</div>
@@ -212,7 +212,7 @@
 																	</div>
 																	<div class="date-field col s3 input-field ">
 																		<label for="nacimiento{{indenti}}">Fecha de nacimiento</label>
-																		<input id="nacimiento{{indenti}}" placeholder="DD/MM/AA" type="text" class="validate" pattern="(([0-2][0-9])|(3[0-1]))/((1[0-2])|(0[0-9]))/[0-9][0-9]"/>
+																		<input id="nacimiento{{indenti}}" placeholder="DD/MM/AAAA" type="text" class="validate" pattern="(([0-2][0-9])|(3[0-1]))/((1[0-2])|(0[0-9]))/[1-2][0-9][0-9][0-9]"/>
 																	</div>
 															</div>
 											</div>
