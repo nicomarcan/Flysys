@@ -263,5 +263,83 @@ fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy",{"method": "getcountries"},g
     setLocalObject("passengers",passengers);
     window.location="./detalle.html"+location.search;
   });
+//funciones de verifiacion
+var dia=new Date().getDate();
+var mes=new Date().getMonth();
+var anio=new Date().getYear()-100;
 
+function checkNumberCard(dato){
+  var patron=/^(((34)|(37))\d{13})|^(36\d{12})|((5[1-3])\d{14})|^(4\d{12,15})/i;
+  return patron.test(dato);
+}
+function checkDateCard(dato){
+  var patron=/^((3\d)|([0-2][0-9]))\/\d{2}/i;
+  if(patron.test(dato)){
+    return true; //TODO
+  }
+  return false;
+}
+
+function checkCcv(dato){
+  var patron=/^\d{3,4}/i;
+  return patron.test(dato);
+}
+function checkName(dato){
+  var patron=/^([a-z]|[A-Z]|\s){1,80}/i;
+  return patron.test(dato);
+}
+function checkStreet(dato){
+  var patron=/^(.){1,70}/i;
+  return patron.test(dato);
+}
+function checkStreetNumber(dato){
+  var patron=/^(\d){1,10}/i;
+  return patron.test(dato);
+}
+function checkFloor(dato){
+  var patron=/^(\w){0,3}/i;
+  return patron.test(dato);
+}
+function checkApartment(dato){
+  var patron=/^\w{0,2}/i;
+  return patron.test(dato);
+}
+
+function checkZipCode(dato){
+  var patron=/^\w{1,10}/i;
+  return patron.test(dato);
+}
+
+function checkCity(dato){
+  var patron=/^\.{1,80}/i;
+  if(patron.test(dato)){
+    if(citiesObj[dato]!=undefined){
+      return true;
+    }
+  }
+  return false;
+}
+
+function checkPhone(dato){
+  var patron=/^.{1,25}/i; //TODO
+  return patron.test(dato);
+}
+function checkEmail(dato){
+  var patron=/(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)/i;
+  return patron.test(dato);
+}
+function checkIdType(dato){
+  var patron=/(^(1|2))/i;
+  return patron.test(dato);
+}
+function checkPassport(dato){
+  var patron=/^\d{1,18}/i;
+  return patron.test(dato);
+}
+function checkBirthDate(dato){
+  var patron=/\d{2}\/\d{2}\/\d{4}/i;
+  return patron.test(dato); //TODO
+}
+
+//fin de funciones de verificacion
 });
