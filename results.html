@@ -15,9 +15,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
   <body>
-    <script type="x-tmpl-mustache" id= "paginator-item" >
+    <script type="x-tmpl-mustache" id="paginator-item" >
       <!--This will be fixed-->
       <li class="{{activeness}} waves-effect"><a onclick="setCurrPage(parseInt($(this).text()-1))">{{number}}</a></li>
+    </script>
+
+    <script type="x-tmpl-mustache" id="airline">
+      <p>
+        <input type="checkbox" id="{{id_aero}}" checked="checked"></id>
+        <label for="{{id_aero}}">{{name_aero}}</label>
+      </p>
     </script>
 
     <script type="x-tmpl-mustache" id="row">
@@ -350,7 +357,7 @@
             <div class="row title"><h5>Reputación</h5></div>
             <form class="filter-tool">
               <p>
-                <input type="checkbox" id="five-stars"></id>
+                <input type="checkbox" id="five-stars" checked="checked"></id>
                 <label for="five-stars">
                   <i class="material-icons important-star">star</i>
                   <i class="material-icons important-star">star</i>
@@ -360,7 +367,7 @@
                 </label>
               </p>
               <p>
-                <input type="checkbox" id="four-stars"></id>
+                <input type="checkbox" id="four-stars" checked="checked"></id>
                 <label for="four-stars">
                   <i class="material-icons important-star">star</i>
                   <i class="material-icons important-star">star</i>
@@ -370,7 +377,7 @@
                 </label>
               </p>
               <p>
-                <input type="checkbox" id="three-stars"></id>
+                <input type="checkbox" id="three-stars" checked="checked"></id>
                 <label for="three-stars">
                   <i class="material-icons important-star">star</i>
                   <i class="material-icons important-star">star</i>
@@ -380,7 +387,7 @@
                 </label>
               </p>
               <p>
-                <input type="checkbox" id="two-stars"></id>
+                <input type="checkbox" id="two-stars" checked="checked"></id>
                 <label for="two-stars">
                   <i class="material-icons important-star">star</i>
                   <i class="material-icons important-star">star</i>
@@ -390,7 +397,7 @@
                 </label>
               </p>
               <p>
-                <input type="checkbox" id="one-stars"></id>
+                <input type="checkbox" id="one-stars" checked="checked"></id>
                 <label for="one-stars">
                   <i class="material-icons important-star">star</i>
                   <i class="material-icons unimportant-star">star</i>
@@ -403,15 +410,8 @@
           </div>
           <div class="row center-allign reputation filter-element search-panel color1 airlines">
             <div class="row title"><h5>Aerolíneas</h5></div>
-            <form class="filter-tool">
-              <p>
-                <input type="checkbox" id="ar1"></id>
-                <label for="ar1">Air Syria</label>
-              </p>
-              <p>
-                <input type="checkbox" id="ar2"></id>
-                <label for="ar2">Emirates</label>
-              </p>
+            <form class="filter-tool" id="airlines-panel">
+              
             </form>
           </div>
 
