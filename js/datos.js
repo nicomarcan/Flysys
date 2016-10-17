@@ -6,7 +6,6 @@ var citiesIdtoName={};
 
 $(document).ready(function(){
 
-
 function getCountries(data){
   var paises = data.countries;
   var valores=[];
@@ -242,25 +241,38 @@ fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy",{"method": "getcountries"},g
   }
 
   $("#continuar").click(function(){
-// TODO FALTA CHEQUYEAR LOS DATOS
-    if(!checkPayment()){
+
+    var failedSend=false;
+    var passengers=[];
+    for (var i = 0; i < cant_infantes; i++) {
+      var numero_actual=cant_infantes - i
+      if(checkPasseger("infante",numero_actual)){
+        passengers.push(pullPassager("infante",numero_actual));
+      }else{
+        failedSend=true;
+      }
+    }
+    for (var i = 0; i < cant_chicos; i++) {
+      var numero_actual=cant_chicos - i
+      if(checkPasseger("chico",numero_actual)){
+        passengers.push(pullPassager("chico",numero_actual));
+      }else{
+        failedSend=true;
+      }
+    }
+    for (var i = 0; i < cant_adultos; i++) {
+      var numero_actual=cant_adultos - i
+      if(checkPasseger("adulto",numero_actual)){
+        passengers.push(pullPassager("adulto",numero_actual));
+      }else{
+        failedSend=true;
+      }
+    }
+    if(!checkPayment() || failedSend){
       return;
     }
     var payment=pullPayment();
     var contact=pullContact();
-    var passengers=[];
-    for (var i = 0; i < cant_infantes; i++) {
-      var numero_actual=cant_infantes - i
-      passengers.push(pullPassager("infante",numero_actual));
-    }
-    for (var i = 0; i < cant_chicos; i++) {
-      var numero_actual=cant_chicos - i
-      passengers.push(pullPassager("chico",numero_actual));
-    }
-    for (var i = 0; i < cant_adultos; i++) {
-      var numero_actual=cant_adultos - i
-      passengers.push(pullPassager("adulto",numero_actual));
-    }
     setLocalObject("contact",contact);
     setLocalObject("payment",payment);
     setLocalObject("passengers",passengers);
@@ -314,7 +326,7 @@ function checkZipCode(dato){
 }
 
 function checkCity(dato){
-  var patron=/^\.{1,80}/i;
+  var patron=/^.{1,80}/i;
   if(patron.test(dato)){
     if(citiesObj[dato]!=undefined){
       return true;
@@ -395,7 +407,6 @@ function checkBirthDateChildren(dato){
 function checkPayment(){
   var flag=true;
   if(!checkNumberCard($("#tarjeta").val())){
-    //Materialize.toast('Tarjeta invalida', 1000);
     $("#tarjeta").addClass("invalid");
     flag=false;
   }
@@ -451,7 +462,39 @@ function checkPayment(){
   ;
 }
 
-
-
+function checkPasseger(tipo,num){
+  var flag=true;
+  var tag=tipo+num;
+  if(!checkName($("#nombre"+tag).val())){
+    $("#nombre"+tag).addClass("invalid");
+    flag=false;
+  }
+  if(!checkName($("#apellido"+tag).val())){
+    $("#apellido"+tag).addClass("invalid");
+    flag=false;
+  }
+  if(!checkPassport($("#pasaporte"+tag).val())){
+    $("#pasaporte"+tag).addClass("invalid");
+    flag=false;
+  }
+  if(!checkIdType($("select#tipo_id"+tag).val())){
+    $("select#tipo_id"+tag).addClass("invalid");
+    flag=false;
+  }
+  if(!checkBirthDate($("#nacimiento"+tag).val())){
+    $("#nacimiento"+tag).addClass("invalid");
+    flag=false;
+  }
+  return flag;
+}
+//
+// var fesplit=$("#nacimiento"+string_nombre).val().split("/");
+// var fecha_obj=fesplit[2]+"-"+fesplit[1]+"-"+fesplit[0];
+// var passeger={
+//   "first_name": $("#nombre"+string_nombre).val(),
+//   "birthdate": fecha_obj,
+//   "id_type": parseInt($("select#tipo_id"+string_nombre).val()),
+//   "last_name": $("#apellido"+string_nombre).val(),
+//   "id_number": $("#pasaporte"+string_nombre).val()
 //fin de funciones de verificacion
 });

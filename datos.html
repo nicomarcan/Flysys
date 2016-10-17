@@ -88,7 +88,7 @@
 						<div class="row">
 									<div class="input-field col s3">
 											<input id="ciudad" type="text" class="typeaheadciudades" placeholder="Ciudad (Obligatorio)" />
-											<label for="ciudad">Ciudad</label>
+											<label data-error="Debe ser una ciudad valida" for="ciudad">Ciudad</label>
 									</div>
 									<div class="input-field col s2">
 											<input id="provincia" type="text" class="typeaheadciudades" disabled placeholder="Provincia"/>
@@ -160,9 +160,8 @@
 															<div class="row">
 																	<div class="input-field col s3">
 																		<select id="tipo_id{{indenti}}">
-																			<option value="" disabled selected>Pasaporte/DNI</option>
-																			<option value="2">Pasaporte</option>
-																			<option value="1">DNI</option>
+																			<option value="2" >Pasaporte</option>
+																			<option value="1" selected>DNI</option>
 																		</select>
 																		<label>Identificador</label>
 																	</div>
