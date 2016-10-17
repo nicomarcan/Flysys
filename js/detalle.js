@@ -62,18 +62,22 @@ function addPassagers() {
 
 }
 
+function finalizado(){
+  window.location="./final.html"
+}
+
 $(document).ready(function(){
   setLocalObject("flights",[vueloejemplo]);
   addFlight();
   addCard();
   addPassagers();
   var final={
-    flight_id: "93480",
+    flight_id: 93480,
     passengers: getLocalObject("passengers"),
     payment: getLocalObject("payment"),
     contact: getLocalObject("contact")
   }
   $("#confirmar").click(function(){
-      fajax("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight",final,console.log,undefined);
+      fajax("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight2",{booking: JSON.stringify(final)},finalizado,undefined);
   });
 });

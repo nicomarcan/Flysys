@@ -18,6 +18,28 @@ function fajax(aurl,datos,fsuccess,ferror){
         }
     });
 }
+function fapax(aurl,datos,fsuccess,ferror){
+    var urlfinal=aurl;
+    // console.log('Iniciando ajax a:'+urlfinal);
+    $.ajax({
+        type:'POST',
+        data: datos,
+        dataType: 'json',
+        url: urlfinal,
+        contentType: 'application/json',
+        success: function(data){
+            if(data.error==undefined){
+                fsuccess(data);
+            }else{
+                console.log("ERROR REQUEST: "+data.error.message+"     in request "+urlfinal);
+            }
+        },
+        error: function(jqxhr,status,errorthrown) {
+            ferror();
+        }
+    });
+}
+
 
 function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
