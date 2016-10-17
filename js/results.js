@@ -485,29 +485,13 @@ function addAirlineS(inserted,index_vector,references){
   for( var i=0 , k=0 ; i<index_vector.length ; i++ ) {
     var name = references[index_vector[i]].outbound_routes[0].segments[0].airline.name;
     var id = references[index_vector[i]].outbound_routes[0].segments[0].airline.id;
-    if(inserted.length == 0){
-      inserted[k++]=id;
+    if(arrIncludes(inserted,id) == -1){
       addAirline(id,name);
-      continue;
-    }
-    var found = false;
-    for(var j=0 ; j<inserted.length ; j++){
-      if(inserted[j] == id){
-        found = true;
-        break;
-      }
-    }
-    if(!found){
-      inserted[k++]=id;
-      addAirline(id,name);
+      inserted[inserted.length]=id;
     }
   }
   return inserted;
 }
-
-
-
-
 
 function addAirline(id_aero,name_aero){
   var template = $('#airline').html();
