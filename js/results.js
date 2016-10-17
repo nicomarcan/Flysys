@@ -34,7 +34,7 @@ var total,duration,airline;
 */
 var currCrit,currPage;
 var currMin,currMax;
-var currAirlines,currStars;
+var currAirlines = [],currStars;
 var applied,result;
 
 $(document).ready(function(){
@@ -328,6 +328,27 @@ $(document).ready(function(){
 
 });
 
+function toggleAirline(e){
+  var airline = ($(e.target).attr("id"));
+  var index = arrIncludes(currAirlines,airline);
+  if(index != -1){
+    currAirlines.splice(index,1);
+  } else {
+    currAirlines[currAirlines.length]=airline;
+  }
+  applied = false ;
+  setCurrPage(0);
+}
+
+function arrIncludes(arr,val){
+  for(var i=0; i<arr.length ; i++){
+    if(arr[i] == val){
+      return i;
+    }
+  }
+  return -1;
+}
+
 function setCurrPage(page){
   var resultsRenderer ;
   switch (mode) {
@@ -363,20 +384,30 @@ function setCurrPage(page){
       * currMin,currMax,currStars,currAirlines
       * are the criteria to consider
       */
-      var price,stars,airlines;
+      var price;
       switch (mode) {
         case "one-way":
           price = s1[tmp[i]].price.total.total;
+          var id = s1[tmp[i]].outbound_routes[0].segments[0].airline.id;
+          if (price>=currMin && price<=currMax &&
+              arrIncludes(currAirlines,id) == -1){
+                result[k++]=tmp[i];
+              }
           break;
         case "two-way":
           price = s1[tmp[i][0]].price.total.total +
-                  s2[tmp[i][1]].price.total.total
+                  s2[tmp[i][1]].price.total.total ;
+          var id_1,id_2;
+          id_1 = s1[tmp[i][0]].outbound_routes[0].segments[0].airline.id;
+          id_2 = s2[tmp[i][1]].outbound_routes[0].segments[0].airline.id;
+
+          if(price>=currMin && price<=currMax &&
+             arrIncludes(currAirlines,id_1) == -1 &&
+             arrIncludes(currAirlines,id_2) == -1){
+               result[k++]=tmp[i];
+             }
           break;
         default:
-          return false;
-      }
-      if(price>=currMin && price<=currMax){
-        result[k++]=tmp[i];
       }
     }
     var pages = result.length/pageSize + (result.length%pageSize == 0 ? 0:1);

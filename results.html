@@ -22,7 +22,7 @@
 
     <script type="x-tmpl-mustache" id="airline">
       <p>
-        <input type="checkbox" id="{{id_aero}}" checked="checked"></id>
+        <input type="checkbox" id="{{id_aero}}" checked="checked" onclick="toggleAirline(event)"></id>
         <label for="{{id_aero}}">{{name_aero}}</label>
       </p>
     </script>
@@ -411,7 +411,7 @@
           <div class="row center-allign reputation filter-element search-panel color1 airlines">
             <div class="row title"><h5>Aerolíneas</h5></div>
             <form class="filter-tool" id="airlines-panel">
-              
+
             </form>
           </div>
 
