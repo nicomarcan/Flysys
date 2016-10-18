@@ -154,8 +154,9 @@ $(document).ready(function(){
 
 			//Implementacion de Panoramio
 		  var apiurl=new Array();
-		  var to=new Array();
-		   var price=new Array();
+		  var info = new Array ();  
+		 
+
 			var j = 1;
 			var src;
 			var photo;
@@ -165,49 +166,49 @@ $(document).ready(function(){
 				dataType: 'jsonp',
 				success: function (alfa) {
 						if (alfa.error == undefined) {
-							   console.log(alfa.deals);
+							
 							var ciudades = alfa.deals;
 							var size = ciudades.length;
-							var random = parseInt((Math.random() * (ciudades.length-12 + 1)), 10) ;
-							var limit = random+11;
+							var random = parseInt((Math.random() * (ciudades.length-9)), 10) ;
+							var limit = random+9;
 							for( ; random< limit ; random++ ){
-								to.push(ciudades[random].city.name.split(", ")[0]);
-								price.push(alfa.deals[random].price);
+								info.push({"to":ciudades[random].city.name.split(", ")[0] , "price" : alfa.deals[random].price,"num":limit-random})
 								
 								//console.log(noSpacesCity);
 				
-								apiurl.push("http://www.panoramio.com/map/get_panoramas.php?set=public&from=0&to=20&minx="+ciudades[random].city.longitude+"&miny="+ciudades[random].city.latitude+"&maxx="+(ciudades[random].city.longitude+1)+"&maxy="+(ciudades[random].city.latitude+1)+"&size=medium&mapfilter=false");
+								apiurl.push("http://www.panoramio.com/map/get_panoramas.php?set=public&from=0&to=100&minx="+ciudades[random].city.longitude+"&miny="+ciudades[random].city.latitude+"&maxx="+(ciudades[random].city.longitude+1)+"&maxy="+(ciudades[random].city.latitude+1)+"&size=medium&mapfilter=false");
 							}
 					}
-					getImages(apiurl,0);
+					getImages(apiurl);
 				}
 			});
 
-		      console.log(to);
+		      
 
-	      function getImages(apiurl,k){	      	   	
+	      function getImages(apiurl){	
+	      	
+	      	for(var x = 0;x<9;x++){  
 		    	   $.ajax({
 				    type: 'GET',
-				    url: apiurl[k],
+				    url: apiurl[x],	    
 				    dataType: 'jsonp',
-				    success: function(d){		
-				  		var item = d.photos[0].photo_file_url;
-						 var photo= $('#offer-img-'+(k+1));
+				    context:info[x],				  
+				    success: function(d){	
+				   		var random =  parseInt((Math.random() * (90 )), 10) ;	
+				  		var item = d.photos[4].photo_file_url;
+						 var photo= $('#offer-img-'+$(this).attr("num"));
 						 photo.attr("src",item);
-						 photo= $('#offer-img-back-'+(k+1));
-						
-						photo.next().children("h5").text(to[k]);
-						photo.next().children("p").text("Desde "+ price[k]+ " dolares");
+						 photo= $('#offer-img-back-'+$(this).attr("num"));					
+						 photo.next().children("h5").text($(this).attr("to"));
+						 photo.next().children("p").text("Desde "+ $(this).attr("price")+ " dolares");
 						 photo.attr("src",item);
-						 photo.attr("to",to[k]);
+						 photo.attr("to",$(this).attr("to"));
 						 photo.attr("from","Buenos Aires");
 						
-						 k++;
-						 if(k<9){
-						 	getImages(apiurl,k);
-						 }
+						
 				    }
 				  });
+		      }
 		    	// console.log(k);
 		   	}
 		  
@@ -425,22 +426,22 @@ $(document).ready(function(){
 		});
 
 		$(".minus").on('click',function(){
-			var number = Number($(this).next().next().text());
-			if($(this).parent().attr("id")=="adults"){
+			var number = Number($(this).next().text());
+			if($(this).parent().attr("id")=="adults" ||$(this).parent().attr("id")=="adults_two"){
 				if(number > 1){
-					$(this).next().next().text(number-1);
+					$(this).next().text(number-1);
 				}
 			}else{
 				if(number > 0){
-					$(this).next().next().text(number-1);
+					$(this).next().text(number-1);
 				}
 			}
 		});
 
 		$(".plus").on('click',function(){
-			var number = Number($(this).prev().prev().text());
+			var number = Number($(this).prev().text());
 			if(number < 20){
-				$(this).prev().prev().text(number+1);
+				$(this).prev().text(number+1);
 			}
 		});
 
@@ -579,9 +580,9 @@ $(document).ready(function(){
 			var dst = nameToId[$('#to_input_two').val()];
 			var d1 = $('#departing_two input[name=_submit]').val();
 			var d2 = $('#returning input[name=_submit]').val();
-			var adults= $('#passenger_two #adults #adults_val').text();
-			var children= $('#passenger_two #children #children_val').text();
-			var infants= $('#passenger_two #infants #infants_val').text();
+			var adults= $('#passenger_two  #adults_val_two').text();
+			var children= $('#passenger_two  #children_val_two').text();
+			var infants= $('#passenger_two #infants_val_two').text();
 			var url= "results.html?"+"mode=two-way&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1+"&d2="+d2;
 			console.log(url);
 			window.location=url;
@@ -591,9 +592,9 @@ $(document).ready(function(){
 			var src = nameToId[$('#from_input').val()];
 			var dst = nameToId[$('#to_input').val()];
 			var d1 = $('#departing input[name=_submit]').val();
-			var adults= $('#passenger #adults #adults_val').text();
-			var children= $('#passenger #children #children_val').text();
-			var infants= $('#passenger #infants #infants_val').text();
+			var adults= $('#passenger #adults_val').text();
+			var children= $('#passenger  #children_val').text();
+			var infants= $('#passenger  #infants_val').text();
 			var url= "results.html?"+"mode=one-way&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1;
 			console.log(url);
 			window.location=url;
