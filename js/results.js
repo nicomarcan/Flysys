@@ -7,6 +7,7 @@ var d1,d2;
 var page,sort_by;
 var usdToArs;
 
+var min,max;
 var price_slider;
 /*
 * Airline data
@@ -211,8 +212,8 @@ $(document).ready(function(){
                           var pages = s1.length/pageSize + (s1.length%pageSize == 0 ? 0:1);
                           insertPaginator(pages);
                           currCrit = 0;
-                          currMin = req1.filters[2].min;
-                          currMax = req1.filters[2].max;
+                          min = currMin = req1.filters[2].min;
+                          max = currMax = req1.filters[2].max;
                           applied = true ;
                           result = total;
                           setCurrPage(0);
@@ -280,8 +281,8 @@ $(document).ready(function(){
                                           ((s1.length*s2.length)%pageSize == 0 ? 0:1);
                               insertPaginator(pages);
                               currCrit=0;
-                              currMin = req1.filters[2].min+req2.filters[2].min;
-                              currMax = req1.filters[2].max+req2.filters[2].max;
+                              min = currMin = req1.filters[2].min+req2.filters[2].min;
+                              max = currMax = req1.filters[2].max+req2.filters[2].max;
                               applied = true ;
                               result = total;
                               setCurrPage(0);
@@ -330,6 +331,7 @@ $(document).ready(function(){
       default:
         return false;
     }
+    applied = false;
     setCurrPage(0);
     return true;
   });
@@ -346,6 +348,7 @@ $(document).ready(function(){
       default:
         return false;
     }
+    applied = false;
     setCurrPage(currPage);
     return true;
   });
@@ -382,7 +385,7 @@ function arrIncludes(arr,val){
 }
 
 function setCurrPage(page){
-  var resultsRenderer , tmp ;
+  var resultsRenderer ;
   switch (mode) {
     case "one-way":
       resultsRenderer = addOWResultS;
@@ -393,21 +396,22 @@ function setCurrPage(page){
     default:
       return false;
   }
-  switch (currCrit) {
-    case 0:
-      tmp = result = total;
-      break;
-    case 1:
-      tmp = result = duration;
-      break;
-    case 2:
-      tmp = result = airline;
-      break;
-    default:
-      return false;
-  }
   $('#results').empty();
   if(!applied){
+    var tmp;
+    switch (currCrit) {
+      case 0:
+        tmp  = total;
+        break;
+      case 1:
+        tmp = duration;
+        break;
+      case 2:
+        tmp = airline;
+        break;
+      default:
+        return false;
+    }
     result = [];
     for(var i=0,k=0 ; i<tmp.length ; i++){
       /*
