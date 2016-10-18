@@ -152,7 +152,7 @@ $(document).ready(function(){
 
 
 
-			//Implementacion de Flickr
+			//Implementacion de Panoramio
 		  var apiurl=new Array();
 		  var to=new Array();
 		   var price=new Array();
