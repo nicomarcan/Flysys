@@ -5,8 +5,10 @@ var src,dst;
 var adults,children,infants;
 var d1,d2;
 var page,sort_by;
+var usdToArs;
 
-
+var min,max;
+var price_slider;
 /*
 * Airline data
 */
@@ -32,6 +34,7 @@ var total,duration,airline;
 /*
 * Filter settings
 */
+var multiplier = 1;
 var currCrit,currPage;
 var currMin,currMax;
 var currAirlines = [],currStars;
@@ -108,197 +111,212 @@ $(document).ready(function(){
 
   $.ajax({
     type: 'GET',
-    url: geo,
-    dataType: 'json' ,
+    url: misc,
+    dataType: 'json',
     data: {
-      method: 'getairports'
+      method: 'getcurrenciesratio',
+      id1: 'USD',
+      id2: 'ARS'
     },
-    success: function(d){
-      if(d.total<=d.page_size){
-        fillAirportsAutocomplte(d,values,nameToId);
-      } else {
-        $.ajax({
-          type: 'GET',
-          url: geo,
-          dataType: 'json',
-          data: {
-            method: 'getairports',
-            page_size:d.total
-          },
-          success: function(f){
-            fillAirportsAutocomplte(f,values,nameToId);
+    success: function(r){
+      usdToArs = r.ratio;
+      $.ajax({
+        type: 'GET',
+        url: geo,
+        dataType: 'json' ,
+        data: {
+          method: 'getairports'
+        },
+        success: function(d){
+          if(d.total<=d.page_size){
+            fillAirportsAutocomplte(d,values,nameToId);
+          } else {
             $.ajax({
               type: 'GET',
-              url: misc,
+              url: geo,
               dataType: 'json',
               data: {
-                method: 'getairlines'
+                method: 'getairports',
+                page_size:d.total
               },
-              success : function(a){
-                airlines = a.airlines;
-                /*
-                * Begin results request.
-                * Structure of URL parameters expected:
-                * ?mode={one-way;two-way}&src=&dst=&adults=&children=&infants=&d1=&d2=&
-                * page=&sort_by={total;duration;airline}
-                *
-                * d2 is only required when specifying "two-way" as the mode.
-                * All other parameters are mandatory.
-                *
-                * Examples:
-                * ?mode=two-way&src=BUE&dst=MIA&adults=1&children=0&infants=0&d1=2016-12-01&d2=2016-12-20
-                * ?mode=one-way&src=BUE&dst=MAD&adults=1&children=0&infants=0&d1=2016-12-01&d2=2016-12-20
-                */
-
+              success: function(f){
+                fillAirportsAutocomplte(f,values,nameToId);
                 $.ajax({
                   type: 'GET',
-                  url: booking,
+                  url: misc,
                   dataType: 'json',
                   data: {
-                    method: 'getonewayflights',
-                    from: src ,
-                    to: dst ,
-                    dep_date: d1,
-                    adults: adults,
-                    children: children,
-                    infants: infants,
-                    /*
-                    * TODO: CHANGE
-                    */
-                    page_size:'1000'
+                    method: 'getairlines'
                   },
-                  success : function(d){
-                    req1=d;
-                    s1 = d.flights;
-                    if(s1 === undefined){
-                      noFlightsFound();
-                      return;
-                    }
-                    if(mode == "one-way"){
-                      var t_total = new Tree(function(a,b){
-                        return s1[a].price.total.total - s1[b].price.total.total;
-                      });
-                      var t_duration = new Tree(function(a,b){
-                        return timeToMins(s1[a].outbound_routes[0].segments[0].duration)-
-                               timeToMins(s1[b].outbound_routes[0].segments[0].duration);
-                      });
-                      var t_airline = new Tree(function(a,b){
-                        return s1[a].outbound_routes[0].segments[0].airline.name.localeCompare(
-                               s1[b].outbound_routes[0].segments[0].airline.name
-                        );
-                      });
-                      for(var i = 0; i<s1.length ; i++){
-                        t_total.insert(i);
-                        t_duration.insert(i);
-                        t_airline.insert(i);
-                      }
-                      total = t_total.inOrder() ;
-                      duration = t_duration.inOrder();
-                      airline = t_airline.inOrder();
-                      var pages = s1.length/pageSize + (s1.length%pageSize == 0 ? 0:1);
-                      insertPaginator(pages);
-                      currCrit = 0;
-                      currMin = req1.filters[2].min;
-                      currMax = req1.filters[2].max;
-                      applied = true ;
-                      result = total;
-                      setCurrPage(0);
-                      initializeSlider(currMin,currMax);
+                  success : function(a){
+                    airlines = a.airlines;
+                    /*
+                    * Begin results request.
+                    * Structure of URL parameters expected:
+                    * ?mode={one-way;two-way}&src=&dst=&adults=&children=&infants=&d1=&d2=&
+                    * page=&sort_by={total;duration;airline}
+                    *
+                    * d2 is only required when specifying "two-way" as the mode.
+                    * All other parameters are mandatory.
+                    *
+                    * Examples:
+                    * ?mode=two-way&src=BUE&dst=MIA&adults=1&children=0&infants=0&d1=2016-12-01&d2=2016-12-20
+                    * ?mode=one-way&src=BUE&dst=MAD&adults=1&children=0&infants=0&d1=2016-12-01&d2=2016-12-20
+                    */
 
-                      var inserted = [];
-                      addAirlineS(inserted,result,s1);
-                    } else {
-                      /*
-                      * Request return flights from dst to src
-                      */
-                      $.ajax({
-                        type: 'GET',
-                        url: booking,
-                        dataType: 'json',
-                        data: {
-                          method: 'getonewayflights',
-                          from: dst ,
-                          to: src ,
-                          dep_date: d2,
-                          adults: adults,
-                          children: children,
-                          infants: infants,
-                          /*
-                          * TODO: CHANGE
-                          */
-                          page_size: '1000'
-                        },
-                        success : function(d1){
-                          req2=d1;
-                          s2 = d1.flights;
-                          if(s2 === undefined){
-                            noFlightsFound();
-                            return;
-                          }
+                    $.ajax({
+                      type: 'GET',
+                      url: booking,
+                      dataType: 'json',
+                      data: {
+                        method: 'getonewayflights',
+                        from: src ,
+                        to: dst ,
+                        dep_date: d1,
+                        adults: adults,
+                        children: children,
+                        infants: infants,
+                        /*
+                        * TODO: CHANGE
+                        */
+                        page_size:'1000'
+                      },
+                      success : function(d){
+                        req1=d;
+                        s1 = d.flights;
+                        if(s1 === undefined){
+                          noFlightsFound();
+                          return;
+                        }
+                        if(mode == "one-way"){
                           var t_total = new Tree(function(a,b){
-                            return (s1[a[0]].price.total.total + s2[a[1]].price.total.total)-
-                                   (s1[b[0]].price.total.total + s2[b[1]].price.total.total);
+                            return s1[a].price.total.total - s1[b].price.total.total;
                           });
                           var t_duration = new Tree(function(a,b){
-                            return (timeToMins(s1[a[0]].outbound_routes[0].segments[0].duration) +
-                                    timeToMins(s2[a[1]].outbound_routes[0].segments[0].duration)) -
-                                   (timeToMins(s1[b[0]].outbound_routes[0].segments[0].duration) +
-                                    timeToMins(s2[b[1]].outbound_routes[0].segments[0].duration));
+                            return timeToMins(s1[a].outbound_routes[0].segments[0].duration)-
+                                   timeToMins(s1[b].outbound_routes[0].segments[0].duration);
                           });
                           var t_airline = new Tree(function(a,b){
-                            return s1[a[0]].outbound_routes[0].segments[0].airline.name.concat(
-                                   s2[a[1]].outbound_routes[0].segments[0].airline.name).localeCompare(
-                                   s1[b[0]].outbound_routes[0].segments[0].airline.name.concat(
-                                   s2[b[1]].outbound_routes[0].segments[0].airline.name));
+                            return s1[a].outbound_routes[0].segments[0].airline.name.localeCompare(
+                                   s1[b].outbound_routes[0].segments[0].airline.name
+                            );
                           });
-                          for(var i=0 ; i<s1.length ; i++) {
-                            for(var j=0; j<s2.length; j++) {
-                              var cmb = [];
-                              cmb[0]=i;cmb[1]=j;
-                              t_total.insert(cmb);
-                              t_duration.insert(cmb);
-                              t_airline.insert(cmb);
-                            }
+                          for(var i = 0; i<s1.length ; i++){
+                            t_total.insert(i);
+                            t_duration.insert(i);
+                            t_airline.insert(i);
                           }
                           total = t_total.inOrder() ;
                           duration = t_duration.inOrder();
                           airline = t_airline.inOrder();
-                          var pages = (s1.length*s2.length)/pageSize +
-                                      ((s1.length*s2.length)%pageSize == 0 ? 0:1);
+                          var pages = s1.length/pageSize + (s1.length%pageSize == 0 ? 0:1);
                           insertPaginator(pages);
-                          currCrit=0;
-                          currMin = req1.filters[2].min+req2.filters[2].min;
-                          currMax = req1.filters[2].max+req2.filters[2].max;
+                          currCrit = 0;
+                          min = currMin = req1.filters[2].min;
+                          max = currMax = req1.filters[2].max;
                           applied = true ;
                           result = total;
                           setCurrPage(0);
                           initializeSlider(currMin,currMax);
 
-                          var t1 = [] , t2 = [];
-                          for(var i = 0; i<result.length ; i++){
-                            t1[i]=result[i][0];
-                            t2[i]=result[i][1];
-                          }
                           var inserted = [];
-                          inserted = addAirlineS(inserted,t1,s1);
-                          addAirlineS(inserted,t2,s2);
+                          addAirlineS(inserted,result,s1);
+                        } else {
+                          /*
+                          * Request return flights from dst to src
+                          */
+                          $.ajax({
+                            type: 'GET',
+                            url: booking,
+                            dataType: 'json',
+                            data: {
+                              method: 'getonewayflights',
+                              from: dst ,
+                              to: src ,
+                              dep_date: d2,
+                              adults: adults,
+                              children: children,
+                              infants: infants,
+                              /*
+                              * TODO: CHANGE
+                              */
+                              page_size: '1000'
+                            },
+                            success : function(d1){
+                              req2=d1;
+                              s2 = d1.flights;
+                              if(s2 === undefined){
+                                noFlightsFound();
+                                return;
+                              }
+                              var t_total = new Tree(function(a,b){
+                                return (s1[a[0]].price.total.total + s2[a[1]].price.total.total)-
+                                       (s1[b[0]].price.total.total + s2[b[1]].price.total.total);
+                              });
+                              var t_duration = new Tree(function(a,b){
+                                return (timeToMins(s1[a[0]].outbound_routes[0].segments[0].duration) +
+                                        timeToMins(s2[a[1]].outbound_routes[0].segments[0].duration)) -
+                                       (timeToMins(s1[b[0]].outbound_routes[0].segments[0].duration) +
+                                        timeToMins(s2[b[1]].outbound_routes[0].segments[0].duration));
+                              });
+                              var t_airline = new Tree(function(a,b){
+                                return s1[a[0]].outbound_routes[0].segments[0].airline.name.concat(
+                                       s2[a[1]].outbound_routes[0].segments[0].airline.name).localeCompare(
+                                       s1[b[0]].outbound_routes[0].segments[0].airline.name.concat(
+                                       s2[b[1]].outbound_routes[0].segments[0].airline.name));
+                              });
+                              for(var i=0 ; i<s1.length ; i++) {
+                                for(var j=0; j<s2.length; j++) {
+                                  var cmb = [];
+                                  cmb[0]=i;cmb[1]=j;
+                                  t_total.insert(cmb);
+                                  t_duration.insert(cmb);
+                                  t_airline.insert(cmb);
+                                }
+                              }
+                              total = t_total.inOrder() ;
+                              duration = t_duration.inOrder();
+                              airline = t_airline.inOrder();
+                              var pages = (s1.length*s2.length)/pageSize +
+                                          ((s1.length*s2.length)%pageSize == 0 ? 0:1);
+                              insertPaginator(pages);
+                              currCrit=0;
+                              min = currMin = req1.filters[2].min+req2.filters[2].min;
+                              max = currMax = req1.filters[2].max+req2.filters[2].max;
+                              applied = true ;
+                              result = total;
+                              setCurrPage(0);
+                              initializeSlider(currMin,currMax);
+
+                              var t1 = [] , t2 = [];
+                              for(var i = 0; i<result.length ; i++){
+                                t1[i]=result[i][0];
+                                t2[i]=result[i][1];
+                              }
+                              var inserted = [];
+                              inserted = addAirlineS(inserted,t1,s1);
+                              addAirlineS(inserted,t2,s2);
+                            }
+                          });
                         }
-                      });
-                    }
+                      }
+                    });
+                    /*
+                    * End results request.
+                    */
                   }
                 });
-                /*
-                * End results request.
-                */
               }
             });
           }
-        });
-      }
+        }
+      });
     }
+
   });
 
-  $("div.tool-element.currency ul.dropdown-content.select-dropdown li").click(function(event){
+
+  $("div.tool-element.order ul.dropdown-content.select-dropdown li").click(function(event){
     var criterium = $(this).text();
     switch (criterium) {
       case "Precio":
@@ -313,15 +331,32 @@ $(document).ready(function(){
       default:
         return false;
     }
-    applied = false ;
+    applied = false;
     setCurrPage(0);
     return true;
   });
 
+  $("div.tool-element.currency ul.dropdown-content.select-dropdown li").click(function(event){
+    var currency = $(this).text();
+    switch (currency) {
+      case "USD":
+        multiplier = 1;
+        break;
+      case "ARS":
+        multiplier = usdToArs;
+        break;
+      default:
+        return false;
+    }
+    applied = false;
+    setCurrPage(currPage);
+    return true;
+  });
 
   $("#price-update").click(function(event){
-     currMin = parseFloat($("#price-range .noUi-base .noUi-origin .noUi-handle[data-handle=0]").text());
-     currMax = parseFloat($("#price-range .noUi-base .noUi-origin .noUi-handle[data-handle=1]").text());
+     var bounds = price_slider.noUiSlider.get();
+     currMin = bounds[0];
+     currMax = bounds[1];
      applied = false;
      setCurrPage(0);
   });
@@ -363,11 +398,10 @@ function setCurrPage(page){
   }
   $('#results').empty();
   if(!applied){
-    var tmp ;
-    result = [];
+    var tmp;
     switch (currCrit) {
       case 0:
-        tmp = total;
+        tmp  = total;
         break;
       case 1:
         tmp = duration;
@@ -378,6 +412,7 @@ function setCurrPage(page){
       default:
         return false;
     }
+    result = [];
     for(var i=0,k=0 ; i<tmp.length ; i++){
       /*
       * Insert the appropriate flights:
@@ -504,6 +539,7 @@ function addAirline(id_aero,name_aero){
 }
 
 function addOWResult(total,from,dep,ac,fn,duration,to) {
+  total*=multiplier;
   total = Math.floor(total * 100)/100;
   var template = $('#row').html();
   Mustache.parse(template);
@@ -521,6 +557,7 @@ function addOWResult(total,from,dep,ac,fn,duration,to) {
 
 function addTWResult(total,from,dep,ac,fn,duration,to,
                            from1,dep1,ac1,fn1,duration1,to1) {
+  total*=multiplier;
   total = Math.floor(total * 100)/100;
   var template = $('#rtw').html();
   Mustache.parse(template);
@@ -633,7 +670,8 @@ function fillAirportsAutocomplte(data,values,nameToId){
   }
 
   function initializeSlider(min,max){
-    noUiSlider.create(document.getElementById('price-range'), {
+    price_slider = document.getElementById("price-range");
+    noUiSlider.create(price_slider, {
       start: [ min, max ],
       connect: [false, true,false],
       range: {
