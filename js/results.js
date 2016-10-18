@@ -340,10 +340,20 @@ $(document).ready(function(){
     var currency = $(this).text();
     switch (currency) {
       case "USD":
-        multiplier = 1;
+        if(multiplier != 1){
+          multiplier = 1;
+          currMin/=usdToArs;
+          currMax/=usdToArs;
+          updateSlider(price_slider,min,max,currMin,currMax);
+        }
         break;
       case "ARS":
-        multiplier = usdToArs;
+          if(multiplier == 1){
+            multiplier = usdToArs;
+            currMin*=usdToArs;
+            currMax*=usdToArs;
+            updateSlider(price_slider,min*usdToArs,max*usdToArs,currMin,currMax);
+          }
         break;
       default:
         return false;
@@ -422,7 +432,7 @@ function setCurrPage(page){
       var price;
       switch (mode) {
         case "one-way":
-          price = s1[tmp[i]].price.total.total;
+          price = s1[tmp[i]].price.total.total * multiplier;
           var id = s1[tmp[i]].outbound_routes[0].segments[0].airline.id;
           if (price>=currMin && price<=currMax &&
               arrIncludes(currAirlines,id) == -1){
@@ -430,8 +440,8 @@ function setCurrPage(page){
               }
           break;
         case "two-way":
-          price = s1[tmp[i][0]].price.total.total +
-                  s2[tmp[i][1]].price.total.total ;
+          price = (s1[tmp[i][0]].price.total.total +
+                  s2[tmp[i][1]].price.total.total)*multiplier ;
           var id_1,id_2;
           id_1 = s1[tmp[i][0]].outbound_routes[0].segments[0].airline.id;
           id_2 = s2[tmp[i][1]].outbound_routes[0].segments[0].airline.id;
@@ -679,6 +689,16 @@ function fillAirportsAutocomplte(data,values,nameToId){
         'max': [max]
       } ,
       tooltips: true
+    });
+  }
+
+  function updateSlider(slider,min,max,in_min,in_max){
+    slider.noUiSlider.updateOptions({
+      start: [in_min,in_max],
+      range: {
+        'min': [min],
+        'max': [max]
+      }
     });
   }
 
