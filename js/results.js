@@ -548,12 +548,18 @@ function addAirline(id_aero,name_aero){
   $('#airlines-panel').append(rendered);
 }
 
-function addOWResult(total,from,dep,ac,fn,duration,to) {
+function addOWResult(nstars,total,from,dep,ac,fn,duration,to) {
   total*=multiplier;
   total = Math.floor(total * 100)/100;
   var template = $('#row').html();
   Mustache.parse(template);
+  var rep = importantStars(nstars);
   var rendered = Mustache.render(template, {
+    i1: rep[0],
+    i2: rep[1],
+    i3: rep[2],
+    i4: rep[3],
+    i5: rep[4],
     total: total ,
     from_1: from ,
     departure_1: dep,
@@ -565,13 +571,19 @@ function addOWResult(total,from,dep,ac,fn,duration,to) {
   $('#results').append(rendered);
 }
 
-function addTWResult(total,from,dep,ac,fn,duration,to,
+function addTWResult(nstars,total,from,dep,ac,fn,duration,to,
                            from1,dep1,ac1,fn1,duration1,to1) {
   total*=multiplier;
   total = Math.floor(total * 100)/100;
   var template = $('#rtw').html();
   Mustache.parse(template);
+  var rep = importantStars(nstars);
   var rendered = Mustache.render(template, {
+    i1: rep[0],
+    i2: rep[1],
+    i3: rep[2],
+    i4: rep[3],
+    i5: rep[4],
     total: total ,
     from_1: from ,
     departure_1: dep,
@@ -599,7 +611,19 @@ function addOWResultS(criterium,pageNo,pageSize){
     return false;
   }
   for(var i = start; i<length && i < start + pageSize ; i++){
-    var ret = addOWResult(
+    var id = s1[criterium[i]].outbound_routes[0].segments[0].airline.id;
+    var rep = 0;
+    for (var j = 0; j<airlines.length ; j++){
+      if(airlines[j].id == id){
+        if(airlines[j].rating != null){
+          rep = airlines[j].rating;
+        }
+        break;
+      }
+    }
+    var nstars = Math.floor(rep/2) + rep%2;
+    addOWResult(
+        nstars,
         s1[criterium[i]].price.total.total,
         s1[criterium[i]].outbound_routes[0].segments[0].departure.airport.id,
         s1[criterium[i]].outbound_routes[0].segments[0].departure.date,
@@ -622,7 +646,27 @@ function addTWResultS(criterium,pageNo,pageSize){
     return false;
   }
   for(var i = start ; i<length && i < start + pageSize; i++){
-    var ret = addTWResult(
+    var id_1,id_2;
+    id_1 = s1[criterium[i][0]].outbound_routes[0].segments[0].airline.id;
+    id_2 = s2[criterium[i][1]].outbound_routes[0].segments[0].airline.id;
+    var rep_1,rep_2;
+    rep_1 = rep_2 = 0;
+    for (var j = 0; j<airlines.length ; j++){
+      if(airlines[j].id == id_1){
+        if(airlines[j].rating != null){
+          rep_1 = airlines[j].rating;
+        }
+      }
+      if (airlines[j].id == id_2) {
+        if(airlines[j].rating != null){
+          rep_2 = airlines[j].rating;
+        }
+      }
+    }
+    var avg = (rep_1 + rep_2)/2;
+    var nstars = Math.floor(avg/2) + Math.floor(avg)%2;
+    addTWResult(
+        nstars,
         s1[criterium[i][0]].price.total.total + s2[criterium[i][1]].price.total.total,
         s1[criterium[i][0]].outbound_routes[0].segments[0].departure.airport.id,
         s1[criterium[i][0]].outbound_routes[0].segments[0].departure.date,
@@ -705,4 +749,16 @@ function fillAirportsAutocomplte(data,values,nameToId){
   function noFlightsFound(){
     $("#results div.preloader").empty();
     $("#results div.preloader").append("<div><p>Su búsqueda no ha arrojado resultados</p></div>");
+  }
+
+  function importantStars(rep){
+    var ret = [] ;
+    for (var i = 0; i < 5 ; i++){
+      if(rep > i){
+        ret[i] = "important";
+      } else {
+        ret[i] = "unimportant";
+      }
+    }
+    return ret;
   }

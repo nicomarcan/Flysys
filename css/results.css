@@ -203,6 +203,14 @@ div a.btn{
   color: black;
 }
 
+.individual-result .important-star {
+  color: black;
+}
+
+.individual-result .unimportant-star {
+  color: #d4d4d4;
+}
+
 .stars i {
   margin-right: .1em;
 }
