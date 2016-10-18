@@ -1,0 +1,15 @@
+.color1,.color1.page-footer{
+  background-color: #263238 ;
+}
+
+#breadcrumb{
+	margin-top: 2rem;
+}
+
+a.breadcrumb:not([selected]){
+	color:rgba(255,255,255,0.7);
+}
+
+a.breadcrumb[selected]{
+	color:white;
+}
