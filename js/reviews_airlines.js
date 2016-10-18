@@ -1,4 +1,4 @@
-color_scheme = ["#ff6f31", "#ff9f02", "#cabc0b", "#99cc00", "#88b131"];
+var color_scheme = ["#ff6f31", "#ff9f02", "#cabc0b", "#99cc00", "#88b131"];
 
 function insertFlightInfoCard(info) {
 	var template = $("#flight_info_card").html();
@@ -13,15 +13,26 @@ function insertFlightInfoCard(info) {
 		name: airline.name,
 		number: airline.id,
 		departing_city: departing_city.name,
-		departing_airport: departing_airport.description+ '(' + departing_airport.id+ ')',
+		departing_airport: departing_airport.description.split(',')[0]+ '(' + departing_airport.id+ ')',
 		arriving_city: arriving_city.name,
-		arriving_airport: arriving_airport.description + '(' + arriving_airport.id+ ')',
+		arriving_airport: arriving_airport.description.split(',')[0] + '(' + arriving_airport.id+ ')',
 		distance: getDistance(departing_airport, arriving_airport) + " km"
 	});
 	$("#flight-info-card").append(render);
 	$("a#airline_breadcrumb").text(airline.name);
 	$("a#airline_breadcrumb").attr("href","./reviews_airlines.html?airline_id="+airline.id);
 	$("a#flight_breadcrumb").text("Vuelo " +info.status.number);
+	$("a#flight_breadcrumb").css("visibility", "visible");
+}
+
+function insertErrorCard(container, header, description) {
+	var template = $("#error_card").html();
+	Mustache.parse(template);
+	var render = Mustache.render(template, {
+		header: header,
+		description: description
+	});
+	container.append(render);
 }
 
 function insertAirlineInfoCard(airline) {
@@ -39,11 +50,14 @@ function insertAirlineInfoCard(airline) {
 	}
 	var charges = parseInt(airline.charges * 100) + "%";
 	var taxes = parseInt(airline.taxes * 100) + "%";
+	var star_array_length = (rating == '?') ? 0 : parseInt(rating / 2);
 	var render = Mustache.render(template, {
 		logo: airline.logo,
 		name: airline.name,
 		code: airline.id,
 		rating: rating,
+		active_stars: Array.apply(null, Array(star_array_length)).map(function (_, i) {return i;}),
+		inactive_stars: Array.apply(null, Array(5 - star_array_length)).map(function (_, i) {return i;}),
 		rating_color: rating_color,
 		charges: charges,
 		taxes: taxes
@@ -62,10 +76,10 @@ function startPagination(pages, page) {
 		}
 	}
 	if (pages == 1) {
-		el += '<li id="right_chevron" class="waves-effect disabled" ><a href="#opinion_header"><i class="material-icons">chevron_right</i></a></li>'
+		el += '<li id="right_chevron" class=" disabled" ><a href="#opinion_header"><i class="material-icons">chevron_right</i></a></li>'
 	}
 	else {
-		el += '<li id="right_chevron" class="waves-effect"><a href="#opinion_header"><i class="material-icons">chevron_right</i></a></li>';
+		el += '<li id="right_chevron"><a href="#opinion_header"><i class="material-icons">chevron_right</i></a></li>';
 	}
 	return el;
 }
@@ -83,13 +97,20 @@ function ajaxAirlineInfo(params) {
         if (response.error) {
           displayError()
         }
-		$("a#airline_breadcrumb").html(response.airline.name);
-        insertAirlineInfoCard(response.airline);
-      }
+				else {
+					$("a#airline_breadcrumb").html(response.airline.name);
+					if (response.total == 0) {
+						insertErrorCard($("#reviews-container"), "No se encontraron reviews", "");
+					}
+					else {
+						insertAirlineInfoCard(response.airline);
+					}
+      	}
+			}
     });
 }
 
-function ajaxFlightInfo(params) {
+function ajaxFlightInfo(params, airline_id) {
 	$.ajax({
 		url: "http://hci.it.itba.edu.ar/v1/api/status.groovy",
 		jsonp: "callback",
@@ -100,16 +121,152 @@ function ajaxFlightInfo(params) {
 			flight_number: params["flight_number"]
 		},
 		success: function(response) {
-		insertFlightInfoCard(response);
-		flight_info = response.status;
-		api_ready = true;
-		if (google_maps_ready == true) {
-			loadMap();
+			if (response.error) {
+
+				insertErrorCard($("#flight-info-card"), "El vuelo no existe.", "Es posible que la api este rota.")
+			}
+			else if (response.total == 0) {
+				insertErrorCard($("#reviews-container"), "No se encontraron reviews", "");
+			}
+			else {
+				insertFlightInfoCard(response);
+				flight_info = response.status;
+				api_ready = true;
+				if (google_maps_ready == true) {
+					loadMap();
+				}
+			}
 		}
-		}
-    })
+  })
 }
 
+var google_maps_ready = false;
+var api_ready = false;
+
+var map;
+var flight_info;
+function loadMap() {
+	var dep_airport = flight_info.departure.airport;
+	var arv_airport = flight_info.arrival.airport;
+	var bounds = new google.maps.LatLngBounds();
+
+	var service = new google.maps.DistanceMatrixService;
+	var depa = new google.maps.LatLng(dep_airport.latitude, dep_airport.longitude);
+	var arra = new google.maps.LatLng(arv_airport.latitude, arv_airport.longitude);
+	$("#map").html("");
+	bounds.extend(depa);
+	bounds.extend(arra);
+	map = new google.maps.Map(document.getElementById('map'), {
+      center: bounds.getCenter(),
+      zoom: 0,
+	  disableDefaultUI: true,
+	  draggable: true,
+	  disableDoubleClickZoom: true,
+	  styles: [
+		{
+			"featureType" : "road",
+			"stylers": [
+				{ "visibility": "off" }
+			]
+		},
+		{
+			"featureType" : "landscape",
+			"stylers": [
+				{ "visibility": "off" }
+			]
+		},
+		{
+			"featureType" : "administrative.province",
+			"stylers": [
+				{ "visibility": "off" }
+			]
+		},
+		{
+			"featureType" : "administrative.land_parcel",
+			"stylers": [
+				{ "visibility": "off" }
+			]
+		},
+		{
+			featureType: "administrative",
+			elementType: "geometry",
+			stylers: [
+				{ visibility: "off" }
+			]
+		},
+		{
+			featureType: "administrative.country",
+			elementType: "geometry",
+			stylers: [
+				{ visibility: "on" }
+			]
+		}
+	  ]
+    });
+	map.fitBounds(bounds);
+	var arrow = {
+    	path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+  	};
+
+
+	/* SVG from https://upload.wikimedia.org/wikipedia/commons/e/ee/Aircraft_Airport_ecomo.svg*/
+	var plane = {
+		path: 'M 250.2 59.002 c 11.001 0 20.176 9.165 20.176 20.777 v 122.24 l 171.12 95.954 v 42.779 l -171.12 -49.501 v 89.227 l 40.337 29.946 v 35.446 l -60.52 -20.18 l -60.502 20.166 v -35.45 l 40.341 -29.946 v -89.227 l -171.14 49.51 v -42.779 l 171.14 -95.954 v -122.24 c 0 -11.612 9.15 -20.777 20.16 -20.777 Z',
+		scale: .1,
+		strokeColor: 'black',
+		strokeWeight: 1,
+		strokeOpacity: 1,
+		color: 'black',
+		anchor: new google.maps.Point(250, 250),
+		fillColor: 'white',
+		fillOpacity: 1
+	};
+
+	var flight_path = new google.maps.Polyline({
+		path: [ {lat: dep_airport.latitude, lng: dep_airport.longitude},
+				{lat: arv_airport.latitude, lng: arv_airport.longitude}
+		],
+		map: map,
+		icons: [
+			{
+				icon: arrow,
+				offset: '100%'
+			},
+			{
+				icon: plane,
+				offset: '0'
+			}
+		],
+		strokeColor: 'red',
+		strokeOpacity: 1,
+		strokeWeight: 2
+	});
+	animatePlane(flight_path);
+
+}
+
+
+
+
+// Use the DOM setInterval() function to change the offset of the symbol
+// at fixed intervals.
+// from https://developers.google.com/maps/documentation/javascript/examples/overlay-symbol-animate?hl=es
+function animatePlane(line) {
+    var count = 0;
+    window.setInterval(function() {
+      count = (count + 1) % 200;
+
+      var icons = line.get('icons');
+      icons[1].offset = (count / 2) + '%';
+      line.set('icons', icons);
+  }, 20);
+}
+function initMap() {
+	if (api_ready == true) {
+		loadMap();
+	}
+	google_maps_ready = true;
+}
 
 
 $(document).ready(function() {
@@ -129,14 +286,66 @@ $(document).ready(function() {
 	];
 	var page = 1;
 	var op = 0;
+	var airlines = [];
+  var airlines_id = [];
+
+	$.ajax({
+    type: 'GET',
+    url: 'http://hci.it.itba.edu.ar/v1/api/misc.groovy',
+    jsonp: 'callback',
+    dataType: 'jsonp',
+    data: {
+      method: 'getairlines'
+    },
+    success: function(response) {
+      var airline_data = response.airlines;
+      var ret = [];
+      for (var i=0; i<response.total; i++) {
+        //ret[airline_data[i].name] = airline_data[i].logo;
+        ret.push(airline_data[i].name);
+        airlines[airline_data[i].name.toLowerCase()] = airline_data[i].id;
+        airlines_id[airline_data[i].id] = airline_data[i].name;
+      }
+      blood_airlines = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+				queryTokenizer: Bloodhound.tokenizers.whitespace,
+				local: ret
+      });
+
+      $('input#airline_search.typeahead').typeahead(
+							{
+									minLength: 1,
+									highlight: true
+							},
+							{
+									name: 'Aerolineas',
+									limit: 3,
+									source: blood_airlines
+							}
+			);
+			if (airline_id[params[airline_id]]) {
+				$("a#airline_breadcrumb").text(airline_id[params["airline_id"]]);
+				$("a#flight_breadcrumb").text("Vuelo " + params["flight_number"]);
+			}
+    }
+  });
+
+  $("form#airline_search_form").submit(function(event) {
+    var search_info = $("input#airline_search").typeahead('val').toLowerCase();
+    if (airlines[search_info] != undefined) {
+      $("input#airline_search_id").val(airlines[search_info]);
+      return true;
+    }
+    return false;
+  });
+
 
 	if (params["flight_number"] && params["flight_number"] != "") {
 		/* searching for a specific flight */
-		options[op].pages[page] = ajaxFlightInfo(
-			params,
-			options[op].sort_key,
-			options[op].sort_order,
-			page
+		$("body").append("<script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDW8Zq1p2J_A1tExsMjmcov8t4b4ZAqFko&callback=initMap' \
+	  type='text/javascript'></script>")
+		ajaxFlightInfo(
+			params
 		);
 	}
 	else {
@@ -163,17 +372,16 @@ $(document).ready(function() {
 		ajaxAirlineInfo(
 			params
 		);
-
-		/* ajax airline reviews */
-		ajaxAirlineReviews(
-			params,
-			options[op].sort_key,
-			options[op].sort_order,
-			page,
-			options[op]
-		);
 	}
 
+	/* ajax airline reviews */
+	ajaxReviews(
+		params,
+		options[op].sort_key,
+		options[op].sort_order,
+		page,
+		options[op]
+	);
 
 	$(document).on("click", "li.page_button", function(){
 		var auxpage = parseInt($(this).attr('value'));
@@ -199,7 +407,7 @@ $(document).ready(function() {
 			loadReviews(options[op].pages[page]);
 		}
 		else {
-			ajaxAirlineReviews(
+			ajaxReviews(
 				params,
 				options[op].sort_key,
 				options[op].sort_order,
@@ -256,5 +464,7 @@ $(document).ready(function() {
 		}
 		return true;
 	});
-
+	$(document).on('click', "a.back-link", function() {
+		history.back();
+	});
 });

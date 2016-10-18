@@ -124,7 +124,13 @@ a.info_breadcrumbs.breadcrumb::before {
 	color: #a9a9a9;
   font-weight: lighter;
 }
-
+a.back-link{
+	color:#039be5;
+	cursor:pointer;
+}
+a.back-link:hover{
+	text-decoration: underline;
+}
 .row.tools div.tool-element{
   margin: .5em 1em;
 }
