@@ -81,30 +81,23 @@
         </div>
       -->
 			</div>
-			<div class="col s8 push-s2" style="padding:5px; margin:0px;">
-				<div class="col s2 opinions_header">
-					OPINIONES
+			<div class="row" style="padding:5px; margin:0px;">
+				<div class="col s8 push-s2">
+				<div class="valign-wrapper">
+					<div id="opinion_header" class="valign col s8 opinions_header">
+						OPINIONES
+					</div>
+					<div class="valign col s4 tools">
+							<label>ORDENAR POR</label>
+							<select id="order_select">
+								<option class="order_option" value="0">Menor puntaje</option>
+								<option class="order_option" value="1">Mayor puntaje</option>
+							</select>
+					</div>
 				</div>
-				<div class="col s4 push-s6" style="top:5px">
-					<ul id="dropdown2" class="dropdown-content">
-	                  <li style="padding:7px;text-align:center;min-height:0px">
-                      Menor puntaje
-                    </li>
-	                  <li style="padding:7px;text-align:center;min-height:0px">
-                      Mayor puntaje
-                    </li>
-
-	        </ul>
-					<span class="order_by_indication"> ORDENAR POR: </span>
-
-					<a class="order_by_button dropdown-button btn" href="#" data-activates="dropdown2" >Menor puntaje
-                    </a>
-					<a class="order_by_button dropdown-button btn" href="#" data-activates="dropdown2" style="display:none;">Mayor puntaje
-                    </a>
+				<div class="divider" style="margin-bottom:10px"></div>
 				</div>
-
 			</div>
-			<div class="divider col s8 push-s2" style="margin-bottom:10px"></div>
 			<div id="reviews-container" class="col s8 push-s2"></div>
 		</div>
 			</div>
@@ -218,6 +211,124 @@
 			</div>
 		</div>
 	</div>
+	</script>
+	<script type="x-tmpl-mustache" id="review_card">
+	{{#reviews}}
+	<div class=" card-panel row hoverable clickable ">
+		<div class="col s4">
+			<div class="flight_number" style='font-size: 32px;color: black;font-weight: lighter;' >
+				<a class='flight_number_link' href="./reviews_flights.html?airline_id={{flight.airline.id}}&flight_number={{flight.number}}">
+					Vuelo {{flight.number}}
+				</a>
+			</div>
+			<div class='divider'></div>
+			<div class="col s12" style="margin:10px auto auto auto;">
+				{{{comments}}}
+			</div>
+		</div>
+		<div class='col s8'>
+			<div class='col s12'>
+				{{#yes_recommend}}
+				<div style='color:green; font-size:22px; float:right;'>
+					<i class='material-icons tiny'>
+						thumb_up
+					</i>
+					RECOMIENDA
+				</div>
+				{{/yes_recommend}}
+				{{^yes_recommend}}
+				<div style="color: red; font-size:22px; float:right;" >
+					<i class='material-icons tiny'>
+						thumb_down
+					</i>
+					NO RECOMIENDA
+				</div>
+				{{/yes_recommend}}
+			</div>
+			<div class='col s12' style="margin:10px auto auto auto">
+				<ul class="collection">
+					<li class="collection-item score_list_element" style='background-color: #f5f4f3;'>
+						<div class="col s6" style="font-size:14px; color: #4c4c4c;font-weight: bolder;">
+							Global
+						</div>
+						<div class="col s6">
+							<div class="progress star_progress">
+								<div class="determinate" style="width:{{rating.overall}}%;background-color:{{rating.overall_color}}">
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="collection-item score_list_element">
+						<div class="col s6" style="font-size:14px; color: #6b6b6b;">
+							Amabilidad
+						</div>
+						<div class="col s6">
+							<div class="progress star_progress">
+								<div class="determinate" style="width:{{rating.friendliness}}%;background-color:{{rating.friendliness_color}}">
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="collection-item score_list_element">
+						<div class="col s6" style="font-size:14px; color: #6b6b6b;">
+							Comida
+						</div>
+						<div class="col s6">
+							<div class="progress star_progress">
+								<div class="determinate" style="width:{{rating.food}}%;background-color:{{rating.food_color}}">
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="collection-item score_list_element">
+						<div class="col s6" style="font-size:14px; color: #6b6b6b;">
+							Puntualidad
+						</div>
+						<div class="col s6">
+							<div class="progress star_progress">
+								<div class="determinate" style="width:{{rating.punctuality}}%;background-color:{{rating.punctuality_color}}">
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="collection-item score_list_element">
+						<div class="col s6" style="font-size:14px; color: #6b6b6b;">
+							Programa de pasajeros frecuentes
+						</div>
+						<div class="col s6">
+							<div class="progress star_progress">
+								<div class="determinate" style="width:{{rating.mileage_program}}%;background-color:{{rating.mileage_program_color}}">
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="collection-item score_list_element">
+						<div class="col s6" style="font-size:14px; color: #6b6b6b;">
+							Confort
+						</div>
+						<div class="col s6">
+							<div class="progress star_progress">
+								<div class="determinate" style="width:{{rating.comfort}}%;background-color:{{rating.comfort_color}}">
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="collection-item score_list_element">
+						<div class="col s6" style="font-size:14px; color: #6b6b6b;">
+							Relacion precio/calidad
+						</div>
+						<div class="col s6">
+							<div class="progress star_progress">
+								<div class="determinate" style="width:{{rating.quality_price}}%;background-color:{{rating.quality_price_color}}">
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	{{/reviews}}
 	</script>
 	</body>
 

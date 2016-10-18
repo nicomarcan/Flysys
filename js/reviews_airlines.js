@@ -1,21 +1,5 @@
 color_scheme = ["#ff6f31", "#ff9f02", "#cabc0b", "#99cc00", "#88b131"];
 
-function updateAirlineInfoCard(airline) {
-  $("img#info_airline_logo").attr("src", airline.logo);
-  $("#info_airline_name").text(airline.name);
-  $("#info_airline_code").text(airline.id);
-  if (airline.rating == null) {
-    $("#info_global_score").text("?");
-    $("#info_global_score").css("background-color", "grey");
-  }
-  else {
-    var r_score = Math.round(airline.rating);
-    $("#info_global_score").text(r_score);
-  }
-
-  $("a#airline_breadcrumb").text(airline.name);
-}
-
 function insertFlightInfoCard(info) {
 	var template = $("#flight_info_card").html();
 	var airline = info.status.airline;
@@ -67,23 +51,6 @@ function insertAirlineInfoCard(airline) {
 	$("#flight-info-card").append(render);
 }
 
-function insertReviewCards(reviews) {
-	for (var r in reviews) {
-		for (var s in reviews[r].rating) {
-			var int_score = parseInt((reviews[r].rating[s] + 1)/ 2 - 1);
-			reviews[r].rating[s+"_color"] = color_scheme[int_score];
-			reviews[r].rating[s] = parseInt(reviews[r].rating[s] * 10);
-		}
-		reviews[r].comments = decodeURIComponent(reviews[r].comments);
-	}
-	var template = $("#review_card").html();
-	Mustache.parse(template);
-	var render = Mustache.render(template, {
-		reviews: reviews
-	});
-	$("#reviews-container").append(render);
-}
-
 function startPagination(pages, page) {
 	var el = '<li id="left_chevron" class="disabled"><a href="#opinion_header"><i class="material-icons">chevron_left</i></a></li>';
 	for (var i = 1; i <= pages; i++) {
@@ -101,12 +68,6 @@ function startPagination(pages, page) {
 		el += '<li id="right_chevron" class="waves-effect"><a href="#opinion_header"><i class="material-icons">chevron_right</i></a></li>';
 	}
 	return el;
-}
-
-function loadReviews(reviews) {
-	$("#reviews-container").html('');
-	$("#reviews-container").css("opacity", "1");
-	insertReviewCards(reviews);
 }
 
 function ajaxAirlineInfo(params) {
@@ -149,34 +110,7 @@ function ajaxFlightInfo(params) {
     })
 }
 
-var total_pages;
-function ajaxAirlineReviews(params, sort_key, sort_order, page, option) {
-	$.ajax({
-		url: "http://hci.it.itba.edu.ar/v1/api/review.groovy",
-		jsonp: "callback",
-		dataType: "jsonp",
-		data: {
-			method: "getairlinereviews",
-			airline_id: params["airline_id"],
-			sort_key: sort_key,
-			sort_order: sort_order,
-			page: page,
-			page_size: 5
-		},
-		success: function(response) {
-			if (response.error) {
-				$("#reviews-container").append(displayError(response.error.code, "La busqueda de opiniones por aerolinea no esta andando desde la api"))
-			}
-			insertReviewCards(response.reviews);
 
-			option.pages[page] = response.reviews;
-			if ($("ul#page_sel").html() == false) {
-				total_pages = parseInt(response.total / response.page_size) + 1;
-				$("ul#page_sel").html(startPagination( total_pages , response.page));
-			}
-		}
-	})
-}
 
 $(document).ready(function() {
 	var params = parseGET();
@@ -261,33 +195,17 @@ $(document).ready(function() {
 		else {
 			$("li#right_chevron").removeClass("disabled");
 		}
-		$("#reviews-container").css("opacity", "0.5");
 		if (options[op].pages[page]) {
 			loadReviews(options[op].pages[page]);
 		}
 		else {
-			$.ajax({
-				url: "http://hci.it.itba.edu.ar/v1/api/review.groovy",
-			    jsonp: "callback",
-			    dataType: "jsonp",
-			    data: {
-			      method: "getairlinereviews",
-			      airline_id: params["airline_id"],
-				  sort_key: options[op].sort_key,
-				  sort_order: options[op].sort_order,
-				  page: page,
-				  page_size: 5
-			    },
-			    success: function(response) {
-					if (response.error) {
-						$("#reviews-container").append(displayError(response.error.code, "La busqueda de opiniones por aerolinea no esta andando desde la api"))
-					}
-					else {
-						loadReviews(response.reviews);
-						options[op].pages[page] = response.reviews;
-					}
-				}
-			});
+			ajaxAirlineReviews(
+				params,
+				options[op].sort_key,
+				options[op].sort_order,
+				page,
+				options[op]
+			)
 		}
 		return true;
 	});
@@ -313,7 +231,6 @@ $(document).ready(function() {
 	});
 
 	$('select#order_select').on('change', function() {
-		$("#reviews-container").css("opacity", "0.5");
 		op = $(this).children('option.order_option:selected').attr('value');
 		page = 1;
 		$("li.page_button.active").removeClass('active');
@@ -329,29 +246,15 @@ $(document).ready(function() {
 			loadReviews(options[op].pages[page])
 		}
 		else {
-			$.ajax({
-				url: "http://hci.it.itba.edu.ar/v1/api/review.groovy",
-			    jsonp: "callback",
-			    dataType: "jsonp",
-			    data: {
-			      method: "getairlinereviews",
-			      airline_id: params["airline_id"],
-				  sort_key: options[op].sort_key,
-				  sort_order: options[op].sort_order,
-				  page: page,
-				  page_size: 5
-			    },
-			    success: function(response) {
-					if (response.error) {
-						$("#reviews-container").append(displayError(response.error.code, "La busqueda de opiniones por aerolinea no esta andando desde la api"))
-					}
-					else {
-						loadReviews(response.reviews);
-						options[op].pages[page] = response.reviews;
-					}
-				}
-			});
+			ajaxAirlineReviews(
+				params,
+				options[op].sort_key,
+				options[op].sort_order,
+				page,
+				options[op]
+			);
 		}
+		return true;
 	});
 
 });
