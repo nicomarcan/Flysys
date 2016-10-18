@@ -3,7 +3,7 @@ var color_scheme = ["#ff6f31", "#ff9f02", "#cabc0b", "#99cc00", "#88b131"];
 function insertFlightInfoCard(info) {
 	var template = $("#flight_info_card").html();
 	var airline = info.status.airline;
-	var departing_city = info.status.arrival.airport.city;
+	var departing_city = info.status.departure.airport.city;
 	var departing_airport = info.status.departure.airport;
 	var arriving_city = info.status.arrival.airport.city;
 	var arriving_airport = info.status.arrival.airport;
@@ -11,18 +11,16 @@ function insertFlightInfoCard(info) {
 	var render = Mustache.render(template, {
 		logo: airline.logo,
 		name: airline.name,
-		number: airline.id,
+		code: airline.id,
+		number: info.status.number,
 		departing_city: departing_city.name,
-		departing_airport: departing_airport.description.split(',')[0]+ '(' + departing_airport.id+ ')',
+		departing_airport: departing_airport.description.split(',')[0]+ ' (' + departing_airport.id+ ')',
 		arriving_city: arriving_city.name,
-		arriving_airport: arriving_airport.description.split(',')[0] + '(' + arriving_airport.id+ ')',
+		arriving_airport: arriving_airport.description.split(',')[0] + ' (' + arriving_airport.id+ ')',
 		distance: getDistance(departing_airport, arriving_airport) + " km"
 	});
 	$("#flight-info-card").append(render);
-	$("a#airline_breadcrumb").text(airline.name);
-	$("a#airline_breadcrumb").attr("href","./reviews_airlines.html?airline_id="+airline.id);
-	$("a#flight_breadcrumb").text("Vuelo " +info.status.number);
-	$("a#flight_breadcrumb").css("visibility", "visible");
+
 }
 
 function insertErrorCard(container, header, description) {
@@ -66,7 +64,7 @@ function insertAirlineInfoCard(airline) {
 }
 
 function startPagination(pages, page) {
-	var el = '<li id="left_chevron" class="disabled"><a href="#opinion_header"><i class="material-icons">chevron_left</i></a></li>';
+	var el = '<li id="left_chevron" class="disabled "><a href="#opinion_header"><i class="material-icons">chevron_left</i></a></li>';
 	for (var i = 1; i <= pages; i++) {
 		if (i == page) {
 			el += '<li class="page_button active" value="'+ i +'"><a href="#opinion_header">'+ i +'</a></li>';
@@ -98,7 +96,6 @@ function ajaxAirlineInfo(params) {
           displayError()
         }
 				else {
-					$("a#airline_breadcrumb").html(response.airline.name);
 					if (response.total == 0) {
 						insertErrorCard($("#reviews-container"), "No se encontraron reviews", "");
 					}
@@ -323,9 +320,13 @@ $(document).ready(function() {
 									source: blood_airlines
 							}
 			);
-			if (airline_id[params[airline_id]]) {
-				$("a#airline_breadcrumb").text(airline_id[params["airline_id"]]);
-				$("a#flight_breadcrumb").text("Vuelo " + params["flight_number"]);
+			if (airlines_id[params["airline_id"]]) {
+				$("a#airline_breadcrumb").text(airlines_id[params["airline_id"]]);
+				$("a#airline_breadcrumb").attr("href","./reviews_airlines.html?airline_id="+params["airline_id"]);
+				if (params["flight_number"]) {
+					$("a#flight_breadcrumb").text("Vuelo " + params["flight_number"]);
+					$("a#flight_breadcrumb").css("visibility", "visible");
+				}
 			}
     }
   });
@@ -454,7 +455,7 @@ $(document).ready(function() {
 			loadReviews(options[op].pages[page])
 		}
 		else {
-			ajaxAirlineReviews(
+			ajaxReviews(
 				params,
 				options[op].sort_key,
 				options[op].sort_order,

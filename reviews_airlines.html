@@ -59,27 +59,12 @@
 		</nav>
 		<div class="container-fluid">
 			<div class="row">
-				<!--
-        <nav class="col s8 push-s2"  style="background-color:#eeeeee; padding:0; margin-top:10px;">
-          <div class="nav-wrapper">
-            <form id="airline_search_form" action="./reviews_airlines.html" method="GET">
-              <div class="input-field row">
-                <input id="airline_search_id" type="hidden" name="airline_id" required></input>
-								<input id="airline_search" type="search" class="typeahead">
-                <label for="search"><i class="material-icons" style="color:black">search</i></label>
-								<i class="material-icons" style="color:black">close</i>
-								</input>
-              </div>
-            </form>
-          </div>
-        </nav>
-			-->
-			<div class="col s8 push-s2" style="padding:5px; margin:0px;">
-	  				<div class="col s12" style="margin-top: 1rem;">
-	            		<a href="#!" class="breadcrumb info_breadcrumbs" id="airline_breadcrumb"></a>
-									<a href="#!" class="breadcrumb info_breadcrumbs" id="flight_breadcrumb" style="visibility:hidden;"></a>
-	  				</div>
-	        </div>
+				<div class="col s8 push-s2" style="padding:5px; margin:0px;">
+					<div class="col s12" style="margin-top: 1rem;">
+						<a href="#!" class="breadcrumb info_breadcrumbs link" id="airline_breadcrumb"></a>
+						<a href="#!" class="breadcrumb info_breadcrumbs link" id="flight_breadcrumb" style="visibility:hidden;"></a>
+					</div>
+				</div>
 			<div id="flight-info-card" class="col s8 offset-s2"> </div>
 			<div class="row" style="padding:5px; margin:0px;">
 				<div class="col s8 push-s2">
@@ -284,7 +269,7 @@
 	<div class=" card-panel row hoverable clickable ">
 		<div class="col s4">
 			<div class="flight_number" style='font-size: 32px;color: black;font-weight: lighter;' >
-				<a class='flight_number_link' href="./reviews_airlines.html?airline_id={{flight.airline.id}}&flight_number={{flight.number}}">
+				<a class='flight_number_link link' href="./reviews_airlines.html?airline_id={{flight.airline.id}}&flight_number={{flight.number}}">
 					Vuelo {{flight.number}}
 				</a>
 			</div>

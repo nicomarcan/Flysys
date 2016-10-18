@@ -79,9 +79,6 @@ a.flight_number_link {
 	color: black;
 	font-weight: lighter;
 }
-a.flight_number_link:hover {
-	color: #167ac6;
-}
 
 .opinions_header {
 	font-size: 32px;
@@ -115,14 +112,17 @@ span.review_title {
   font-weight: bold;
 }
 a.info_breadcrumbs.breadcrumb {
-  font-size: 32px;
+	font-size: 32px;
 	color: black;
 	font-weight: lighter;
 }
 a.info_breadcrumbs.breadcrumb::before {
-  font-size: 32px;
+	font-size: 32px;
 	color: #a9a9a9;
-  font-weight: lighter;
+	font-weight: lighter;
+}
+a.link:hover{
+	color: #167ac6;
 }
 a.back-link{
 	color:#039be5;
@@ -130,6 +130,10 @@ a.back-link{
 }
 a.back-link:hover{
 	text-decoration: underline;
+}
+
+.pagination li.page_button.active{
+	background-color: #26a69a;
 }
 .row.tools div.tool-element{
   margin: .5em 1em;
