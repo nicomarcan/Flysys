@@ -77,6 +77,7 @@
 			<div class="col s8 push-s2" style="padding:5px; margin:0px;">
 	  				<div class="col s12" style="margin-top: 1rem;">
 	            		<a href="#!" class="breadcrumb info_breadcrumbs" id="airline_breadcrumb"></a>
+									<a href="#!" class="breadcrumb info_breadcrumbs" id="flight_breadcrumb" style="visibility:hidden;"></a>
 	  				</div>
 	        </div>
 			<div id="flight-info-card" class="col s8 offset-s2"> </div>
@@ -166,6 +167,14 @@
 							<div class="valign circle z-depth-1 global_score" id="info_global_score" style="background-color:{{rating_color}}">
 								{{rating}}
 							</div>
+						</div>
+						<div class="stars valign col s12 " style="text-align:center;">
+							{{#active_stars}}
+							<i class="material-icons important-star">star</i>
+							{{/active_stars}}
+							{{#inactive_stars}}
+							<i class="material-icons important-star" style="color:#d4d4d4;">star</i>
+							{{/inactive_stars}}
 						</div>
 					</li>
 					<li class="score_list_element collection-item">
@@ -275,12 +284,12 @@
 	<div class=" card-panel row hoverable clickable ">
 		<div class="col s4">
 			<div class="flight_number" style='font-size: 32px;color: black;font-weight: lighter;' >
-				<a class='flight_number_link' href="./reviews_flights.html?airline_id={{flight.airline.id}}&flight_number={{flight.number}}">
+				<a class='flight_number_link' href="./reviews_airlines.html?airline_id={{flight.airline.id}}&flight_number={{flight.number}}">
 					Vuelo {{flight.number}}
 				</a>
 			</div>
 			<div class='divider'></div>
-			<div class="col s12" style="margin:10px auto auto auto;">
+			<div class="col s12" style="margin:10px auto auto auto; overflow: hidden;">
 				{{{comments}}}
 			</div>
 		</div>
@@ -387,6 +396,17 @@
 		</div>
 	</div>
 	{{/reviews}}
+	</script>
+	<script type="x-tmpl-mustache" id="error_card">
+	<div class=" card-panel row hoverable clickable ">
+		<div class="col s12" style="font-size: 32px;color: black;font-weight: lighter;">
+			{{header}}
+		</div>
+		<div class='col s12 divider'></div>
+		<div class="col s12"style="margin:10px auto auto auto; overflow: hidden;">
+			{{description}} <a class="back-link"> Volver atras.</a>
+		</div>
+	</div>
 	</script>
 	</body>
 
