@@ -152,7 +152,7 @@ $(document).ready(function(){
 
 
 
-			//Implementacion de Flickr
+			//Implementacion de Panoramio
 		  var apiurl=new Array();
 		  var to=new Array();
 		   var price=new Array();
@@ -511,23 +511,27 @@ $(document).ready(function(){
 
 			
 
-			/* var review_url = 'http://hci.it.itba.edu.ar/v1/api/review.groovy?method=reviewairline';
-			  $.ajax({
-			     type: "POST",
-		        url: review_url,
-                  contentType: 'application/json',
-	         	 data: JSON.stringify(review),
-			    success: function(d){
-			      if(d.error == undefined){
+			
 
-			      }else{
-			      	console.log(d);
-			      	console.log(review);
+		
 
-			      }
-			    }
-			  });*/
-			  if(airline["id"] != undefined && !isNaN(flight["number"]) && ok && $("#review-modal #comments").val()<=256  ) {
+			  if(airline["id"] != undefined && !isNaN(flight["number"]) && ok && $("#review-modal #comments").val().length <=256  ) {
+			  	   var review_url = 'http://hci.it.itba.edu.ar/v1/api/review.groovy?method=reviewairline';
+					 $.ajax({
+					     type: "POST",
+				        url: review_url,
+		                  contentType: 'application/json',
+			         	 data: JSON.stringify(review),
+					    success: function(d){
+					      if(d.error == undefined){
+
+					      }else{
+					      	console.log(d);
+					      	console.log(review);
+
+					      }
+					    }
+					  });
 				  $(this).hide();
 				  $("#review-form").hide(300);
 				  $("#close-modal").show();
@@ -547,6 +551,9 @@ $(document).ready(function(){
 			window.location="reviews_airlines.html?airline_id="+nameToId[$("#review-modal #airlines_input").val()];
 		});
 
+		$("#link-flight").on('click',function(){
+			window.location="reviews_flights.html?airline_id="+nameToId[$("#review-modal #airlines_input").val()]+"&flight_number="+parseInt($("#review-modal #vuelo").val());
+		});
 		$('#review-btn').on('click',function(){
 			$("#review-modal #airlines_input").val("") ;
 			$("#review-modal #airlines_input").blur() ;
