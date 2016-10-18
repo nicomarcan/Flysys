@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 
 <html>
-  <meta charset="utf-8"/>
+ 
   <head>
+    <meta charset="utf-8"/>
+   <title>Flysys</title>
     <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <!--Import materialize.css-->
-   <link rel="stylesheet" href="css/materialize.css">
+   <link rel="stylesheet" href="css/materialize.css"/>
     <link type="text/css" rel="stylesheet" href="css/index.css"/><!--change later-->
-    <link type="text/css" href="css/classic.css" rel="stylesheet">
-    <link type="text/css" href="css/classic.date.css" rel="stylesheet">
+    <link type="text/css" href="css/classic.css" rel="stylesheet"/>
+    <link type="text/css" href="css/classic.date.css" rel="stylesheet"/>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	  <script src="js/results.js"></script>
 
   </head>
-
+  
     <body>
 
 
@@ -26,7 +28,7 @@
            	<li >
 							<form id="airline_search_form" action="./reviews_airlines.html" method="GET">
 
-								<input id="airline_search_id" type="hidden" name="airline_id" required/>
+								<input id="airline_search_id" type="hidden" name="airline_id" />
 								<input id="airline_search" type="search" name="airline_search" class="typeahead" placeholder="Buscar aerolineas." />
 								<button class="btn-floating waves-effect waves-light transparent " type="submit" name="action" style="padding: 0px; background: #eeeeee;color: #252525;">
 									<i class="material-icons" style="line-height:normal; padding:2px; color:white">
@@ -58,7 +60,7 @@
 
             <form class="row input color1 " id="two-way">
                 <ul class="inline">
-                    <li class="input-field " id="from">
+                    <li class="input-field " id="from_two">
                       <div class="col s2">
                        <i class="material-icons prefix">location_on</i>
                     </div>
@@ -72,14 +74,14 @@
                       <i class=" material-icons clickable" id="crossicon-two">swap_horiz</i>
                     </li>
 
-                    <li class="input-field " id="to">
+                    <li class="input-field " id="to_two">
                           <div class="col s2">
                               <i class="material-icons prefix">location_on</i>
                      </div>
                          <div class="col s10">
                            <input  type="text"   name="to_input"  id="to_input_two" class=" typeahead" placeholder="Hacia"/>
                            <label for="to_input_two"  data-error="wrong" data-success="right"> </label>
-                           <span id="to_input_error" class="red-text"></span>
+                           <span id="to_input_error_two" class="red-text"></span>
                          </div>
                     </li>
 
@@ -96,15 +98,17 @@
                     <li class="input-field  " id="passenger_two" >
             					     <!-- Dropdown Trigger -->
                            <i class="material-icons prefix " id="open-button-two"  >perm_identity</i>
-            						   <a class='dropdown-button waves-light btn-flat' disabled href='#' data-activates="dropdown2" id="passengers_two" > Pasajeros</a>
+            						   <a class='dropdown-button waves-light btn-flat'  href='#' data-activates="dropdown2" id="passengers_two" > Pasajeros</a>
 
             						  <!-- Dropdown Structure -->
             						  <ul id='dropdown2' class='dropdown-content '>
-            						    <li class="inline"><a  id="adults"><p>Adultos&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p id="adults_val">1</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
+            						    <li class="inline"><p  id="adults_two">Adultos  <button class="minus">-</button> <p id="adults_val_two">1</p> <button class = "plus">+</button></p></li>
             						    <li class="divider"></li>
-            						     <li class="inline"><a  id="children"><p>Niños&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p id="children_val">0</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
+            						     <li class="inline"><p  id="children_two">Niños  <button class="minus">-</button> <p id="children_val_two">0</p><button class = "plus">+</button></p></li>
             						       <li class="divider"></li>
-            						     <li class="inline"><a  id="infants"><p>Infantes&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p id="infants_val">0</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
+
+            						     <li class="inline"><p id="infants_two">Infantes <button class="minus">-</button> <p id="infants_val_two">0</p><button class = "plus">+</button></p></li>
+
             						     <li class="inline"><a href="#!" id="done-button-two">DONE</a></li>
             						  </ul>
 
@@ -155,15 +159,15 @@
                     <li class="input-field  " id="passenger">
             					     <!-- Dropdown Trigger -->
                            <i class="material-icons prefix " id="open-button"  >perm_identity</i>
-            						   <a class='dropdown-button waves-light btn-flat' disabled href='#' data-activates="dropdown1" id="passengers" > Pasajeros</a>
+            						   <a class='dropdown-button waves-light btn-flat'  href='#' data-activates="dropdown1" id="passengers" > Pasajeros</a>
 
             						   			  <!-- Dropdown Structure -->
             						  <ul id='dropdown1' class='dropdown-content '>
-            						    <li class="inline"><a  id="adults"><p>Adultos&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p id="adults_val">1</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
+            						    <li class="inline"><p  id="adults">Adultos <button class="minus">-</button> <p id="adults_val">1</p><button class = "plus">+</button></p></li>
             						    <li class="divider"></li>
-            						     <li class="inline"><a  id="children"><p>Niños&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p id="children_val">0</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
+            						     <li class="inline"><p  id="children">Niños  <button class="minus">-</button> <p id="children_val">0</p><button class = "plus">+</button></p></li>
             						       <li class="divider"></li>
-            						     <li class="inline"><a  id="infants"><p>Infantes&nbsp&nbsp</p>  &nbsp&nbsp<button class="minus">-</button><p>&nbsp&nbsp</p> <p id="infants_val">0</p><p>&nbsp&nbsp</p><button class = "plus">+</button></a></li>
+            						     <li class="inline"><p  id="infants">Infantes  <button class="minus">-</button><p id="infants_val">0</p><button class = "plus">+</button></p></li>
             						     <li class="inline"><a href="#!" id="done-button">DONE</a></li>
             						  </ul>
                     <li>
@@ -197,14 +201,14 @@
 
 	             <ul class="slides ">
       <li>
-         <img  class="offer-img big clickable" id="offer-img-1" /> <!-- random image -->
+         <img  class="offer-img big clickable" id="offer-img-1" alt="not-found" src="img/image-not-found.jpg"/> <!-- random image -->
       </li>
       <li>
-        <img  class="offer-img big clickable" id="offer-img-back-1" />
-        <div class="caption left-align" style="position: relative;">
+        <img  class="offer-img big clickable" id="offer-img-back-1" alt="not-found" src="img/image-not-found.jpg"/>
+        <div class="caption left-align">
 
-         <h5 class="white-text" style="position: absolute;bottom:5rem"  ></h5>
-         <p class="white-text" style="position: absolute;bottom:3rem"></p>
+         <h5 class="white-text to-offer"  >a</h5>
+         <p class="white-text price-offer" >a</p>
       
         </div>
       </li>
@@ -218,14 +222,14 @@
 
 	             <ul class="slides ">
       <li>
-         <img  class="offer-img big clickable" id="offer-img-2" /> <!-- random image -->
+         <img  class="offer-img big clickable" id="offer-img-2" alt="not-found" src="img/image-not-found.jpg"/> <!-- random image -->
       </li>
       <li>
-        <img  class="offer-img big clickable" id="offer-img-back-2" />
-        <div class="caption left-align" style="position: relative;">
+        <img  class="offer-img big clickable" id="offer-img-back-2" alt="not-found" src="img/image-not-found.jpg"/>
+        <div  class="caption left-align" >
 
-         <h5 class="white-text" style="position: absolute;bottom:5rem"  ></h5>
-         <p class="white-text" style="position: absolute;bottom:3rem"></p>
+         <h5 class="white-text to-offer"  >a</h5>
+         <p class="white-text price-offer">a</p>
       
         </div>
       </li>
@@ -240,14 +244,14 @@
 
 	             <ul class="slides ">
       <li>
-         <img  class="offer-img big clickable" id="offer-img-3" /> <!-- random image -->
+         <img  class="offer-img big clickable" id="offer-img-3" alt="not-found" src="img/image-not-found.jpg"/> <!-- random image -->
       </li>
       <li>
-        <img  class="offer-img big clickable" id="offer-img-back-3" />
-        <div class="caption left-align" style="position: relative;">
+        <img  class="offer-img big clickable" id="offer-img-back-3" alt="not-found"  src="img/image-not-found.jpg"/>
+        <div class="caption left-align" >
 
-         <h5 class="white-text" style="position: absolute;bottom:5rem"  ></h5>
-         <p class="white-text" style="position: absolute;bottom:3rem"></p>
+         <h5 class="white-text to-offer" >a</h5>
+         <p class="white-text price-offer">a</p>
       
         </div>
       </li>
@@ -265,14 +269,14 @@
 
 	             <ul class="slides ">
       <li>
-         <img  class="offer-img big clickable" id="offer-img-4" /> <!-- random image -->
+         <img  class="offer-img big clickable" id="offer-img-4" alt="not-found" src="img/image-not-found.jpg"/> <!-- random image -->
       </li>
       <li>
-        <img  class="offer-img big clickable" id="offer-img-back-4" />
-        <div class="caption left-align" style="position: relative;">
+        <img  class="offer-img big clickable" id="offer-img-back-4" alt="not-found" src="img/image-not-found.jpg"/>
+        <div class="caption left-align" >
 
-         <h5 class="white-text" style="position: absolute;bottom:5rem"  ></h5>
-         <p class="white-text" style="position: absolute;bottom:3rem"></p>
+         <h5 class="white-text to-offer" >a</h5>
+         <p class="white-text price-offer">a</p>
       
         </div>
       </li>
@@ -286,14 +290,14 @@
 
 	             <ul class="slides ">
       <li>
-         <img  class="offer-img big clickable" id="offer-img-5" /> <!-- random image -->
+         <img  class="offer-img big clickable" id="offer-img-5" alt="not-found" src="img/image-not-found.jpg"/> <!-- random image -->
       </li>
       <li>
-        <img  class="offer-img big clickable" id="offer-img-back-5" />
-        <div class="caption left-align" style="position: relative;">
+        <img  class="offer-img big clickable" id="offer-img-back-5" alt="not-found" src="img/image-not-found.jpg"/>
+        <div class="caption left-align" >
 
-         <h5 class="white-text" style="position: absolute;bottom:5rem"  ></h5>
-         <p class="white-text" style="position: absolute;bottom:3rem"></p>
+         <h5 class="white-text to-offer" >a</h5>
+         <p class="white-text price-offer">a</p>
       
         </div>
       </li>
@@ -308,14 +312,14 @@
 
 	             <ul class="slides ">
       <li>
-         <img  class="offer-img big clickable" id="offer-img-6" /> <!-- random image -->
+         <img  class="offer-img big clickable" id="offer-img-6" alt="not-found" src="img/image-not-found.jpg"/> <!-- random image -->
       </li>
       <li>
-        <img  class="offer-img big clickable" id="offer-img-back-6" />
-        <div class="caption left-align" style="position: relative;">
+        <img  class="offer-img big clickable" id="offer-img-back-6" alt="not-found" src="img/image-not-found.jpg"/>
+        <div class="caption left-align" >
 
-         <h5 class="white-text" style="position: absolute;bottom:5rem"  ></h5>
-         <p class="white-text" style="position: absolute;bottom:3rem"></p>
+         <h5 class="white-text to-offer" >a</h5>
+         <p class="white-text price-offer">a</p>
       
         </div>
       </li>
@@ -333,14 +337,14 @@
 
 	             <ul class="slides ">
       <li>
-         <img  class="offer-img big clickable" id="offer-img-7" /> <!-- random image -->
+         <img  class="offer-img big clickable" id="offer-img-7" alt="not-found" src="img/image-not-found.jpg"/> <!-- random image -->
       </li>
       <li>
-        <img  class="offer-img big clickable" id="offer-img-back-7" />
-        <div class="caption left-align" style="position: relative;">
+        <img  class="offer-img big clickable" id="offer-img-back-7" alt="not-found" src="img/image-not-found.jpg"/>
+        <div class="caption left-align" >
 
-         <h5 class="white-text" style="position: absolute;bottom:5rem"  ></h5>
-         <p class="white-text" style="position: absolute;bottom:3rem"></p>
+         <h5 class="white-text to-offer" >a</h5>
+         <p class="white-text price-offer">a</p>
       
         </div>
       </li>
@@ -354,14 +358,14 @@
 
 	             <ul class="slides ">
       <li>
-         <img  class="offer-img big clickable" id="offer-img-8" /> <!-- random image -->
+         <img  class="offer-img big clickable" id="offer-img-8" alt="not-found" src="img/image-not-found.jpg"/> <!-- random image -->
       </li>
       <li>
-        <img  class="offer-img big clickable" id="offer-img-back-8" />
-        <div class="caption left-align" style="position: relative;">
+        <img  class="offer-img big clickable" id="offer-img-back-8" alt="not-found" src="img/image-not-found.jpg"/>
+        <div class="caption left-align" >
 
-         <h5 class="white-text" style="position: absolute;bottom:5rem"  ></h5>
-         <p class="white-text" style="position: absolute;bottom:3rem"></p>
+         <h5 class="white-text to-offer"  >a</h5>
+         <p class="white-text price-offer">a</p>
       
         </div>
       </li>
@@ -376,14 +380,14 @@
 
 	             <ul class="slides ">
       <li>
-         <img  class="offer-img big clickable" id="offer-img-9" /> <!-- random image -->
+         <img  class="offer-img big clickable" id="offer-img-9" alt="not-found" src="img/image-not-found.jpg"/> <!-- random image -->
       </li>
       <li>
-        <img  class="offer-img big clickable" id="offer-img-back-9" />
-        <div class="caption left-align" style="position: relative;">
+        <img  class="offer-img big clickable" id="offer-img-back-9" alt="not-found"  src="img/image-not-found.jpg"/>
+        <div class="caption left-align" >
 
-         <h5 class="white-text" style="position: absolute;bottom:5rem"  ></h5>
-         <p class="white-text" style="position: absolute;bottom:3rem"></p>
+         <h5 class="white-text to-offer" >a</h5>
+         <p class="white-text price-offer">a</p>
       
         </div>
       </li>
