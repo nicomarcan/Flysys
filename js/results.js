@@ -358,7 +358,7 @@ $(document).ready(function(){
       default:
         return false;
     }
-    applied = false;
+    applied = true;
     setCurrPage(currPage);
     return true;
   });
