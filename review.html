@@ -8,10 +8,10 @@
 		rel="stylesheet">
 		<!--Import materialize.css-->
 		<link type="text/css" rel="stylesheet" href="./css/reviews.css"/>
+		<link type="text/css" rel="stylesheet" href="./css/error.css"/>
 		<link type="text/css" rel="stylesheet" href="./css/offline-theme-chrome.css"/>
 		<link type="text/css" rel="stylesheet" href="./css/offline-language-spanish.css"/>
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
-	    <!--<link type="text/css" rel="stylesheet" href="css/style.css"/>-->
 
 		<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 	    <!--Let browser know website is optimized for mobile-->
@@ -28,7 +28,7 @@
 					</div>
 					<ul class="right hide-on-med-and-down">
 						<li>
-							<form id="airline_search_form" action="./reviews_airlines.html" method="GET">
+							<form id="airline_search_form" action="./review.html" method="GET">
 
 								<input id="airline_search_id" type="hidden" name="airline_id" required></input>
 								<ul>
@@ -37,8 +37,8 @@
 										</input>
 									</li>
 									<li>
-										<button class="btn-floating waves-effect waves-light blue-grey submit-search" type="submit" name="action" style="padding: 0px; background: #eeeeee;color: #252525;">
-											<i class="material-icons" style="line-height:normal; padding:2px; color:white;">
+										<button class="btn-floating waves-effect waves-light blue-grey submit-search" type="submit" name="action">
+											<i class="material-icons search-icon">
 												search
 											</i>
   									</button>
@@ -55,28 +55,28 @@
 		</nav>
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col s8 push-s2" style="padding:5px; margin:0px;">
-					<div class="col s12" style="margin-top: 1rem;">
+				<div class="col s8 push-s2 breadcrumb-container">
+					<div class="col s12 breadcrumb-align">
 						<a href="#!" class="breadcrumb info_breadcrumbs link" id="airline_breadcrumb"></a>
 						<a href="#!" class="breadcrumb info_breadcrumbs link" id="flight_breadcrumb" style="visibility:hidden;"></a>
 					</div>
 				</div>
 			<div id="flight-info-card" class="col s8 offset-s2"> </div>
-			<div id="review-head"class="row" style="padding:5px; margin:0px;">
+			<div id="review-head" class="row" style="">
 				<div class="col s8 push-s2">
-				<div class="valign-wrapper">
-					<div id="opinion_header" class="valign col s8 opinions_header">
-						OPINIONES
-					</div>
-					<div class="valign col s4 tools">
+					<div class="valign-wrapper">
+						<div id="opinion_header" class="valign col s8 opinions_header">
+							OPINIONES
+						</div>
+						<div class="valign col s4 tools">
 							<label>ORDENAR POR</label>
 							<select id="order_select">
 								<option class="order_option" value="0">Menor puntaje</option>
 								<option class="order_option" value="1">Mayor puntaje</option>
 							</select>
+						</div>
 					</div>
-				</div>
-				<div class="divider" style="margin-bottom:10px"></div>
+					<div class="divider review-divider"></div>
 				</div>
 			</div>
 			<div id="reviews-container" class="col s8 push-s2"></div>
@@ -119,17 +119,17 @@
 	<script type="x-tmpl-mustache" id='airline_card_info'>
 		<div class="card-panel row">
 			<div class="col s8">
-				<div style="font-size:2rem; font-weight:lighter">
+				<div class="airline-info-head">
 					<img id="info_airline_logo" src="{{logo}}"></img>
 					<span id="info_airline_name"> {{name}}</span>
 						,&nbsp
 					<span id="info_airline_code">{{code}}</span>
 				</div>
-				<div style="margin-top: 0.5rem">
+				<div class="info-item">
 					<span class="info_flight_descr"> Tarifa </span>
 					<span id="info_charges">{{charges}}</span>
 				</div>
-				<div style="margin-top: 0.5rem">
+				<div class="info-item">
 					<span class="info_flight_descr"> Impuestos </span>
 					<span id="info_taxes">{{taxes}}</span>
 				</div>
@@ -146,12 +146,12 @@
 								{{rating}}
 							</div>
 						</div>
-						<div class="stars valign col s12 " style="text-align:center;">
+						<div class="stars valign col s12 ">
 							{{#active_stars}}
 							<i class="material-icons important-star">star</i>
 							{{/active_stars}}
 							{{#inactive_stars}}
-							<i class="material-icons important-star" style="color:#d4d4d4;">star</i>
+							<i class="material-icons unimportant-star">star</i>
 							{{/inactive_stars}}
 						</div>
 					</li>
@@ -171,7 +171,7 @@
 	<script type="x-tmpl-mustache" id="flight_info_card">
 	<div class="card-panel row">
 		<div class="col s12">
-			<div style="font-size:2rem; font-weight:lighter">
+			<div class="flight-info-head">
 				<img id="info_airline_logo" src='{{logo}}'></img>
 				<span id="info_airline_name">{{name}}</span>
 				,&nbsp
@@ -180,38 +180,38 @@
 				&nbsp&nbsp
 			 </div>
 		</div>
-		<div class="col s12" style="height:30rem">
-			<div class="col s6" style="height:100%; position:relative;">
-					<div style="margin-top: 0.5rem">
+		<div class="col s12 flight-info-container">
+			<div class="col s6 flight-info-left">
+					<div class='info-item'>
 						<span class="info_flight_descr"> Origen </span>
 						<span id="info_departing_city"> {{ departing_city }}</span>
 					</div>
-					<div style="margin-top: 0.5rem">
+					<div class='info-item'>
 						<span class="info_flight_descr"> Aeropuerto de origen </span>
 						<span id="info_departing_airport"> {{departing_airport}}</span>
 					</div>
 
-					<div style="margin-top: 0.5rem">
+					<div class='info-item'>
 						<span class="info_flight_descr" > Llegada </span>
 						<span id="info_arriving_city"> {{arriving_city}}</span>
 					</div>
-					<div style="margin-top: 0.5rem">
+					<div class='info-item'>
 						<span class="info_flight_descr" > Aeropuerto de llegada </span>
 						<span id="info_arriving_airport"> {{arriving_airport}}</span>
 					</div>
-					<div style="margin-top: 0.5rem">
+					<div class='info-item'>
 						<span class="info_flight_descr" > Distancia </span>
 						<span id="info_flight_distance"> {{distance}}</span>
 					</div>
-					<a class="write_review_button waves-effect waves-light btn clickable col s6 push-s3" style="position:absolute; bottom:0" >
+					<a class="write-review-button waves-effect waves-light btn clickable col s10 push-s1">
 						Escribir una resena
 						<i class="tiny material-icons right">
 							mode_edit
 						</i>
 					</a>
 			</div>
-			  <div id="map" class="col s6" style="height:100% ">
-				  <div class="col s2 push-s5 valign-wrapper" style="height:100%">
+			  <div id="map" class="map-wrapper col s6">
+				  <div class="col s2 push-s5 valign-wrapper preloader-wrapper">
 				  <div class="preloader-wrapper big active valign">
 					  <div class="spinner-layer spinner-blue">
 						<div class="circle-clipper left">
@@ -261,20 +261,20 @@
 	{{#reviews}}
 	<div class=" card-panel row hoverable clickable ">
 		<div class="col s4">
-			<div class="flight_number" style='font-size: 32px;color: black;font-weight: lighter;' >
-				<a class='flight_number_link link' href="./reviews_airlines.html?airline_id={{flight.airline.id}}&flight_number={{flight.number}}">
+			<div class="flight_number" >
+				<a class='flight_number_link link' href="./review.html?airline_id={{flight.airline.id}}&flight_number={{flight.number}}">
 					Vuelo {{flight.number}}
 				</a>
 			</div>
 			<div class='divider'></div>
-			<div class="col s12" style="margin:10px auto auto auto; overflow: hidden;">
+			<div class="col s12 flight-comments">
 				{{{comments}}}
 			</div>
 		</div>
 		<div class='col s8'>
-			<div class='col s12'>
+			<div class='col s12 flight-recommend'>
 				{{#yes_recommend}}
-				<div style='color:green; font-size:22px; float:right;'>
+				<div class='flight-recommend flight-recommend-yes'>
 					<i class='material-icons tiny'>
 						thumb_up
 					</i>
@@ -282,7 +282,7 @@
 				</div>
 				{{/yes_recommend}}
 				{{^yes_recommend}}
-				<div style="color: red; font-size:22px; float:right;" >
+				<div class='flight-recommend flight-recommend-no'>
 					<i class='material-icons tiny'>
 						thumb_down
 					</i>
@@ -290,10 +290,10 @@
 				</div>
 				{{/yes_recommend}}
 			</div>
-			<div class='col s12' style="margin:10px auto auto auto">
+			<div class='col s12 score-collection' >
 				<ul class="collection">
-					<li class="collection-item score_list_element" style='background-color: #f5f4f3;'>
-						<div class="col s6" style="font-size:14px; color: #4c4c4c;font-weight: bolder;">
+					<li class="collection-item score_list_element score-list-head" >
+						<div class="col s6 score-list-overall">
 							Global
 						</div>
 						<div class="col s6">
@@ -304,7 +304,7 @@
 						</div>
 					</li>
 					<li class="collection-item score_list_element">
-						<div class="col s6" style="font-size:14px; color: #6b6b6b;">
+						<div class="col s6 score-list-other" >
 							Amabilidad
 						</div>
 						<div class="col s6">
@@ -315,7 +315,7 @@
 						</div>
 					</li>
 					<li class="collection-item score_list_element">
-						<div class="col s6" style="font-size:14px; color: #6b6b6b;">
+						<div class="col s6 score-list-other">
 							Comida
 						</div>
 						<div class="col s6">
@@ -326,7 +326,7 @@
 						</div>
 					</li>
 					<li class="collection-item score_list_element">
-						<div class="col s6" style="font-size:14px; color: #6b6b6b;">
+						<div class="col s6 score-list-other">
 							Puntualidad
 						</div>
 						<div class="col s6">
@@ -337,7 +337,7 @@
 						</div>
 					</li>
 					<li class="collection-item score_list_element">
-						<div class="col s6" style="font-size:14px; color: #6b6b6b;">
+						<div class="col s6 score-list-other">
 							Programa de pasajeros frecuentes
 						</div>
 						<div class="col s6">
@@ -348,7 +348,7 @@
 						</div>
 					</li>
 					<li class="collection-item score_list_element">
-						<div class="col s6" style="font-size:14px; color: #6b6b6b;">
+						<div class="col s6 score-list-other">
 							Confort
 						</div>
 						<div class="col s6">
@@ -359,7 +359,7 @@
 						</div>
 					</li>
 					<li class="collection-item score_list_element">
-						<div class="col s6" style="font-size:14px; color: #6b6b6b;">
+						<div class="col s6 score-list-other">
 							Relacion precio/calidad
 						</div>
 						<div class="col s6">
@@ -376,16 +376,18 @@
 	{{/reviews}}
 	</script>
 	<script type="x-tmpl-mustache" id="error_card">
-	<div class=" card-panel row hoverable clickable ">
-		<div class="col s12" style="font-size: 32px;color: black;font-weight: lighter;">
+	<div class="card-panel row hoverable clickable ">
+		<div class="col s12 error-header">
 			{{header}}
 		</div>
 		<div class='col s12 divider'></div>
-		<div class="col s12"style="margin:10px auto auto auto; overflow: hidden;">
-			{{description}} <a class="back-link"> Volver atras.</a>
+		<div class="col s12 error-description">
+			{{description}}
+			<a class="back-link">
+				Volver atras.
+			</a>
 		</div>
 	</div>
 	</script>
 	</body>
-
 </html>
