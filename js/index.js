@@ -254,7 +254,7 @@ $(document).ready(function(){
 			// to.val(from_val)
 			// from.val(to_val);
 			// from.focus();
-			to.focus();
+			from.blur();
 			to.blur();
 
 		});
@@ -270,7 +270,7 @@ $(document).ready(function(){
 			// to.val(from_val)
 			// from.val(to_val);
 			// from.focus();
-			to.focus();
+			from.blur();
 			to.blur();
 
 		});
@@ -685,8 +685,10 @@ $("#one-way-tab").on('click',function(){
 		departing.val(departing_two_val);
 		from.typeahead('val',from_val);
 		to.typeahead('val',to_val);
-		from.blur();
-		to.blur();
+		if(from.typeahead('val')!= "" )
+			from.blur();
+		if( to.typeahead('val')!="")
+			to.blur();
 });
 
 
@@ -704,8 +706,11 @@ $("#two-way-tab").on('click',function(){
 		departing_two.val(departing_val);
 		from_two.typeahead('val',from_val);
 		to_two.typeahead('val',to_val);
-		from_two.blur();
-		to_two.blur();
+		if(from_two.typeahead('val')!= "" )
+			from_two.blur();
+		if( to_two.typeahead('val')!="")
+			to_two.blur();
+		
 });
 
 
