@@ -467,11 +467,12 @@ function setCurrPage(page){
       * are the criteria to consider
       */
       var price;
+      var delta = 0.001 * multiplier;
       switch (mode) {
         case "one-way":
           price = s1[tmp[i]].price.total.total * multiplier;
           var id = s1[tmp[i]].outbound_routes[0].segments[0].airline.id;
-          if (price>=currMin && price<=currMax &&
+          if (price + delta>=currMin && price - delta<=currMax &&
               arrIncludes(currAirlines,id) == -1 &&
               arrIncludes(currStars,owStars(id)) == -1){
                 result[k++]=tmp[i];
@@ -484,7 +485,7 @@ function setCurrPage(page){
           id_1 = s1[tmp[i][0]].outbound_routes[0].segments[0].airline.id;
           id_2 = s2[tmp[i][1]].outbound_routes[0].segments[0].airline.id;
 
-          if(price>=currMin && price<=currMax &&
+          if(price + delta>=currMin && price - delta<=currMax &&
              arrIncludes(currAirlines,id_1) == -1 &&
              arrIncludes(currAirlines,id_2) == -1 &&
              arrIncludes(currStars,twStars(id_1,id_2)) == -1){

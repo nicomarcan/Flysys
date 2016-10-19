@@ -215,6 +215,11 @@ div a.btn{
   margin-right: .1em;
 }
 
+.air-logo {
+  margin-left: .5em;
+  margin-right: .5em;
+}
+
 .airlines form label{
   color: white;
 }
@@ -267,6 +272,11 @@ li.col.s4{
 li.row-f1.col.s4 > div {
   margin-right: auto;
   margin-left: 1em;
+}
+
+li.row-f1.col.s4 > div.stars {
+  margin-right: auto;
+  margin-left: 0;
 }
 
 li.row-f2.col.s4 > div {
