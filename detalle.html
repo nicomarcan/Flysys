@@ -35,16 +35,11 @@
 
 			<div class="col s3">
 				<div class="card-panel row " id="facturacion">
-					<div class="row">
-<a class="waves-effect waves-light btn valign center" id="modificar">MODIFICAR PASAJEROS</a>
-					</div>
+
 					<div class="row">
 
 							<a class="waves-effect waves-light btn valign center" id="confirmar">CONFIRMAR</a>
 					</div>
-
-
-
 				</div>
 			</div>
 		</div>
@@ -76,6 +71,7 @@
       </div>
     </footer>
 		<script type="x-tmpl-mustache" id="detallevuelo">
+
 			Detalle del vuelo<br/>
 			Numero de vuelo{{id_vuelo}}<br/>
 			Fecha{{fecha_vuelo}}<br/>
@@ -88,29 +84,81 @@
 			Precio por infante:{{precio_infante_vuelo}}<br/>
 		</script>
 		<script type="x-tmpl-mustache" id="detalletarjeta">
-			Numero de tarjeta:{{id}}<br/>
-			Cuotas:{{cuotas}}<br/>
-			Nombre:{{fname}}<br/>
-			Apellido:{{lname}}<br/>
-			Calle:{{street}}<br/>
-			Piso:{{floor}}<br/>
-			Departamento:{{section}}<br/>
-			Ciudad:{{city}}<br/>
-			Provincia:{{state}}<br/>
-			Pais:{{country}}<br/>
-			Telefono:{{phone}}<br/>
-			Email:{{email}}<br/>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Número de tarjeta </span>
+				<span>{{id}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Cuotas </span>
+				<span>{{cuotas}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Nombre </span>
+				<span>{{fname}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Apellido </span>
+				<span>{{lname}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Calle </span>
+				<span>{{street}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Piso </span>
+				<span>{{floor}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Departamento </span>
+				<span>{{section}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Ciudad </span>
+				<span>{{city}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Provincia </span>
+				<span>{{state}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">País </span>
+				<span>{{country}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Telefono </span>
+				<span>{{phone}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Email </span>
+				<span>{{email}}</span>
+			</div>
+
 		</script>
 		<script type=" x-tmpl-mustache" id="detallepasajero">
 			<div class="container-fluid row">
 				<div class="col s7 offset-s1">
 					<div class="card-panel row">
 						<div class="col s8">
-							Informacion del {{idpasajero}}<br/>
-							Nombre:{{fname}}<br/>
-							Apellido:{{lname}}<br/>
-							Fecha de nacimiento:{{bdate}}<br/>
-							Documento/Pasaporte:{{passport}}<br/>
+							<div style="margin-top: 0.5rem">
+								<span class="info">Informacion del pasajero </span>
+								<span>{{idpasajero}}</span>
+							</div>
+							<div style="margin-top: 0.5rem">
+								<span class="info">Nombre </span>
+								<span>{{fname}}</span>
+							</div>
+							<div style="margin-top: 0.5rem">
+								<span class="info">Apellido </span>
+								<span>{{lname}}</span>
+							</div>
+							<div style="margin-top: 0.5rem">
+								<span class="info">Fecha de nacimiento </span>
+								<span>{{bdate}}</span>
+							</div>
+							<div style="margin-top: 0.5rem">
+								<span class="info">Nro de Pasaporte/Documento </span>
+								<span>{{passport}}</span>
+							</div>
 						</div>
 				</div>
 			</div>
