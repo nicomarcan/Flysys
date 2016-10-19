@@ -5,6 +5,7 @@ $(document).ready(function(){
 	
 
 		var nameToId={};
+		getLocation();
 
 		  var airports_url = 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getairports';
 		  $.ajax({
@@ -156,13 +157,13 @@ $(document).ready(function(){
 		  var apiurl=new Array();
 		  var info = new Array ();  
 		 
-
+		  function getOffers( from){
 			var j = 1;
 			var src;
 			var photo;
 		      $.ajax({
 		     	type: 'GET',
-				url: 'http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getflightdeals&from=BUE',
+				url: 'http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getflightdeals&from='+from,
 				dataType: 'jsonp',
 				success: function (alfa) {
 						if (alfa.error == undefined) {
@@ -181,7 +182,7 @@ $(document).ready(function(){
 					}
 					getImages(apiurl);
 				}
-			});
+			});};
 
 		      
 
@@ -658,6 +659,10 @@ $("#two-way-tab").on('click',function(){
 });
 
 
+
+ 
+
+
    $("#two-way").validate({
     rules: {
         from_input:{
@@ -694,10 +699,53 @@ $("#two-way-tab").on('click',function(){
 });
 
 
+function getLocation() {
 
+    if(navigator.geolocation)
+        navigator.geolocation.getCurrentPosition(handleGetCurrentPosition, onError);
+    else
+    	alert("cabe");
+}
+
+function handleGetCurrentPosition(location){
+   console.log(location.coords.latitude);
+    console.log(location.coords.longitude);
+    alert("Gracias por compartirnos su posicion: "+location.coords.latitude+" , "+location.coords.longitude+". Fl      isis apreciará esa información");
+     $.ajax({
+		     	type: 'GET',
+				url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy',
+				data:{"method":"getcitiesbyposition","latitude":location.coords.latitude,"longitude":location.coords.longitude,"radius":100},
+				dataType: 'jsonp',
+				success: function (alfa) {
+					if(alfa.error==undefined){
+						if(alfa.cities.length > 0){
+							for(var x=0; x < alfa.cities.length;x++){
+								if(alfa.cities[x].has_airport){
+									getOffers(alfa.cities[x].id);
+								}
+							}
+						}
+					}
+			}
+		});
+
+}
+
+function onError(){
+	alert("No tiene habilitada la geolocalizacion")
+	getOffers("BUE");
+}
 
 
 
 
 
 });
+
+
+ 
+
+
+ 
+
+
