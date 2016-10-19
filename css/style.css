@@ -625,3 +625,7 @@ a.info_breadcrumbs.breadcrumb::before {
 }
 
 /*fin de typeahead*/
+.info {
+	font-weight: lighter;
+	font-size: 1rem;
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="utf-8"/>
+	<head>
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css"/>
+	    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+	<body class="roboto">
+		<nav>
+			<div class="nav-wrapper color1">
+				<a href="#" class="brand-logo">Logo</a>
+				<ul class="right hide-on-med-and-down">
+					<li><a href="#"><i class="material-icons">info</i></a></li>
+					<li><a href="#"><i class="material-icons">help</i></a></li>
+				</ul>
+			</div>
+		</nav>
+		<div class="container-fluid row">
+			<div class="col s10 offset-s1" style="margin-top: 1rem;">
+									<a href="#!"  class="breadcrumb info_breadcrumbs link">Carga de datos</a>
+									<a href="#!" class="breadcrumb info_breadcrumbs link">Pasajeros</a>
+								</div>
+			<div class="col s10 offset-s1">
+
+
+
+
+				<div class="card-panel row">
+
+					<div id="header" class="valign col s8 opinions_header">
+						INFORMACION DE LOS PASAJEROS
+						<div class="divider"></div>
+					</div>
+					</div>
+					</div>
+					</div>
+
+		<div class="container-fluid row">
+
+			<div class="col s10 offset-s1">
+				<div class="card-panel row">
+
+            <div class="row">
+              <div class="input-field col offset-s10">
+                    <a class="waves-effect waves-light btn valign col offset-s10" id="continuar">CONTINUAR</a>
+
+						</div></div></div></div></div>
+
+
+
+
+ <footer class="page-footer color1 loadfooter">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+             <h5 class="white-text">Flysys</h5>
+            <p class="grey-text text-lighten-4">¡A volar por los aires!</p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+             <h5 class="white-text">Herramientas del sitio</h5>
+             <ul>
+                <li><a class="grey-text text-lighten-3" href="#!">Información</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Ayuda</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <div class="container">
+          © 2016 - Instituto Tecnológico de Buenos Aires
+          </div>
+      </div>
+    </footer>
+		<script type="x-tmpl-mustache" id="pasajero_form">
+		<div class="container-fluid row passangerform">
+			<div class="col s12">
+				<div class="card-panel row">
+										<div class="row">
+												<div class="col s10">Pasajero {{indenti}}</div>
+
+										</div>
+										<div class="divider row" />
+										<form id="pasajero1">
+											<div class="row">
+													<div class="input-field col s6">
+															<input id="nombre{{indenti}}" type="text" class="validate" placeholder="Nombre (Obligatorio)" maxlength="60"/>
+															<label for="nombre{{indenti}}" data-error="Debe ser un nombre valido">Nombre</label>
+													</div>
+														<div class="input-field col s6">
+															<input id="apellido{{indenti}}" type="text" class="validate" placeholder="Apellido (Obligatorio)" maxlength="60"/>
+															<label for="apellido{{indenti}}" data-error="Debe ser un apellido valido">Apellido</label>
+														</div>
+															<div class="row">
+																	<div class="input-field col s3">
+																		<select id="tipo_id{{indenti}}">
+																			<option value="2" >Pasaporte</option>
+																			<option value="1" selected>DNI</option>
+																		</select>
+																		<label>Identificador</label>
+																	</div>
+																	<div class="input-field col s6">
+																		<input id="pasaporte{{indenti}}" type="text" class="validate" placeholder="Pasaporte (Obligatorio)" maxlength="19"/>
+																		<label for="pasaporte{{indenti}}" data-error="Debe se un pasaporte valido"  id="text_id">Pasaporte</label>
+																	</div>
+																	<div class="date-field col s3 input-field ">
+																		<label for="nacimiento{{indenti}}">Fecha de nacimiento</label>
+																		<input id="nacimiento{{indenti}}" placeholder="DD/MM/AAAA (Obligatorio)" data-error="Debe ser una fecha valida" type="text" class="" maxlength="12"/>
+																	</div>
+															</div>
+											</div>
+										</form>
+								</div>
+						</div>
+		</div>
+		</script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/mustache.min.js"></script>
+		<script src="js/common.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+    <script src="js/passenger_information.js"></script>
+		<script src="js/typeahead.bundle.js"></script>
+  </body>
+</html>

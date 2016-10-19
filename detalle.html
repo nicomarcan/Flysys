@@ -22,6 +22,7 @@
 			</div>
 		</nav>
 		<div class="container-fluid row" id="primero">
+
 			<div class="col s7 offset-s1">
 
 				<div class="card-panel row" id="contenedor_detalle">
@@ -34,7 +35,9 @@
 
 			<div class="col s3">
 				<div class="card-panel row " id="facturacion">
+
 					<div class="row">
+
 							<a class="waves-effect waves-light btn valign center" id="confirmar">CONFIRMAR</a>
 					</div>
 				</div>
@@ -68,6 +71,7 @@
       </div>
     </footer>
 		<script type="x-tmpl-mustache" id="detallevuelo">
+
 			Detalle del vuelo<br/>
 			Numero de vuelo{{id_vuelo}}<br/>
 			Fecha{{fecha_vuelo}}<br/>
@@ -80,32 +84,81 @@
 			Precio por infante:{{precio_infante_vuelo}}<br/>
 		</script>
 		<script type="x-tmpl-mustache" id="detalletarjeta">
-			Numero de tarjeta:{{id}}<br/>
-			Cuotas:{{cuotas}}<br/>
-			Nombre:{{fname}}<br/>
-			Apellido:{{lname}}<br/>
-			Calle:{{street}}<br/>
-			Piso:{{floor}}<br/>
-			Departamento:{{section}}<br/>
-			Ciudad:{{city}}<br/>
-			Provincia:{{state}}<br/>
-			Pais:{{country}}<br/>
-			Telefono:{{phone}}<br/>
-			Email:{{email}}<br/>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Número de tarjeta </span>
+				<span>{{id}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Cuotas </span>
+				<span>{{cuotas}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Nombre </span>
+				<span>{{fname}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Apellido </span>
+				<span>{{lname}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Calle </span>
+				<span>{{street}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Piso </span>
+				<span>{{floor}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Departamento </span>
+				<span>{{section}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Ciudad </span>
+				<span>{{city}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Provincia </span>
+				<span>{{state}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">País </span>
+				<span>{{country}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Telefono </span>
+				<span>{{phone}}</span>
+			</div>
+			<div style="margin-top: 0.5rem">
+				<span class="info">Email </span>
+				<span>{{email}}</span>
+			</div>
+
 		</script>
 		<script type=" x-tmpl-mustache" id="detallepasajero">
 			<div class="container-fluid row">
 				<div class="col s7 offset-s1">
 					<div class="card-panel row">
 						<div class="col s8">
-							Informacion del {{idpasajero}}<br/>
-							Nombre:{{fname}}<br/>
-							Apellido:{{lname}}<br/>
-							Fecha de nacimiento:{{bdate}}<br/>
-							Documento/Pasaporte:{{passport}}<br/>
-						</div>
-						<div class="col s4">
-							<a class="waves-effect waves-light btn valign center" id="{{idpasajero}}">MODIFICAR</a>
+							<div style="margin-top: 0.5rem">
+								<span class="info">Informacion del pasajero </span>
+								<span>{{idpasajero}}</span>
+							</div>
+							<div style="margin-top: 0.5rem">
+								<span class="info">Nombre </span>
+								<span>{{fname}}</span>
+							</div>
+							<div style="margin-top: 0.5rem">
+								<span class="info">Apellido </span>
+								<span>{{lname}}</span>
+							</div>
+							<div style="margin-top: 0.5rem">
+								<span class="info">Fecha de nacimiento </span>
+								<span>{{bdate}}</span>
+							</div>
+							<div style="margin-top: 0.5rem">
+								<span class="info">Nro de Pasaporte/Documento </span>
+								<span>{{passport}}</span>
+							</div>
 						</div>
 				</div>
 			</div>
@@ -113,8 +166,144 @@
 		</script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-		<script type="text/javascript" src="js/mustache.min.js"></script>
-    <script src="js/common.js"></script>
-		<script src="js/detalle.js"></script>
+		<script type="text/javascript" src="./js/mustache.min.js"></script>
+    <script src="./js/common.js"></script>
+		<script src="./js/detalle.js"></script>
+
+
+		<script type="x-tmpl-mustache" id="rtw">
+
+			<div class="individual-result">
+				<ul class="collapsible" data-collapsible="accordion">
+					<li>
+						<div class="collapsible-header">
+
+							<ul class="collapsible-header-row container-fluid">
+								<li class="row-f1 col s4 valign-wrapper">
+									<div class="stars valign">
+										<i class="material-icons {{i1}}-star">star</i>
+										<i class="material-icons {{i2}}-star">star</i>
+										<i class="material-icons {{i3}}-star">star</i>
+										<i class="material-icons {{i4}}-star">star</i>
+										<i class="material-icons {{i5}}-star">star</i>
+									</div>
+								</li>
+								<li class="row-f2 col s4 valign-wrapper">
+									<div>
+										<h4 class="valign">${{total}}</h4>
+									</div>
+								</li>
+								<li class="row-f3 col s4 valign-wrapper">
+									<div>
+										<a class="waves-effect waves-light btn valign color3">COMPRAR</a>
+									</div>
+								</li>
+							</ul>
+
+						</div>
+						<div class="collapsible-body"><p>Aca va el detalle de la tarifa</p></div>
+					</li>
+					<li>
+						<div class="collapsible-header">
+
+							<ul class="collapsible-header-row container-fluid flight1">
+								<li class="row-f1 col s4 valign-wrapper depart">
+									<div class="valign-wrapper">
+										<h4 class="valign airp-code left-s">{{from_1}}</h4>
+										<h3 class="valign">|</h3>
+										<h5 class="valign date right-s">{{departure_1}}</h5>
+									</div>
+								</li>
+								<li class="row-f2 col s4 valign-wrapper">
+									<div class="valign-wrapper">
+										<p class="valign left-s">{{airline_code_1}}</p>
+										<i class="valign material-icons arrow-right">trending_flat</i>
+										<p class="valign right-s">{{flight_number_1}}</p>
+									</div>
+								</li>
+								<li class="row-f3 col s4 valign-wrapper arrive">
+									<div class="valign-wrapper">
+										<h5 class="valign date left-s">{{duration_1}}</h5>
+										<h3 class="valign">|</h3>
+										<h4 class="valign airp-code right-s">{{to_1}}</h4>
+									</div>
+								</li>
+							</ul>
+
+
+						</div>
+						<div class="collapsible-body">
+							<ul class="collapsible-body-row container-fluid">
+								<li class="row-f1 col s4 valign-wrapper">
+									<div class="valign-wrapper">
+
+									</div>
+								</li>
+								<li class="row-f2 col s4 valign-wrapper">
+									<div class="valign-wrapper">
+
+									</div>
+								</li>
+								<li class="row-f3 col s4 valign-wrapper">
+									<div class="valign-wrapper">
+										<a class="waves-effect waves-light btn valign color3">Ver reputación</a>
+									</div>
+								</li>
+
+							</ul>
+						</div>
+					</li>
+					<li>
+						<div class="collapsible-header">
+
+							<ul class="collapsible-header-row container-fluid flight2">
+								<li class="row-f1 col s4 valign-wrapper depart">
+									<div class="valign-wrapper">
+										<h4 class="valign airp-code left-s">{{from_2}}</h4>
+										<h3 class="valign">|</h3>
+										<h5 class="valign date right-s">{{departure_2}}</h5>
+									</div>
+								</li>
+								<li class="row-f2 col s4 valign-wrapper">
+									<div class="valign-wrapper">
+										<p class="valign left-s">{{airline_code_2}}</p>
+										<i class="valign material-icons arrow-right">trending_flat</i>
+										<p class="valign right-s">{{flight_number_2}}</p>
+									</div>
+								</li>
+								<li class="row-f3 col s4 valign-wrapper arrive">
+									<div class="valign-wrapper">
+										<h5 class="valign date left-s">{{duration_2}}</h5>
+										<h3 class="valign">|</h3>
+										<h4 class="valign airp-code right-s">{{to_2}}</h4>
+									</div>
+								</li>
+							</ul>
+
+						</div>
+						<div class="collapsible-body">
+							<ul class="collapsible-body-row container-fluid">
+								<li class="row-f1 col s4 valign-wrapper">
+									<div class="valign-wrapper">
+										<h5></h5>
+									</div>
+								</li>
+								<li class="row-f2 col s4 valign-wrapper">
+									<div class="valign-wrapper">
+
+									</div>
+								</li>
+								<li class="row-f3 col s4 valign-wrapper">
+									<div class="valign-wrapper">
+										<a class="waves-effect waves-light btn valign color3">Ver reputación</a>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+		</script>
 </body>
 </html>

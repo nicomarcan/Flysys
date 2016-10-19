@@ -15,11 +15,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
   <body>
+    <!--This will be fixed-->
     <script type="x-tmpl-mustache" id="paginator-item" >
-      <!--This will be fixed-->
       <li class="{{activeness}} waves-effect"><a onclick="setCurrPage(parseInt($(this).text()-1))">{{number}}</a></li>
     </script>
-
+    <!--This will be fixed-->
     <script type="x-tmpl-mustache" id="airline">
       <p>
         <input type="checkbox" id="{{id_aero}}" checked="checked" onclick="toggleAirline(event)"></id>
@@ -36,6 +36,7 @@
 
               <ul class="collapsible-header-row container-fluid">
                 <li class="row-f1 col s4 valign-wrapper">
+                  <img src="http://hci.it.itba.edu.ar/v1/images/{{airline_code_1}}.png" class="valign air-logo"></img>
                   <div class="stars valign">
                     <i class="material-icons {{i1}}-star">star</i>
                     <i class="material-icons {{i2}}-star">star</i>
@@ -122,6 +123,8 @@
 
               <ul class="collapsible-header-row container-fluid">
                 <li class="row-f1 col s4 valign-wrapper">
+                  <img src="http://hci.it.itba.edu.ar/v1/images/{{airline_code_1}}.png" class="valign air-logo">+</img>
+                  <img src="http://hci.it.itba.edu.ar/v1/images/{{airline_code_2}}.png" class="valign air-logo"></img>
                   <div class="stars valign">
                     <i class="material-icons {{i1}}-star">star</i>
                     <i class="material-icons {{i2}}-star">star</i>
@@ -285,6 +288,7 @@
             <option value="1">Precio</option>
             <option value="2">Duración</option>
             <option value="3">Aerolínea</option>
+            <option value="3">Reputación</option>
           </select>
         </div>
         <div class="col s1 tool-element currency">
@@ -357,8 +361,8 @@
             <div class="row title"><h5>Reputación</h5></div>
             <form class="filter-tool">
               <p>
-                <input type="checkbox" id="five-stars" checked="checked"></id>
-                <label for="five-stars">
+                <input type="checkbox" id="5" checked="checked"></id>
+                <label for="5">
                   <i class="material-icons important-star">star</i>
                   <i class="material-icons important-star">star</i>
                   <i class="material-icons important-star">star</i>
@@ -367,8 +371,8 @@
                 </label>
               </p>
               <p>
-                <input type="checkbox" id="four-stars" checked="checked"></id>
-                <label for="four-stars">
+                <input type="checkbox" id="4" checked="checked"></id>
+                <label for="4">
                   <i class="material-icons important-star">star</i>
                   <i class="material-icons important-star">star</i>
                   <i class="material-icons important-star">star</i>
@@ -377,8 +381,8 @@
                 </label>
               </p>
               <p>
-                <input type="checkbox" id="three-stars" checked="checked"></id>
-                <label for="three-stars">
+                <input type="checkbox" id="3" checked="checked"></id>
+                <label for="3">
                   <i class="material-icons important-star">star</i>
                   <i class="material-icons important-star">star</i>
                   <i class="material-icons important-star">star</i>
@@ -387,8 +391,8 @@
                 </label>
               </p>
               <p>
-                <input type="checkbox" id="two-stars" checked="checked"></id>
-                <label for="two-stars">
+                <input type="checkbox" id="2" checked="checked"></id>
+                <label for="2">
                   <i class="material-icons important-star">star</i>
                   <i class="material-icons important-star">star</i>
                   <i class="material-icons unimportant-star">star</i>
@@ -397,9 +401,19 @@
                 </label>
               </p>
               <p>
-                <input type="checkbox" id="one-stars" checked="checked"></id>
-                <label for="one-stars">
+                <input type="checkbox" id="1" checked="checked"></id>
+                <label for="1">
                   <i class="material-icons important-star">star</i>
+                  <i class="material-icons unimportant-star">star</i>
+                  <i class="material-icons unimportant-star">star</i>
+                  <i class="material-icons unimportant-star">star</i>
+                  <i class="material-icons unimportant-star">star</i>
+                </label>
+              </p>
+              <p>
+                <input type="checkbox" id="0" checked="checked"></id>
+                <label for="0">
+                  <i class="material-icons unimportant-star">star</i>
                   <i class="material-icons unimportant-star">star</i>
                   <i class="material-icons unimportant-star">star</i>
                   <i class="material-icons unimportant-star">star</i>
