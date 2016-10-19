@@ -183,7 +183,7 @@ $(document).ready(function(){
                       },
                       success : function(d){
                         req1=d;
-                        if(req1.total == 0){
+                        if(req1.total == 0 || req1.error != undefined){
                           noFlightsFound();
                           return;
                         }
@@ -227,6 +227,7 @@ $(document).ready(function(){
 
                           var inserted = [];
                           addAirlineS(inserted,result,s1);
+                          addStars(presentStars());
                         } else {
                           /*
                           * Request return flights from dst to src
@@ -250,7 +251,9 @@ $(document).ready(function(){
                             },
                             success : function(d1){
                               req2=d1;
-                              if(req2.total == 0){
+                              if(req1.total == 0 || req2.total == 0 ||
+                                req1.error != undefined ||
+                                req2.error != undefined){
                                 noFlightsFound();
                                 return;
                               }
@@ -311,6 +314,7 @@ $(document).ready(function(){
                               var inserted = [];
                               inserted = addAirlineS(inserted,t1,s1);
                               addAirlineS(inserted,t2,s2);
+                              addStars(presentStars());
                             }
                           });
                         }
@@ -389,12 +393,42 @@ $(document).ready(function(){
      setCurrPage(0);
   });
 
-  $(".search-panel.filter-element.stars form.filter-tool input").change(function(){
-    var selected = $(this).context.getAttribute("id");
-    toggleStars(selected);
-  });
+  $("#delete-filters").click(deleteFilters);
 
 });
+
+function deleteFilters(){
+  currMin = min*multiplier;
+  currMax = max*multiplier;
+  updateSlider(price_slider,currMin,currMax,currMin,currMax);
+  currStars = [];
+  currAirlines = [];
+  applied = false;
+
+  $('#airlines-panel').empty();
+  $('#stars-panel').empty();
+  switch (mode) {
+    case "one-way":
+      var inserted = [];
+      addAirlineS(inserted,total,s1);
+      break;
+    case "two-way":
+      var t1 = [] , t2 = [];
+      for(var i = 0; i<total.length ; i++){
+        t1[i]=total[i][0];
+        t2[i]=total[i][1];
+      }
+      var inserted = [];
+      inserted = addAirlineS(inserted,t1,s1);
+      addAirlineS(inserted,t2,s2);
+      break;
+    default:
+      return false;
+  }
+  addStars(presentStars());
+  setCurrPage(0);
+}
+
 
 function toggleStars(selected){
   var index = arrIncludes(currStars,selected);
@@ -696,6 +730,57 @@ function twStars(id_1,id_2){
   }
   var avg = (rep_1 + rep_2)/2;
   return Math.floor(avg/2);
+}
+
+function presentStars(){
+  var ret = [];
+  switch (mode) {
+    case "one-way":
+      for(var i=0; i<total.length ; i++){
+        var id = s1[total[i]].outbound_routes[0].segments[0].airline.id;
+        var star = owStars(id);
+        if(arrIncludes(ret,star) == -1){
+          ret[ret.length]=star;
+        }
+      }
+      break;
+    case "two-way":
+      for(var i=0; i<total.length ; i++){
+        var id_1 = s1[total[i][0]].outbound_routes[0].segments[0].airline.id;
+        var id_2 = s2[total[i][1]].outbound_routes[0].segments[0].airline.id;
+        var star = twStars(id_1,id_2);
+        if(arrIncludes(ret,star) == -1){
+          ret[ret.length]=star;
+        }
+      }
+      break;
+    default:
+
+  }
+  ret.sort();
+  return ret;
+}
+
+
+function addStars(stars){
+  var template = $('#individual-star-array').html();
+  Mustache.parse(template);
+  for(var i=0 ; i<stars.length ; i++){
+    var rep = importantStars(stars[i]);
+    var rendered = Mustache.render(template, {
+      n: stars[i],
+      i1: rep[0],
+      i2: rep[1],
+      i3: rep[2],
+      i4: rep[3],
+      i5: rep[4]
+    });
+    $('#stars-panel').append(rendered);
+  }
+  $(".search-panel.filter-element.stars form.filter-tool input").change(function(){
+    var selected = $(this).context.getAttribute("id");
+    toggleStars(selected);
+  });
 }
 
 function addTWResultS(criterium,pageNo,pageSize){

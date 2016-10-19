@@ -6,6 +6,17 @@ nav .nav-wrapper > div > div {
   width: 50%;
 }
 
+div.row.filter-button {
+  width: 80%;
+  margin-top: -1.5em;
+  margin-bottom: -1.5em;
+}
+
+div.row.filter-button a{
+  width: 100%;
+  margin: 0;
+}
+
 div.filter-element > form > * {
   margin-left: 3em;
 }

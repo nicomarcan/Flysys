@@ -61,12 +61,26 @@ function setLocalObject(nombre,objeto){
   localStorage.setItem(nombre, JSON.stringify(objeto));
 }
 
+function setValInput(tag,valor){
+  $(tag).val(valor);
+}
+
+
 function getLocalObject(nombre){
-  var cache= localStorage.getItem(nombre);
+  var cache=localStorage.getItem(nombre);
   if (cache==null){
     console.log("No existe "+nombre+" en localStorage");
   }else{
     return JSON.parse(cache);
+  }
+}
+
+function existLocalObject(nombre){
+  var cache=localStorage.getItem(nombre);
+  if (cache==null){
+    return false;
+  }else{
+    return true;
   }
 }
 
@@ -288,6 +302,7 @@ function actionfocusout(tag,funcion){
   //        $(this).focus();
         }
         $(this).removeClass("valid");
+        $(this).removeClass("validate");
         $(this).addClass("invalid");
     }
   });
