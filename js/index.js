@@ -527,17 +527,18 @@ $(document).ready(function(){
 			flight["airline"]=airline;
 			flight["number"]=parseInt($("#review-modal #vuelo").val());
 			review["flight"]=flight;
-			var ok = true;
-			for(var x = 1 ; x<7 && ok; x++){
+			var ok_categories = true;
+			var ok_recommend = true;
+			for(var x = 1 ; x<7 && ok_categories; x++){
 				var type = $("#review-modal #opinion-row-"+x).children(":first-child").attr("id");
 				var score = $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children(":not(.grey-text)").length * 2;
 				rating[type]= score;
 				if(score <= 0)
-					ok = false;
+					ok_categories = false;
 			}
 			review["rating"]=rating;
 			if($("#recommend .material-icons.clickable[selected]").attr("id") == undefined)
-				ok=false;
+				ok_recommend=false;
 			review["yes_recommend"]= ($("#recommend .material-icons.clickable[selected]").attr("id") == "yes");
 			review["comments"]= encodeURIComponent($("#review-modal #comments").val());
 
@@ -547,7 +548,7 @@ $(document).ready(function(){
 
 		
 
-			  if(airline["id"] != undefined && $("#review-modal #vuelo").hasClass("valid") && ok && $("#review-modal #comments").val().length <=256  ) {
+			  if(airline["id"] != undefined && $("#review-modal #vuelo").hasClass("valid") && ok_categories && ok_recommend && $("#review-modal #comments").val().length <=256  ) {
 			  	   var review_url = 'http://hci.it.itba.edu.ar/v1/api/review.groovy?method=reviewairline';
 					 $.ajax({
 					     type: "POST",
@@ -570,8 +571,13 @@ $(document).ready(function(){
 				  $("#post-review").show();
 				   $("#error-review").hide();
 			}else{
-				$("#error-review").show();
 				$('#review-modal').scrollTop(0);
+				$('.airline_input').blur();
+				$(".flight_input").blur();
+				if(!ok_categories)
+					Materialize.toast("Debe calificar todas las categorias",2500);
+				if(!ok_recommend)
+					Materialize.toast("Debe seleccionar si recomienda o no el viaje",2500);
 			}
 
 
@@ -605,7 +611,6 @@ $(document).ready(function(){
 			  $("#review-form").show();
 			  $("#close-modal").hide();
 			  $("#post-review").hide();
-			  $("#error-review").hide();
 		});
 
 		$('#search-icon-two').on('click',function(){
@@ -618,7 +623,20 @@ $(document).ready(function(){
 			var infants= $('#passenger_two #infants_val_two').text();
 			var url= "results.html?"+"mode=two-way&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1+"&d2="+d2;
 			console.log(url);
-			window.location=url;
+			if(src!=undefined && dst!=undefined && $('#departing_two input[name=_submit]').val()!="" &&  $('#returning input[name=_submit]').val()!="")
+				window.location=url;
+			else{
+				$('#from_input_two').blur();
+				$('#to_input_two').blur();
+				$('#departing_two input ').blur();
+				$('#returning input ').blur();
+				if($('#returning input[name=_submit]').val()==""){
+					Materialize.toast("Ingrese una fecha de regreso",2500);
+				}
+				if($('#departing_two input[name=_submit]').val()==""){
+					Materialize.toast("Ingrese una fecha de partida",2500);
+				}
+			}
 		});
 
 		$('#search-icon').on('click',function(){
@@ -630,8 +648,18 @@ $(document).ready(function(){
 			var infants= $('#passenger  #infants_val').text();
 			var url= "results.html?"+"mode=one-way&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1;
 			console.log(url);
-			window.location=url;
+			if(src!=undefined && dst!=undefined && $('#departing input[name=_submit]').val()!="")
+				window.location=url;
+			else{
+				$('#from_input_two').blur();
+				$('#to_input_two').blur();
+				$('#departing input ').blur();
+				if($('#departing input[name=_submit]').val()==""){
+					Materialize.toast("Ingrese una fecha de partida",2500);
+				}
+			}
 		});
+
 
 
 
@@ -651,9 +679,13 @@ $("#one-way-tab").on('click',function(){
 		var to_val = to_two.typeahead('val');
 		var from = $("#from_input");
 		var to = $("#to_input");
+		$("#departing input").val($("#departing_two input").val());
+		var departing_two_val =  $('#departing_two input[name=_submit]').val();
+		var departing = $('#departing input[name=_submit]');
+		departing.val(departing_two_val);
 		from.typeahead('val',from_val);
 		to.typeahead('val',to_val);
-		to.focus();
+		from.blur();
 		to.blur();
 });
 
@@ -666,9 +698,13 @@ $("#two-way-tab").on('click',function(){
 		var to_val = to.typeahead('val');
 		var from_two = $("#from_input_two");
 		var to_two = $("#to_input_two");
+		$("#departing_two input").val($("#departing input").val());
+		var departing_val =  $('#departing input[name=_submit]').val();
+		var departing_two = $('#departing_two input[name=_submit]');
+		departing_two.val(departing_val);
 		from_two.typeahead('val',from_val);
 		to_two.typeahead('val',to_val);
-		to_two.focus();
+		from_two.blur();
 		to_two.blur();
 });
 
@@ -699,12 +735,20 @@ $(".place_input").focusout(function(){
 	 else {
 	 	 $(this).removeClass("valid");
          $(this).addClass("invalid");
-         if($(this).val() == "")
-			Materialize.toast("El campo es obligatorio",1000);
+         if($(this).val() == ""){
+         	if($(this).attr("name")=="from_input")
+				Materialize.toast("El campo Desde es obligatorio",2500);
+			else
+				Materialize.toast("El campo Hacia es obligatorio",2500);
+		}
 	 }
 
 
 });
+
+
+
+
 
 $(".airline_input").focusout(function(){
 	 if(jQuery.inArray($(this).val(),airlines) >= 0){
@@ -715,7 +759,7 @@ $(".airline_input").focusout(function(){
 	 	 $(this).removeClass("valid");
          $(this).addClass("invalid");
          if($(this).val() == "")
-			Materialize.toast("El campo es obligatorio",1000);
+			Materialize.toast("El campo numero de aerolinea es obligatorio",2500);
 	 }
 	 status=false;
 	 $(".flight_input").blur();
@@ -725,7 +769,7 @@ var status = true;
 
 $(".flight_input").focusout(function(){
 	  if($(this).val() == "" &&status==true){
-			Materialize.toast("El campo es obligatorio",1000);
+			Materialize.toast("El campo numero de vuelo es obligatorio",2500);
 			$(this).addClass("invalid");
 			$(this).removeClass("valid");
 	 }
@@ -759,6 +803,8 @@ $(".flight_input").focusout(function(){
 		status=true;
 
 });
+
+
 
 
  

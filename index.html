@@ -84,12 +84,12 @@
 
                     <li class=" input-field  date-field" id="departing_two">
                       <i class="material-icons prefix">today</i>
-                     <input type="date" class="datepicker" value = "Partiendo" >
+                     <input  type="date" class="datepicker " placeholder= "Partiendo" >
                     </li>
 
                     <li class=" input-field  date-field" id="returning">
                       <i class="material-icons prefix">today</i>
-                     <input  disabled type="date" class="datepicker" value = "Volviendo">
+                     <input  type="date" disabled  class="datepicker " placeholder= "Volviendo">
                     </li>
 
                     <li class="input-field  " id="passenger_two" >
@@ -148,7 +148,7 @@
 
                     <li class=" input-field  date-field" id="departing">
                       <i class="material-icons prefix">today</i>
-                     <input type="date" class="datepicker" value = "Partiendo" >
+                     <input type="date" class="datepicker" placeholder = "Partiendo" >
                     </li>
 
          
@@ -419,9 +419,7 @@
 				<a class="clickable" id="link-flight">Para ver los demás comentarios de ese vuelo haga click aqui</a>
 		    </div>
 		    <div class="modal-content" id="review-form">
-		        <div class="modal-content" id= "error-review"  >
-		     	<p class="red-text">Ingreso mal algun dato</p>
-		    </div>
+
 
 		      <form >
 					  <div class="row">
@@ -432,7 +430,7 @@
 
 							<div class="input-field col s6">
 			                <input id="vuelo" type="text" class="flight_input"/>
-			                <label for="vuelo">Número de Vuelo</label>
+			                <label for="vuelo" data-error="El número de vuelo es invalido">Número de Vuelo</label>
 			       </div>
 			       </div>
 
@@ -616,7 +614,7 @@
 			          <div class="row comments">
 				        <div class="input-field col s12">
 				          <textarea id="comments" class="materialize-textarea" length="256"></textarea>
-				          <label for="comments">Comentarios</label>
+				          <label for="comments" data-error="El máximo de caracteres en un comentario es 256">Comentarios</label>
 				        </div>
 				      </div>
 		            </form>
@@ -666,7 +664,7 @@
 	     <script type="text/javascript" src="js/common.js"></script>
 	     <script type="text/javascript" src="js/picker.date.js"></script>
       <script src="js/attrchange.js"></script>
-+    <script src="js/attrchange_ext.js"></script>
+    <script src="js/attrchange_ext.js"></script>
     <script type="text/javascript" src="js/typeahead.bundle.js"></script>
 	  <script type="text/javascript" src="http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities"></script>
   </body>
