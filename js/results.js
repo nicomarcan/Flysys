@@ -183,7 +183,7 @@ $(document).ready(function(){
                       },
                       success : function(d){
                         req1=d;
-                        if(req1.total == 0){
+                        if(req1.total == 0 || req1.error != undefined){
                           noFlightsFound();
                           return;
                         }
@@ -251,7 +251,9 @@ $(document).ready(function(){
                             },
                             success : function(d1){
                               req2=d1;
-                              if(req1.total == 0 || req2.total == 0){
+                              if(req1.total == 0 || req2.total == 0 ||
+                                req1.error != undefined ||
+                                req2.error != undefined){
                                 noFlightsFound();
                                 return;
                               }
