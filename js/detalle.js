@@ -72,10 +72,7 @@ function finalizado(){
 }
 
 $(document).ready(function(){
-  // setLocalObject("countryObj",countryObj);
-  // setLocalObject("countryNameToId",countryNameToId);
-  // setLocalObject("citiesObj",citiesObj);
-  // setLocalObject("citiesIdtoName",citiesIdtoName);
+
   var countryObj=getLocalObject("countryObj");
   var countryNameToId=getLocalObject("countryNameToId");
   var citiesObj=getLocalObject("citiesObj");
