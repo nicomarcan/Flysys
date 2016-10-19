@@ -64,36 +64,45 @@ function getCities(data){
   );
   };
 
-  function addPassager(num) {
+  function addPassager(nombre,num) {
     var template = $('#pasajero_form').html();
     Mustache.parse(template);
     var rendered = Mustache.render(template,{
-      indenti: num
+      indenti: (nombre+num)
     });
     $('#header').after(rendered);
   }
 
   function cargoPasajero(nombre,num){
     var nim=nombre+num;
-    addPassager(nim);
+    console.log(nim);
+    addPassager(nombre,num);
     $('select').material_select();
     $(".tipo_id"+nim).mouseleave(function(){
       if($(".selected").text()=="Pasaporte"){
           $("#pasaporte"+nim).removeAttr("pattern");
-          $("#pasaporte"+nim).attr("pattern","\\w{1,16}");
+          $("#pasaporte"+nim).attr("pattern","\\d{1,16}");
           $("#text_id"+nim).text("Pasaporte");
       }else{
           $("#pasaporte"+nim).removeAttr("pattern");
           $("#pasaporte"+nim).attr("pattern","\\d{1,16}");
           $("#text_id"+nim).text("Documento");
       }});
+      actionfocusout("#nombre"+nim,checkName);
+      actionfocusout("#apellido"+nim,checkName);
+      actionfocusout("#pasaporte"+nim,checkPassport);
+      actionfocusout("#nacimiento"+nim,checkBirthDate);
+      $("#nacimiento"+nim).keyup(function(e){
+        if(e.keyCode != 8){
+          if($(this).val().length==2 || $(this).val().length==5){
+            $(this).val($(this).val()+"/");
+          }
+        }
+      });
       var patron=/\w{2}\/\w{2}\/\w{4}/i;
       if(nombre=="infante"){
         $("#nacimiento"+nim).focusout(function(){
-          if(!patron.test($(this).val())){
-            $(this).removeClass("valid");
-            $(this).addClass("invalid");
-          }else if(parseInt($(this).val().split("/")[2])<2014){
+          if(!checkBirthDateInfant($(this).val())){
             $(this).removeClass("valid");
             $(this).addClass("invalid");
           }else{
@@ -103,12 +112,9 @@ function getCities(data){
         });
       }else if(nombre=="chico"){
         $("#nacimiento"+nim).focusout(function(){
-        if(!patron.test($(this).val())){
+        if(!checkBirthDateChildren($(this).val())){
           $(this).removeClass("valid");
           $(this).addClass("invalid");
-        }else if(parseInt($(this).val().split("/")[2])<2014){
-            $(this).removeClass("valid");
-            $(this).addClass("invalid");
         }else{
             $(this).removeClass("invalid");
             $(this).addClass("valid");
@@ -116,7 +122,7 @@ function getCities(data){
       });
     }else{
       $("#nacimiento"+nim).focusout(function(){
-        if(!patron.test($(this).val())){
+        if(!checkBirthDate($(this).val())){
           $(this).removeClass("valid");
           $(this).addClass("invalid");
         }else{

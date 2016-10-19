@@ -97,7 +97,13 @@ fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities&page_size=30
   actionfocusout("#depto",checkApartment);
   actionfocusout("#email",checkEmail);
   actionfocusout("#telefono",checkPhone);
-
+  $("#fecaducidad").keyup(function(e){
+    if(e.keyCode != 8){
+          if($(this).val().length==2){
+            $(this).val($(this).val()+"/");
+          }
+        }
+  });
 
 
 

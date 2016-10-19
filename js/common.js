@@ -147,7 +147,7 @@ function checkBirthDate(dato){
     var datomes=parseInt(datopartido[1]);
     var datoanio=parseInt(datopartido[2]);
     var anio=new Date().getYear()-100+2000;
-    if(datodia<=31 && datomes<=12 && datoanio<=anio){
+    if(datodia<=31 && datomes<=12 && datoanio<=anio && datoanio>1810){
       return true;
     }
   }
@@ -285,7 +285,7 @@ function actionfocusout(tag,funcion){
     }else{
         if($(this).val()==""){
           Materialize.toast("El campo es obligatorio",1000);
-          $(this).focus();
+  //        $(this).focus();
         }
         $(this).removeClass("valid");
         $(this).addClass("invalid");
