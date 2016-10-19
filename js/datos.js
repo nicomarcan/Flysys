@@ -4,6 +4,34 @@ var countryObj={};
 var countryNameToId={};
 var citiesIdtoName={};
 
+function loadPayment(){
+  if(existLocalObject("payment") && existLocalObject("contact")){
+    var lpayment=getLocalObject("payment");
+    var lcontact=getLocalObject("contact");
+    setValInput("#tarjeta",lpayment.credit_card.number);
+    setValInput("#fecaducidad",lpayment.credit_card.expiration);
+    setValInput("#ccv",lpayment.credit_card.security_code);
+    setValInput("#nombre",lpayment.credit_card.first_name);
+    setValInput("#apellido",lpayment.credit_card.last_name);
+    setValInput("#calle",lpayment.billing_address.street_name);
+    setValInput("#callnro",lpayment.billing_address.street_number);
+    setValInput("#piso",lpayment.billing_address.floor);
+    setValInput("#depto",lpayment.billing_address.apartment);
+    setValInput("#postal",lpayment.billing_address.zip_code);
+    setValInput("#ciudad",citiesIdtoName[lpayment.billing_address.city.id][0]);
+    setValInput("#provincia",lpayment.billing_address.city.state);
+    setValInput("#provincia",lpayment.billing_address.city.state);
+    setValInput("#pais",countryObj[lpayment.billing_address.city.country.id]);
+    setValInput("#email",lcontact.email);
+    setValInput("#telefono",lcontact.phones[0]);
+    return true;
+  }
+  return false;
+}
+
+
+
+
 $(document).ready(function(){
 
 function getCountries(data){
@@ -21,6 +49,7 @@ function getCountries(data){
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     local: valores
   });
+
 
   $('.typeaheadpaises').typeahead(
           {
@@ -64,13 +93,24 @@ function getCities(data){
   );
   };
 
-function netwrokError(){
+function networkError(){
   Materialize.toast("Error en la conexion con el servidor",5000)
 }
+// setLocalObject("citiesObj",citiesObj);
+// setLocalObject("citiesIdtoName",citiesIdtoName);
+if(existLocalObject("citiesObj")&&existLocalObject("citiesIdtoName")){
+  citiesObj=getLocalObject("citiesObj");
+  citiesIdtoName=getLocalObject("citiesIdtoName");
+}else{
+  fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities&page_size=300",undefined,getCities,networkError);
+}
 
-
-fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy",{"method": "getcountries"},getCountries,netwrokError);
-fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities&page_size=300",undefined,getCities,netwrokError);
+if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
+  countryObj=getLocalObject("countryObj");
+  countryNameToId=getLocalObject("countryNameToId");
+}else{
+  fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy",{"method": "getcountries"},getCountries,networkError);
+}
 
 
   $("#ciudad").focusout(function(){
@@ -102,6 +142,9 @@ fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities&page_size=30
           if($(this).val().length==2){
             $(this).val($(this).val()+"/");
           }
+            if(e.keyCode==111 && $(this).val().length==4){
+            $(this).val($(this).val().substring(0,$(this).val().length-1))
+          }
         }
   });
 
@@ -128,6 +171,8 @@ fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities&page_size=30
             },
             zip_code:  $("#postal").val(),
             street: ($("#calle").val() + " " + $("#callnro").val()),
+            street_name: $("#calle").val(),
+            street_number: $("#callnro").val(),
             floor: $("#piso").val(),
             apartment: $("#depto").val()
           }
@@ -153,6 +198,5 @@ fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities&page_size=30
     setLocalObject("payment",payment);
     window.location="./detalle.html"+location.search;
   });
-//funciones de verifiacion
-
+   loadPayment();
 });
