@@ -27,6 +27,19 @@
       </p>
     </script>
 
+    <script type="x-tmpl-mustache" id="individual-star-array">
+      <p>
+        <input type="checkbox" id="{{n}}" checked="checked"></id>
+        <label for="{{n}}">
+          <i class="material-icons {{i1}}-star">star</i>
+          <i class="material-icons {{i2}}-star">star</i>
+          <i class="material-icons {{i3}}-star">star</i>
+          <i class="material-icons {{i4}}-star">star</i>
+          <i class="material-icons {{i5}}-star">star</i>
+        </label>
+      </p>
+    </script>
+
     <script type="x-tmpl-mustache" id="row">
 
       <div class="individual-result">
@@ -351,78 +364,25 @@
               </div>
             </form>
           </div>
-          <div class="row center-allign price filter-element z-depth-1 search-panel color1">
+
+          <div class="row filter-button">
+            <a class="waves-effect waves-light btn color3" id="delete-filters">Limpiar filtros</a>
+          </div>
+
+
+          <div class="row price filter-element z-depth-1 search-panel color1">
             <div class="row title"><h5>Precio</h5></div>
             <div class="row"><div id="price-range" class="filter-tool"></div></div>
             <div class="row"><a class="dropdown-button waves-effect waves-light btn" id="price-update">Actualizar</a></div>
           </div>
 
-          <div class="row center-allign reputation search-panel color1 filter-element stars">
+          <div class="row search-panel color1 filter-element stars">
             <div class="row title"><h5>Reputación</h5></div>
-            <form class="filter-tool">
-              <p>
-                <input type="checkbox" id="5" checked="checked"></id>
-                <label for="5">
-                  <i class="material-icons important-star">star</i>
-                  <i class="material-icons important-star">star</i>
-                  <i class="material-icons important-star">star</i>
-                  <i class="material-icons important-star">star</i>
-                  <i class="material-icons important-star">star</i>
-                </label>
-              </p>
-              <p>
-                <input type="checkbox" id="4" checked="checked"></id>
-                <label for="4">
-                  <i class="material-icons important-star">star</i>
-                  <i class="material-icons important-star">star</i>
-                  <i class="material-icons important-star">star</i>
-                  <i class="material-icons important-star">star</i>
-                  <i class="material-icons unimportant-star">star</i>
-                </label>
-              </p>
-              <p>
-                <input type="checkbox" id="3" checked="checked"></id>
-                <label for="3">
-                  <i class="material-icons important-star">star</i>
-                  <i class="material-icons important-star">star</i>
-                  <i class="material-icons important-star">star</i>
-                  <i class="material-icons unimportant-star">star</i>
-                  <i class="material-icons unimportant-star">star</i>
-                </label>
-              </p>
-              <p>
-                <input type="checkbox" id="2" checked="checked"></id>
-                <label for="2">
-                  <i class="material-icons important-star">star</i>
-                  <i class="material-icons important-star">star</i>
-                  <i class="material-icons unimportant-star">star</i>
-                  <i class="material-icons unimportant-star">star</i>
-                  <i class="material-icons unimportant-star">star</i>
-                </label>
-              </p>
-              <p>
-                <input type="checkbox" id="1" checked="checked"></id>
-                <label for="1">
-                  <i class="material-icons important-star">star</i>
-                  <i class="material-icons unimportant-star">star</i>
-                  <i class="material-icons unimportant-star">star</i>
-                  <i class="material-icons unimportant-star">star</i>
-                  <i class="material-icons unimportant-star">star</i>
-                </label>
-              </p>
-              <p>
-                <input type="checkbox" id="0" checked="checked"></id>
-                <label for="0">
-                  <i class="material-icons unimportant-star">star</i>
-                  <i class="material-icons unimportant-star">star</i>
-                  <i class="material-icons unimportant-star">star</i>
-                  <i class="material-icons unimportant-star">star</i>
-                  <i class="material-icons unimportant-star">star</i>
-                </label>
-              </p>
+            <form class="filter-tool" id="stars-panel">
+
             </form>
           </div>
-          <div class="row center-allign reputation filter-element search-panel color1 airlines">
+          <div class="row filter-element search-panel color1 airlines">
             <div class="row title"><h5>Aerolíneas</h5></div>
             <form class="filter-tool" id="airlines-panel">
 
