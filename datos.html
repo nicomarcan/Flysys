@@ -20,9 +20,21 @@
 
 		<div class="container-fluid row">
 			<div class="col s10 offset-s1">
+
+
+
+
 				<div class="card-panel row">
 
+					<div id="opinion_header" class="valign col s8 opinions_header">
+						INFORMACION DE LA TARJETA
+						<div class="divider"></div>
+					</div>
+
+
+
 			<div class="row">
+
 				<div class="col s8">
 					<h5>Informacion de la tarjeta</h5>
 				</div>
@@ -64,23 +76,23 @@
 						</div>
 						<div class="row">
 									<div class="input-field col s5">
-										<input id="calle" type="text" class="validate" pattern="^.{1,60}" placeholder="Calle (Obligatorio)"/>
-										<label for="calle"  data-error="No debe contener mas de 60 caracteres">Calle</label>
+										<input id="calle" type="text" class="validate" placeholder="Calle (Obligatorio)"/>
+										<label for="calle"  data-error="Debe contener hasta 60 caracteres">Calle</label>
 									</div>
 									<div class="input-field col s3">
-											<input id="callnro" type="text" class="validate" pattern="\d{1,20}" placeholder="Nro. Calle (Obligatorio)"/>
-											<label for="callnro"  data-error="No debe contener mas de 20 caracteres">Nro. Calle</label>
+											<input id="callnro" type="text" placeholder="Nro. Calle (Obligatorio)"/>
+											<label for="callnro"  data-error="Debe ser solamente numeros">Nro. Calle</label>
 									</div>
 									<div class="input-field col s2">
-											<input id="piso" type="text" class="validate" pattern="\d{0,3}" placeholder="Piso"/>
+											<input id="piso" type="text" class="validate" placeholder="Piso"/>
 											<label for="piso"  data-error="Debe ser el piso">Piso</label>
 									</div>
 									<div class="input-field col s1">
-											<input id="depto" type="text" class="validate" pattern="\w{0,10}" placeholder="Depto"/>
+											<input id="depto" type="text" class="validate" placeholder="Depto"/>
 											<label for="depto"  data-error="">Depto</label>
 									</div>
 									<div class="input-field col s1">
-											<input id="postal" type="text" class="validate" pattern="\w{1,10}" placeholder="CP (Obligatorio)"/>
+											<input id="postal" type="text" class="validate"  placeholder="CP (Obligatorio)"/>
 											<label for="postal"  data-error="No debe contener mas de 10 caracteres">Postal</label>
 									</div>
 
@@ -140,46 +152,6 @@
           </div>
       </div>
     </footer>
-		<script type="x-tmpl-mustache" id="pasajero_form">
-		<div class="container-fluid row passangerform">
-			<div class="col s10 offset-s1">
-				<div class="card-panel row">
-										<div class="row" style="padding:5px; margin:0px;">
-												<div class="col s10"><h5>Pasajero: {{indenti}}</h5></div>
-										</div>
-										<form id="pasajero1">
-											<div class="row">
-													<div class="input-field col s6">
-															<input id="nombre{{indenti}}" type="text" class="validate"/>
-															<label for="nombre{{indenti}}">Nombre</label>
-													</div>
-														<div class="input-field col s6">
-															<input id="apellido{{indenti}}" type="text" class="validate"/>
-															<label for="apellido{{indenti}}">Apellido</label>
-														</div>
-															<div class="row">
-																	<div class="input-field col s3">
-																		<select id="tipo_id{{indenti}}">
-																			<option value="2" >Pasaporte</option>
-																			<option value="1" selected>DNI</option>
-																		</select>
-																		<label>Identificador</label>
-																	</div>
-																	<div class="input-field col s6">
-																		<input id="pasaporte{{indenti}}" type="text" class="validate"/>
-																		<label for="pasaporte{{indenti}}" id="text_id">Pasaporte</label>
-																	</div>
-																	<div class="date-field col s3 input-field ">
-																		<label for="nacimiento{{indenti}}">Fecha de nacimiento</label>
-																		<input id="nacimiento{{indenti}}" placeholder="DD/MM/AAAA" type="text" class=""/>
-																	</div>
-															</div>
-											</div>
-										</form>
-								</div>
-						</div>
-		</div>
-		</script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="js/mustache.min.js"></script>
 		<script src="js/common.js"></script>

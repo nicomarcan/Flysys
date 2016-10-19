@@ -1,3 +1,8 @@
+var countryObj=getLocalObject("countryObj");
+var countryNameToId=getLocalObject("countryNameToId");
+var citiesObj=getLocalObject("citiesObj");
+var citiesIdtoName=getLocalObject("citiesIdtoName");
+
 function addCard() {
   var template = $('#detalletarjeta').html();
   Mustache.parse(template);
@@ -13,9 +18,9 @@ function addCard() {
     street: pago.billing_address.street,
     floor: pago.billing_address.floor,
     section: pago.billing_address.apartment,
-    city: pago.billing_address.city.id,
+    city: citiesIdtoName[pago.billing_address.city.id][0],
     state: pago.billing_address.city.state,
-    country: pago.billing_address.city.country.id,
+    country: countryObj[pago.billing_address.city.country.id],
     phone: contacto.phones[0],
     email: contacto.email
     });
@@ -53,7 +58,7 @@ function addPassagers() {
       idpasajero:i,
       fname: pas.first_name,
       lname: pas.last_name,
-      bdate: pas.birthdate,
+      bdate: humanDate(pas.birthdate),
       passport: pas.id_number
 
       });
@@ -67,6 +72,14 @@ function finalizado(){
 }
 
 $(document).ready(function(){
+  // setLocalObject("countryObj",countryObj);
+  // setLocalObject("countryNameToId",countryNameToId);
+  // setLocalObject("citiesObj",citiesObj);
+  // setLocalObject("citiesIdtoName",citiesIdtoName);
+  var countryObj=getLocalObject("countryObj");
+  var countryNameToId=getLocalObject("countryNameToId");
+  var citiesObj=getLocalObject("citiesObj");
+  var citiesIdtoName=getLocalObject("citiesIdtoName");
   setLocalObject("flights",[vueloejemplo]);
   addFlight();
   addCard();
@@ -80,4 +93,7 @@ $(document).ready(function(){
   $("#confirmar").click(function(){
       fajax("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight2",{booking: JSON.stringify(final)},finalizado,undefined);
   });
+  $("#modificar").click(function(){
+     window.location="./datos.html"+location.search;
+  })
 });
