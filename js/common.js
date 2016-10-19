@@ -302,6 +302,7 @@ function actionfocusout(tag,funcion){
   //        $(this).focus();
         }
         $(this).removeClass("valid");
+        $(this).removeClass("validate");
         $(this).addClass("invalid");
     }
   });

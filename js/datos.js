@@ -142,6 +142,9 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
           if($(this).val().length==2){
             $(this).val($(this).val()+"/");
           }
+            if(e.keyCode==111 && $(this).val().length==4){
+            $(this).val($(this).val().substring(0,$(this).val().length-1))
+          }
         }
   });
 

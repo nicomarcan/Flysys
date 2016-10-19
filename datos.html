@@ -47,15 +47,15 @@
 
             <div class="row">
               <div class="input-field col s7">
-                <input id="tarjeta" type="text" pattern="^(((34)|(37))\d{13})|(36\d{12})|((5[1-3])\d{14})|(4\d{12,15})" class="validate" placeholder="Nro tarjeta (Obligatorio)"/>
+                <input id="tarjeta" type="text" pattern="^(((34)|(37))\d{13})|(36\d{12})|((5[1-3])\d{14})|(4\d{12,15})" class="validate" placeholder="Nro tarjeta (Obligatorio)" maxlength="18"/>
                 <label for="Tarjeta" data-error="Ingrese una tarjeta valida">Numero de tarjeta</label>
               </div>
                 <div class=" input-field  col  s3">
-									<input id="fecaducidad" type="text" class="validate" pattern="(0[0-9])|(1[0-2])/[0-9][0-9]" placeholder="MM/AA (Obligatorio)"/>
+									<input id="fecaducidad" type="text" class="validate" pattern="(0[0-9])|(1[0-2])/[0-9][0-9]" placeholder="MM/AA (Obligatorio)" maxlength="6"/>
 									<label for="fecaducidad" data-error="Ingrese una fecha valida">Caducidad</label>
 								</div>
               <div class="input-field col s2">
-                <input id="ccv" type="text" pattern="^([0-9][0-9][0-9])"  class="validate" placeholder="CCV (Obligatorio)"/>
+                <input id="ccv" type="text" pattern="^([0-9][0-9][0-9])"  class="validate" placeholder="CCV (Obligatorio)" maxlength="3"/>
                 <label for="ccv" data-error="Ingrese los 3 digitos">CCV</label>
 			  		</div>
 						<div class="row">
@@ -65,12 +65,13 @@
 						</div>
             <div class="row">
                   <div class="input-field col s6">
-                    <input id="nombre" type="text" class="validate" pattern="^([a-z]|[A-Z]){1,80}" placeholder="Nombre (Obligatorio)"/>
-                    <label for="nombre"  data-error="No debe contener mas de 80 caracteres">Nombre</label>
+                    <input id="nombre" type="text" class="validate" placeholder="Nombre (Obligatorio)" maxlength="80" maxlength="80"/>
+                    <label for="nombre"  data-error="Debe ser un nombre valido">Nombre</label>
                   </div>
-                    <div class="input-field col s6">
-                        <input id="apellido" type="text" class="validate" pattern="^([a-z]|[A-Z]){1,80}"  placeholder="Apellido (Obligatorio)"/>
-                        <label for="apellido"  data-error="No debe contener mas de 50 caracteres">Apellido</label>
+									<div class="input-field col s6">
+									<input id="apellido" type="text" class="validate" placeholder="Apellido (Obligatorio)" maxlength="80"/>
+
+                        <label for="apellido"  data-error="Debe ser un nombre valido">Apellido</label>
                     </div>
 
             </div>

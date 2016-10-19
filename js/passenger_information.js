@@ -97,6 +97,8 @@ function getCities(data){
           if($(this).val().length==2 || $(this).val().length==5){
             $(this).val($(this).val()+"/");
           }
+          if(e.keyCode==111 && ($(this).val().length==4 || $(this).val().length==7)){
+          $(this).val($(this).val().substring(0,$(this).val().length-1))
         }
       });
       var patron=/\w{2}\/\w{2}\/\w{4}/i;
