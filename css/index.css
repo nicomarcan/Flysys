@@ -136,6 +136,8 @@ min-height: 1900px;
 
 
 
+
+
  .input .input-field input[type=text] {
      color: white;
    }
@@ -144,15 +146,26 @@ min-height: 1900px;
    .input .input-field input[type=text]:focus + label {
      color: white;
    }
+/*
+   .comments .input-field textarea:focus + label {
+     color: black;
+   }
+*/
    /* label underline focus color */
    .input .input-field input[type=text]:focus {
      border-bottom: 1px solid white;
      box-shadow: 0 1px 0 0 white;
    }
+/*
+   .comments .input-field textarea:focus {
+     border-bottom: 1px solid black;
+     box-shadow: 0 1px 0 0 black;
+   }/*
 /* icon prefix focus color */
    .input-field .prefix.active {
      color: white;
    }
+
 
 #departing_two,#departing,#returning,#from_two,#to_two{
   width:19.5%;

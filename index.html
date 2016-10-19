@@ -29,7 +29,7 @@
 							<form id="airline_search_form" action="./reviews_airlines.html" style="height:60px" method="GET">
 
 								<input id="airline_search_id" type="hidden" name="airline_id" />
-								<input id="airline_search" type="search" name="airline_search" class="typeahead" placeholder="Buscar aerolineas."  />
+								<input id="airline_search" type="search" name="airline_search" class="typeahead airline_input_optional" placeholder="Buscar aerolineas."  />
 								<button class="btn-floating waves-effect waves-light transparent " type="submit" name="action" style="padding: 0px; background: #eeeeee;color: #252525;">
 									<i class="material-icons" style="line-height:normal; padding:2px; color:white">
 										search
@@ -64,9 +64,8 @@
                        <i class="material-icons prefix">location_on</i>
                     </div>
                       <div class="col s10">
-                       <input type="text" id="from_input_two" name="from_input" class="typeahead " placeholder="Desde"/>
-                        <label for="from_input_two" data-error="wrong" data-success="right"></label>
-                        <span id="from_input_error" class="red-text"></span>
+                       <input type="text" id="from_input_two" name="from_input" class="typeahead place_input " placeholder="Desde"/>
+                        <label data-error="Debe ser una ciudad valida" for="from_input_two"></label>
                      </div>
                     </li>
                     <li>
@@ -78,9 +77,8 @@
                               <i class="material-icons prefix">location_on</i>
                      </div>
                          <div class="col s10">
-                           <input  type="text"   name="to_input"  id="to_input_two" class=" typeahead" placeholder="Hacia"/>
-                           <label for="to_input_two"  data-error="wrong" data-success="right"> </label>
-                           <span id="to_input_error_two" class="red-text"></span>
+                           <input  type="text"   name="to_input"  id="to_input_two" class=" typeahead place_input" placeholder="Hacia"/>
+                            <label data-error="Debe ser una ciudad valida" for="to_input_two"></label>
                          </div>
                     </li>
 
@@ -128,7 +126,7 @@
                        <i class="material-icons prefix">location_on</i>
                     </div>
                       <div class="col s10">
-                       <input type="text" id="from_input" name="from_input" class="typeahead " placeholder="Desde" />
+                       <input type="text" id="from_input" name="from_input" class="typeahead place_input" placeholder="Desde" />
                         <label for="from_input" data-error="wrong" data-success="right"></label>
                         <span id="from_input_error" class="red-text"></span>
                      </div>
@@ -142,7 +140,7 @@
                               <i class="material-icons prefix">location_on</i>
                      </div>
                          <div class="col s10">
-                           <input  type="text"   name="to_input"  id="to_input" class=" typeahead" placeholder="Hacia"/>
+                           <input  type="text"   name="to_input"  id="to_input" class=" typeahead place_input" placeholder="Hacia"/>
                            <label for="to_input"  data-error="wrong" data-success="right"> </label>
                            <span id="to_input_error" class="red-text"></span>
                          </div>
@@ -428,13 +426,12 @@
 		      <form >
 					  <div class="row">
 						  <div class="input-field col s6 " style="">
-                       <input type="text" id="airlines_input" name="airlines_input" class="typeahead" placeholder="Nombre de la Aerolinea"/>
+                       <input type="text" id="airlines_input" name="airlines_input" class="typeahead airline_input" placeholder="Nombre de la Aerolinea"/>
                         <label for="airlines_input" data-error="wrong" data-success="right"></label>
-                        <span id="airlines_input_error" class="red-text"></span>
 			         </div>
 
 							<div class="input-field col s6">
-			                <input id="vuelo" type="text" class="validate"/>
+			                <input id="vuelo" type="text" class="flight_input"/>
 			                <label for="vuelo">Número de Vuelo</label>
 			       </div>
 			       </div>
@@ -616,7 +613,7 @@
                   </div>
               </div>
 
-			          <div class="row">
+			          <div class="row comments">
 				        <div class="input-field col s12">
 				          <textarea id="comments" class="materialize-textarea" length="256"></textarea>
 				          <label for="comments">Comentarios</label>
@@ -664,7 +661,7 @@
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
       <script type="text/javascript" src="js/index.js"></script>
-      <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+    <!--  <script type="text/javascript" src="js/jquery.validate.min.js"></script>-->
       <script type="text/javascript" src="js/picker.js"></script>
 	     <script type="text/javascript" src="js/common.js"></script>
 	     <script type="text/javascript" src="js/picker.date.js"></script>
