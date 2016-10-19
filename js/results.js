@@ -30,7 +30,7 @@ var s1,s2;
 * All combinations sorted by total price, duration
 * and airline names.
 */
-var total,duration,airline;
+var total,duration,airline,reputation;
 /*
 * Filter settings
 */
@@ -201,14 +201,20 @@ $(document).ready(function(){
                                    s1[b].outbound_routes[0].segments[0].airline.name
                             );
                           });
+                          var t_reputation = new Tree(function(a,b){
+                            return -(owStars(s1[a].outbound_routes[0].segments[0].airline.id)-
+                                   owStars(s1[b].outbound_routes[0].segments[0].airline.id));
+                          });
                           for(var i = 0; i<s1.length ; i++){
                             t_total.insert(i);
                             t_duration.insert(i);
                             t_airline.insert(i);
+                            t_reputation.insert(i);
                           }
                           total = t_total.inOrder() ;
                           duration = t_duration.inOrder();
                           airline = t_airline.inOrder();
+                          reputation = t_reputation.inOrder();
                           var pages = s1.length/pageSize + (s1.length%pageSize == 0 ? 0:1);
                           insertPaginator(pages);
                           currCrit = 0;
@@ -265,6 +271,13 @@ $(document).ready(function(){
                                        s1[b[0]].outbound_routes[0].segments[0].airline.name.concat(
                                        s2[b[1]].outbound_routes[0].segments[0].airline.name));
                               });
+                              var t_reputation = new Tree(function(a,b){
+                                return -(twStars(s1[a[0]].outbound_routes[0].segments[0].airline.id,
+                                                 s2[a[1]].outbound_routes[0].segments[0].airline.id) -
+                                         twStars(s1[b[0]].outbound_routes[0].segments[0].airline.id,
+                                                 s2[b[1]].outbound_routes[0].segments[0].airline.id));
+
+                              });
                               for(var i=0 ; i<s1.length ; i++) {
                                 for(var j=0; j<s2.length; j++) {
                                   var cmb = [];
@@ -272,11 +285,13 @@ $(document).ready(function(){
                                   t_total.insert(cmb);
                                   t_duration.insert(cmb);
                                   t_airline.insert(cmb);
+                                  t_reputation.insert(cmb);
                                 }
                               }
                               total = t_total.inOrder() ;
                               duration = t_duration.inOrder();
                               airline = t_airline.inOrder();
+                              reputation = t_reputation.inOrder();
                               var pages = (s1.length*s2.length)/pageSize +
                                           ((s1.length*s2.length)%pageSize == 0 ? 0:1);
                               insertPaginator(pages);
@@ -327,6 +342,9 @@ $(document).ready(function(){
         break;
       case "Aerolínea":
         currCrit = 2;
+        break;
+      case "Reputación":
+        currCrit = 3;
         break;
       default:
         return false;
@@ -434,6 +452,9 @@ function setCurrPage(page){
         break;
       case 2:
         tmp = airline;
+        break;
+      case 3:
+        tmp = reputation;
         break;
       default:
         return false;
@@ -654,7 +675,7 @@ function owStars(id){
       break;
     }
   }
-  return Math.floor(rep/2) + rep%2;
+  return Math.floor(rep/2);
 }
 
 function twStars(id_1,id_2){
@@ -673,7 +694,7 @@ function twStars(id_1,id_2){
     }
   }
   var avg = (rep_1 + rep_2)/2;
-  return Math.floor(avg/2) + Math.floor(avg)%2;
+  return Math.floor(avg/2);
 }
 
 function addTWResultS(criterium,pageNo,pageSize){
