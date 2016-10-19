@@ -84,27 +84,26 @@ function startPagination(pages, page) {
 
 function ajaxAirlineInfo(params) {
 	$.ajax({
-      url: "http://hci.it.itba.edu.ar/v1/api/misc.groovy",
-      jsonp: "callback",
-      data: {
-        method: "getairlinebyid",
-        id: params["airline_id"],
-
-      },
-      success: function(response) {
-        if (response.error) {
-          displayError()
-        }
-				else {
-					if (response.total == 0) {
-						insertErrorCard($("#reviews-container"), "No se encontraron reviews", "");
-					}
-					else {
-						insertAirlineInfoCard(response.airline);
-					}
-      	}
+		url: "http://hci.it.itba.edu.ar/v1/api/misc.groovy",
+		jsonp: "callback",
+		data: {
+			method: "getairlinebyid",
+			id: params["airline_id"],
+		},
+		success: function(response) {
+			if (response.error) {
+			displayError()
 			}
-    });
+			else {
+				if (response.total == 0) {
+					insertErrorCard($("#flight-info-card"), "No se encontraron reviews", "");
+				}
+				else {
+					insertAirlineInfoCard(response.airline);
+				}
+			}
+		}
+	});
 }
 
 function ajaxFlightInfo(params, airline_id) {
@@ -119,7 +118,6 @@ function ajaxFlightInfo(params, airline_id) {
 		},
 		success: function(response) {
 			if (response.error) {
-
 				insertErrorCard($("#flight-info-card"), "El vuelo no existe.", "Es posible que la api este rota.")
 			}
 			else if (response.total == 0) {
@@ -242,9 +240,6 @@ function loadMap() {
 
 }
 
-
-
-
 // Use the DOM setInterval() function to change the offset of the symbol
 // at fixed intervals.
 // from https://developers.google.com/maps/documentation/javascript/examples/overlay-symbol-animate?hl=es
@@ -265,7 +260,11 @@ function initMap() {
 	google_maps_ready = true;
 }
 
+function isNumber(n) {
+	return !isNaN(parseFloat(n)) && isFinite(n);
+}
 
+var airline_search_ready = $.Deferred();
 $(document).ready(function() {
 	var params = parseGET();
 	var options = [{
@@ -283,106 +282,70 @@ $(document).ready(function() {
 	];
 	var page = 1;
 	var op = 0;
-	var airlines = [];
-  var airlines_id = [];
-
-	$.ajax({
-    type: 'GET',
-    url: 'http://hci.it.itba.edu.ar/v1/api/misc.groovy',
-    jsonp: 'callback',
-    dataType: 'jsonp',
-    data: {
-      method: 'getairlines'
-    },
-    success: function(response) {
-      var airline_data = response.airlines;
-      var ret = [];
-      for (var i=0; i<response.total; i++) {
-        //ret[airline_data[i].name] = airline_data[i].logo;
-        ret.push(airline_data[i].name);
-        airlines[airline_data[i].name.toLowerCase()] = airline_data[i].id;
-        airlines_id[airline_data[i].id] = airline_data[i].name;
-      }
-      blood_airlines = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.whitespace,
-				queryTokenizer: Bloodhound.tokenizers.whitespace,
-				local: ret
-      });
-
-      $('input#airline_search.typeahead').typeahead(
-							{
-									minLength: 1,
-									highlight: true
-							},
-							{
-									name: 'Aerolineas',
-									limit: 3,
-									source: blood_airlines
-							}
-			);
-			if (airlines_id[params["airline_id"]]) {
+	var airlines = {};
+	var airlines_id = {};
+	/* wait for airline search */
+	$.when(
+		ajaxAirlineSearch(airlines, airlines_id)
+	).then(function(response, errorMsg, error) {
+		if (response.error || errorMsg == "error") {
+			handle_error(response.error);
+		}
+		else {
+			airlineSearchSubmit(airlines, airlines_id);
+			if (!params["airline_id"] || !airlines_id[params["airline_id"]]) {
+				/* display airline not found error */
+				insertErrorCard($("#flight-info-card"), "La aerolinea es invalida.", "Si este error persiste, por favor contactenos a mota@itba.edu.ar.");
+			}
+			else{
+				/* airline is valid */
 				$("a#airline_breadcrumb").text(airlines_id[params["airline_id"]]);
 				$("a#airline_breadcrumb").attr("href","./reviews_airlines.html?airline_id="+params["airline_id"]);
-				if (params["flight_number"]) {
-					$("a#flight_breadcrumb").text("Vuelo " + params["flight_number"]);
-					$("a#flight_breadcrumb").css("visibility", "visible");
+				if (params["flight_number"] && !(isNumber(params["flight_number"]) && params["flight_number"] === parseInt(params["flight_number"]).toString())) {
+					/* wrong flight number */
+					insertErrorCard($("#flight-info-card"), "El numero de vuelo es invalido.", "Eso ni siquera es un entero :| .");
+				}
+				else {
+					if (params["flight_number"]) {
+						/* searching for a specific flight */
+						$("a#flight_breadcrumb").text("Vuelo " + params["flight_number"]);
+						$("a#flight_breadcrumb").css("visibility", "visible");
+						$("body").append("<script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDW8Zq1p2J_A1tExsMjmcov8t4b4ZAqFko&callback=initMap' \
+											type='text/javascript'></script>");
+						ajaxFlightInfo(params);
+					}
+					else {
+						/* searching for airline */
+						$('select#order_select').append('<option class="order_option" value="3">Mayor numero de vuelo</option>');
+						$("select#order_select").append('<option class="order_option" value="2">Menor numero de vuelo</option>');
+						$('select').material_select();
+						options[2] = {
+							option: 2,
+							sort_key: 'flight',
+							sort_order: 'asc',
+							pages: []
+						};
+						options[3] = {
+							option: 3,
+							sort_key: 'flight',
+							sort_order: 'desc',
+							pages: []
+						}
+						/* ajax airline info */
+						ajaxAirlineInfo( params );
+					}
+					/* ajax airline reviews */
+					ajaxReviews(
+						params,
+						options[op].sort_key,
+						options[op].sort_order,
+						page,
+						options[op]
+					);
 				}
 			}
-    }
-  });
-
-  $("form#airline_search_form").submit(function(event) {
-    var search_info = $("input#airline_search").typeahead('val').toLowerCase();
-    if (airlines[search_info] != undefined) {
-      $("input#airline_search_id").val(airlines[search_info]);
-      return true;
-    }
-    return false;
-  });
-
-
-	if (params["flight_number"] && params["flight_number"] != "") {
-		/* searching for a specific flight */
-		$("body").append("<script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDW8Zq1p2J_A1tExsMjmcov8t4b4ZAqFko&callback=initMap' \
-	  type='text/javascript'></script>")
-		ajaxFlightInfo(
-			params
-		);
-	}
-	else {
-		/* searching for airline */
-
-		/* add aditional search options */
-		$('select#order_select').append('<option class="order_option" value="3">Mayor numero de vuelo</option>');
-		$("select#order_select").append('<option class="order_option" value="2">Menor numero de vuelo</option>');
-		$('select').material_select();
-		options[2] = {
-			option: 2,
-			sort_key: 'flight',
-			sort_order: 'asc',
-			pages: []
-		};
-		options[3] = {
-			option: 3,
-			sort_key: 'flight',
-			sort_order: 'desc',
-			pages: []
 		}
-
-		/* ajax airline info */
-		ajaxAirlineInfo(
-			params
-		);
-	}
-
-	/* ajax airline reviews */
-	ajaxReviews(
-		params,
-		options[op].sort_key,
-		options[op].sort_order,
-		page,
-		options[op]
-	);
+	});
 
 	$(document).on("click", "li.page_button", function(){
 		var auxpage = parseInt($(this).attr('value'));
