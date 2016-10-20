@@ -26,7 +26,7 @@
           <a href="#" class="brand-logo">Flysis</a>
           <ul class="right hide-on-med-and-down">
            	<li >
-							<form id="airline_search_form" action="./reviews_airlines.html" style="height:60px" method="GET">
+							<form id="airline_search_form" action="./review.html" style="height:60px" method="GET">
 
 								<input id="airline_search_id" type="hidden" name="airline_id" />
 								<input id="airline_search" type="search" name="airline_search" class="typeahead airline_input_optional" placeholder="Buscar aerolineas."  />
@@ -64,9 +64,13 @@
                        <i class="material-icons prefix">location_on</i>
                     </div>
                       <div class="col s10">
-                       <input type="text" id="from_input_two" name="from_input" class="typeahead place_input " placeholder="Desde"/>
+                       <input type="text" id="from_input_two" name="from_input" class="typeahead place_input tooltipped" placeholder="Desde"  data-position="bottom" data-delay="50" data-tooltip="Ingrese una ciudad válida"/>
                         <label data-error="Debe ser una ciudad valida" for="from_input_two"></label>
                      </div>
+
+
+
+
                     </li>
                     <li>
                       <i class=" material-icons clickable" id="crossicon-two">swap_horiz</i>
@@ -77,19 +81,19 @@
                               <i class="material-icons prefix">location_on</i>
                      </div>
                          <div class="col s10">
-                           <input  type="text"   name="to_input"  id="to_input_two" class=" typeahead place_input" placeholder="Hacia"/>
+                           <input  type="text"   name="to_input"  id="to_input_two" class=" typeahead place_input tooltipped" placeholder="Hacia" data-position="bottom" data-delay="50" data-tooltip="Ingrese una ciudad válida"/>
                             <label data-error="Debe ser una ciudad valida" for="to_input_two"></label>
                          </div>
                     </li>
 
                     <li class=" input-field  date-field" id="departing_two">
                       <i class="material-icons prefix">today</i>
-                     <input  type="date" class="datepicker " placeholder= "Partiendo" >
+                     <input  type="date" class="datepicker tooltipped"  placeholder= "Partiendo"   data-position="bottom" data-delay="50" data-tooltip="Ingrese una fecha de partida">
                     </li>
 
                     <li class=" input-field  date-field" id="returning">
                       <i class="material-icons prefix">today</i>
-                     <input  type="date" disabled  class="datepicker " placeholder= "Volviendo">
+                     <input  type="date" disabled  class="datepicker tooltipped " placeholder= "Volviendo" data-position="bottom" data-delay="50" data-tooltip="Ingrese una fecha de regreso">
                     </li>
 
                     <li class="input-field  " id="passenger_two" >
@@ -126,7 +130,7 @@
                        <i class="material-icons prefix">location_on</i>
                     </div>
                       <div class="col s10">
-                       <input type="text" id="from_input" name="from_input" class="typeahead place_input" placeholder="Desde" />
+                       <input type="text" id="from_input" name="from_input" class="typeahead place_input tooltipped" placeholder="Desde" data-position="bottom" data-delay="50" data-tooltip="Ingrese una ciudad válida"/>
                         <label for="from_input" data-error="wrong" data-success="right"></label>
                         <span id="from_input_error" class="red-text"></span>
                      </div>
@@ -140,7 +144,7 @@
                               <i class="material-icons prefix">location_on</i>
                      </div>
                          <div class="col s10">
-                           <input  type="text"   name="to_input"  id="to_input" class=" typeahead place_input" placeholder="Hacia"/>
+                           <input  type="text"   name="to_input"  id="to_input" class=" typeahead place_input tooltipped" placeholder="Hacia" data-position="bottom" data-delay="50" data-tooltip="Ingrese una ciudad válida"/>
                            <label for="to_input"  data-error="wrong" data-success="right"> </label>
                            <span id="to_input_error" class="red-text"></span>
                          </div>
@@ -148,7 +152,7 @@
 
                     <li class=" input-field  date-field" id="departing">
                       <i class="material-icons prefix">today</i>
-                     <input type="date" class="datepicker" placeholder = "Partiendo" >
+                     <input type="date" class="datepicker tooltipped" placeholder = "Partiendo" data-position="bottom" data-delay="50" data-tooltip="Ingrese una fecha de partida">
                     </li>
 
          
@@ -408,7 +412,7 @@
     </div>
 
 
-    <div id="review-modal" class="modal">
+    <div id="review-modal" class="modal modal-fixed-footer">
     		<div class="modal-content" id= "post-review"  >
 		     	<p>Gracias por dejarnos su comentario! Eso nos ayuda a poder darle un buen feedback a nuestros usuarios!!!</p>
 		     	<br/>
@@ -424,13 +428,13 @@
 		      <form >
 					  <div class="row">
 						  <div class="input-field col s6 " style="">
-                       <input type="text" id="airlines_input" name="airlines_input" class="typeahead airline_input" placeholder="Nombre de la Aerolinea"/>
+                       <input type="text" id="airlines_input" name="airlines_input" class="typeahead airline_input tooltipped" placeholder="Nombre de la Aerolinea" data-position="bottom" data-delay="50" data-tooltip="Ingrese una aerolinea válida"/>
                         <label for="airlines_input" data-error="wrong" data-success="right"></label>
 			         </div>
 
 							<div class="input-field col s6">
-			                <input id="vuelo" type="text" class="flight_input"/>
-			                <label for="vuelo" data-error="El número de vuelo es invalido">Número de Vuelo</label>
+			                <input id="vuelo" type="text" class="flight_input tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ingrese un numero de vuelo válido"/>
+			                <label for="vuelo" >Número de Vuelo</label>
 			       </div>
 			       </div>
 
@@ -439,7 +443,7 @@
 			           <div class="col s3 " id ="friendliness" >
 				            <p>Amabilidad</p>
 			            </div>
-						 <div class="col s3 star_group offset-s1" id="entro">
+						 <div class="col  star_group offset-s1" id="entro">
 
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
@@ -453,7 +457,7 @@
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
 										</i>
-										<i class=" material-icons grey-text text-lighten-1 clickable">
+										<i class=" material-icons grey-text text-lighten-1 clickable "   >
 											grade
 										</i>
 
@@ -466,7 +470,7 @@
 			           <div class="col s3 " id="food">
 				            <p>Comida</p>
 			            </div>
-						 <div class="col s3 star_group offset-s1">
+						 <div class="col  star_group offset-s1">
 
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
@@ -492,7 +496,7 @@
 			           <div class="col s3 " id="punctuality">
 				            <p>Puntualidad</p>
 			            </div>
-						 <div class="col s3 star_group offset-s1">
+						 <div class="col  star_group offset-s1">
 
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
@@ -518,7 +522,7 @@
 			           <div class="col s3 " id="mileage_program">
 				            <p>Programa de viajeros frecuentes</p>
 			            </div>
-						 <div class="col s3 star_group offset-s1">
+						 <div class="col  star_group offset-s1">
 
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
@@ -544,7 +548,7 @@
 			           <div class="col s3 " id="comfort">
 				            <p>Confort</p>
 			            </div>
-						 <div class="col s3 star_group offset-s1">
+						 <div class="col  star_group offset-s1">
 
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
@@ -570,7 +574,7 @@
 			           <div class="col s3 " id="quality_price">
 				            <p>Relación precio/calidad</p>
 			            </div>
-						 <div class="col s3 star_group offset-s1">
+						 <div class="col  star_group offset-s1">
 
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
@@ -584,7 +588,7 @@
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
 										</i>
-										<i class=" material-icons grey-text text-lighten-1 clickable">
+										<i class=" material-icons grey-text text-lighten-1 clickable tooltipped " data-position="right" data-delay="50" data-tooltip="Debe calificar todas las categorias">
 											grade
 										</i>
 
@@ -598,23 +602,25 @@
                      <p> Recomendaría el vuelo? </p>
                  </div>
                       <div class="col s3  offset-s1" id="recommend">
-                      
-                    <i class=" material-icons grey-text text-lighten-1 clickable" id="no">
+
+                      <i class=" material-icons grey-text text-lighten-1 clickable" id="yes">
+                      thumb_up
+                    </i>    
+
+                    <i class=" material-icons grey-text text-lighten-1 clickable tooltipped" id="no" data-position="bottom" data-delay="50" data-tooltip="Debe seleccionar si recomienda o no el viaje">
                       thumb_down
                     </i>
                     
                     
-                    <i class=" material-icons grey-text text-lighten-1 clickable" id="yes">
-                      thumb_up
-                    </i>                
+                                
            
                   </div>
               </div>
 
 			          <div class="row comments">
 				        <div class="input-field col s12">
-				          <textarea id="comments" class="materialize-textarea" length="256"></textarea>
-				          <label for="comments" data-error="El máximo de caracteres en un comentario es 256">Comentarios</label>
+				          <textarea id="comments" class="materialize-textarea tooltipped" data-position="bottom" data-delay="50" data-tooltip="La máxima cantidad de caracteres es 256"></textarea>
+				          <label for="comments" >Comentarios</label>
 				        </div>
 				      </div>
 		            </form>
@@ -630,7 +636,6 @@
 
 
 </div>
-
 
 
    <footer class="page-footer color1">

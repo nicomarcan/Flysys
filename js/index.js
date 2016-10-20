@@ -217,7 +217,14 @@ $(document).ready(function(){
 
 
 
-		 $('.modal-trigger').leanModal();
+		 $('.modal-trigger').leanModal({
+		 	complete: function() {  $('.tooltipped').tooltip('remove'); } // Callback for Modal close
+		 });
+		  $('.tooltipped').tooltip({delay: 50});
+		   $('.tooltipped').tooltip('remove');
+
+	
+
 
 
 		$('img.offer-img').on('click', function() {
@@ -278,9 +285,9 @@ $(document).ready(function(){
 		$('.star_group .material-icons.clickable').on('click', function() {
 			var stars_before= $(this).prevAll();
 			var stars_next= $(this).nextAll();
-			$(this).attr("class"," material-icons");
-			stars_before.attr("class"," material-icons clickable");
-			stars_next.attr("class"," material-icons grey-text text-lighten-1 clickable");
+			$(this).removeClass("grey-text text-lighten-1 ");
+			stars_before.removeClass("grey-text text-lighten-1");
+			stars_next.addClass("grey-text text-lighten-1");
 			$(this).attr("clicked","clicked");
 			stars_before.attr("clicked","clicked");
 			stars_next.removeAttr("clicked");
@@ -290,25 +297,24 @@ $(document).ready(function(){
 		});
 
 		$('.star_group .material-icons.clickable').on('mouseover', function() {
-
-			var stars_before= $(this).prevAll();
-			var stars_next= $(this).nextAll();
-			$(this).attr("class"," material-icons clickable");
-			stars_before.attr("class"," material-icons clickable");
-			stars_next.attr("class"," material-icons grey-text text-lighten-1 clickable");
-
-
+			if(!check){
+				var stars_before= $(this).prevAll();
+				var stars_next= $(this).nextAll();
+				$(this).removeClass("grey-text text-lighten-1");
+				stars_before.removeClass("grey-text text-lighten-1");
+				stars_next.addClass(" grey-text text-lighten-1 ");
+			}
 
 		});
 
 		$('.star_group .material-icons.clickable').on('mouseleave', function() {
 
 			if($(this).attr("clicked")=="clicked"){
-				$(this).nextAll(":not([clicked])").attr("class"," material-icons grey-text text-lighten-1 clickable");
-				$(this).nextAll("[clicked]").attr("class"," material-icons  clickable");
+				$(this).nextAll(":not([clicked])").addClass(" grey-text text-lighten-1 ");
+				$(this).nextAll("[clicked]").removeClass("grey-text text-lighten-1");
 			}else{
-				$(this).attr("class"," material-icons grey-text text-lighten-1 clickable");
-				$(this).prevAll(":not([clicked])").attr("class"," material-icons grey-text text-lighten-1 clickable");
+				$(this).addClass(" grey-text text-lighten-1 ");
+				$(this).prevAll(":not([clicked])").addClass(" grey-text text-lighten-1 ");
 			}
 		});
 
@@ -330,6 +336,17 @@ $(document).ready(function(){
 
 		});
 
+		$('#comments').focusout(function(){
+			if($(this).val().length > 256){
+				showError($(this));
+				$(this).addClass("invalid");
+				$(this).removeClass("valid");
+			}else{
+				$(this).addClass("valid");
+				$(this).removeClass("invalid");
+			}
+		});
+
 		$('#yes').on('mouseover', function() {
 
 			$(this).attr("class","material-icons green-text  clickable ");
@@ -338,8 +355,10 @@ $(document).ready(function(){
 		});
 
 		$('#no').on('mouseover', function() {
+			if(!check){
 				$(this).attr("class","material-icons red-text  clickable");
 				$("#recommend .material-icons.clickable#yes").attr("class","material-icons grey-text text-lighten-1 clickable");
+			}
 
 		});
 
@@ -371,7 +390,7 @@ $(document).ready(function(){
 		    firstDay: 1,
 		    format: 'd !de mmmm !de yyyy',
 		    formatSubmit: 'yyyy-mm-dd' ,
-		    min: true
+		    min: 2
 		  });
 
 		 var date2_picker = null ;
@@ -479,7 +498,7 @@ $(document).ready(function(){
 		 $(window).scroll(function() {
     		var s = $(window).scrollTop(),
 
-    		opacityVal = (s / 800.0);
+    		opacityVal = (s / 600.0);
     		$('.blurred-img').css('opacity', opacityVal);
 		});
 
@@ -522,7 +541,6 @@ $(document).ready(function(){
 			var airline = {};
 			var flight = {};
 			var rating = {};
-
 			airline["id"] = nameToId[$("#review-modal #airlines_input").val()];
 			flight["airline"]=airline;
 			flight["number"]=parseInt($("#review-modal #vuelo").val());
@@ -574,10 +592,17 @@ $(document).ready(function(){
 				$('#review-modal').scrollTop(0);
 				$('.airline_input').blur();
 				$(".flight_input").blur();
-				if(!ok_categories)
-					Materialize.toast("Debe calificar todas las categorias",2500);
-				if(!ok_recommend)
-					Materialize.toast("Debe seleccionar si recomienda o no el viaje",2500);
+				$("#comments").blur();
+				checkEmpty($('#airlines_input'));
+				checkEmpty($(".flight_input"));
+				if(!ok_recommend){
+					showErrorCat($("#no"));
+				}
+				if(!ok_categories){
+					showErrorCat($("i.tooltipped"));
+				}
+					
+					
 			}
 
 
@@ -586,11 +611,11 @@ $(document).ready(function(){
 		});
 
 		$("#link-airline").on('click',function(){
-			window.location="reviews_airlines.html?airline_id="+nameToId[$("#review-modal #airlines_input").val()];
+			window.location="review.html?airline_id="+nameToId[$("#review-modal #airlines_input").val()];
 		});
 
 		$("#link-flight").on('click',function(){
-			window.location="reviews_airlines.html?airline_id="+nameToId[$("#review-modal #airlines_input").val()]+"&flight_number="+parseInt($("#review-modal #vuelo").val());
+			window.location="review.html?airline_id="+nameToId[$("#review-modal #airlines_input").val()]+"&flight_number="+parseInt($("#review-modal #vuelo").val());
 		});
 		$('#review-btn').on('click',function(){
 			$("#review-modal #airlines_input").typeahead('val','');
@@ -600,11 +625,11 @@ $(document).ready(function(){
 			$("#review-modal #vuelo").removeClass("invalid");
 			$("#review-modal #vuelo").removeClass("valid");
 			 for(var x = 1 ; x<7 ; x++){
-				 $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children().attr("class"," material-icons grey-text text-lighten-1 clickable");
+				 $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children().addClass("grey-text text-lighten-1 ");
 				  $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children().removeAttr("clicked");
 			 }
            $("#recommend .material-icons.clickable").removeAttr("selected");
-           $("#recommend .material-icons.clickable").attr("class","material-icons grey-text text-lighten-1 clickable");
+           $("#recommend .material-icons.clickable").addClass(" grey-text text-lighten-1 ");
 			$("#review-modal #comments").val("");
 			$("#review-modal #comments").removeClass("invalid");
 			  $("#send-review").show();
@@ -623,21 +648,23 @@ $(document).ready(function(){
 			var infants= $('#passenger_two #infants_val_two').text();
 			var url= "results.html?"+"mode=two-way&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1+"&d2="+d2;
 			console.log(url);
-			if(src!=undefined && dst!=undefined && $('#departing_two input[name=_submit]').val()!="" &&  $('#returning input[name=_submit]').val()!="")
+			if(src!=undefined && dst!=undefined && d1!="" &&  d2!="")
 				window.location=url;
 			else{
 				$('#from_input_two').blur();
+				checkEmpty($('#from_input_two'));
 				$('#to_input_two').blur();
-				$('#departing_two input ').blur();
-				$('#returning input ').blur();
-				if($('#returning input[name=_submit]').val()==""){
-					Materialize.toast("Ingrese una fecha de regreso",2500);
+				checkEmpty($('#to_input_two'));
+				if(d2==""){
+					showError($('#returning input '));
 				}
-				if($('#departing_two input[name=_submit]').val()==""){
-					Materialize.toast("Ingrese una fecha de partida",2500);
+				if(d1==""){
+					showError($('#departing_two input '));
 				}
 			}
 		});
+
+	
 
 		$('#search-icon').on('click',function(){
 			var src = nameToId[$('#from_input').val()];
@@ -648,14 +675,15 @@ $(document).ready(function(){
 			var infants= $('#passenger  #infants_val').text();
 			var url= "results.html?"+"mode=one-way&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1;
 			console.log(url);
-			if(src!=undefined && dst!=undefined && $('#departing input[name=_submit]').val()!="")
+			if(src!=undefined && dst!=undefined && d1!="")
 				window.location=url;
 			else{
-				$('#from_input_two').blur();
-				$('#to_input_two').blur();
-				$('#departing input ').blur();
-				if($('#departing input[name=_submit]').val()==""){
-					Materialize.toast("Ingrese una fecha de partida",2500);
+				$('#from_input').blur();
+				checkEmpty($('#from_input'));
+				$('#to_input').blur();
+				checkEmpty($('#to_input'));
+				if(d1==""){
+					showError($('#departing input '));
 				}
 			}
 		});
@@ -679,6 +707,7 @@ $("#one-way-tab").on('click',function(){
 		var to_val = to_two.typeahead('val');
 		var from = $("#from_input");
 		var to = $("#to_input");
+		 $('.tooltipped').tooltip('remove');
 		$("#departing input").val($("#departing_two input").val());
 		var departing_two_val =  $('#departing_two input[name=_submit]').val();
 		var departing = $('#departing input[name=_submit]');
@@ -700,6 +729,7 @@ $("#two-way-tab").on('click',function(){
 		var to_val = to.typeahead('val');
 		var from_two = $("#from_input_two");
 		var to_two = $("#to_input_two");
+		 $('.tooltipped').tooltip('remove');
 		$("#departing_two input").val($("#departing input").val());
 		var departing_val =  $('#departing input[name=_submit]').val();
 		var departing_two = $('#departing_two input[name=_submit]');
@@ -737,15 +767,10 @@ $(".place_input").focusout(function(){
 	 	   $(this).addClass("valid");
 	 	 $(this).removeClass("invalid");
 	 } 
-	 else {
+	 else if($(this).val()!=""){
 	 	 $(this).removeClass("valid");
          $(this).addClass("invalid");
-         if($(this).val() == ""){
-         	if($(this).attr("name")=="from_input")
-				Materialize.toast("El campo Desde es obligatorio",2500);
-			else
-				Materialize.toast("El campo Hacia es obligatorio",2500);
-		}
+          showError($(this));				
 	 }
 
 
@@ -760,34 +785,32 @@ $(".airline_input").focusout(function(){
 	 	   $(this).addClass("valid");
 	 	 $(this).removeClass("invalid");
 	 } 
-	 else {
+	 else if($(this).val()!= ""){
 	 	 $(this).removeClass("valid");
          $(this).addClass("invalid");
-         if($(this).val() == "")
-			Materialize.toast("El campo numero de aerolinea es obligatorio",2500);
+         showError($(this));	
 	 }
-	 status=false;
+
 	 $(".flight_input").blur();
 	 
 });
-var status = true;
+var msg=false;
 
 $(".flight_input").focusout(function(){
-	  if($(this).val() == "" &&status==true){
-			Materialize.toast("El campo numero de vuelo es obligatorio",2500);
-			$(this).addClass("invalid");
-			$(this).removeClass("valid");
-	 }
-	else if(isNaN($(this).val()) && status==true){
-		$(this).addClass("invalid");
-		$(this).removeClass("valid");
+	$('.flight_input').removeClass("valid");
+	$('.flight_input').removeClass("invalid");
+	if($("#airlines_input").typeahead('val') == "" && $(this).val()!= ""){
+		showEmptyAirlineError();
 	}
-	else if($(".airline_input").hasClass("invalid") && status==true){
-		$(this).addClass("invalid");
-		$(this).removeClass("valid");
+
+	 else if($(".airline_input").hasClass("invalid") && $("#airlines_input").typeahead('val') != "" && $(this).val()!=""){
+		showIncorrectAirlineError();
 	}
 		
 	else if($(this).val() != ""){
+		if(isNaN($(this).val())){
+			showNotANumberError();
+		}
 		  $.ajax({
 			    type: 'GET',
 				url: 'http://hci.it.itba.edu.ar/v1/api/status.groovy',
@@ -798,6 +821,7 @@ $(".flight_input").focusout(function(){
 						$('.flight_input').addClass("valid");
 						$('.flight_input').removeClass("invalid");
 					}else{
+						showError($('#vuelo'));
 						$('.flight_input').addClass("invalid");
 						$('.flight_input').removeClass("valid");
 					}
@@ -878,9 +902,61 @@ function onError(){
 });
 
 
- 
+function showErrorCat(elem){
+	check=true;
+	elem.tooltip('remove');
+	elem.tooltip('add');
+	elem.mouseenter();
+	check=false;
+	setTimeout(function(){ elem.tooltip('remove');}, 2000);
+}
 
 
  
+function showError(elem){
+	elem.tooltip('remove');
+		elem.tooltip('add');
+		elem.mouseenter();
+		setTimeout(function(){ elem.tooltip('remove'); }, 2000);
+}
 
+function checkEmpty(elem){
+	if(elem.val()==""){
+		elem.tooltip('remove');
+		elem.addClass("invalid");
+		var text= elem.attr("data-tooltip");
+		elem.attr("data-tooltip","El campo es Obligatorio");
+		elem.tooltip('add');
+		elem.mouseenter();
+		setTimeout(function(){ elem.tooltip('remove'); elem.attr("data-tooltip",text);}, 2000);
+	}
+}
 
+function showEmptyAirlineError(){
+	var airline = $(".airline_input");
+	airline.tooltip('remove');
+		var text= airline.attr("data-tooltip");
+		airline.attr("data-tooltip","Debe ingresar una aerolinea primero");
+		airline.tooltip('add');
+		airline.mouseenter();
+		setTimeout(function(){ airline.tooltip('remove'); airline.attr("data-tooltip",text);}, 2000);
+}
+
+function showIncorrectAirlineError(){
+		var airline = $(".airline_input");
+		airline.tooltip('remove');
+		var text= airline.attr("data-tooltip");
+		airline.attr("data-tooltip","Debe ingresar una aerolinea válida");
+		airline.tooltip('add');
+		airline.mouseenter();
+		setTimeout(function(){ airline.tooltip('remove'); airline.attr("data-tooltip",text);}, 2000);
+}
+function showNotANumberError(){
+	var flight = $(".flight_input");
+	flight.tooltip('remove');
+	var text= flight.attr("data-tooltip");
+	flight.attr("data-tooltip","Debe ingresar un número");
+	flight.tooltip('add');
+	flight.mouseenter();
+	setTimeout(function(){ flight.tooltip('remove'); flight.attr("data-tooltip",text);}, 2000);
+}
