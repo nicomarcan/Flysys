@@ -629,3 +629,16 @@ a.info_breadcrumbs.breadcrumb::before {
 	font-weight: lighter;
 	font-size: 1rem;
 }
+/*yolo*/
+div.results-container div.individual-result {
+  width: 80%;
+  margin: 0 auto 3.5em auto;
+}
+
+div.individual-result div.collapsible-header {
+  height: 4em;
+}
+
+div.individual-result div.collapsible-body {
+  height: 6em;
+}

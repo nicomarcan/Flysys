@@ -70,6 +70,74 @@ function addPassagers() {
 function finalizado(){
   window.location="./final.html"
 }
+function importantStars(rep){
+  var ret = [] ;
+  for (var i = 0; i < 5 ; i++){
+    if(rep > i){
+      ret[i] = "important";
+    } else {
+      ret[i] = "unimportant";
+    }
+  }
+  return ret;
+}
+
+
+function addOWResult(nstars,total,from,dep,ac,fn,duration,to,index) {
+  total*=10;
+  total = Math.floor(total * 100)/100;
+  var template = $('#row').html();
+  Mustache.parse(template);
+  var rep = importantStars(nstars);
+  var rendered = Mustache.render(template, {
+    i1: rep[0],
+    i2: rep[1],
+    i3: rep[2],
+    i4: rep[3],
+    i5: rep[4],
+    total: total ,
+    from_1: from ,
+    departure_1: dep,
+    airline_code_1: ac,
+    flight_number_1: fn ,
+    duration_1: duration,
+    to_1: to,
+    index: index
+  });
+  $('#detalle').append(rendered);
+}
+
+function addTWResult(nstars,total,from,dep,ac,fn,duration,to,
+                           from1,dep1,ac1,fn1,duration1,to1,index) {
+  total*=multiplier;
+  total = Math.floor(total * 100)/100;
+  var template = $('#rtw').html();
+  Mustache.parse(template);
+  var rep = importantStars(nstars);
+  var rendered = Mustache.render(template, {
+    i1: rep[0],
+    i2: rep[1],
+    i3: rep[2],
+    i4: rep[3],
+    i5: rep[4],
+    total: total ,
+    from_1: from ,
+    departure_1: dep,
+    airline_code_1: ac,
+    flight_number_1: fn ,
+    duration_1: duration,
+    to_1: to,
+    from_2: from1 ,
+    departure_2: dep1,
+    airline_code_2: ac1,
+    flight_number_2: fn1 ,
+    duration_2: duration1,
+    to_2: to1,
+    index: index
+  });
+  $('#detalle').append(rendered);
+}
+
 
 $(document).ready(function(){
 
@@ -80,6 +148,9 @@ $(document).ready(function(){
   addFlight();
   addCard();
   addPassagers();
+
+
+
 
   $("#confirmar").click(function(){
     //getLocalObject("flights")[0].outbound_routes[0].segments[0].id
