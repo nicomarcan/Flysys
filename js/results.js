@@ -73,7 +73,7 @@ $(document).ready(function(){
     firstDay: 1,
     format: 'd !de mmmm !de yyyy',
     formatSubmit: 'yyyy-mm-dd' ,
-    min: true
+    min: 2
   });
 
   var date2_picker = null ;
@@ -546,7 +546,22 @@ function initializeCollapsibles() {
     accordion : false
   });
 
-  $(".btn").click(function(event){
+  $("div.individual-result .purchase-btn.btn").click(function(event){
+    var index = $(event.target).attr("id");
+    var flights = [];
+    switch (mode) {
+      case "one-way":
+        flights[0]=s1[index];
+        break;
+      case "two-way":
+        flights[0]=s1[index.split(",")[0]];
+        flights[1]=s2[index.split(",")[1]];
+        break;
+      default:
+        return false;
+    }
+    setLocalObject("flights",flights);
+    window.location = "datos.html";
     event.stopPropagation();
   });
 
