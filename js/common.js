@@ -116,7 +116,7 @@ function checkStreet(dato){
   return patron.test(dato);
 }
 function checkStreetNumber(dato){
-  var patron=/^(\d){1,10}/i;
+  var patron=/^\d{1,10}/i;
   return patron.test(dato);
 }
 function checkFloor(dato){

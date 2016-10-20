@@ -129,6 +129,7 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
   actionfocusout("#apellido",checkName);
   actionfocusout("#postal",checkZipCode);
   actionfocusout("#calle",checkStreet);
+	actionfocusout("#callnro",checkStreetNumber);
   actionfocusout("#piso",checkFloor);
   actionfocusout("#depto",checkApartment);
   actionfocusout("#email",checkEmail);
@@ -144,7 +145,6 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
           }
         }
   });
-
 
 
   function pullPayment(){
@@ -194,7 +194,7 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
     var contact=pullContact();
     setLocalObject("contact",contact);
     setLocalObject("payment",payment);
-    window.location="./detalle.html"+location.search;
+    window.location="./passengers_information.html"+location.search;
   });
    loadPayment();
 });

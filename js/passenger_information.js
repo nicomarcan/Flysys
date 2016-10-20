@@ -235,7 +235,7 @@ function getCities(data){
     setLocalObject("passengersDict",passengersDict);
     setLocalObject("passengersList",passengersList);
     setLocalObject("passengers",passengers);
-    window.location="./datos.html"+location.search;
+    window.location="./detalle.html"+location.search;
   });
 
 });
