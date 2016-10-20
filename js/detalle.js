@@ -89,8 +89,12 @@ $(document).ready(function(){
   }
   $("#confirmar").click(function(){
       fajax("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight2",{booking: JSON.stringify(final)},finalizado,undefined);
+      finalizado();
   });
-  $("#modificar").click(function(){
+  $("#modificar_pago").click(function(){
      window.location="./datos.html"+location.search;
+  })
+  $("#modificar_pasa").click(function(){
+     window.location="./passengers_information.html"+location.search;
   })
 });

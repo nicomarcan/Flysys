@@ -312,3 +312,9 @@ function humanDate(fecha){
   var partidof=fecha.split("-");
   return partidof[2]+"/"+partidof[1]+"/"+partidof[0]
 }
+
+function humanExpirationDate(fecha){
+  var alfa=fecha.substring(0,2);
+  var beta=fecha.substring(2,4);
+  return alfa+"/"+beta;
+}

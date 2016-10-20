@@ -33,6 +33,17 @@ function insertErrorCard(container, header, description) {
 	container.append(render);
 }
 
+function insertNotFoundCard(container, header, description, link_description, link_class) {
+	var template = $("#not_found_card").html();
+	Mustache.parse(template);
+	var render = Mustache.render(template, {
+		header: header,
+		description: description,
+		link_description: link_description,
+		link_class: link_class
+	});
+	container.append(render);
+}
 function insertAirlineInfoCard(airline) {
 	var template = $("#airline_card_info").html();
 	Mustache.parse(template);
@@ -73,7 +84,7 @@ function startPagination(pages, page) {
 			el += '<li class="waves-effect page_button" value="'+ i +'"><a href="#opinion_header">'+ i +'</a></li>';
 		}
 	}
-	if (pages == 1) {
+	if (pages == 1 || pages == 0) {
 		el += '<li id="right_chevron" class=" disabled" ><a href="#opinion_header"><i class="material-icons">chevron_right</i></a></li>'
 	}
 	else {
@@ -86,22 +97,31 @@ function ajaxAirlineInfo(params) {
 	$.ajax({
 		url: "http://hci.it.itba.edu.ar/v1/api/misc.groovy",
 		jsonp: "callback",
+		dataType: "jsonp",
 		data: {
 			method: "getairlinebyid",
 			id: params["airline_id"],
 		},
 		success: function(response) {
 			if (response.error) {
-			displayError()
+				insertErrorCard(
+					$("#flight-info-card"),
+					"Err..",
+					"No debería estar acá. Si hasta aquí sin modificar el código, por favor, comuníquese con mota@itba.edu.ar para que lo solucione."
+				);
+				$("#review-head").hide();
 			}
 			else {
-				if (response.total == 0) {
-					insertErrorCard($("#flight-info-card"), "No se encontraron reviews", "");
-				}
-				else {
-					insertAirlineInfoCard(response.airline);
-				}
+				insertAirlineInfoCard(response.airline);
 			}
+		},
+		error: function(error) {
+			insertErrorCard(
+				$("#flight-info-card"),
+				"Hubo un error de conexión.",
+				"El servidor no responde :(  ."
+			)
+			$("#review-head").hide();
 		}
 	});
 }
@@ -118,10 +138,11 @@ function ajaxFlightInfo(params, airline_id) {
 		},
 		success: function(response) {
 			if (response.error) {
-				insertErrorCard($("#flight-info-card"), "El vuelo no existe.", "Es posible que la api este rota.")
-			}
-			else if (response.total == 0) {
-				insertErrorCard($("#reviews-container"), "No se encontraron reviews", "");
+				insertErrorCard(
+					$("#flight-info-card"),
+					"El vuelo no existe.",
+					"Es posible que la api este rota."
+				);
 			}
 			else {
 				insertFlightInfoCard(response);
@@ -131,6 +152,14 @@ function ajaxFlightInfo(params, airline_id) {
 					loadMap();
 				}
 			}
+		},
+		error: function(response) {
+			insertErrorCard(
+				$("#flight-info-card"),
+				"Hubo un error de conexion.",
+				"El servidor no responde :(  ."
+			);
+			$("#review-head").hide();
 		}
   })
 }
@@ -140,125 +169,6 @@ var api_ready = false;
 
 var map;
 var flight_info;
-function loadMap() {
-	var dep_airport = flight_info.departure.airport;
-	var arv_airport = flight_info.arrival.airport;
-	var bounds = new google.maps.LatLngBounds();
-
-	var service = new google.maps.DistanceMatrixService;
-	var depa = new google.maps.LatLng(dep_airport.latitude, dep_airport.longitude);
-	var arra = new google.maps.LatLng(arv_airport.latitude, arv_airport.longitude);
-	$("#map").html("");
-	bounds.extend(depa);
-	bounds.extend(arra);
-	map = new google.maps.Map(document.getElementById('map'), {
-      center: bounds.getCenter(),
-      zoom: 0,
-	  disableDefaultUI: true,
-	  draggable: true,
-	  disableDoubleClickZoom: true,
-	  styles: [
-		{
-			"featureType" : "road",
-			"stylers": [
-				{ "visibility": "off" }
-			]
-		},
-		{
-			"featureType" : "landscape",
-			"stylers": [
-				{ "visibility": "off" }
-			]
-		},
-		{
-			"featureType" : "administrative.province",
-			"stylers": [
-				{ "visibility": "off" }
-			]
-		},
-		{
-			"featureType" : "administrative.land_parcel",
-			"stylers": [
-				{ "visibility": "off" }
-			]
-		},
-		{
-			featureType: "administrative",
-			elementType: "geometry",
-			stylers: [
-				{ visibility: "off" }
-			]
-		},
-		{
-			featureType: "administrative.country",
-			elementType: "geometry",
-			stylers: [
-				{ visibility: "on" }
-			]
-		}
-	  ]
-    });
-	map.fitBounds(bounds);
-	var arrow = {
-    	path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
-  	};
-
-
-	/* SVG from https://upload.wikimedia.org/wikipedia/commons/e/ee/Aircraft_Airport_ecomo.svg*/
-	var plane = {
-		path: 'M 250.2 59.002 c 11.001 0 20.176 9.165 20.176 20.777 v 122.24 l 171.12 95.954 v 42.779 l -171.12 -49.501 v 89.227 l 40.337 29.946 v 35.446 l -60.52 -20.18 l -60.502 20.166 v -35.45 l 40.341 -29.946 v -89.227 l -171.14 49.51 v -42.779 l 171.14 -95.954 v -122.24 c 0 -11.612 9.15 -20.777 20.16 -20.777 Z',
-		scale: .1,
-		strokeColor: 'black',
-		strokeWeight: 1,
-		strokeOpacity: 1,
-		color: 'black',
-		anchor: new google.maps.Point(250, 250),
-		fillColor: 'white',
-		fillOpacity: 1
-	};
-
-	var flight_path = new google.maps.Polyline({
-		path: [ {lat: dep_airport.latitude, lng: dep_airport.longitude},
-				{lat: arv_airport.latitude, lng: arv_airport.longitude}
-		],
-		map: map,
-		icons: [
-			{
-				icon: arrow,
-				offset: '100%'
-			},
-			{
-				icon: plane,
-				offset: '0'
-			}
-		],
-		strokeColor: 'red',
-		strokeOpacity: 1,
-		strokeWeight: 2
-	});
-	animatePlane(flight_path);
-
-}
-
-// Use the DOM setInterval() function to change the offset of the symbol
-// at fixed intervals.
-// from https://developers.google.com/maps/documentation/javascript/examples/overlay-symbol-animate?hl=es
-function animatePlane(line) {
-    var count = 0;
-    window.setInterval(function() {
-      count = (count + 1) % 200;
-
-      var icons = line.get('icons');
-      icons[1].offset = (count / 2) + '%';
-      line.set('icons', icons);
-  }, 20);
-}
-function initMap() {
-	if (api_ready == true) {
-		loadMap();
-	}
-	google_maps_ready = true;
-}
 
 function isNumber(n) {
 	return !isNaN(parseFloat(n)) && isFinite(n);
@@ -295,20 +205,33 @@ $(document).ready(function() {
 			airlineSearchSubmit(airlines, airlines_id);
 			if (!params["airline_id"] || !airlines_id[params["airline_id"]]) {
 				/* display airline not found error */
-				insertErrorCard($("#flight-info-card"), "La aerolinea es invalida.", "Si este error persiste, por favor contactenos a mota@itba.edu.ar.");
+				insertErrorCard(
+					$("#flight-info-card"),
+					"La aerolinea es inválida.",
+					"Si este error persiste, por favor contactenos a mota@itba.edu.ar."
+				);
+				$("#review-head").hide();
 			}
 			else{
 				/* airline is valid */
 				$("a#airline_breadcrumb").text(airlines_id[params["airline_id"]]);
-				$("a#airline_breadcrumb").attr("href","./reviews_airlines.html?airline_id="+params["airline_id"]);
+				$("a#airline_breadcrumb").attr("title", airlines_id[params["airline_id"]])
+				$("a#airline_breadcrumb").attr("href","./review.html?airline_id="+params["airline_id"]);
+
 				if (params["flight_number"] && !(isNumber(params["flight_number"]) && params["flight_number"] === parseInt(params["flight_number"]).toString())) {
 					/* wrong flight number */
-					insertErrorCard($("#flight-info-card"), "El numero de vuelo es invalido.", "Eso ni siquera es un entero :| .");
+					insertErrorCard(
+						$("#flight-info-card"),
+						"El número de vuelo es inválido.",
+						"Eso ni siquera es un entero :| ."
+					);
+					$("#review-head").hide();
 				}
 				else {
 					if (params["flight_number"]) {
 						/* searching for a specific flight */
 						$("a#flight_breadcrumb").text("Vuelo " + params["flight_number"]);
+						$("a#flight_breadcrumb").attr("title", "Vuelo " + params["flight_number"]);
 						$("a#flight_breadcrumb").css("visibility", "visible");
 						$("body").append("<script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDW8Zq1p2J_A1tExsMjmcov8t4b4ZAqFko&callback=initMap' \
 											type='text/javascript'></script>");
