@@ -57,19 +57,3 @@ function ajaxInstallments(flight_id, adults, children, infants, card_number,tag_
 			}
 		});
 	}
-
-
-
-$(document).ready(function() {
-	$('select').material_select();
-	$(document).on("change", "input#tarjeta", function() {
-		var numero_tarjeta = $(this).val();
-		ajaxInstallments(
-			94544,
-			1,
-			0,
-			0,
-			encodeURIComponent(numero_tarjeta)
-		)
-	});
-});

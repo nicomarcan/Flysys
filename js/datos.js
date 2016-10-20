@@ -135,6 +135,32 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
   actionfocusout("#email",checkEmail);
   actionfocusout("#telefono",checkPhone);
 	actionfocusout("select",checkInstallments);
+
+
+	var cant_adultos=raiesgato(getUrlParameter("adults"));
+  var cant_chicos=raiesgato(getUrlParameter("children"));
+  var cant_infantes=raiesgato(getUrlParameter("infants"));
+
+	function raiesgato(valor){
+		if(!valor){
+			return 0;
+		}
+		return parseInt(valor);
+	}
+
+
+		$('select').material_select();
+		$(document).on("change", "input#tarjeta", function() {
+			var numero_tarjeta = $(this).val();
+			ajaxInstallments(
+				getLocalObject("flights")[0].outbound_routes[0].segments[0].id,
+				cant_adultos,
+				cant_chicos,
+				cant_infantes,
+				numero_tarjeta
+			)
+		});
+
   $("#fecaducidad").keyup(function(e){
     if(e.keyCode != 8){
           if($(this).val().length==2){
