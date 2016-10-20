@@ -2,6 +2,11 @@
   background-color: #263238;
 }
 
+.collapsible-header .collapsible-header-row .date {
+  font-size: .95em;
+}
+
+
 nav .nav-wrapper > div > div {
   width: 50%;
 }
@@ -27,7 +32,7 @@ div.filter-element > div.row > div.filter-tool {
 }
 
 #result-description {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 #results > div.preloader {
