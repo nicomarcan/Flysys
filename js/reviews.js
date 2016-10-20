@@ -1,10 +1,3 @@
-function displayError(errorcode, errormsg) {
-  var errorstr = $("#error_message_"+errorcode).html();
-  var errorel = $.parseHTML(errorstr);
-  $(errorel).children(".error_description").text(errormsg);
-  return errorel;
-}
-
 color_scheme = [
   "#ff6f31",
   "#ff9f02",
@@ -52,48 +45,62 @@ function insertReviewCards(reviews) {
 var total_pages;
 function ajaxReviews(params, sort_key, sort_order, page, option) {
 	$("#reviews-container").css("opacity", "0.5");
-  var data = {
-    method: "getairlinereviews",
-    airline_id: params["airline_id"],
-    sort_key: sort_key,
-    sort_order: sort_order,
-    page: page,
-    page_size: 5
-  };
-  if (params["flight_number"]) {
-    data["flight_number"] = params["flight_number"];
-  }
+	var data = {
+	method: "getairlinereviews",
+	airline_id: params["airline_id"],
+	sort_key: sort_key,
+	sort_order: sort_order,
+	page: page,
+	page_size: 5
+	};
+	if (params["flight_number"]) {
+	data["flight_number"] = params["flight_number"];
+	}
 	$.ajax({
 		url: "http://hci.it.itba.edu.ar/v1/api/review.groovy",
 		jsonp: "callback",
 		dataType: "jsonp",
 		data: data,
 		success: function(response) {
+			$("#reviews-container").css("opacity", "1");
 			if (response.error) {
-				$("#reviews-container").append(displayError(response.error.code, "La busqueda de opiniones por aerolinea no esta andando desde la api"))
+				insertErrorCard(
+					$("#reviews-container"),
+					"Se produjo un error al cargar las opiniones.",
+					""
+				);
 			}
-      else if (response.total == 0) {
-        insertErrorCard($("#reviews-container"), "No se encontraron opiniones.", "");
-      }
-      else {
-        var reviews = response.reviews;
-  			for (var r in reviews) {
-  				for (var s in reviews[r].rating) {
-  					var int_score = parseInt((reviews[r].rating[s] + 1)/ 2 - 1);
-  					reviews[r].rating[s+"_color"] = color_scheme[int_score];
-  					reviews[r].rating[s] = parseInt(reviews[r].rating[s] * 10);
-  				}
-  				reviews[r].comments = decodeURIComponent(reviews[r].comments);
-  			}
-  			insertReviewCards(reviews);
-      }
+			else if (response.total == 0) {
+				insertNotFoundCard($("#reviews-container"), "No se encontraron opiniones.", "", "Sea el primero en opinar.", "review-link");
+				/* TODO bind click to review */
+			}
+			else {
+				var reviews = response.reviews;
+				for (var r in reviews) {
+					for (var s in reviews[r].rating) {
+						var int_score = parseInt((reviews[r].rating[s] + 1)/ 2 - 1);
+						reviews[r].rating[s+"_color"] = color_scheme[int_score];
+						reviews[r].rating[s] = parseInt(reviews[r].rating[s] * 10);
+					}
+					reviews[r].comments = decodeURIComponent(reviews[r].comments);
+				}
+				insertReviewCards(reviews);
+			}
 			option.pages[page] = response.reviews;
 			if ($("ul#page_sel").html() == false) {
 				total_pages = parseInt(response.total / response.page_size);
-                total_pages += response.total % response.page_size > 0 ? 1 : 0;
+		        total_pages += response.total % response.page_size > 0 ? 1 : 0;
 				$("ul#page_sel").html(startPagination( total_pages , response.page));
 			}
+
+		},
+		error: function(error) {
 			$("#reviews-container").css("opacity", "1");
+			insertErrorCard(
+				$("#reviews-container"),
+				"Hubo un error de conexion.",
+				"Que verguenza... "
+			);
 		}
 	})
 }

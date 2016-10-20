@@ -11,21 +11,20 @@ body.roboto {
 	text-align:center;
 }
 .global_score_wrapper.valign-wrapper.col{
-	margin:auto auto 10px auto;
-	height:80px;
+	margin:auto;
+	height:8rem;
 	text-align:center;
-	margin-top:10px;
 }
 .global_score {
 	margin:0 auto;
 	background-color:#88b131;
-	font-size:32px;
-	padding: 15px;
+	font-size:2.3rem;
+	padding: 1rem;
 	color: rgb(235, 235, 235);
 	font-weight:lighter;
 	line-height: normal;
-	width: 65px;
-	height: 65px;
+	width: 4.5rem;
+	height: 4.5rem;
 }
 .review_count {
 	margin:auto;
@@ -33,93 +32,76 @@ body.roboto {
 }
 li.score_list_element.collection-item {
 	overflow:hidden;
-	padding:5px 10px 5px 10px;
+	padding:0.6rem 1rem 0.4rem 1rem;
 }
 li.score_list_element_header.collection-item {
 	font-weight:bold;
 	background-color: #f5f4f3;
-	padding:5px 10px 5px 20px;
+	padding: 0.4rem 1rem 0.4rem 1rem;
 	overflow:hidden;
 }
 .score_list_element .col.star_group {
-	padding-top:2px;
+	padding-top:0.1rem;
 }
 .progress.star_progress {
-	margin: 10px;
+	margin: 0.5rem;
 }
 .progress.star_progress {
 	background-color: #d4d4d4;
 }
-.progress.star_progress.five_stars .determinate {
-	background-color: #88b131;
-}
-.progress.star_progress.four_stars .determinate {
-	background-color: #99cc00;
-}
-.progress.star_progress.three_stars .determinate {
-	background-color: #ffcf02;
-}
-.progress.star_progress.two_stars .determinate {
-	background-color: #ff9f02;
-}
-.progress.star_progress.one_star .determinate {
-	background-color: #ff6f31;
-}
+
 .star_gray {
 	color:#d4d4d4;
 }
 
 a.write_review_button.waves-effect.waves-light {
-	margin:10px auto 10px auto;
-  font-size:14px;
+	margin:1rem auto 1rem auto;
+	font-size:1rem;
 }
 
 a.flight_number_link {
-	font-size: 32px;
+	font-size: 2rem;
 	color: black;
 	font-weight: lighter;
 }
 
 .opinions_header {
-	font-size: 32px;
+	font-size: 2rem;
 	color: black;
 	font-weight: lighter;
 }
-span.order_by_indication {
-	font-size: 20px;
-	color: black;
-	font-weight: lighter;
-}
-a.order_by_button.dropdown-button {
-	display:inline-block;
-	background-color:#3ca7d9;
-	color:white;
-	font-size:20px;
-	font-weight:normal;
-	margin-bottom:5px;
-}
+
 li.collection-item.score_list_element .opinion_list_item {
-	font-size:14px;
+	font-size:1.5rem;
 	color: #6b6b6b;
 }
 span.review_title {
-  font-size: 20px;
+  font-size: 1.7rem;
   font-weight: bold;
 }
 
 .error_header {
-  font-size: 20px;
+  font-size: 1.7rem;
   font-weight: bold;
 }
 a.info_breadcrumbs.breadcrumb {
-	font-size: 32px;
+	font-size: 2rem;
 	color: black;
 	font-weight: lighter;
 }
 a.info_breadcrumbs.breadcrumb::before {
-	font-size: 32px;
+	font-size: 2rem;
 	color: #a9a9a9;
 	font-weight: lighter;
+}
+a.blue-link {
+	color:#039be5;
+}
+a.blue-link:hover {
+	text-decoration: underline;
+}
+a.link {
+	cursor: pointer;
 }
 a.link:hover{
 	color: #167ac6;
@@ -132,11 +114,40 @@ a.back-link:hover{
 	text-decoration: underline;
 }
 
+button.submit-search {
+	padding: 0;
+	background: #eeeeee;
+	color: #252525;
+}
+
+button.submit-search i.search-icon {
+	line-height:normal;
+	padding:0.1rem;
+	color:white;
+}
+
+.container-fluid .row .breadcrumb-container{
+	padding:0.4rem;
+	margin: 0;
+}
+.container-fluid .row .breadcrumb-container .breadcrumb-align {
+	margin-top: 1rem;
+}
+
+#review-head {
+	padding:0.4rem;
+	margin:0;
+}
+
+.divider.review-divider {
+	margin-bottom:1rem;
+}
+
 .pagination li.page_button.active{
 	background-color: #26a69a;
 }
 .row.tools div.tool-element{
-  margin: .5em 1em;
+  margin: .5rem 1rem;
 }
 
 .row.tools div.tool-element label{
@@ -150,6 +161,89 @@ a.back-link:hover{
 .info_flight_descr {
 	font-weight: lighter;
 	font-size: 1rem;
+}
+
+.flight-info-head {
+	font-size:2rem;
+	font-weight:lighter
+}
+
+.airline-info-head {
+	font-size:2rem;
+	font-weight:lighter
+}
+
+.unimportant-star {
+	color:#d4d4d4;
+}
+
+.info-item {
+	margin-top: 0.5rem
+}
+
+.flight-info-container {
+	height:30rem;
+}
+
+.flight-info-left {
+	height:100%;
+	position:relative;
+}
+.stars {
+	text-align:center;
+}
+a.write-review-button.btn.clickable {
+	position:absolute;
+	bottom:0
+}
+
+.map-wrapper {
+	height:100%;
+}
+
+.preloader-wrapper {
+	height:100%;
+}
+
+.flight-number {
+	font-size: 2rem;
+	color: black;
+	font-weight: lighter;
+}
+
+.flight-comments {
+	margin:0.4rem auto auto auto;
+	overflow: hidden;
+}
+
+.flight-recommend {
+	font-size:1.5rem;
+	float:right;
+}
+
+.flight-recommend-yes {
+	color: green;
+}
+
+.flight-recommend-no {
+	color: red;
+}
+
+.score-collection {
+	margin:0.4rem auto auto auto;
+}
+
+li.score_list_element.score-list-head {
+	background-color: #f5f4f3;
+}
+
+.score-list-overall {
+	color: #4c4c4c;
+	font-weight: bolder;
+}
+
+.score-list-other {
+	color: #6b6b6b;
 }
 /*ESTILOS DEL AUTOCOMPLETE*/
 /*estilo css para typeahead*/
