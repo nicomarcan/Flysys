@@ -1,3 +1,8 @@
+var spanish_months = [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ];
+var spanish_months_short = [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ];
+var spanish_days = [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ];
+var spanish_days_short = [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ];
+
 var pageSize = 7 ;
 
 var mode;
@@ -18,6 +23,7 @@ var airlines;
 */
 var values=new Array();
 var nameToId={};
+var idToName={};
 /*
 * First and second flight requests
 */
@@ -60,20 +66,18 @@ $(document).ready(function(){
     d2=getUrlParameter("d2");
   }
 
-  $("#result-description").text("Vuelos de " + src + " a " + dst + " , partiendo el " + d1 + (mode=="one-way" ? "." : " y retornando el " + d2));
-
   $("#date1 .datepicker").pickadate({
-    monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-    monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
-    weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-    weekdaysShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
+    monthsFull: spanish_months,
+    monthsShort: spanish_months_short,
+    weekdaysFull: spanish_days,
+    weekdaysShort: spanish_days_short,
     today: 'Hoy',
     clear: 'Borrar',
     close: 'Cerrar',
     firstDay: 1,
     format: 'd !de mmmm !de yyyy',
     formatSubmit: 'yyyy-mm-dd' ,
-    min: true
+    min: 2
   });
 
   var date2_picker = null ;
@@ -86,10 +90,10 @@ $(document).ready(function(){
       $("#date2 > input").removeAttr("disabled");
       if(date2_picker == null){
         date2_picker = $("#date2 .datepicker").pickadate({
-          monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-          monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
-          weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-          weekdaysShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
+          monthsFull: spanish_months,
+          monthsShort: spanish_months_short,
+          weekdaysFull: spanish_days,
+          weekdaysShort: spanish_days_short,
           today: 'Hoy',
           clear: 'Borrar',
           close: 'Cerrar',
@@ -130,6 +134,9 @@ $(document).ready(function(){
         success: function(d){
           if(d.total<=d.page_size){
             fillAirportsAutocomplte(d,values,nameToId);
+            var m = mode=="one-way" ? " ida " : " ida y vuelta ";
+            $("#result-description").html("Vuelos de " + m +" desde " + idToName[src] + " hacia " + idToName[dst] +
+            ",<br/> partiendo el " + humanSpanishDate(d1) + (mode=="one-way" ? "." : " y retornando el " + humanSpanishDate(d2) +"."));
           } else {
             $.ajax({
               type: 'GET',
@@ -141,6 +148,9 @@ $(document).ready(function(){
               },
               success: function(f){
                 fillAirportsAutocomplte(f,values,nameToId);
+                var m = mode == "one-way" ? " ida " : " ida y vuelta ";
+                $("#result-description").html("Vuelos de " + m +" desde " + idToName[src] + " hacia " + idToName[dst] +
+                ",<br/> partiendo el " + humanSpanishDate(d1) + (mode=="one-way" ? "." : " y retornando el " + humanSpanishDate(d2) +"."));
                 $.ajax({
                   type: 'GET',
                   url: misc,
@@ -546,7 +556,22 @@ function initializeCollapsibles() {
     accordion : false
   });
 
-  $(".btn").click(function(event){
+  $("div.individual-result .purchase-btn.btn").click(function(event){
+    var index = $(event.target).attr("id");
+    var flights = [];
+    switch (mode) {
+      case "one-way":
+        flights[0]=s1[index];
+        break;
+      case "two-way":
+        flights[0]=s1[index.split(",")[0]];
+        flights[1]=s2[index.split(",")[1]];
+        break;
+      default:
+        return false;
+    }
+    setLocalObject("flights",flights);
+    window.location = "datos.html";
     event.stopPropagation();
   });
 
@@ -622,7 +647,7 @@ function addAirline(id_aero,name_aero){
   $('#airlines-panel').append(rendered);
 }
 
-function addOWResult(nstars,total,from,dep,ac,fn,duration,to) {
+function addOWResult(nstars,total,from,dep,ac,fn,duration,to,index) {
   total*=multiplier;
   total = Math.floor(total * 100)/100;
   var template = $('#row').html();
@@ -640,13 +665,14 @@ function addOWResult(nstars,total,from,dep,ac,fn,duration,to) {
     airline_code_1: ac,
     flight_number_1: fn ,
     duration_1: duration,
-    to_1: to
+    to_1: to,
+    index: index
   });
   $('#results').append(rendered);
 }
 
 function addTWResult(nstars,total,from,dep,ac,fn,duration,to,
-                           from1,dep1,ac1,fn1,duration1,to1) {
+                           from1,dep1,ac1,fn1,duration1,to1,index) {
   total*=multiplier;
   total = Math.floor(total * 100)/100;
   var template = $('#rtw').html();
@@ -670,7 +696,8 @@ function addTWResult(nstars,total,from,dep,ac,fn,duration,to,
     airline_code_2: ac1,
     flight_number_2: fn1 ,
     duration_2: duration1,
-    to_2: to1
+    to_2: to1,
+    index: index
   });
   $('#results').append(rendered);
 }
@@ -686,15 +713,18 @@ function addOWResultS(criterium,pageNo,pageSize){
   }
   for(var i = start; i<length && i < start + pageSize ; i++){
     var id = s1[criterium[i]].outbound_routes[0].segments[0].airline.id;
+    var d = s1[criterium[i]].outbound_routes[0].segments[0].departure.date.split(" ");
+
     addOWResult(
         owStars(id),
         s1[criterium[i]].price.total.total,
         s1[criterium[i]].outbound_routes[0].segments[0].departure.airport.id,
-        s1[criterium[i]].outbound_routes[0].segments[0].departure.date,
+        humanSpanishDate(d[0]) + "<br/>" + humanHour(d[1]),
         s1[criterium[i]].outbound_routes[0].segments[0].airline.id,
         s1[criterium[i]].outbound_routes[0].segments[0].number,
-        s1[criterium[i]].outbound_routes[0].segments[0].duration,
-        s1[criterium[i]].outbound_routes[0].segments[0].arrival.airport.id
+        "  " + s1[criterium[i]].outbound_routes[0].segments[0].duration + "  ",
+        s1[criterium[i]].outbound_routes[0].segments[0].arrival.airport.id,
+        criterium[i]
       );
   }
   return true;
@@ -710,7 +740,7 @@ function owStars(id){
       break;
     }
   }
-  return Math.floor(rep/2);
+  return Math.round(rep/2);
 }
 
 function twStars(id_1,id_2){
@@ -729,7 +759,7 @@ function twStars(id_1,id_2){
     }
   }
   var avg = (rep_1 + rep_2)/2;
-  return Math.floor(avg/2);
+  return Math.round(avg/2);
 }
 
 function presentStars(){
@@ -796,21 +826,26 @@ function addTWResultS(criterium,pageNo,pageSize){
     var id_1,id_2;
     id_1 = s1[criterium[i][0]].outbound_routes[0].segments[0].airline.id;
     id_2 = s2[criterium[i][1]].outbound_routes[0].segments[0].airline.id;
+
+    var d_1,d_2;
+    d_1 = s1[criterium[i][0]].outbound_routes[0].segments[0].departure.date.split(" ");
+    d_2 = s2[criterium[i][1]].outbound_routes[0].segments[0].departure.date.split(" ");
     addTWResult(
         twStars(id_1,id_2),
         s1[criterium[i][0]].price.total.total + s2[criterium[i][1]].price.total.total,
         s1[criterium[i][0]].outbound_routes[0].segments[0].departure.airport.id,
-        s1[criterium[i][0]].outbound_routes[0].segments[0].departure.date,
+        humanSpanishDate(d_1[0]) + "<br/>" + humanHour(d_1[1]) ,
         s1[criterium[i][0]].outbound_routes[0].segments[0].airline.id,
         s1[criterium[i][0]].outbound_routes[0].segments[0].number,
-        s1[criterium[i][0]].outbound_routes[0].segments[0].duration,
+        "  " + s1[criterium[i][0]].outbound_routes[0].segments[0].duration + "  ",
         s1[criterium[i][0]].outbound_routes[0].segments[0].arrival.airport.id,
         s2[criterium[i][1]].outbound_routes[0].segments[0].departure.airport.id,
-        s2[criterium[i][1]].outbound_routes[0].segments[0].departure.date,
+        humanSpanishDate(d_2[0]) + "<br/>" + humanHour(d_2[1]),
         s2[criterium[i][1]].outbound_routes[0].segments[0].airline.id,
         s2[criterium[i][1]].outbound_routes[0].segments[0].number,
-        s2[criterium[i][1]].outbound_routes[0].segments[0].duration,
-        s2[criterium[i][1]].outbound_routes[0].segments[0].arrival.airport.id
+        "  " + s2[criterium[i][1]].outbound_routes[0].segments[0].duration + "  ",
+        s2[criterium[i][1]].outbound_routes[0].segments[0].arrival.airport.id,
+        criterium[i]
       );
   }
   return true;
@@ -827,6 +862,7 @@ function fillAirportsAutocomplte(data,values,nameToId){
     values.push(airports[x].description);
     nameToId[airports[x].description.split(", ")[1]] = airports[x].id;
     nameToId[airports[x].description] = airports[x].id;
+    idToName[airports[x].city.id] = airports[x].description.split(", ")[1];
   }
   var blood_ciudades = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -892,4 +928,18 @@ function fillAirportsAutocomplte(data,values,nameToId){
       }
     }
     return ret;
+  }
+
+  function humanSpanishDate(date){
+    var d = date.split("-");
+    var ret = "";
+    ret+=d[2] + " de ";
+    ret+=spanish_months[d[1]-1] + " de ";
+    ret+=d[0];
+    return ret;
+  }
+  //hh:mm:ss
+  function humanHour(hour){
+    var h = hour.split(":");
+    return h[0] + ":" + h[1];
   }

@@ -121,6 +121,7 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
         $("#pais").val(countryObj[citiesObj[$(this).val()][2]]);
     }
   });
+
   actionfocusout("#tarjeta",checkNumberCard);
   actionfocusout("fecaducidad",checkDateCard);
   actionfocusout("#ccv",checkCcv);
@@ -128,10 +129,38 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
   actionfocusout("#apellido",checkName);
   actionfocusout("#postal",checkZipCode);
   actionfocusout("#calle",checkStreet);
+	actionfocusout("#callnro",checkStreetNumber);
   actionfocusout("#piso",checkFloor);
   actionfocusout("#depto",checkApartment);
   actionfocusout("#email",checkEmail);
   actionfocusout("#telefono",checkPhone);
+	actionfocusout("select",checkInstallments);
+
+
+	var cant_adultos=raiesgato(getUrlParameter("adults"));
+  var cant_chicos=raiesgato(getUrlParameter("children"));
+  var cant_infantes=raiesgato(getUrlParameter("infants"));
+
+	function raiesgato(valor){
+		if(!valor){
+			return 0;
+		}
+		return parseInt(valor);
+	}
+
+
+		$('select').material_select();
+		$(document).on("change", "input#tarjeta", function() {
+			var numero_tarjeta = $(this).val();
+			ajaxInstallments(
+				getLocalObject("flights")[0].outbound_routes[0].segments[0].id,
+				cant_adultos,
+				cant_chicos,
+				cant_infantes,
+				numero_tarjeta
+			)
+		});
+
   $("#fecaducidad").keyup(function(e){
     if(e.keyCode != 8){
           if($(this).val().length==2){
@@ -142,7 +171,6 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
           }
         }
   });
-
 
 
   function pullPayment(){
@@ -192,7 +220,7 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
     var contact=pullContact();
     setLocalObject("contact",contact);
     setLocalObject("payment",payment);
-    window.location="./detalle.html"+location.search;
+    window.location="./passengers_information.html"+location.search;
   });
    loadPayment();
 });

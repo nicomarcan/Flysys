@@ -4,7 +4,7 @@ function ajaxAirlineSearch(airlines, airlines_id) {
 			url: 'http://hci.it.itba.edu.ar/v1/api/misc.groovy',
 			jsonp: 'callback',
 			dataType: 'jsonp',
-			timeout: 1000, 
+			timeout: 1000,
 			data: {
 				method: 'getairlines'
 			},
@@ -22,7 +22,7 @@ function ajaxAirlineSearch(airlines, airlines_id) {
 					queryTokenizer: Bloodhound.tokenizers.whitespace,
 					local: ret
 				});
-				$('input#airline_search.typeahead').typeahead(
+				$('input#airline_search.typeahead, input#airlines_input.typeahead').typeahead(
 					{
 						minLength: 1,
 						highlight: true
