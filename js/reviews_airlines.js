@@ -93,7 +93,7 @@ function startPagination(pages, page) {
 	return el;
 }
 
-function ajaxAirlineInfo(params) {
+function ajaxAirlineInfo(params, airlines_id) {
 	$.ajax({
 		url: "http://hci.it.itba.edu.ar/v1/api/misc.groovy",
 		jsonp: "callback",
@@ -113,6 +113,9 @@ function ajaxAirlineInfo(params) {
 			}
 			else {
 				insertAirlineInfoCard(response.airline);
+				$('.modal-trigger').leanModal();
+				$('.airline_input.typeahead').typeahead("val", airlines_id[params["airline_id"]]).addClass("valid");
+
 			}
 		},
 		error: function(error) {
@@ -126,7 +129,7 @@ function ajaxAirlineInfo(params) {
 	});
 }
 
-function ajaxFlightInfo(params, airline_id) {
+function ajaxFlightInfo(params, airlines) {
 	$.ajax({
 		url: "http://hci.it.itba.edu.ar/v1/api/status.groovy",
 		jsonp: "callback",
@@ -146,6 +149,12 @@ function ajaxFlightInfo(params, airline_id) {
 			}
 			else {
 				insertFlightInfoCard(response);
+				$('.modal-trigger').leanModal();
+
+				$('.airline_input.typeahead').typeahead("val", airlines[params["airline_id"]]).addClass("valid");
+				$(".flight_input").val(params["flight_number"]).addClass("valid");
+				$("label.flight_input_label").addClass("active");
+
 				flight_info = response.status;
 				api_ready = true;
 				if (google_maps_ready == true) {
@@ -175,6 +184,9 @@ function isNumber(n) {
 }
 
 var airline_search_ready = $.Deferred();
+var airlines = {};
+var airlines_id = {};
+
 $(document).ready(function() {
 	var params = parseGET();
 	var options = [{
@@ -192,9 +204,9 @@ $(document).ready(function() {
 	];
 	var page = 1;
 	var op = 0;
-	var airlines = {};
-	var airlines_id = {};
+
 	/* wait for airline search */
+
 	$.when(
 		ajaxAirlineSearch(airlines, airlines_id)
 	).then(function(response, errorMsg, error) {
@@ -235,7 +247,7 @@ $(document).ready(function() {
 						$("a#flight_breadcrumb").css("visibility", "visible");
 						$("body").append("<script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDW8Zq1p2J_A1tExsMjmcov8t4b4ZAqFko&callback=initMap' \
 											type='text/javascript'></script>");
-						ajaxFlightInfo(params);
+						ajaxFlightInfo(params, airlines_id);
 					}
 					else {
 						/* searching for airline */
@@ -255,7 +267,7 @@ $(document).ready(function() {
 							pages: []
 						}
 						/* ajax airline info */
-						ajaxAirlineInfo( params );
+						ajaxAirlineInfo( params, airlines_id );
 					}
 					/* ajax airline reviews */
 					ajaxReviews(
@@ -354,4 +366,20 @@ $(document).ready(function() {
 	$(document).on('click', "a.back-link", function() {
 		history.back();
 	});
+
+	$(document).on('click', '.write_review_button', function () {
+		 for(var x = 1 ; x<7 ; x++){
+			 $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children().attr("class"," material-icons grey-text text-lighten-1 clickable");
+			  $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children().removeAttr("clicked");
+		 }
+		   $("#recommend .material-icons.clickable").removeAttr("selected");
+		   $("#recommend .material-icons.clickable").attr("class","material-icons grey-text text-lighten-1 clickable");
+			$("#review-modal #comments").val("");
+			$("#review-modal #comments").removeClass("invalid");
+		  $("#send-review").show();
+		  $("#review-form").show();
+		  $("#close-modal").hide();
+		  $("#post-review").hide();
+	});
+
 });
