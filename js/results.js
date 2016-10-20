@@ -622,7 +622,7 @@ function addAirline(id_aero,name_aero){
   $('#airlines-panel').append(rendered);
 }
 
-function addOWResult(nstars,total,from,dep,ac,fn,duration,to) {
+function addOWResult(nstars,total,from,dep,ac,fn,duration,to,index) {
   total*=multiplier;
   total = Math.floor(total * 100)/100;
   var template = $('#row').html();
@@ -640,13 +640,14 @@ function addOWResult(nstars,total,from,dep,ac,fn,duration,to) {
     airline_code_1: ac,
     flight_number_1: fn ,
     duration_1: duration,
-    to_1: to
+    to_1: to,
+    index: index
   });
   $('#results').append(rendered);
 }
 
 function addTWResult(nstars,total,from,dep,ac,fn,duration,to,
-                           from1,dep1,ac1,fn1,duration1,to1) {
+                           from1,dep1,ac1,fn1,duration1,to1,index) {
   total*=multiplier;
   total = Math.floor(total * 100)/100;
   var template = $('#rtw').html();
@@ -670,7 +671,8 @@ function addTWResult(nstars,total,from,dep,ac,fn,duration,to,
     airline_code_2: ac1,
     flight_number_2: fn1 ,
     duration_2: duration1,
-    to_2: to1
+    to_2: to1,
+    index: index
   });
   $('#results').append(rendered);
 }
@@ -694,7 +696,8 @@ function addOWResultS(criterium,pageNo,pageSize){
         s1[criterium[i]].outbound_routes[0].segments[0].airline.id,
         s1[criterium[i]].outbound_routes[0].segments[0].number,
         s1[criterium[i]].outbound_routes[0].segments[0].duration,
-        s1[criterium[i]].outbound_routes[0].segments[0].arrival.airport.id
+        s1[criterium[i]].outbound_routes[0].segments[0].arrival.airport.id,
+        criterium[i]
       );
   }
   return true;
@@ -810,7 +813,8 @@ function addTWResultS(criterium,pageNo,pageSize){
         s2[criterium[i][1]].outbound_routes[0].segments[0].airline.id,
         s2[criterium[i][1]].outbound_routes[0].segments[0].number,
         s2[criterium[i][1]].outbound_routes[0].segments[0].duration,
-        s2[criterium[i][1]].outbound_routes[0].segments[0].arrival.airport.id
+        s2[criterium[i][1]].outbound_routes[0].segments[0].arrival.airport.id,
+        criterium[i]
       );
   }
   return true;
