@@ -1,6 +1,7 @@
 function ajaxInstallments(flight_id, adults, children, infants, card_number,tag_number) {
 	$("option#installments-head-option").text("Cargando la tarjeta");
 	$("option.installment-option").remove("");
+	$("select").val(null);
 	$("select").material_select();
 		$.ajax({
 			url: "http://hci.it.itba.edu.ar/v1/api/booking.groovy",

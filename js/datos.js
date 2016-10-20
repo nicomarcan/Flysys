@@ -150,6 +150,18 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
 
 
 		$('select').material_select();
+
+		$(document).on("change", "select", function() {
+			if ($(this).val() && $(this).val() != null ) {
+				$(".select-wrapper input").css("border-bottom", "1px solid #4CAF50");
+				$(".select-wrapper input").css("box-shadow", "0 1px 0 0 #4CAF50");
+			}
+			else {
+				$("select").attr("disabled", "");
+				$("select").material_select();
+			}
+		})
+
 		$(document).on("change", "input#tarjeta", function() {
 			var numero_tarjeta = $(this).val();
 			ajaxInstallments(
