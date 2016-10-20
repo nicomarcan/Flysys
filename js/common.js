@@ -86,7 +86,13 @@ function existLocalObject(nombre){
 
 //Agrego a los chekres
 function checkNumberCard(dato){
-  var patron=/^(((34)|(37))\d{13})|^(36\d{12})|((5[1-3])\d{14})|^(4\d{12,15})/i;
+  var patron= /^(((34)|(37))\d{13})|^(36\d{12})|((5[1-3])\d{14})|^((4\d{12})|(4\d{15}))/i;
+  if(patron.test(dato) && dato.substring(0,1)=="4"){
+    if(dato.length==16 || dato.length==13 ){
+      return true;
+    }
+    return false;
+  }
   return patron.test(dato);
 }
 function checkDateCard(dato){
@@ -110,7 +116,7 @@ function checkStreet(dato){
   return patron.test(dato);
 }
 function checkStreetNumber(dato){
-  var patron=/^(\d){1,10}/i;
+  var patron=/^\d{1,10}/i;
   return patron.test(dato);
 }
 function checkFloor(dato){
@@ -289,13 +295,16 @@ function checkPassenger(tipo,num){
   }
   return flag;
 }
+function checkInstallments(dato){
+  var patron=/^\d{1,2}/i;
+  return patron.test(dato);
+}
 //fin de los chekers
 function actionfocusout(tag,funcion){
   $(tag).focusout(function(){
     if(funcion($(this).val())){
       $(this).removeClass("invalid");
       $(this).addClass("valid");
-
     }else{
         if($(this).val()==""){
           Materialize.toast("El campo es obligatorio",1000);
