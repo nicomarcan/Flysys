@@ -94,6 +94,15 @@ a.info_breadcrumbs.breadcrumb::before {
 	color: #a9a9a9;
 	font-weight: lighter;
 }
+a.blue-link {
+	color:#039be5;
+}
+a.blue-link:hover {
+	text-decoration: underline;
+}
+a.link {
+	cursor: pointer;
+}
 a.link:hover{
 	color: #167ac6;
 }

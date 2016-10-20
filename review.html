@@ -119,11 +119,11 @@
 	<script type="x-tmpl-mustache" id='airline_card_info'>
 		<div class="card-panel row">
 			<div class="col s8">
-				<div class="airline-info-head">
+				<div class="airline-info-head" title="{{name}} ({{code}})">
 					<img id="info_airline_logo" src="{{logo}}"></img>
 					<span id="info_airline_name"> {{name}}</span>
-						,&nbsp
-					<span id="info_airline_code">{{code}}</span>
+
+					<span id="info_airline_code">&nbsp;({{code}})</span>
 				</div>
 				<div class="info-item">
 					<span class="info_flight_descr"> Tarifa </span>
@@ -141,12 +141,12 @@
 						Puntaje global de la aerolinea
 					</li>
 					<li class="score_list_element collection-item">
-						<div class="valign-wrapper global_score_wrapper col s10 push-s1">
+						<div class="valign-wrapper global_score_wrapper col s10 push-s1" title="Puntaje global de la aerolinea: {{rating}}">
 							<div class="valign circle z-depth-1 global_score" id="info_global_score" style="background-color:{{rating_color}}">
 								{{rating}}
 							</div>
 						</div>
-						<div class="stars valign col s12 ">
+						<div class="stars valign col s12 " title="Puntaje global de la aerolinea: {{rating}}">
 							{{#active_stars}}
 							<i class="material-icons important-star">star</i>
 							{{/active_stars}}
@@ -156,8 +156,8 @@
 						</div>
 					</li>
 					<li class="score_list_element collection-item">
-						<a class="write_review_button waves-effect waves-light btn clickable col s10 push-s1">
-						Escribir una resena
+						<a class="write_review_button waves-effect waves-light btn clickable col s10 push-s1" title="Escribir una reseña.">
+						Escribir una reseña
 							<i class="tiny material-icons right">
 							mode_edit
 							</i>
@@ -171,13 +171,11 @@
 	<script type="x-tmpl-mustache" id="flight_info_card">
 	<div class="card-panel row">
 		<div class="col s12">
-			<div class="flight-info-head">
+			<div class="flight-info-head" title="{{name}}, {{code}}{{number}}">
 				<img id="info_airline_logo" src='{{logo}}'></img>
-				<span id="info_airline_name">{{name}}</span>
-				,&nbsp
+				<span id="info_airline_name">{{name}},</span>
 				<span id="info_airline_code">{{code}}</span>
 				<span id="info_flight_number"> {{number}}</span>
-				&nbsp&nbsp
 			 </div>
 		</div>
 		<div class="col s12 flight-info-container">
@@ -261,7 +259,7 @@
 	{{#reviews}}
 	<div class=" card-panel row hoverable clickable ">
 		<div class="col s4">
-			<div class="flight_number" >
+			<div class="flight_number" title="Número de vuelo: {{flight.airline.id}} {{flight.number}}">
 				<a class='flight_number_link link' href="./review.html?airline_id={{flight.airline.id}}&flight_number={{flight.number}}">
 					Vuelo {{flight.number}}
 				</a>
@@ -272,7 +270,7 @@
 			</div>
 		</div>
 		<div class='col s8'>
-			<div class='col s12 flight-recommend'>
+			<div class='col s12 flight-recommend' title="Vuelo recomendado">
 				{{#yes_recommend}}
 				<div class='flight-recommend flight-recommend-yes'>
 					<i class='material-icons tiny'>
@@ -282,7 +280,7 @@
 				</div>
 				{{/yes_recommend}}
 				{{^yes_recommend}}
-				<div class='flight-recommend flight-recommend-no'>
+				<div class='flight-recommend flight-recommend-no' title="Vuelo no recomendado">
 					<i class='material-icons tiny'>
 						thumb_down
 					</i>
@@ -292,79 +290,79 @@
 			</div>
 			<div class='col s12 score-collection' >
 				<ul class="collection">
-					<li class="collection-item score_list_element score-list-head" >
+					<li class="collection-item score_list_element score-list-head" title="Global: {{rating.overall}}%">
 						<div class="col s6 score-list-overall">
 							Global
 						</div>
-						<div class="col s6">
+						<div class="col s6" >
 							<div class="progress star_progress">
 								<div class="determinate" style="width:{{rating.overall}}%;background-color:{{rating.overall_color}}">
 								</div>
 							</div>
 						</div>
 					</li>
-					<li class="collection-item score_list_element">
+					<li class="collection-item score_list_element" title="Amabilidad: {{rating.friendliness}}%">
 						<div class="col s6 score-list-other" >
 							Amabilidad
 						</div>
-						<div class="col s6">
+						<div class="col s6" >
 							<div class="progress star_progress">
 								<div class="determinate" style="width:{{rating.friendliness}}%;background-color:{{rating.friendliness_color}}">
 								</div>
 							</div>
 						</div>
 					</li>
-					<li class="collection-item score_list_element">
+					<li class="collection-item score_list_element" title="Comida: {{rating.food}}%">
 						<div class="col s6 score-list-other">
 							Comida
 						</div>
-						<div class="col s6">
+						<div class="col s6" >
 							<div class="progress star_progress">
 								<div class="determinate" style="width:{{rating.food}}%;background-color:{{rating.food_color}}">
 								</div>
 							</div>
 						</div>
 					</li>
-					<li class="collection-item score_list_element">
+					<li class="collection-item score_list_element" title="Puntualidad: {{rating.punctuality}}%">
 						<div class="col s6 score-list-other">
 							Puntualidad
 						</div>
-						<div class="col s6">
+						<div class="col s6" >
 							<div class="progress star_progress">
 								<div class="determinate" style="width:{{rating.punctuality}}%;background-color:{{rating.punctuality_color}}">
 								</div>
 							</div>
 						</div>
 					</li>
-					<li class="collection-item score_list_element">
+					<li class="collection-item score_list_element" title="Programa de pasajeros frecuentes: {{rating.mileage_program}}%">
 						<div class="col s6 score-list-other">
 							Programa de pasajeros frecuentes
 						</div>
-						<div class="col s6">
+						<div class="col s6" >
 							<div class="progress star_progress">
 								<div class="determinate" style="width:{{rating.mileage_program}}%;background-color:{{rating.mileage_program_color}}">
 								</div>
 							</div>
 						</div>
 					</li>
-					<li class="collection-item score_list_element">
+					<li class="collection-item score_list_element" title="Confort: {{rating.comfort}}%">
 						<div class="col s6 score-list-other">
 							Confort
 						</div>
-						<div class="col s6">
+						<div class="col s6" >
 							<div class="progress star_progress">
 								<div class="determinate" style="width:{{rating.comfort}}%;background-color:{{rating.comfort_color}}">
 								</div>
 							</div>
 						</div>
 					</li>
-					<li class="collection-item score_list_element">
+					<li class="collection-item score_list_element" title="Relacion precio/calidad: {{rating.quality_price}}%">
 						<div class="col s6 score-list-other">
 							Relacion precio/calidad
 						</div>
-						<div class="col s6">
-							<div class="progress star_progress">
-								<div class="determinate" style="width:{{rating.quality_price}}%;background-color:{{rating.quality_price_color}}">
+						<div class="col s6" >
+							<div class="progress star_progress" >
+								<div class="determinate" style="width:{{rating.quality_price}}%;background-color:{{rating.quality_price_color}}" >
 								</div>
 							</div>
 						</div>
@@ -385,6 +383,21 @@
 			{{description}}
 			<a class="back-link">
 				Volver atras.
+			</a>
+		</div>
+	</div>
+	</script>
+
+	<script type="x-tmpl-mustache" id="not_found_card">
+	<div class="card-panel row hoverable clickable ">
+		<div class="col s12 error-header">
+			{{header}}
+		</div>
+		<div class='col s12 divider'></div>
+		<div class="col s12 error-description">
+			{{description}}
+			<a class="{{link_class}} link blue-link">
+				{{link_description}}
 			</a>
 		</div>
 	</div>

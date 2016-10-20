@@ -1,10 +1,3 @@
-function displayError(errorcode, errormsg) {
-  var errorstr = $("#error_message_"+errorcode).html();
-  var errorel = $.parseHTML(errorstr);
-  $(errorel).children(".error_description").text(errormsg);
-  return errorel;
-}
-
 color_scheme = [
   "#ff6f31",
   "#ff9f02",
@@ -73,12 +66,13 @@ function ajaxReviews(params, sort_key, sort_order, page, option) {
 			if (response.error) {
 				insertErrorCard(
 					$("#reviews-container"),
-					"Se produjo un error al cargar las opiones.",
-					"La busqueda de opiniones por aerolinea no esta andando desde la api"
+					"Se produjo un error al cargar las opiniones.",
+					""
 				);
 			}
 			else if (response.total == 0) {
-				insertErrorCard($("#reviews-container"), "No se encontraron opiniones.", "");
+				insertNotFoundCard($("#reviews-container"), "No se encontraron opiniones.", "", "Sea el primero en opinar.", "review-link");
+				/* TODO bind click to review */
 			}
 			else {
 				var reviews = response.reviews;

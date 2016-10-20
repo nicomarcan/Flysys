@@ -5,28 +5,28 @@ var countryNameToId={};
 var citiesIdtoName={};
 
 function loadPayment(){
-  if(existLocalObject("payment") && existLocalObject("contact")){
-    var lpayment=getLocalObject("payment");
-    var lcontact=getLocalObject("contact");
-    setValInput("#tarjeta",lpayment.credit_card.number);
-    setValInput("#fecaducidad",lpayment.credit_card.expiration);
-    setValInput("#ccv",lpayment.credit_card.security_code);
-    setValInput("#nombre",lpayment.credit_card.first_name);
-    setValInput("#apellido",lpayment.credit_card.last_name);
-    setValInput("#calle",lpayment.billing_address.street_name);
-    setValInput("#callnro",lpayment.billing_address.street_number);
-    setValInput("#piso",lpayment.billing_address.floor);
-    setValInput("#depto",lpayment.billing_address.apartment);
-    setValInput("#postal",lpayment.billing_address.zip_code);
-    setValInput("#ciudad",citiesIdtoName[lpayment.billing_address.city.id][0]);
-    setValInput("#provincia",lpayment.billing_address.city.state);
-    setValInput("#provincia",lpayment.billing_address.city.state);
-    setValInput("#pais",countryObj[lpayment.billing_address.city.country.id]);
-    setValInput("#email",lcontact.email);
-    setValInput("#telefono",lcontact.phones[0]);
-    return true;
-  }
-  return false;
+	if(existLocalObject("payment") && existLocalObject("contact")){
+		var lpayment=getLocalObject("payment");
+		var lcontact=getLocalObject("contact");
+		setValInput("#tarjeta",lpayment.credit_card.number);
+		setValInput("#fecaducidad",lpayment.credit_card.expiration);
+		setValInput("#ccv",lpayment.credit_card.security_code);
+		setValInput("#nombre",lpayment.credit_card.first_name);
+		setValInput("#apellido",lpayment.credit_card.last_name);
+		setValInput("#calle",lpayment.billing_address.street_name);
+		setValInput("#callnro",lpayment.billing_address.street_number);
+		setValInput("#piso",lpayment.billing_address.floor);
+		setValInput("#depto",lpayment.billing_address.apartment);
+		setValInput("#postal",lpayment.billing_address.zip_code);
+		setValInput("#ciudad",citiesIdtoName[lpayment.billing_address.city.id][0]);
+		setValInput("#provincia",lpayment.billing_address.city.state);
+		setValInput("#provincia",lpayment.billing_address.city.state);
+		setValInput("#pais",countryObj[lpayment.billing_address.city.country.id]);
+		setValInput("#email",lcontact.email);
+		setValInput("#telefono",lcontact.phones[0]);
+		return true;
+	}
+	return false;
 }
 
 
@@ -153,7 +153,7 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
   function pullPayment(){
     var paisid=citiesObj[$("#ciudad").val()][0];
     var payment={
-          installments:1, //cantidad de cuotas
+          installments:$("select#installment-options").val(), //cantidad de cuotas
           credit_card:{
             number: $("#tarjeta").val(),
             expiration: $("#fecaducidad").val().split("/")[0]+$("#fecaducidad").val().split("/")[1],

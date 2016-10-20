@@ -33,6 +33,17 @@ function insertErrorCard(container, header, description) {
 	container.append(render);
 }
 
+function insertNotFoundCard(container, header, description, link_description, link_class) {
+	var template = $("#not_found_card").html();
+	Mustache.parse(template);
+	var render = Mustache.render(template, {
+		header: header,
+		description: description,
+		link_description: link_description,
+		link_class: link_class
+	});
+	container.append(render);
+}
 function insertAirlineInfoCard(airline) {
 	var template = $("#airline_card_info").html();
 	Mustache.parse(template);
@@ -73,7 +84,7 @@ function startPagination(pages, page) {
 			el += '<li class="waves-effect page_button" value="'+ i +'"><a href="#opinion_header">'+ i +'</a></li>';
 		}
 	}
-	if (pages == 1) {
+	if (pages == 1 || pages == 0) {
 		el += '<li id="right_chevron" class=" disabled" ><a href="#opinion_header"><i class="material-icons">chevron_right</i></a></li>'
 	}
 	else {
@@ -204,7 +215,9 @@ $(document).ready(function() {
 			else{
 				/* airline is valid */
 				$("a#airline_breadcrumb").text(airlines_id[params["airline_id"]]);
+				$("a#airline_breadcrumb").attr("title", airlines_id[params["airline_id"]])
 				$("a#airline_breadcrumb").attr("href","./review.html?airline_id="+params["airline_id"]);
+
 				if (params["flight_number"] && !(isNumber(params["flight_number"]) && params["flight_number"] === parseInt(params["flight_number"]).toString())) {
 					/* wrong flight number */
 					insertErrorCard(
@@ -218,6 +231,7 @@ $(document).ready(function() {
 					if (params["flight_number"]) {
 						/* searching for a specific flight */
 						$("a#flight_breadcrumb").text("Vuelo " + params["flight_number"]);
+						$("a#flight_breadcrumb").attr("title", "Vuelo " + params["flight_number"]);
 						$("a#flight_breadcrumb").css("visibility", "visible");
 						$("body").append("<script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDW8Zq1p2J_A1tExsMjmcov8t4b4ZAqFko&callback=initMap' \
 											type='text/javascript'></script>");
