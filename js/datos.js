@@ -121,6 +121,7 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
         $("#pais").val(countryObj[citiesObj[$(this).val()][2]]);
     }
   });
+
   actionfocusout("#tarjeta",checkNumberCard);
   actionfocusout("fecaducidad",checkDateCard);
   actionfocusout("#ccv",checkCcv);
@@ -132,6 +133,7 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
   actionfocusout("#depto",checkApartment);
   actionfocusout("#email",checkEmail);
   actionfocusout("#telefono",checkPhone);
+	actionfocusout("select",checkInstallments);
   $("#fecaducidad").keyup(function(e){
     if(e.keyCode != 8){
           if($(this).val().length==2){

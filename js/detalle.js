@@ -38,7 +38,7 @@ function addFlight(){
       id_vuelo: vuelo.outbound_routes[0].segments[0].id,
       fecha_vuelo: vuelo.outbound_routes[0].segments[0].arrival.date,
       hora_sal_vuelo: vuelo.outbound_routes[0].segments[0].arrival.date,
-      hora_lle_vuelo: vuelo.outbound_routes[0].segments[0].arrival.date,
+      hora_lle_vuelo: vuelo.outbound_routes[0].segments[0].departure.date,
       origen_vuelo: vuelo.outbound_routes[0].segments[0].arrival.airport.city.name,
       destino_vuelo: vuelo.outbound_routes[0].segments[0].departure.airport.city.name,
       precio_adulto_vuelo: vuelo.price.adults.base_fare,
