@@ -3,6 +3,8 @@ var citiesObj = {};
 var countryObj={};
 var countryNameToId={};
 var citiesIdtoName={};
+var passengersList=[];
+var passengersDict={};
 
 $(document).ready(function(){
 
@@ -62,7 +64,7 @@ function getCities(data){
               source: ciudades,
           }
   );
-  };
+}
 
   function addPassager(nombre,num) {
     var template = $('#pasajero_form').html();
@@ -98,9 +100,11 @@ function getCities(data){
             $(this).val($(this).val()+"/");
           }
           if(e.keyCode==111 && ($(this).val().length==4 || $(this).val().length==7)){
-          $(this).val($(this).val().substring(0,$(this).val().length-1))
+              $(this).val($(this).val().substring(0,$(this).val().length-1))
         }
+      }
       });
+
       var patron=/\w{2}\/\w{2}\/\w{4}/i;
       if(nombre=="infante"){
         $("#nacimiento"+nim).focusout(function(){
@@ -136,6 +140,7 @@ function getCities(data){
   }
 
 
+
   var cant_adultos=parseInt(getUrlParameter("adults"));
   var cant_chicos=parseInt(getUrlParameter("children"));
   var cant_infantes=parseInt(getUrlParameter("infants"));
@@ -167,6 +172,25 @@ function getCities(data){
     return passeger;
   }
 
+  function loadPassenger(nombre,psso){
+    var string_nombre=nombre;
+    setValInput("#nacimiento"+string_nombre,humanDate(psso.birthdate));
+    setValInput("#nombre"+string_nombre,psso.first_name);
+    setValInput("#apellido"+string_nombre,psso.last_name);
+    setValInput("#pasaporte"+string_nombre,psso.id_number);
+    setValInput("select#tipo_id"+string_nombre,psso.id_type);
+  }
+
+  if(existLocalObject("passengersDict")){
+    var valores=getLocalObject("passengersList");
+    passengersDict=getLocalObject("passengersDict");
+    for (var i = 0; i < valores.length; i++) {
+      var cache=passengersDict[valores[i]];
+      loadPassenger(valores[i],cache);
+    }
+  }
+
+
 
   $("#continuar").click(function(){
     var failedSend=false;
@@ -174,7 +198,10 @@ function getCities(data){
     for (var i = 0; i < cant_infantes; i++) {
       var numero_actual=cant_infantes - i
       if(checkPassenger("infante",numero_actual)){
-        passengers.push(pullPassenger("infante",numero_actual));
+        var cache=pullPassenger("infante",numero_actual);
+        passengers.push(cache);
+        passengersList.push("infante"+numero_actual);
+        passengersDict["infante"+numero_actual]=cache;
       }else{
         failedSend=true;
       }
@@ -182,7 +209,10 @@ function getCities(data){
     for (var i = 0; i < cant_chicos; i++) {
       var numero_actual=cant_chicos - i
       if(checkPassenger("chico",numero_actual)){
+        var cache=pullPassenger("chico",numero_actual);
         passengers.push(pullPassenger("chico",numero_actual));
+        passengersList.push("chico"+numero_actual);
+        passengersDict["chico"+numero_actual]=cache;
       }else{
         failedSend=true;
       }
@@ -190,14 +220,20 @@ function getCities(data){
     for (var i = 0; i < cant_adultos; i++) {
       var numero_actual=cant_adultos - i
       if(checkPassenger("adulto",numero_actual)){
+        var cache=pullPassenger("adulto",numero_actual);
         passengers.push(pullPassenger("adulto",numero_actual));
+        passengersList.push("adulto"+numero_actual);
+        passengersDict["adulto"+numero_actual]=cache;
       }else{
         failedSend=true;
       }
     }
     if(failedSend){
+      passengers=[];
       return;
     }
+    setLocalObject("passengersDict",passengersDict);
+    setLocalObject("passengersList",passengersList);
     setLocalObject("passengers",passengers);
     window.location="./datos.html"+location.search;
   });

@@ -9,7 +9,7 @@ function loadPayment(){
     var lpayment=getLocalObject("payment");
     var lcontact=getLocalObject("contact");
     setValInput("#tarjeta",lpayment.credit_card.number);
-    setValInput("#fecaducidad",lpayment.credit_card.expiration);
+    setValInput("#fecaducidad",humanExpirationDate(lpayment.credit_card.expiration));
     setValInput("#ccv",lpayment.credit_card.security_code);
     setValInput("#nombre",lpayment.credit_card.first_name);
     setValInput("#apellido",lpayment.credit_card.last_name);

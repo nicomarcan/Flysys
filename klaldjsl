@@ -1,0 +1,205 @@
+[1mdiff --git a/datos.html b/datos.html[m
+[1mindex 90f853d..9df0317 100644[m
+[1m--- a/datos.html[m
+[1m+++ b/datos.html[m
+[36m@@ -40,9 +40,6 @@[m
+ [m
+ 			<div class="row">[m
+ [m
+[31m-				<div class="col s8">[m
+[31m-					<h5>Informacion de la tarjeta</h5>[m
+[31m-				</div>[m
+ 			</div>[m
+ [m
+             <div class="row">[m
+[1mdiff --git a/detalle.html b/detalle.html[m
+[1mindex fe84b23..07733fb 100644[m
+[1m--- a/detalle.html[m
+[1m+++ b/detalle.html[m
+[36m@@ -37,9 +37,14 @@[m
+ 				<div class="card-panel row " id="facturacion">[m
+ [m
+ 					<div class="row">[m
+[31m-[m
+ 							<a class="waves-effect waves-light btn valign center" id="confirmar">CONFIRMAR</a>[m
+ 					</div>[m
+[32m+[m					[32m<div class="row">[m
+[32m+[m							[32m<a class="waves-effect waves-light btn valign center" id="modificar_pago">MOD PAGO</a>[m
+[32m+[m					[32m</div>[m
+[32m+[m					[32m<div class="row">[m
+[32m+[m							[32m<a class="waves-effect waves-light btn valign center" id="modificar_pasa">MOD PASAJRS</a>[m
+[32m+[m					[32m</div>[m
+ 				</div>[m
+ 			</div>[m
+ 		</div>[m
+[1mdiff --git a/js/common.js b/js/common.js[m
+[1mindex cc1fb99..cdd7284 100644[m
+[1m--- a/js/common.js[m
+[1m+++ b/js/common.js[m
+[36m@@ -312,3 +312,9 @@[m [mfunction humanDate(fecha){[m
+   var partidof=fecha.split("-");[m
+   return partidof[2]+"/"+partidof[1]+"/"+partidof[0][m
+ }[m
+[32m+[m
+[32m+[m[32mfunction humanExpirationDate(fecha){[m
+[32m+[m[32m  var alfa=fecha.substring(0,2);[m
+[32m+[m[32m  var beta=fecha.substring(2,4);[m
+[32m+[m[32m  return alfa+"/"+beta;[m
+[32m+[m[32m}[m
+[1mdiff --git a/js/datos.js b/js/datos.js[m
+[1mindex 706b802..f384559 100644[m
+[1m--- a/js/datos.js[m
+[1m+++ b/js/datos.js[m
+[36m@@ -9,7 +9,7 @@[m [mfunction loadPayment(){[m
+     var lpayment=getLocalObject("payment");[m
+     var lcontact=getLocalObject("contact");[m
+     setValInput("#tarjeta",lpayment.credit_card.number);[m
+[31m-    setValInput("#fecaducidad",lpayment.credit_card.expiration);[m
+[32m+[m[32m    setValInput("#fecaducidad",humanExpirationDate(lpayment.credit_card.expiration));[m
+     setValInput("#ccv",lpayment.credit_card.security_code);[m
+     setValInput("#nombre",lpayment.credit_card.first_name);[m
+     setValInput("#apellido",lpayment.credit_card.last_name);[m
+[1mdiff --git a/js/detalle.js b/js/detalle.js[m
+[1mindex 19b14b7..ff12fb7 100644[m
+[1m--- a/js/detalle.js[m
+[1m+++ b/js/detalle.js[m
+[36m@@ -89,8 +89,12 @@[m [m$(document).ready(function(){[m
+   }[m
+   $("#confirmar").click(function(){[m
+       fajax("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight2",{booking: JSON.stringify(final)},finalizado,undefined);[m
+[32m+[m[32m      finalizado();[m
+   });[m
+[31m-  $("#modificar").click(function(){[m
+[32m+[m[32m  $("#modificar_pago").click(function(){[m
+      window.location="./datos.html"+location.search;[m
+   })[m
+[32m+[m[32m  $("#modificar_pasa").click(function(){[m
+[32m+[m[32m     window.location="./passengers_information.html"+location.search;[m
+[32m+[m[32m  })[m
+ });[m
+[1mdiff --git a/js/passenger_information.js b/js/passenger_information.js[m
+[1mindex d93a9bd..c5d17d9 100644[m
+[1m--- a/js/passenger_information.js[m
+[1m+++ b/js/passenger_information.js[m
+[36m@@ -3,6 +3,8 @@[m [mvar citiesObj = {};[m
+ var countryObj={};[m
+ var countryNameToId={};[m
+ var citiesIdtoName={};[m
+[32m+[m[32mvar passengersList=[];[m
+[32m+[m[32mvar passengersDict={};[m
+ [m
+ $(document).ready(function(){[m
+ [m
+[36m@@ -62,7 +64,7 @@[m [mfunction getCities(data){[m
+               source: ciudades,[m
+           }[m
+   );[m
+[31m-  };[m
+[32m+[m[32m}[m
+ [m
+   function addPassager(nombre,num) {[m
+     var template = $('#pasajero_form').html();[m
+[36m@@ -98,9 +100,11 @@[m [mfunction getCities(data){[m
+             $(this).val($(this).val()+"/");[m
+           }[m
+           if(e.keyCode==111 && ($(this).val().length==4 || $(this).val().length==7)){[m
+[31m-          $(this).val($(this).val().substring(0,$(this).val().length-1))[m
+[32m+[m[32m              $(this).val($(this).val().substring(0,$(this).val().length-1))[m
+         }[m
+[32m+[m[32m      }[m
+       });[m
+[32m+[m
+       var patron=/\w{2}\/\w{2}\/\w{4}/i;[m
+       if(nombre=="infante"){[m
+         $("#nacimiento"+nim).focusout(function(){[m
+[36m@@ -136,6 +140,7 @@[m [mfunction getCities(data){[m
+   }[m
+ [m
+ [m
+[32m+[m
+   var cant_adultos=parseInt(getUrlParameter("adults"));[m
+   var cant_chicos=parseInt(getUrlParameter("children"));[m
+   var cant_infantes=parseInt(getUrlParameter("infants"));[m
+[36m@@ -167,6 +172,25 @@[m [mfunction getCities(data){[m
+     return passeger;[m
+   }[m
+ [m
+[32m+[m[32m  function loadPassenger(nombre,psso){[m
+[32m+[m[32m    var string_nombre=nombre;[m
+[32m+[m[32m    setValInput("#nacimiento"+string_nombre,humanDate(psso.birthdate));[m
+[32m+[m[32m    setValInput("#nombre"+string_nombre,psso.first_name);[m
+[32m+[m[32m    setValInput("#apellido"+string_nombre,psso.last_name);[m
+[32m+[m[32m    setValInput("#pasaporte"+string_nombre,psso.id_number);[m
+[32m+[m[32m    setValInput("select#tipo_id"+string_nombre,psso.id_type);[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  if(existLocalObject("passengersDict")){[m
+[32m+[m[32m    var valores=getLocalObject("passengersList");[m
+[32m+[m[32m    passengersDict=getLocalObject("passengersDict");[m
+[32m+[m[32m    for (var i = 0; i < valores.length; i++) {[m
+[32m+[m[32m      var cache=passengersDict[valores[i]];[m
+[32m+[m[32m      loadPassenger(valores[i],cache);[m
+[32m+[m[32m    }[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m
+ [m
+   $("#continuar").click(function(){[m
+     var failedSend=false;[m
+[36m@@ -174,7 +198,10 @@[m [mfunction getCities(data){[m
+     for (var i = 0; i < cant_infantes; i++) {[m
+       var numero_actual=cant_infantes - i[m
+       if(checkPassenger("infante",numero_actual)){[m
+[31m-        passengers.push(pullPassenger("infante",numero_actual));[m
+[32m+[m[32m        var cache=pullPassenger("infante",numero_actual);[m
+[32m+[m[32m        passengers.push(cache);[m
+[32m+[m[32m        passengersList.push("infante"+numero_actual);[m
+[32m+[m[32m        passengersDict["infante"+numero_actual]=cache;[m
+       }else{[m
+         failedSend=true;[m
+       }[m
+[36m@@ -182,7 +209,10 @@[m [mfunction getCities(data){[m
+     for (var i = 0; i < cant_chicos; i++) {[m
+       var numero_actual=cant_chicos - i[m
+       if(checkPassenger("chico",numero_actual)){[m
+[32m+[m[32m        var cache=pullPassenger("chico",numero_actual);[m
+         passengers.push(pullPassenger("chico",numero_actual));[m
+[32m+[m[32m        passengersList.push("chico"+numero_actual);[m
+[32m+[m[32m        passengersDict["chico"+numero_actual]=cache;[m
+       }else{[m
+         failedSend=true;[m
+       }[m
+[36m@@ -190,14 +220,20 @@[m [mfunction getCities(data){[m
+     for (var i = 0; i < cant_adultos; i++) {[m
+       var numero_actual=cant_adultos - i[m
+       if(checkPassenger("adulto",numero_actual)){[m
+[32m+[m[32m        var cache=pullPassenger("adulto",numero_actual);[m
+         passengers.push(pullPassenger("adulto",numero_actual));[m
+[32m+[m[32m        passengersList.push("adulto"+numero_actual);[m
+[32m+[m[32m        passengersDict["adulto"+numero_actual]=cache;[m
+       }else{[m
+         failedSend=true;[m
+       }[m
+     }[m
+     if(failedSend){[m
+[32m+[m[32m      passengers=[];[m
+       return;[m
+     }[m
+[32m+[m[32m    setLocalObject("passengersDict",passengersDict);[m
+[32m+[m[32m    setLocalObject("passengersList",passengersList);[m
+     setLocalObject("passengers",passengers);[m
+     window.location="./datos.html"+location.search;[m
+   });[m
+[1mdiff --git a/passengers_information.html b/passengers_information.html[m
+[1mindex 66e4430..586b9a0 100644[m
+[1m--- a/passengers_information.html[m
+[1m+++ b/passengers_information.html[m
+[36m@@ -44,7 +44,7 @@[m
+ [m
+             <div class="row">[m
+               <div class="input-field col offset-s10">[m
+[31m-                    <a class="waves-effect waves-light btn valign col offset-s10" id="continuar">CONTINUAR</a>[m
+[32m+[m[32m                    <a class="waves-effect waves-light btn valign col " id="continuar">CONTINUAR</a>[m
+ [m
+ 						</div></div></div></div></div>[m
+ [m
