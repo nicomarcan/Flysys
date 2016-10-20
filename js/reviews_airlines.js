@@ -270,38 +270,50 @@ $(document).ready(function() {
 						ajaxAirlineInfo( params, airlines_id );
 					}
 					/* ajax airline reviews */
-					ajaxReviews(
-						params,
-						options[op].sort_key,
-						options[op].sort_order,
-						page,
-						options[op]
-					);
+					$.when(
+						ajaxReviews(
+							params,
+							options[op].sort_key,
+							options[op].sort_order,
+							page,
+							options[op]
+					)).then( function (response) {
+						$("#paginate").materializePagination({
+			                firstPage: page,
+			                lastPage: parseInt(response.total / response.page_size) + 1,
+			                urlParameter: '#opinion_header',
+			                align: "center",
+			                useUrlParameter: false,
+			                onClickCallback: function() {
+			                    $("#paginate ul.pagination li").each(function() {
+			                        if ($(this).hasClass("changed")) {
+			                            return;
+			                        }
+			                        var pnum;
+			                        pnum = $(this).html();
+			                        $(this).html("<a href='#opinion_header'>"+ pnum +"</a>");
+			                        $(this).addClass("page_button");
+			                        $(this).addClass("changed");
+			                    })
+			                }
+			            });
+						$("#paginate ul.pagination li").each(function() {
+			                var pnum = $(this).html();
+			                $(this).html("<a href='#opinion_header'>"+ pnum +"</a>");
+			                $(this).addClass("changed").addClass("page_button");
+			            })
+					});
 				}
 			}
 		}
 	});
 
 	$(document).on("click", "li.page_button", function(){
-		var auxpage = parseInt($(this).attr('value'));
+		var auxpage = parseInt($(this).attr('data-page'));
 		if (auxpage == page) {
 			return false;
 		}
 		page = auxpage;
-		$("li.page_button.active").removeClass('active');
-		$(this).addClass("active");
-		if (page == 1) {
-			$("li#left_chevron").addClass("disabled");
-		}
-		else {
-			$("li#left_chevron").removeClass("disabled")
-		}
-		if (page == total_pages) {
-			$("li#right_chevron").addClass("disabled");
-		}
-		else {
-			$("li#right_chevron").removeClass("disabled");
-		}
 		if (options[op].pages[page]) {
 			loadReviews(options[op].pages[page]);
 		}
@@ -341,6 +353,7 @@ $(document).ready(function() {
 		op = $(this).children('option.order_option:selected').attr('value');
 		page = 1;
 		$("li.page_button.active").removeClass('active');
+
 		$("li.page_button[value="+page+"]").addClass('active');
 		$("li#left_chevron").addClass("disabled");
 		if (total_pages == 1) {
@@ -353,13 +366,16 @@ $(document).ready(function() {
 			loadReviews(options[op].pages[page])
 		}
 		else {
-			ajaxReviews(
-				params,
-				options[op].sort_key,
-				options[op].sort_order,
-				page,
-				options[op]
-			);
+			$.when(
+				ajaxReviews(
+					params,
+					options[op].sort_key,
+					options[op].sort_order,
+					page,
+					options[op]
+			)).then( function() {
+				$("li.page_button[data-page = 1]").click();
+			});
 		}
 		return true;
 	});

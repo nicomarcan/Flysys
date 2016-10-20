@@ -56,7 +56,7 @@ function ajaxReviews(params, sort_key, sort_order, page, option) {
 	if (params["flight_number"]) {
 	data["flight_number"] = params["flight_number"];
 	}
-	$.ajax({
+	return $.ajax({
 		url: "http://hci.it.itba.edu.ar/v1/api/review.groovy",
 		jsonp: "callback",
 		dataType: "jsonp",
@@ -87,12 +87,6 @@ function ajaxReviews(params, sort_key, sort_order, page, option) {
 				insertReviewCards(reviews);
 			}
 			option.pages[page] = response.reviews;
-			if ($("ul#page_sel").html() == false) {
-				total_pages = parseInt(response.total / response.page_size);
-		        total_pages += response.total % response.page_size > 0 ? 1 : 0;
-				$("ul#page_sel").html(startPagination( total_pages , response.page));
-			}
-
 		},
 		error: function(error) {
 			$("#reviews-container").css("opacity", "1");
