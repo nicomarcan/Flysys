@@ -648,21 +648,19 @@ $(document).ready(function(){
 			var infants= $('#passenger_two #infants_val_two').text();
 			var url= "results.html?"+"mode=two-way&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1+"&d2="+d2;
 			console.log(url);
-			if(src!=undefined && dst!=undefined && $('#departing_two input[name=_submit]').val()!="" &&  $('#returning input[name=_submit]').val()!="")
+			if(src!=undefined && dst!=undefined && d1!="" &&  d2!="")
 				window.location=url;
 			else{
 				$('#from_input_two').blur();
 				checkEmpty($('#from_input_two'));
 				$('#to_input_two').blur();
 				checkEmpty($('#to_input_two'));
-				$('#departing_two input ').blur();
-				$('#returning input ').blur();
-				/*if($('#returning input[name=_submit]').val()==""){
-					Materialize.toast("Ingrese una fecha de regreso",2500);
+				if(d2==""){
+					showError($('#returning input '));
 				}
-				if($('#departing_two input[name=_submit]').val()==""){
-					Materialize.toast("Ingrese una fecha de partida",2500);
-				}*/
+				if(d1==""){
+					showError($('#departing_two input '));
+				}
 			}
 		});
 
@@ -677,17 +675,16 @@ $(document).ready(function(){
 			var infants= $('#passenger  #infants_val').text();
 			var url= "results.html?"+"mode=one-way&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1;
 			console.log(url);
-			if(src!=undefined && dst!=undefined && $('#departing input[name=_submit]').val()!="")
+			if(src!=undefined && dst!=undefined && d1!="")
 				window.location=url;
 			else{
 				$('#from_input').blur();
 				checkEmpty($('#from_input'));
 				$('#to_input').blur();
 				checkEmpty($('#to_input'));
-				$('#departing input ').blur();
-				/*if($('#departing input[name=_submit]').val()==""){
-					Materialize.toast("Ingrese una fecha de partida",2500);
-				}*/
+				if(d1==""){
+					showError($('#departing input '));
+				}
 			}
 		});
 
