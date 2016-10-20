@@ -10,7 +10,7 @@ function loadPayment(){
 		var lpayment=getLocalObject("payment");
 		var lcontact=getLocalObject("contact");
 		setValInput("#tarjeta",lpayment.credit_card.number);
-		setValInput("#fecaducidad",lpayment.credit_card.expiration);
+		setValInput("#fecaducidad",humanExpirationDate(lpayment.credit_card.expiration));
 		setValInput("#ccv",lpayment.credit_card.security_code);
 		setValInput("#nombre",lpayment.credit_card.first_name);
 		setValInput("#apellido",lpayment.credit_card.last_name);
@@ -19,7 +19,7 @@ function loadPayment(){
 		setValInput("#piso",lpayment.billing_address.floor);
 		setValInput("#depto",lpayment.billing_address.apartment);
 		setValInput("#postal",lpayment.billing_address.zip_code);
-		setValInput("#ciudad",citiesIdtoName[lpayment.billing_address.city.id][0]);
+		setValInput("#ciudad",lpayment.billing_address.city.name);
 		setValInput("#provincia",lpayment.billing_address.city.state);
 		setValInput("#provincia",lpayment.billing_address.city.state);
 		setValInput("#pais",countryObj[lpayment.billing_address.city.country.id]);
@@ -97,14 +97,8 @@ function getCities(data){
 function networkError(){
   Materialize.toast("Error en la conexion con el servidor",5000)
 }
-// setLocalObject("citiesObj",citiesObj);
-// setLocalObject("citiesIdtoName",citiesIdtoName);
-if(existLocalObject("citiesObj")&&existLocalObject("citiesIdtoName")){
-  citiesObj=getLocalObject("citiesObj");
-  citiesIdtoName=getLocalObject("citiesIdtoName");
-}else{
-  fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities&page_size=300",undefined,getCities,networkError);
-}
+fajax("http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities&page_size=300",undefined,getCities,networkError);
+
 
 if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
   countryObj=getLocalObject("countryObj");
@@ -165,6 +159,7 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
           billing_address:{
             city:{
               id: citiesObj[$("#ciudad").val()][0],
+							name: $("#ciudad").val(),
               state: $("#provincia").val(),
               country:{
                 id: countryNameToId[$("#pais").val()]
