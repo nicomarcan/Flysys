@@ -1,4 +1,4 @@
-
+//TODO: cambiar los attr("class") por removeClass("")
 $(document).ready(function(){
 	
 
@@ -293,7 +293,7 @@ $(document).ready(function(){
 
 			var stars_before= $(this).prevAll();
 			var stars_next= $(this).nextAll();
-			$(this).attr("class"," material-icons");
+			$(this).attr("class"," material-icons clickable");
 			stars_before.attr("class"," material-icons clickable");
 			stars_next.attr("class"," material-icons grey-text text-lighten-1 clickable");
 
@@ -458,7 +458,7 @@ $(document).ready(function(){
 
 		$(".minus").on('click',function(){
 			var number = Number($(this).next().text());
-			if($(this).parent().attr("id")=="adults" ||$(this).parent().attr("id")=="adults_two"){
+			if($(this).prev().attr("id")=="adults" ||$(this).prev().attr("id")=="adults_two"){
 				if(number > 1){
 					$(this).next().text(number-1);
 				}
@@ -606,7 +606,7 @@ $(document).ready(function(){
            $("#recommend .material-icons.clickable").removeAttr("selected");
            $("#recommend .material-icons.clickable").attr("class","material-icons grey-text text-lighten-1 clickable");
 			$("#review-modal #comments").val("");
-			$("#review-modal #comments").blur();
+			$("#review-modal #comments").removeClass("invalid");
 			  $("#send-review").show();
 			  $("#review-form").show();
 			  $("#close-modal").hide();
