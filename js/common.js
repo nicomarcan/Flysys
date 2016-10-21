@@ -85,15 +85,20 @@ function existLocalObject(nombre){
 }
 
 //Agrego a los chekres
-function checkNumberCard(dato){
+function checkNumberCard(dato, trigger){
   var patron= /^(((34)|(37))\d{13})|^(36\d{12})|((5[1-3])\d{14})|^((4\d{12})|(4\d{15}))/i;
   if(patron.test(dato) && dato.substring(0,1)=="4"){
     if(dato.length==16 || dato.length==13 ){
       return true;
     }
+	removeInstallmentsOptions();
     return false;
   }
-  return patron.test(dato);
+  if (patron.test(dato)) {
+	  return true;
+  }
+  removeInstallmentsOptions();
+  return false;
 }
 function checkDateCard(dato){
   var patron=/^((3\d)|([0-2][0-9]))\/\d{2}/i;
@@ -214,7 +219,7 @@ function checkBirthDateChildren(dato){
 
 function checkPayment(){
   var flag=true;
-  if(!checkNumberCard($("#tarjeta").val())){
+  if(!checkNumberCard($("#tarjeta").val(), function(){})){
     $("#tarjeta").addClass("invalid");
     flag=false;
   }
@@ -266,6 +271,12 @@ function checkPayment(){
     $("#telefono").addClass("invalid");
     flag=false;
   }
+  $("select").each( function() {
+	  if (!$(this).val() || $(this).val() == "") {
+		  setSelectError($(this));
+		  flag = false;
+	  }
+  })
   return flag
   ;
 }
@@ -300,11 +311,14 @@ function checkInstallments(dato){
   return patron.test(dato);
 }
 //fin de los chekers
-function actionfocusout(tag,funcion){
+function actionfocusout(tag,funcion, trigger){
   $(tag).focusout(function(){
     if(funcion($(this).val())){
       $(this).removeClass("invalid");
       $(this).addClass("valid");
+	  if (trigger) {
+		  trigger($(this).val());
+	  }
     }else{
         if($(this).val()==""){
           Materialize.toast("El campo es obligatorio",1000);

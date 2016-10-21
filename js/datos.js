@@ -30,10 +30,60 @@ function loadPayment(){
 	return false;
 }
 
+function raiesgato(valor){
+	if(!valor){
+		return 0;
+	}
+	return parseInt(valor);
+}
 
+function setSelectError(selector) {
+	selector.parent().children(".select-wrapper input").css("border-bottom", "1px solid #F44336");
+	selector.parent().children(".select-wrapper input").css("box-shadow", "0 1px 0 0 #F44336");
+}
+
+function removeInstallmentsOptions() {
+	$("select option.installment-option").remove();
+	$("select").attr("disabled", "");
+	$("select").material_select();
+}
+
+function triggerInstallmentsAjax(card_number) {
+	var flights = getLocalObject("flights");
+	var flight_q = flights.length;
+	var cant_adultos=raiesgato(getUrlParameter("adults"));
+  var cant_chicos=raiesgato(getUrlParameter("children"));
+  var cant_infantes=raiesgato(getUrlParameter("infants"));
+
+
+	for (var i = 0; i < flight_q; i++) {
+		ajaxInstallments(
+			flights[i].outbound_routes[0].segments[0].id,
+			cant_adultos,
+			cant_chicos,
+			cant_infantes,
+			card_number,
+			$("select#installment-options-"+(i+1))
+		)
+	}
+}
 
 
 $(document).ready(function(){
+	var flights = getLocalObject("flights");
+	var flight_q = 0;
+	if (flights && flights.length > 0) {
+		flight_q = flights.length;
+		if (flight_q == 1) {
+			/* truchada para ida || ida y vuelta */
+			$("select#installment-options-2").remove();
+			$("select#installment-options-1").removeClass("s6").addClass("s12");
+			$("select").material_select();
+		}
+		else {
+			$("select").material_select();
+		}
+	}
 
 function getCountries(data){
   var paises = data.countries;
@@ -122,7 +172,7 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
     }
   });
 
-  actionfocusout("#tarjeta",checkNumberCard);
+  actionfocusout("#tarjeta",checkNumberCard, triggerInstallmentsAjax);
   actionfocusout("fecaducidad",checkDateCard);
   actionfocusout("#ccv",checkCcv);
   actionfocusout("#nombre",checkName);
@@ -137,63 +187,20 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
 	actionfocusout("select",checkInstallments);
 
 
-	var cant_adultos=raiesgato(getUrlParameter("adults"));
-  var cant_chicos=raiesgato(getUrlParameter("children"));
-  var cant_infantes=raiesgato(getUrlParameter("infants"));
 
-	function raiesgato(valor){
-		if(!valor){
-			return 0;
+
+	$(document).on("change", "select", function() {
+		if ($(this).val() && $(this).val() != null ) {
+			$(this).parent().children(".select-wrapper input").css("border-bottom", "1px solid #4CAF50");
+			$(this).parent().children(".select-wrapper input").css("box-shadow", "0 1px 0 0 #4CAF50");
 		}
-		return parseInt(valor);
-	}
-
-
-		$('select').material_select();
-
-		$(document).on("change", "select", function() {
-			if ($(this).val() && $(this).val() != null ) {
-				$(this).parent().children(".select-wrapper input").css("border-bottom", "1px solid #4CAF50");
-				$(this).parent().children(".select-wrapper input").css("box-shadow", "0 1px 0 0 #4CAF50");
-			}
-			else {
-				$("select").attr("disabled", "");
-				$("select").material_select();
-			}
-		})
-
-		var flights = getLocalObject("flights");
-		var flight_q = 0;
-		if (flights && flights.length > 0) {
-			flight_q = flights.length;
-			if (flight_q == 1) {
-				$("select#installment-options-2").parent().remove();
-				$("select#installment-options-1").removeClass("s6").addClass("s12");
-				$("select").material_select();
-			}
-
-			$(document).on("change", "input#tarjeta", function() {
-				var numero_tarjeta = $(this).val();
-				ajaxInstallments(
-					flights[0].outbound_routes[0].segments[0].id,
-					cant_adultos,
-					cant_chicos,
-					cant_infantes,
-					numero_tarjeta,
-					$("select#installment-options-1")
-				)
-				if (flight_q > 1) {
-					ajaxInstallments(
-						flights[1].outbound_routes[0].segments[0].id,
-						cant_adultos,
-						cant_chicos,
-						cant_infantes,
-						numero_tarjeta,
-						$("select#installment-options-2")
-					)
-				}
-			});
+		else {
+			$("select").attr("disabled", "");
+			$("select").material_select();
 		}
+	})
+
+
 
   $("#fecaducidad").keyup(function(e){
     if(e.keyCode != 8){
