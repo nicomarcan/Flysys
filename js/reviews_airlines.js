@@ -299,7 +299,8 @@ $(document).ready(function() {
 			            });
 						$("#paginate ul.pagination li").each(function() {
 			                var pnum = $(this).html();
-			                $(this).html("<a href='#opinion_header'>"+ pnum +"</a>");
+							var op_class = (pnum == "...")? "" : "href='#opinion_header'";
+			                $(this).html("<a "+op_class+">"+ pnum +"</a>");
 			                $(this).addClass("changed").addClass("page_button");
 			            })
 					});
