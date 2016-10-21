@@ -97,24 +97,37 @@
                     </li>
 
                     <li class="input-field  " id="passenger_two" >
-            					     <!-- Dropdown Trigger -->
                            <i class="material-icons prefix " id="open-button-two"  >perm_identity</i>
-            						   <a class='dropdown-button waves-light btn-flat'  href='#' data-activates="dropdown2" id="passengers_two" > Pasajeros</a>
+            				<a class=' waves-light btn-flat modal-trigger'  href='#passengers-modal-two'  id="passengers_two" > Pasajeros</a>
+            				  <div id="passengers-modal-two" class="modal" >
+							    <div class="modal-content">
+							       	 <ul >
+							            <li class="inline" style="width:100%;">
+									         <p class="big"  id="adults_two" style="padding-right: 0.35rem">Adultos</p>  
+									        <a class="btn-floating btn-small waves-effect waves-light color1 minus center">-</a> 
+									         <p id="adults_val_two">1</p>
+									         <a class="btn-floating btn-small waves-effect waves-light color1 plus"><i class="material-icons">add</i></a> 
+							       		</li>
+							        
+							            <li class="inline" style="width:100%">
+								           <p class="big"   id="children_two" style="padding-right: 1.41rem">Niños</p> 
+								            <a class="btn-floating btn-small waves-effect waves-light color1 minus center" >-</a>  
+								            <p id="children_val_two">0</p>
+								            <a class="btn-floating btn-small waves-effect waves-light color1 plus" ><i class="material-icons">add</i></a> 
+							            </li>
+							      
 
-            						  <!-- Dropdown Structure -->
-            						  <ul id='dropdown2' class='dropdown-content '>
-            						    <li class="inline"><p  id="adults_two">Adultos</p>  <button type="button" class="minus">-</button> <p id="adults_val_two">1</p> <button type="button"  class = "plus">+</button> </li>
-            						    <li class="divider"></li>
-            						     <li class="inline"><p  id="children_two">Niños</p>  <button type="button"  class="minus">-</button> <p id="children_val_two">0</p><button type="button"  class = "plus">+</button> </li>
-            						       <li class="divider"></li>
+							            <li class="inline" style="width:100%;">
+								           <p class="big"  id="infants_two">Infantes </p> 
+								            <a class="btn-floating btn-small waves-effect waves-light color1 minus center">-</a> 
+								            <p id="infants_val_two">0</p>
+								           <a class="btn-floating btn-small waves-effect waves-light color1 plus"><i class="material-icons">add</i></a> 
+							            </li>
+							        </ul>
+							    </div>
 
-            						     <li class="inline"><p id="infants_two">Infantes </p><button type="button"  class="minus">-</button> <p id="infants_val_two">0</p><button type="button" class = "plus">+</button> </li>
-
-            						     <li class="inline"><a href="#!" id="done-button-two">DONE</a></li>
-            						  </ul>
-
-  
-					         </li>
+				  </div>   		
+				 </li>
 
                     <li>
                       <a  class="material-icons small clickable" id="search-icon-two">search</a>
@@ -158,19 +171,38 @@
          
 
                     <li class="input-field  " id="passenger">
-            					     <!-- Dropdown Trigger -->
                            <i class="material-icons prefix " id="open-button"  >perm_identity</i>
-            						   <a class='dropdown-button waves-light btn-flat'  href='#' data-activates="dropdown1" id="passengers" > Pasajeros</a>
+            			    <a class=' waves-light btn-flat modal-trigger'  href='#passengers-modal' id="passengers" > Pasajeros</a>
 
-            						   			  <!-- Dropdown Structure -->
-            						  <ul id='dropdown1' class='dropdown-content '>
-            						    <li class="inline"><p  id="adults">Adultos</p> <button type="button"  class="minus">-</button> <p id="adults_val">1</p><button type="button"  class = "plus">+</button> </li>
-            						    <li class="divider"></li>
-            						     <li class="inline"><p  id="children">Niños</p>  <button type="button"  class="minus">-</button> <p id="children_val">0</p><button type="button"  class = "plus">+</button></li>
-            						       <li class="divider"></li>
-            						     <li class="inline"><p  id="infants">Infantes  </p><button type="button"  class="minus">-</button><p id="infants_val">0</p><button type="button"  class = "plus">+</button></li>
-            						     <li class="inline"><a href="#!" id="done-button">DONE</a></li>
-            						  </ul>
+            			      <div id="passengers-modal" class="modal" >
+							    <div class="modal-content">
+							       	 <ul >
+							            <li class="inline" style="width:100%;">
+									         <p class="big"  id="adults_two" style="padding-right: 0.35rem">Adultos</p>  
+									        <a class="btn-floating btn-small waves-effect waves-light color1 minus center">-</a> 
+									         <p id="adults_val">1</p>
+									         <a class="btn-floating btn-small waves-effect waves-light color1 plus"><i class="material-icons">add</i></a> 
+							       		</li>
+							        
+							            <li class="inline" style="width:100%">
+								           <p class="big"   id="children_two" style="padding-right: 1.41rem">Niños</p> 
+								            <a class="btn-floating btn-small waves-effect waves-light color1 minus center" >-</a>  
+								            <p id="children_val">0</p>
+								            <a class="btn-floating btn-small waves-effect waves-light color1 plus" ><i class="material-icons">add</i></a> 
+							            </li>
+							      
+
+							            <li class="inline" style="width:100%;">
+								           <p class="big"  id="infants_two">Infantes </p> 
+								            <a class="btn-floating btn-small waves-effect waves-light color1 minus center">-</a> 
+								            <p id="infants_val">0</p>
+								           <a class="btn-floating btn-small waves-effect waves-light color1 plus"><i class="material-icons">add</i></a> 
+							            </li>
+							        </ul>
+							    </div>
+
+				  </div> 
+            						
                     <li>
                       <a  class="material-icons small clickable" id="search-icon">search</a>
                    </li>

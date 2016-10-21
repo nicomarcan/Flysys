@@ -1,4 +1,7 @@
 //TODO: cambiar los attr("class") por removeClass("")
+// TODO: mantener pasajeros cuando cambia entre ida e ida y vuelta
+
+$("html, body").animate({ scrollTop: "0" },200);
 $(document).ready(function(){
 	
 
@@ -217,7 +220,7 @@ $(document).ready(function(){
 
 
 
-		 $('.modal-trigger').leanModal({
+		 $('.modal-trigger:not(#passengers_two,#passengers)').leanModal({
 		 	complete: function() {  $('.tooltipped').tooltip('remove'); } // Callback for Modal close
 		 });
 		  $('.tooltipped').tooltip({delay: 50});
@@ -231,6 +234,7 @@ $(document).ready(function(){
 			var from;
 			var to;
 			var picker;
+			$("html, body").animate({ scrollTop: "0" },600);
 			if($("#search a.active").attr("href")=="#one-way"){
 				 from = $("#from_input");
 				 to = $("#to_input");
@@ -240,10 +244,10 @@ $(document).ready(function(){
 				to = $("#to_input_two");
 				picker = $('#departing_two .datepicker').pickadate('picker');
 			}
+			
 			from.typeahead('val',$(this).attr("from"));
 			from.focus();
-			to.typeahead('val',$(this).attr("to")); /*$(this).attr("value") next update incoming*/
-			to.focus();
+			to.typeahead('val',$(this).attr("to"));
 			to.blur();
 			event.stopPropagation();
 			picker.open();
@@ -432,48 +436,35 @@ $(document).ready(function(){
 		 $('select').material_select();
 
 
-		$(".dropdown-button#passengers_two").on('click',function(){
-			event.stopPropagation();
-			if(!$(this).attr("closed")){
-				$(this).attr("closed","true");
-				$(this).click();
-			}else{
-				$(this).removeAttr("closed");
-				$("#open-button-two").click();
-			}
+		  $('.modal-trigger#passengers_two').leanModal({
+		      dismissible: true, // Modal can be dismissed by clicking outside of the modal
+		      opacity: 0, // Opacity of modal background
+		      in_duration: 300, // Transition in duration
+		      out_duration: 200, // Transition out duration
+		      starting_top: '4%', // Starting top style attribute
+		      ending_top: '10%', // Ending top style attribute
+		      complete: function(){  $('.modal-trigger#passengers_two').text(getPassengers("_two"));}
 
-		});
+		    }
+		  );
 
-			$(".dropdown-button#passengers").on('click',function(){
-			event.stopPropagation();
-			if(!$(this).attr("closed")){
-				$(this).attr("closed","true");
-				$(this).click();
-			}else{
-				$(this).removeAttr("closed");
-				$("#open-button").click();
-			}
+		    $('.modal-trigger#passengers').leanModal({
+		      dismissible: true, // Modal can be dismissed by clicking outside of the modal
+		      opacity: 0, // Opacity of modal background
+		      in_duration: 300, // Transition in duration
+		      out_duration: 200, // Transition out duration
+		      starting_top: '4%', // Starting top style attribute
+		      ending_top: '10%', // Ending top style attribute
+		       complete: function(){  $('.modal-trigger#passengers').text(getPassengers(""));}
+		    }
+		  );
 
-		});
 
 
-		$("#dropdown1").on("mouseleave",function(){
-			$('.dropdown-button#passengers').dropdown('close');
-		});
 
-		$("#open-button").on('click',function(){
-			$('.dropdown-button#passengers').dropdown('open');
-		});
-		$("#open-button-two").on('click',function(){
-			$('.dropdown-button#passengers_two').dropdown('open');
-		});
 
-		$("#done-button").on('click',function(){
-			$('.dropdown-button#passengers').dropdown('close');
-		});
-		$("#done-button-two").on('click',function(){
-			$('.dropdown-button#passengers_two').dropdown('close');
-		});
+
+
 
 		$(".minus").on('click',function(){
 			var number = Number($(this).next().text());
@@ -959,4 +950,10 @@ function showNotANumberError(){
 	flight.tooltip('add');
 	flight.mouseenter();
 	setTimeout(function(){ flight.tooltip('remove'); flight.attr("data-tooltip",text);}, 2000);
+}
+
+function getPassengers(elem){
+	var s = "";
+	s+=  $("#adults_val"+elem).text()+" A - "+$("#children_val"+elem).text()+" N - "+$("#infants_val"+elem).text()+" I";
+	return s;
 }
