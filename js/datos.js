@@ -153,8 +153,8 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
 
 		$(document).on("change", "select", function() {
 			if ($(this).val() && $(this).val() != null ) {
-				$(".select-wrapper input").css("border-bottom", "1px solid #4CAF50");
-				$(".select-wrapper input").css("box-shadow", "0 1px 0 0 #4CAF50");
+				$(this).parent().children(".select-wrapper input").css("border-bottom", "1px solid #4CAF50");
+				$(this).parent().children(".select-wrapper input").css("box-shadow", "0 1px 0 0 #4CAF50");
 			}
 			else {
 				$("select").attr("disabled", "");
@@ -162,16 +162,38 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
 			}
 		})
 
-		$(document).on("change", "input#tarjeta", function() {
-			var numero_tarjeta = $(this).val();
-			ajaxInstallments(
-				getLocalObject("flights")[0].outbound_routes[0].segments[0].id,
-				cant_adultos,
-				cant_chicos,
-				cant_infantes,
-				numero_tarjeta
-			)
-		});
+		var flights = getLocalObject("flights");
+		var flight_q = 0;
+		if (flights && flights.length > 0) {
+			flight_q = flights.length;
+			if (flight_q == 1) {
+				$("select#installment-options-2").parent().remove();
+				$("select#installment-options-1").removeClass("s6").addClass("s12");
+				$("select").material_select();
+			}
+
+			$(document).on("change", "input#tarjeta", function() {
+				var numero_tarjeta = $(this).val();
+				ajaxInstallments(
+					flights[0].outbound_routes[0].segments[0].id,
+					cant_adultos,
+					cant_chicos,
+					cant_infantes,
+					numero_tarjeta,
+					$("select#installment-options-1")
+				)
+				if (flight_q > 1) {
+					ajaxInstallments(
+						flights[1].outbound_routes[0].segments[0].id,
+						cant_adultos,
+						cant_chicos,
+						cant_infantes,
+						numero_tarjeta,
+						$("select#installment-options-2")
+					)
+				}
+			});
+		}
 
   $("#fecaducidad").keyup(function(e){
     if(e.keyCode != 8){

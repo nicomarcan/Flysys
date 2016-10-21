@@ -44,15 +44,18 @@
                 <label for="Tarjeta" data-error="Ingrese una tarjeta valida">Numero de tarjeta</label>
               </div>
 			  <div class="input-field col s4">
-				<select id="installment-options" disabled>
-					<option id="installments-head-option" value=""  disabled selected> Ingrese su numero de tarjeta primero</option>
+				<select id="installment-options-1" class="col s6" disabled>
+					<option class="installments-head-option" value=""  disabled selected> Vuelo de ida.</option>
+				</select>
+				<select id="installment-options-2" class="col s6" disabled>
+					<option class="installments-head-option" value=""  disabled selected> Vuelo de vuelta</option>
 				</select>
 				<label>Opciones de financiamiento</label>
 				</div>
                 <div class=" input-field  col s3">
-									<input id="fecaducidad" type="text" class="validate" pattern="(0[0-9])|(1[0-2])/[0-9][0-9]" placeholder="MM/AA (Obligatorio)" maxlength="6"/>
-									<label for="fecaducidad" data-error="Ingrese una fecha valida">Caducidad</label>
-								</div>
+					<input id="fecaducidad" type="text" class="validate" pattern="(0[0-9])|(1[0-2])/[0-9][0-9]" placeholder="MM/AA (Obligatorio)" maxlength="6"/>
+					<label for="fecaducidad" data-error="Ingrese una fecha valida">Caducidad</label>
+				</div>
               <div class="input-field col s2">
                 <input id="ccv" type="text" pattern="^([0-9][0-9][0-9])"  class="validate" placeholder="CCV (Obligatorio)" maxlength="3"/>
                 <label for="ccv" data-error="Ingrese los 3 digitos">CCV</label>

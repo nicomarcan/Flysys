@@ -1,8 +1,8 @@
-function ajaxInstallments(flight_id, adults, children, infants, card_number,tag_number) {
+function ajaxInstallments(flight_id, adults, children, infants, card_number, selector) {
 	$("option#installments-head-option").text("Cargando la tarjeta");
 	$("option.installment-option").remove("");
-	$("select").val(null);
-	$("select").material_select();
+	selector.val(null);
+	selector.material_select();
 		$.ajax({
 			url: "http://hci.it.itba.edu.ar/v1/api/booking.groovy",
 			jsonp: "callback",
@@ -17,12 +17,12 @@ function ajaxInstallments(flight_id, adults, children, infants, card_number,tag_
 			},
 			success: function(response) {
 				if (response.error) {
-					$("option#installments-head-option").text("El numero de tarjeta es invalido");
-					$("select").material_select();
+					selector.attr("disabled", "");
+					selector.material_select();
 				}
 				else {
 					var percentage = " (Costo de financiamiento del " + parseInt(response.financial_cost * 100) + "%)";
-					$("option#installments-head-option").text(
+					selector.children("option#installments-head-option").text(
 						response.card_type.replace(/_/g," ") + percentage
 					);
 					var instal = response.installments;
@@ -44,12 +44,12 @@ function ajaxInstallments(flight_id, adults, children, infants, card_number,tag_
 							q += " = $" + total.toFixed(2);
 						}
 
-						$("select#installment-options").append(
+						selector.append(
 							"<option class='installment-option' value='"+ instal[i].quantity +"'>"+ q +"</option>"
 						);
 					}
-					$("select").removeAttr("disabled");
-					$("select").material_select();
+					selector.removeAttr("disabled");
+					selector.material_select();
 				}
 			},
 			error: function() {
