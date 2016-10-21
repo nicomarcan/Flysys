@@ -8,6 +8,7 @@ $(document).ready(function(){
 		var valores=new Array();
 		var airlines=new Array();
 		var nameToId={};
+		var check=false;
 		getLocation();
 		//AUTOCOMPLETE
 		  var airports_url = 'http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getairports';
