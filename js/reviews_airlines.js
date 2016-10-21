@@ -284,7 +284,7 @@ $(document).ready(function() {
 			                lastPage: parseInt(response.total / response.page_size) + 1,
 			                urlParameter: '#opinion_header',
 			                align: "center",
-			                useUrlParameter: true,
+			                useUrlParameter: false,
 			                onClickCallback: function() {
 			                    $("#paginate ul.pagination li").each(function() {
 			                        if ($(this).hasClass("changed")) {
