@@ -278,31 +278,43 @@ $(document).ready(function() {
 							page,
 							options[op]
 					)).then( function (response) {
+
 						$("#paginate").materializePagination({
 			                firstPage: page,
 			                lastPage: parseInt(response.total / response.page_size) + 1,
 			                urlParameter: '#opinion_header',
 			                align: "center",
-			                useUrlParameter: false,
+			                useUrlParameter: true,
 			                onClickCallback: function() {
 			                    $("#paginate ul.pagination li").each(function() {
 			                        if ($(this).hasClass("changed")) {
 			                            return;
 			                        }
-			                        var pnum;
-			                        pnum = $(this).html();
-			                        $(this).html("<a href='#opinion_header'>"+ pnum +"</a>");
-			                        $(this).addClass("page_button");
+									$(this).addClass("page_button");
 			                        $(this).addClass("changed");
+									var pnum = $(this).html();
+									if (pnum != "...") {
+										$(this).html("<a href='#opinion_header'>"+ pnum +"</a>");
+									}
+									else {
+										$(this).html("<a>"+pnum+"</a>");
+									}
 			                    })
 			                }
 			            });
+
 						$("#paginate ul.pagination li").each(function() {
 			                var pnum = $(this).html();
-							var op_class = (pnum == "...")? "" : "href='#opinion_header'";
-			                $(this).html("<a "+op_class+">"+ pnum +"</a>");
-			                $(this).addClass("changed").addClass("page_button");
+							$(this).addClass("page_button");
+							$(this).addClass("changed");
+							if (pnum != "...") {
+								$(this).html("<a href='#opinion_header'>"+ pnum +"</a>");
+							}
+							else {
+								$(this).html("<a>"+pnum+"</a>");
+							}
 			            })
+
 					});
 				}
 			}
@@ -310,6 +322,9 @@ $(document).ready(function() {
 	});
 
 	$(document).on("click", "li.page_button", function(){
+		if (!$(this).attr('data-page')) {
+			return;
+		}
 		var auxpage = parseInt($(this).attr('data-page'));
 		if (auxpage == page) {
 			return false;
