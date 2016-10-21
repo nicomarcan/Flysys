@@ -370,7 +370,7 @@ $(document).ready(function() {
 		page = 1;
 		$("li.page_button.active").removeClass('active');
 
-		$("li.page_button[value="+page+"]").addClass('active');
+		$("li.page_button[data-page="+page+"]").addClass('active');
 		$("li#left_chevron").addClass("disabled");
 		if (total_pages == 1) {
 			$("li#right_chevron").addClass("disabled");
