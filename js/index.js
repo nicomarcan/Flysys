@@ -4,7 +4,7 @@
 $("html, body").animate({ scrollTop: "0" },200);
 $(document).ready(function(){
 	
-
+//	loadMap();
 		var valores=new Array();
 		var airlines=new Array();
 		var nameToId={};
@@ -729,7 +729,7 @@ $(document).ready(function(){
            $("#recommend .material-icons.clickable").removeAttr("selected");
            $("#recommend .material-icons.clickable").addClass(" grey-text text-lighten-1 ");
 			$("#review-modal #comments").val("");
-			$("#review-modal #comments").removeClass("invalid");
+			$("#review-modal #comments").removeClass("invalid valid");
 			  $("#send-review").show();
 			  $("#review-form").show();
 			  $("#close-modal").hide();
@@ -815,6 +815,16 @@ $(document).ready(function(){
 				getOffers("BUE");
 			}
 
+
+			function showErrorCat(elem){
+				check=true;
+				elem.tooltip('remove');
+				elem.tooltip('add');
+				elem.mouseenter();
+				check=false;
+				setTimeout(function(){ elem.tooltip('remove');}, 2000);
+			}
+
 });
 
 
@@ -822,14 +832,6 @@ $(document).ready(function(){
 
 
 
-function showErrorCat(elem){
-	check=true;
-	elem.tooltip('remove');
-	elem.tooltip('add');
-	elem.mouseenter();
-	check=false;
-	setTimeout(function(){ elem.tooltip('remove');}, 2000);
-}
 
 
  
