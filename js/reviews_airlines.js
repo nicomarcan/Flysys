@@ -363,7 +363,8 @@ $(document).ready(function() {
 			$("li#right_chevron").removeClass("disabled");
 		}
 		if (options[op].pages[page]) {
-			loadReviews(options[op].pages[page])
+			loadReviews(options[op].pages[page]);
+			$("li.page_button[data-page = 1]").click();
 		}
 		else {
 			$.when(
