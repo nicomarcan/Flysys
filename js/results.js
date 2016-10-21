@@ -25,6 +25,14 @@ var values=new Array();
 var nameToId={};
 var idToName={};
 /*
+* Airline data
+*/
+var airlineNameToId={};
+var airlineNames = [];
+/*
+*
+*/
+/*
 * First and second flight requests
 */
 var req1,req2;
@@ -340,6 +348,34 @@ $(document).ready(function(){
 
   });
 
+  $.ajax({
+    type: 'GET',
+    url: misc,
+    dataType: 'json' ,
+    data : {
+      method: 'getairlines'
+    },
+    success: function(d){
+      if(d.total<=d.page_size){
+        loadAirlinesTypeahead(d,airlineNames,airlineNameToId);
+      } else {
+        $.ajax({
+          type: 'GET',
+          url: misc,
+          dataType: 'json',
+          data: {
+            page_size:d.total,
+            method: 'getairlines'
+          },
+          success: function(f){
+            loadAirlinesTypeahead(f,airlineNames,airlineNameToId);
+          }
+        });
+      }
+    }
+  });
+
+  installAirlineSearchHandler();
 
   $("div.tool-element.order ul.dropdown-content.select-dropdown li").click(function(event){
     var criterium = $(this).text();
@@ -950,17 +986,17 @@ function fillAirportsAutocomplte(data,values,nameToId){
 
 
 
-  $('.typeahead').typeahead(
-          {
-              minLength: 3,
-              highlight: true
-          },
-          {
-              name: 'Ciudades',
-              limit: 3,
-              source: blood_ciudades,
-          }
-        );
+      $('#from_input , #to_input').typeahead(
+              {
+                  minLength: 2,
+                  highlight: true
+              },
+              {
+                  name: 'Ciudades',
+                  limit: 3,
+                  source: blood_ciudades,
+              }
+            );
   };
 
   function timeToMins(t){

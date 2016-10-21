@@ -12,6 +12,24 @@ div.collapsible-body.price-detail div > h5 {
   margin-bottom: .1em;
 }
 
+nav div.nav-wrapper div.valign-wrapper {
+  height: 100%;
+}
+
+nav span.twitter-typeahead * {
+  margin: 0;
+}
+
+nav li.search-button > i:hover {
+  cursor: pointer;
+  background-color: #222d32 ;
+  transition: .1s;
+}
+
+nav .nav-wrapper > div > div {
+  width: 50%;
+}
+
 div.collapsible-body p.complete-name {
   font-size: .8em;
   padding: 0;
@@ -28,11 +46,6 @@ div.collapsible-body.price-detail ul.container-fluid {
 
 div.collapsible-body.price-detail ul.container-fluid li.col.s3 {
   height: 100%;
-}
-
-
-nav .nav-wrapper > div > div {
-  width: 50%;
 }
 
 div.row.filter-button {

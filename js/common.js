@@ -341,3 +341,39 @@ function humanExpirationDate(fecha){
   var beta=fecha.substring(2,4);
   return alfa+"/"+beta;
 }
+
+function loadAirlinesTypeahead(data,air_names,air_names_id){
+  var total = data.total;
+  var airl = data.airlines;
+  var obj = [];
+  for(var x = 0 ; x<total ; x++ ){
+    obj[obj.length]=airl[x].name ;
+    air_names[air_names.length]=airl[x].name;
+    air_names_id[airl[x].name]=airl[x].id;
+  }
+  var blood_ciudades = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: obj
+  });
+
+  $('#airline_search').typeahead(
+          {
+              minLength: 2,
+              highlight: true
+          },
+          {
+              name: 'Aerolineas',
+              limit: 3,
+              source: blood_ciudades,
+          }
+  );
+};
+
+function installAirlineSearchHandler(){
+  $("#airline_search_btn").click(function(event){
+    var selected = airlineNameToId[$("#airline_search").typeahead('val')];
+    var path = "review.html?airline_id=" + selected;
+    window.location = path;
+  });
+}
