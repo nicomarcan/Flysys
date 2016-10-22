@@ -4,6 +4,8 @@ var spanish_days = [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Vier
 var spanish_days_short = [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ];
 
 var pageSize = 7 ;
+var intervalHours = 1;
+
 
 var mode;
 var src,dst;
@@ -49,6 +51,7 @@ var total,duration,airline,reputation;
 * Filter settings
 */
 var multiplier = 1;
+var npages ;
 var currCrit,currPage;
 var currMin,currMax;
 var currAirlines = [],currStars = [];
@@ -296,6 +299,18 @@ $(document).ready(function(){
                               });
                               for(var i=0 ; i<s1.length ; i++) {
                                 for(var j=0; j<s2.length; j++) {
+                                  var a1,d2;
+                                  a1= s1[i].outbound_routes[0].segments[0].arrival.date.split(" ");
+                                  d2= s2[j].outbound_routes[0].segments[0].departure.date.split(" ");
+                                  if(a1[0] == d2[0]){
+                                    var sp1=a1[1].split(":"),sp2 = d2[1].split(":");
+                                    var h1,h2;
+                                    h1 = sp1[0]*3600 + sp1[1]*60 + sp1[2];
+                                    h2 = sp2[0]*3600 + sp2[1]*60 + sp2[2];
+                                    if(h1>=(h2+intervalHours*3600)){
+                                      continue;
+                                    }
+                                  }
                                   var cmb = [];
                                   cmb[0]=i;cmb[1]=j;
                                   t_total.insert(cmb);
@@ -422,7 +437,6 @@ $(document).ready(function(){
       default:
         return false;
     }
-    applied = true;
     setCurrPage(currPage);
     return true;
   });
@@ -572,13 +586,11 @@ function setCurrPage(page){
       }
     }
     var pages = result.length/pageSize + (result.length%pageSize == 0 ? 0:1);
+    set=true;
     insertPaginator(pages);
     applied = true;
   }
   resultsRenderer(result,page,pageSize);
-  var paginators = $('#paginator li');
-  $(paginators[currPage]).removeClass("active");
-  $(paginators[page]).addClass("active");
   currPage=page;
   initializeCollapsibles();
 }
@@ -650,18 +662,47 @@ function getUrlParameter(sParam) {
   }
 }
 
+var set=false;
 function insertPaginator(npags){
   $("#paginator").empty();
-  var template = $("#paginator-item").html();
-  Mustache.parse(template);
-  for(var i=1; i<=npags; i++){
-    var activeness = i==1 ? "active" : "";
-    var rendered = Mustache.render(template, {
-      activeness: activeness,
-      number: i
-    });
-    $("#paginator").append(rendered);
-  }
+	$("#paginator").materializePagination({
+    firstPage:  1,
+	  lastPage: npags,
+	  align: 'center',
+    useUrlParameter: false,
+    onClickCallback: function(n){
+      if(!set){
+        setCurrPage(n-1);
+      }
+      set=false;
+      $("#paginator ul.pagination li").each(function() {
+          if ($(this).hasClass("changed")) {
+              return;
+          }
+          $(this).addClass("page_button");
+          $(this).addClass("changed");
+          var pnum = $(this).html();
+          if (pnum != "...") {
+            $(this).html("<a>"+ pnum +"</a>");
+          }
+          else {
+            $(this).html("<a>"+pnum+"</a>");
+          }
+      });
+
+    }
+	});
+  $("#paginator ul.pagination li").each(function() {
+    var pnum = $(this).html();
+    $(this).addClass("page_button");
+    $(this).addClass("changed");
+    if (pnum != "...") {
+      $(this).html("<a>"+ pnum +"</a>");
+    }
+    else {
+      $(this).html("<a>"+pnum+"</a>");
+    }
+  });
 }
 
 function addAirlineS(inserted,index_vector,references){

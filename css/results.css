@@ -12,6 +12,10 @@ div.collapsible-body.price-detail div > h5 {
   margin-bottom: .1em;
 }
 
+.pagination li.page_button.active{
+	background-color: #26a69a;
+}
+
 nav div.nav-wrapper div.valign-wrapper {
   height: 100%;
 }
