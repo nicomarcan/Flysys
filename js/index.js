@@ -321,6 +321,9 @@ $(document).ready(function(){
 		  $("#departing_two input[name='_submit']").attrchange({
 		    trackValues: true,
 		    callback: function(event){
+					if(event.attributeName != "value"){
+						return;
+					}
 		      var d = event.newValue ;
 		      var date = new Date(d.split("-")[0],d.split("-")[1]-1,d.split("-")[2]);
 	        var picker = date2_picker.pickadate('picker');

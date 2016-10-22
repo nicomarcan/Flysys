@@ -113,6 +113,9 @@ $(document).ready(function(){
   $("#two-way #date1 input[name='_submit']").attrchange({
     trackValues: true,
     callback: function(event){
+      if(event.attributeName != "value"){
+        return;
+      }
       var d = event.newValue ;
       var date = new Date(d.split("-")[0],d.split("-")[1]-1,d.split("-")[2]);
       var picker = date2_picker.pickadate('picker');
