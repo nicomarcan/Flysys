@@ -82,12 +82,14 @@ $(document).ready(function(){
     monthsShort: spanish_months_short,
     weekdaysFull: spanish_days,
     weekdaysShort: spanish_days_short,
+    close: 'Cerrar',
     firstDay: 1,
     format: 'd !de mmmm !de yyyy',
     formatSubmit: 'yyyy-mm-dd' ,
     min: 2,
     onRender: function(){
-      $("#date1 .picker__footer").remove();
+      $("#date1 .picker__footer .picker__button--today").remove();
+      $("#date1 .picker__footer .picker__button--clear").remove();
     }
   });
 
@@ -96,12 +98,14 @@ $(document).ready(function(){
       monthsShort: spanish_months_short,
       weekdaysFull: spanish_days,
       weekdaysShort: spanish_days_short,
+      close: 'Cerrar',
       firstDay: 1,
       format: 'd !de mmmm !de yyyy',
       formatSubmit: 'yyyy-mm-dd' ,
       min: 2,
       onRender: function(){
-        $("#date2 .picker__footer").remove();
+        $("#date2 .picker__footer .picker__button--today").remove();
+        $("#date2 .picker__footer .picker__button--clear").remove();
       }
     });
 

@@ -289,12 +289,14 @@ $(document).ready(function(){
 		    monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
 		    weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
 		    weekdaysShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
+				close: 'Cerrar',
 		    firstDay: 1,
 		    format: 'd !de mmmm !de yyyy',
 		    formatSubmit: 'yyyy-mm-dd' ,
 		    min: 2,
 				onRender: function(){
-					$("#departing_two  .picker__footer,#departing .picker__footer").remove();
+					$("#departing_two  .picker__footer .picker__button--today,#departing .picker__footer .picker__button--today").remove();
+					$("#departing_two  .picker__footer .picker__button--clear,#departing .picker__footer .picker__button--clear").remove();
 				}
 		  });
 
@@ -303,12 +305,14 @@ $(document).ready(function(){
 				monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
 				weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
 				weekdaysShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
+				close: 'Cerrar',
 				firstDay: 1,
 				format: 'd !de mmmm !de yyyy',
 				formatSubmit: 'yyyy-mm-dd' ,
 				min: 2,
 				onRender: function(){
-					$("#returning  .picker__footer").remove();
+					$("#returning  .picker__footer .picker__button--today").remove();
+					$("#returning  .picker__footer .picker__button--clear").remove();
 				}
 			});
 
