@@ -721,7 +721,7 @@ function insertPaginator(npags){
             $(this).html("<a>"+pnum+"</a>");
           }
       });
-
+      $("html, body").animate({scrollTop: "0"}, 600);
     }
 	});
   $("#paginator ul.pagination li").each(function() {
