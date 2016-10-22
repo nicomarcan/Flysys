@@ -82,44 +82,40 @@ $(document).ready(function(){
     monthsShort: spanish_months_short,
     weekdaysFull: spanish_days,
     weekdaysShort: spanish_days_short,
-    today: 'Hoy',
-    clear: 'Borrar',
-    close: 'Cerrar',
     firstDay: 1,
     format: 'd !de mmmm !de yyyy',
     formatSubmit: 'yyyy-mm-dd' ,
-    min: 2
+    min: 2,
+    onRender: function(){
+      $("#date1 .picker__footer").remove();
+    }
   });
 
-  var date2_picker = null ;
+  var date2_picker = $("#date2 .datepicker").pickadate({
+      monthsFull: spanish_months,
+      monthsShort: spanish_months_short,
+      weekdaysFull: spanish_days,
+      weekdaysShort: spanish_days_short,
+      firstDay: 1,
+      format: 'd !de mmmm !de yyyy',
+      formatSubmit: 'yyyy-mm-dd' ,
+      min: 2,
+      onRender: function(){
+        $("#date2 .picker__footer").remove();
+      }
+    });
+
   var prevdate = null;
   $("#two-way #date1 input[name='_submit']").attrchange({
     trackValues: true,
     callback: function(event){
       var d = event.newValue ;
       var date = new Date(d.split("-")[0],d.split("-")[1]-1,d.split("-")[2]);
-      $("#date2 > input").removeAttr("disabled");
-      if(date2_picker == null){
-        date2_picker = $("#date2 .datepicker").pickadate({
-          monthsFull: spanish_months,
-          monthsShort: spanish_months_short,
-          weekdaysFull: spanish_days,
-          weekdaysShort: spanish_days_short,
-          today: 'Hoy',
-          clear: 'Borrar',
-          close: 'Cerrar',
-          firstDay: 1,
-          format: 'd !de mmmm !de yyyy',
-          formatSubmit: 'yyyy-mm-dd' ,
-          disable: [{ from: [0,0,0], to: date }]
-        });
-      } else {
-        var picker = date2_picker.pickadate('picker');
-        picker.set('enable', [{from: [0,0,0], to: prevdate}]);
-        picker.set('disable', [{ from: [0,0,0], to: date }]);
-        $("#two-way #date2 .picker__input").val("");
-        $("#two-way #date2 input[name='_submit']").removeAttr("value");
-      }
+      var picker = date2_picker.pickadate('picker');
+      picker.set('enable', [{from: [0,0,0], to: prevdate}]);
+      picker.set('disable', [{ from: [0,0,0], to: date }]);
+      $("#two-way #date2 .picker__input").val("");
+      $("#two-way #date2 input[name='_submit']").removeAttr("value");
       prevdate = date ;
     }
   });
@@ -482,6 +478,111 @@ $(document).ready(function(){
   });
 
   $("#delete-filters").click(deleteFilters);
+
+
+  /*begin passenger selection*/
+
+  $(".btn.minus").click(function(event){
+    var n = $($(event.target).parent().next().children()[0]).text();
+    if(n==0){
+      return;
+    }
+    var set = parseInt(n) -1;
+    $($(event.target).parent().next().children()[0]).text(set);
+    event.stopPropagation();
+  });
+
+
+  $(".btn.plus").click(function(event){
+    var n = $($(event.target).parent().prev().children()[0]).text();
+    var set = parseInt(n) +1;
+    $($(event.target).parent().prev().children()[0]).text(set);
+    event.stopPropagation();
+  });
+
+  /*end passenger selection*/
+
+
+  /*begin search button*/
+
+  $("#tw_search").click(function(event){
+    var src = nameToId[$("#two-way #from_input").val()] ;
+    var dst = nameToId[$("#two-way #to_input").val()];
+    var d1 = $('#two-way #date1 input[name=_submit]').val();
+    var d2 = $('#two-way #date2 input[name=_submit]').val(); ;
+    var adults = $("#adults_number").text();
+    var children = $("#children_number").text();
+    var infants = $("#infants_number").text();
+
+    var errors=false;
+    if(src == undefined){
+      errors=true;
+      showMessage($("#two-way #from_input"));
+    }
+    if(dst == undefined){
+      errors=true;
+      showMessage($("#two-way #to_input"));
+    }
+    if(d1 == ""){
+      errors=true;
+      showMessage($('#two-way #date1 input'));
+    }
+
+    if(d2 == ""){
+      errors=true;
+      showMessage($('#two-way #date2 input'));
+    }
+
+    if(adults + children + infants == 0){
+      errors = true;
+      showMessage($("#pass_btn_1"));
+    }
+
+    var path = "results.html?mode=two-way&src=" + src + "&dst=" + dst +
+    "&adults=" + adults +"&children="+children + "&infants=" + infants +
+     "&d1=" + d1 + "&d2=" + d2;
+
+    if(!errors){
+      window.location = path;
+    }
+  });
+
+  $("#ow_search").click(function(event){
+    var src = nameToId[$("#one-way #from_input").val()] ;
+    var dst = nameToId[$("#one-way #to_input").val()];
+    var d1 = $('#one-way #date1 input[name=_submit]').val();
+    var adults = $("#adults_number_1").text();
+    var children = $("#children_number_1").text();
+    var infants = $("#infants_number_1").text();
+
+    var errors=false;
+    if(src == undefined){
+      errors=true;
+      showMessage($("#one-way #from_input"));
+    }
+    if(dst == undefined){
+      errors=true;
+      showMessage($("#one-way #to_input"));
+    }
+    if(d1 == ""){
+      errors=true;
+      showMessage($('#one-way #date1 input'));
+    }
+
+    if(adults + children + infants == 0){
+      errors = true;
+      showMessage($("#pass_btn_2"));
+    }
+
+    var path = "results.html?mode=one-way&src=" + src + "&dst=" + dst +
+    "&adults=" + adults +"&children="+children + "&infants=" + infants +
+     "&d1=" + d1;
+    if(!errors){
+      window.location = path;
+    }
+  });
+
+  /*end search button*/
 
 });
 
@@ -1047,7 +1148,7 @@ function fillAirportsAutocomplte(data,values,nameToId){
     values.push(airports[x].description.split(", ")[1]);
     obj.push(airports[x].description) ;
     values.push(airports[x].description);
-    nameToId[airports[x].description.split(", ")[1]] = airports[x].id;
+    nameToId[airports[x].description.split(", ")[1]] = airports[x].city.id;
     nameToId[airports[x].description] = airports[x].id;
     idToName[airports[x].city.id] = airports[x].description.split(", ")[1];
   }
@@ -1129,4 +1230,15 @@ function fillAirportsAutocomplte(data,values,nameToId){
   function humanHour(hour){
     var h = hour.split(":");
     return h[0] + ":" + h[1];
+  }
+
+  function showMessage(elem){
+    elem.addClass("tooltipped");
+  	elem.tooltip('remove');
+		elem.tooltip('add');
+		elem.mouseenter();
+		setTimeout(function(){
+      elem.tooltip('remove');
+      elem.removeClass("tooltipped");
+    }, 5000);
   }

@@ -385,20 +385,61 @@
             </ul>
             <form id="two-way">
               <div class="input-field row">
-                <input type="text" id="from_input" name="from_input" class="typeahead" placeholder="Origen"/>
+                <input type="text" id="from_input" name="from_input" class="typeahead" placeholder="Origen" data-position="right"  data-tooltip="Ingrese una ciudad válida"/>
               </div>
               <div class="input-field row">
-                <input type="text" id="to_input" name="from_input" class="typeahead" placeholder="Destino"/>
+                <input type="text" id="to_input" name="from_input" class="typeahead" placeholder="Destino" data-position="right"  data-tooltip="Ingrese una ciudad válida"/>
               </div>
               <div class="row date-field" id="date1">
-                <input type="date" placeholder="Partiendo" class="datepicker"/>
+                <input type="date" placeholder="Partiendo" class="datepicker" data-position="right"  data-tooltip="Ingrese una fecha de partida"/>
               </div>
               <div class="row date-field last" id="date2">
-                <input disabled type="date" class="datepicker" placeholder="Volviendo"/>
+                <input type="date" class="datepicker" placeholder="Volviendo" data-position="right"  data-tooltip="Ingrese una fecha de regreso"/>
               </div>
               <div class="row">
-                <a class="dropdown-button waves-effect waves-light btn left" data-activates="pass-select">Pasajeros</span></a>
-                <a class="waves-effect waves-light btn search color3 right">
+                <a class="dropdown-button waves-effect waves-light btn left" id="pass_btn_1"  data-beloworigin="true" data-activates='passenger_number' data-position="bottom"  data-tooltip="Ingrese un número de pasajeros válido">Pasajeros</span></a>
+
+                <ul id='passenger_number' class='dropdown-content passenger-selection'>
+                  <li class="container-fluid center-align" id="adults">
+                    <p>Adultos</p>
+                    <div class="col s4">
+                      <a class="btn minus">-</a>
+                    </div>
+                    <div class="col s4">
+                      <a class="btn number" id="adults_number">0</a>
+                    </div>
+                    <div class="col s4">
+                      <a class="btn plus">+</a>
+                    </div>
+                  </li>
+                  <li class="container-fluid center-align" id="children">
+                    <p>Niños</p>
+                    <div class="col s4">
+                      <a class="btn minus">-</a>
+                    </div>
+                    <div class="col s4">
+                      <a class="btn number" id="children_number">0</a>
+                    </div>
+                    <div class="col s4">
+                      <a class="btn plus">+</a>
+                    </div>
+                  </li>
+                  <li class="container-fluid" id="infants">
+                    <p>Infantes</p>
+                    <div class="col s4">
+                      <a class="btn minus">-</a>
+                    </div>
+                    <div class="col s4">
+                      <a class="btn number" id="infants_number">0</a>
+                    </div>
+                    <div class="col s4">
+                      <a class="btn plus">+</a>
+                    </div>
+                  </li>
+                </ul>
+
+
+                <a class="waves-effect waves-light btn search color3 right" id="tw_search">
                   <i class="material-icons left">search</i>
                   Buscar
                 </a>
@@ -406,17 +447,56 @@
             </form>
             <form id="one-way">
               <div class="input-field row">
-                <input type="text" id="from_input" name="from_input" class="typeahead" placeholder="Origen"/>
+                <input type="text" id="from_input" name="from_input" class="typeahead" placeholder="Origen" data-position="right"  data-tooltip="Ingrese una ciudad válida"/>
               </div>
               <div class="input-field row">
-                <input type="text" id="to_input" name="from_input" class="typeahead" placeholder="Destino"/>
+                <input type="text" id="to_input" name="from_input" class="typeahead" placeholder="Destino" data-position="right"  data-tooltip="Ingrese una fecha de partida"/>
               </div>
               <div class="row date-field last" id="date1">
-                <input type="date" placeholder="Partiendo" class="datepicker"/>
+                <input type="date" placeholder="Partiendo" class="datepicker" data-position="right"  data-tooltip="Ingrese una fecha de regreso"/>
               </div>
               <div class="row">
-                <a class="dropdown-button waves-effect waves-light btn left" data-activates="pass-select">Pasajeros</span></a>
-                <a class="waves-effect waves-light btn search color3 right">
+                <a class="dropdown-button waves-effect waves-light btn left"  id="pass_btn_2" data-beloworigin="true" data-activates='passenger_number_1' data-position="bottom"  data-tooltip="Ingrese un número de pasajeros válido">Pasajeros</span></a>
+
+                <ul id='passenger_number_1' class='dropdown-content passenger-selection'>
+                  <li class="container-fluid center-align" id="adults_1">
+                    <p>Adultos</p>
+                    <div class="col s4">
+                      <a class="btn minus">-</a>
+                    </div>
+                    <div class="col s4">
+                      <a class="btn number" id="adults_number_1">0</a>
+                    </div>
+                    <div class="col s4">
+                      <a class="btn plus">+</a>
+                    </div>
+                  </li>
+                  <li class="container-fluid center-align" id="children_1">
+                    <p>Niños</p>
+                    <div class="col s4">
+                      <a class="btn minus">-</a>
+                    </div>
+                    <div class="col s4">
+                      <a class="btn number" id="children_number_1">0</a>
+                    </div>
+                    <div class="col s4">
+                      <a class="btn plus">+</a>
+                    </div>
+                  </li>
+                  <li class="container-fluid" id="infants_1">
+                    <p>Infantes</p>
+                    <div class="col s4">
+                      <a class="btn minus">-</a>
+                    </div>
+                    <div class="col s4">
+                      <a class="btn number" id="infants_number_1">0</a>
+                    </div>
+                    <div class="col s4">
+                      <a class="btn plus">+</a>
+                    </div>
+                  </li>
+                </ul>
+                <a class="waves-effect waves-light btn search color3 right" id="ow_search">
                   <i class="material-icons left">search</i>
                   Buscar
                 </a>

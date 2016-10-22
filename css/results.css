@@ -1,3 +1,4 @@
+
 .color1,.color1.page-footer,.search-panel.color1 {
   background-color: #263238;
 }
@@ -444,3 +445,45 @@ div.noUi-tooltip {
 }
 
 /*fin de typeahead*/
+
+
+
+/*begin passenger selection*/
+
+  ul.dropdown-content.passenger-selection {
+    padding-left: .5em;
+    padding-right: .5em;
+  }
+
+  ul.dropdown-content.passenger-selection li p{
+    text-align: center;
+    margin-left: 0;
+    margin-bottom: .5em;
+    margin-top: .5em;
+  }
+
+  ul.dropdown-content.passenger-selection li a.btn.number{
+    background-color: #d1d1d1;
+    border-radius: 0;
+    color: black;
+  }
+
+  ul.dropdown-content.passenger-selection li a.btn.number:hover{
+    background-color: #d1d1d1;
+  }
+
+  ul.dropdown-content.passenger-selection li:hover {
+    background-color: inherit;
+  }
+
+  ul.dropdown-content.passenger-selection a.btn {
+    background-color: #263238;
+    width: 100%;
+  }
+
+  ul.dropdown-content.passenger-selection div.col {
+    padding: 0;
+  }
+
+
+/*end passenger selection/*
