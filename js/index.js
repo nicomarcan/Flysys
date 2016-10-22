@@ -326,6 +326,9 @@ $(document).ready(function(){
 					}
 		      var d = event.newValue ;
 		      var date = new Date(d.split("-")[0],d.split("-")[1]-1,d.split("-")[2]);
+					if (date == "Invalid Date"){
+						return;
+					}
 	        var picker = date2_picker.pickadate('picker');
 	        picker.set('enable', [{from: [0,0,0], to: prevdate}]);
 	        picker.set('disable', [{ from: [0,0,0], to: date }]);
