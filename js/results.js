@@ -5,7 +5,7 @@ var spanish_days_short = [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ];
 
 var pageSize = 7 ;
 var intervalHours = 1;
-
+var to = 2000 ;
 
 var mode;
 var src,dst;
@@ -128,10 +128,14 @@ $(document).ready(function(){
     type: 'GET',
     url: misc,
     dataType: 'json',
+    timeout: to,
     data: {
       method: 'getcurrenciesratio',
       id1: 'USD',
       id2: 'ARS'
+    },
+    error: function(){
+      noFlightsFound("Se ha agotado el tiempo de espera");
     },
     success: function(r){
       usdToArs = r.ratio;
@@ -139,8 +143,12 @@ $(document).ready(function(){
         type: 'GET',
         url: geo,
         dataType: 'json' ,
+        timeout: to,
         data: {
           method: 'getairports'
+        },
+        error: function(){
+          noFlightsFound("Se ha agotado el tiempo de espera");
         },
         success: function(d){
           if(d.total<=d.page_size){
@@ -150,9 +158,13 @@ $(document).ready(function(){
               type: 'GET',
               url: geo,
               dataType: 'json',
+              timeout: to,
               data: {
                 method: 'getairports',
                 page_size:d.total
+              },
+              error: function(){
+                noFlightsFound("Se ha agotado el tiempo de espera");
               },
               success: function(f){
                 fillAirportsAutocomplte(f,values,nameToId);
@@ -160,8 +172,12 @@ $(document).ready(function(){
                   type: 'GET',
                   url: misc,
                   dataType: 'json',
+                  timeout: to,
                   data: {
                     method: 'getairlines'
+                  },
+                  error: function(){
+                    noFlightsFound("Se ha agotado el tiempo de espera");
                   },
                   success : function(a){
                     airlines = a.airlines;
@@ -183,6 +199,7 @@ $(document).ready(function(){
                       type: 'GET',
                       url: booking,
                       dataType: 'json',
+                      timeout: to,
                       data: {
                         method: 'getonewayflights',
                         from: src ,
@@ -195,6 +212,9 @@ $(document).ready(function(){
                         * TODO: CHANGE
                         */
                         page_size:'1000'
+                      },
+                      error: function(){
+                        noFlightsFound("Se ha agotado el tiempo de espera");
                       },
                       success : function(d){
                         req1=d;
@@ -252,6 +272,7 @@ $(document).ready(function(){
                             type: 'GET',
                             url: booking,
                             dataType: 'json',
+                            timeout: to,
                             data: {
                               method: 'getonewayflights',
                               from: dst ,
@@ -264,6 +285,9 @@ $(document).ready(function(){
                               * TODO: CHANGE
                               */
                               page_size: '1000'
+                            },
+                            error: function(){
+                              noFlightsFound("Se ha agotado el tiempo de espera");
                             },
                             success : function(d1){
                               req2=d1;
@@ -367,8 +391,12 @@ $(document).ready(function(){
     type: 'GET',
     url: misc,
     dataType: 'json' ,
+    timeout: to,
     data : {
       method: 'getairlines'
+    },
+    error: function(){
+      noFlightsFound("Se ha agotado el tiempo de espera");
     },
     success: function(d){
       if(d.total<=d.page_size){
@@ -378,9 +406,13 @@ $(document).ready(function(){
           type: 'GET',
           url: misc,
           dataType: 'json',
+          timeout: to,
           data: {
             page_size:d.total,
             method: 'getairlines'
+          },
+          error: function(){
+            noFlightsFound("Se ha agotado el tiempo de espera");
           },
           success: function(f){
             loadAirlinesTypeahead(f,airlineNames,airlineNameToId);
@@ -1068,9 +1100,9 @@ function fillAirportsAutocomplte(data,values,nameToId){
     });
   }
 
-  function noFlightsFound(){
+  function noFlightsFound(message = "Su búsqueda no ha arrojado resultados"){
     $("#results div.preloader").empty();
-    $("#results div.preloader").append("<div><p>Su búsqueda no ha arrojado resultados</p></div>");
+    $("#results div.preloader").append("<div><p>"+message+"</p></div>");
   }
 
   function importantStars(rep){
