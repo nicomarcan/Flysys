@@ -758,7 +758,7 @@ function initializeCollapsibles() {
         return false;
     }
     setLocalObject("flights",flights);
-    window.location = "datos.html";
+    window.location = "datos.html"+location.search;
     event.stopPropagation();
   });
 
