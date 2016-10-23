@@ -4,6 +4,43 @@
 $("html, body").animate({ scrollTop: "0" },200);
 $(document).ready(function(){
 
+	//history
+	if (typeof(Storage) !== "undefined") {
+		var prev_state;
+
+   		prev_state =JSON.parse(sessionStorage.getItem("flight_info"));
+   		if(prev_state != undefined ){
+   				$("#one-way-tab").click();
+				var from = $("#from_input");
+				var to = $("#to_input");
+				from.val(prev_state['from']);
+				to.val(prev_state['to']);
+				 $('.modal-trigger#passengers').text( prev_state['Passengers']);
+				 $('#adults_val').text(prev_state['Adults']);
+				 $('#children_val').text(prev_state['Children']);
+				 $('#infants_val').text(prev_state['Infants']);
+				var from_two = $("#from_input_two");
+				var to_two = $("#to_input_two");
+				from_two.val(prev_state['from']);
+				to_two.val(prev_state['to']);
+				 $('.modal-trigger#passengers_two').text( prev_state['Passengers']);
+				 $('#adults_val_two').text(prev_state['Adults']);
+				 $('#children_val_two').text(prev_state['Children']);
+				 $('#infants_val_two').text(prev_state['Infants']);
+   		}
+   		console.log(prev_state);
+} else {
+    // Sorry! No Web Storage support..
+    //alert("no anda");
+}
+
+
+
+
+
+
+
+
 //	loadMap();
 		var valores=new Array();
 		var airlines=new Array();
@@ -40,9 +77,9 @@ $(document).ready(function(){
 			var obj = [];
 			for(var x = 0 ; x<total ; x++ ){
 				obj.push(airports[x].description.split(", ")[1]) ;
-				valores.push(airports[x].description.split(", ")[1]);
+				valores.push(airports[x].description.split(", ")[1].toLowerCase());
 				obj.push(airports[x].description) ;
-				valores.push(airports[x].description);
+				valores.push(airports[x].description.toLowerCase());
 				nameToId[airports[x].description.split(", ")[1]] = airports[x].city.id;
 				nameToId[airports[x].description] = airports[x].id;
 			}
@@ -104,7 +141,7 @@ $(document).ready(function(){
 			var obj = [];
 			for(var x = 0 ; x<total ; x++ ){
 				obj.push(airl[x].name) ;
-				airlines.push(airl[x].name);
+				airlines.push(airl[x].name.toLowerCase());
 				nameToId[airl[x].name] = airl[x].id;
 			}
 			var blood_ciudades = new Bloodhound({
@@ -447,8 +484,25 @@ $(document).ready(function(){
 			var infants= $('#passenger_two #infants_val_two').text();
 			var url= "results.html?"+"mode=two-way&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1+"&d2="+d2;
 			console.log(url);
-			if(src!=undefined && dst!=undefined && d1!="" &&  d2!="")
+			if(src!=undefined && dst!=undefined && d1!="" &&  d2!=""){
 				window.location=url;
+				var flight_info= {};
+				flight_info["Mode"]="two-way";
+				flight_info["src"]=src;
+				flight_info["dst"]=dst;
+				flight_info["d1"]=d1;
+				flight_info["d2"]=d2;
+				flight_info["Adults"]=adults;
+				flight_info["Children"]=children;
+				flight_info["Infants"]=infants;
+				flight_info["Passengers"]=$('.modal-trigger#passengers_two').text();
+				flight_info["from"]=$('#from_input_two').val();
+				flight_info["to"]= $('#to_input_two').val();
+				sessionStorage.setItem("flight_info",JSON.stringify(flight_info));
+				window.location=url;
+
+
+			}
 			else{
 				$('#from_input_two').blur();
 				checkEmpty($('#from_input_two'));
@@ -474,8 +528,22 @@ $(document).ready(function(){
 			var infants= $('#passenger  #infants_val').text();
 			var url= "results.html?"+"mode=one-way&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1;
 			console.log(url);
-			if(src!=undefined && dst!=undefined && d1!="")
+			if(src!=undefined && dst!=undefined && d1!=""){
+				
+				var flight_info= {};
+				flight_info["Mode"]="one-way";
+				flight_info["src"]=src;
+				flight_info["dst"]=dst;
+				flight_info["d1"]=d1;
+				flight_info["Adults"]=adults;
+				flight_info["Children"]=children;
+				flight_info["Infants"]=infants;
+				flight_info["Passengers"]=$('.modal-trigger#passengers').text();
+				flight_info["from"]=$('#from_input').val();
+				flight_info["to"]= $('#to_input').val();
+				sessionStorage.setItem("flight_info",JSON.stringify(flight_info));
 				window.location=url;
+			}
 			else{
 				$('#from_input').blur();
 				checkEmpty($('#from_input'));
@@ -489,7 +557,7 @@ $(document).ready(function(){
 
 		//PLACE VALIDATOR FROM AND TO
 		$(".place_input").focusout(function(){
-			 if(jQuery.inArray($(this).val(),valores) >= 0){
+			 if(jQuery.inArray($(this).val().toLowerCase(),valores) >= 0){
 			 	   $(this).addClass("valid");
 			 	 $(this).removeClass("invalid");
 			 }
@@ -606,7 +674,7 @@ $(document).ready(function(){
 
 		//airline validator
 		$(".airline_input").focusout(function(){
-			 if(jQuery.inArray($(this).val(),airlines) >= 0){
+			 if(jQuery.inArray($(this).val().toLowerCase(),airlines) >= 0){
 			 	   $(this).addClass("valid");
 			 	 $(this).removeClass("invalid");
 			 }
@@ -782,7 +850,7 @@ $(document).ready(function(){
 
 		  //airline validator
 		$(".airline_input_optional").focusout(function(){
-			 if(jQuery.inArray($(this).val(),airlines) >= 0){
+			 if(jQuery.inArray($(this).val().toLowerCase(),airlines) >= 0){
 			 	  $(this).addClass("valid");
 			 	 $(this).removeClass("invalid");
 			 }
