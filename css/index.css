@@ -23,7 +23,7 @@ ul.inline li{
 }
 
 h5.to-offer{
-  position: absolute;bottom:5rem;
+  position: absolute;margin-left:0;bottom:5rem;
 }
 
 p.price-offer{
@@ -84,8 +84,9 @@ p.big,a.big{
 
 
 .offer-img.big{
-  height:250px;
-  width: 75%;
+  height:280px;
+  width: 90%;
+
 }
 
 
@@ -240,13 +241,17 @@ body{overflow-y:scroll!important}
 }
 
 div.container-fluid.center{
-  margin-left: 18%;
-  margin-right:18%;
+  margin-left:5%;
+  margin-right:5%;
 }
 
 div.offers-text{
   margin-top:20%;
   color:black;
+}
+
+div.slider{
+  height:320px;
 }
 
 .blurred-img { opacity: 0; }
