@@ -56,6 +56,7 @@ var currCrit,currPage;
 var currMin,currMax;
 var currAirlines = [],currStars = [];
 var applied,result;
+var currCurrency = "USD" ;
 
 $(document).ready(function(){
 
@@ -145,6 +146,9 @@ $(document).ready(function(){
     },
     success: function(r){
       usdToArs = r.ratio;
+      var conv_ratio = {} ;
+      conv_ratio["usdToArs"]=usdToArs;
+      setLocalObject("conv_ratio",conv_ratio);
       $.ajax({
         type: 'GET',
         url: geo,
@@ -457,16 +461,18 @@ $(document).ready(function(){
     var currency = $(this).text();
     switch (currency) {
       case "USD":
-        if(multiplier != 1){
+        if(currCurrency != "USD"){
           multiplier = 1;
+          currCurrency = "USD";
           currMin/=usdToArs;
           currMax/=usdToArs;
           updateSlider(price_slider,min,max,currMin,currMax);
         }
         break;
       case "ARS":
-          if(multiplier == 1){
+          if(currCurrency != "ARS"){
             multiplier = usdToArs;
+            currCurrency = "ARS";
             currMin*=usdToArs;
             currMax*=usdToArs;
             updateSlider(price_slider,min*usdToArs,max*usdToArs,currMin,currMax);
@@ -758,6 +764,12 @@ function initializeCollapsibles() {
         return false;
     }
     setLocalObject("flights",flights);
+    var flight_detail = {};
+    flight_detail["currency"] = currCurrency;
+    flight_detail["adults"] = adults ;
+    flight_detail["children"] = children ;
+    flight_detail["infants"] = infants ;
+    setLocalObject("flight_detail",flight_detail);
     window.location = "datos.html";
     event.stopPropagation();
   });
