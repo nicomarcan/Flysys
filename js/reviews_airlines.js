@@ -23,14 +23,18 @@ function insertFlightInfoCard(info) {
 
 }
 
-function insertErrorCard(container, header, description) {
+function insertErrorCard(container, header, description, link) {
+	if (container.find(".error-card").length !== 0) {
+		return
+	}
 	var template = $("#error_card").html();
 	Mustache.parse(template);
 	var render = Mustache.render(template, {
 		header: header,
-		description: description
+		description: description,
+		link: link
 	});
-	container.append(render);
+	container.prepend(render);
 }
 
 function insertNotFoundCard(container, header, description, link_description, link_class) {
@@ -98,6 +102,7 @@ function ajaxAirlineInfo(params, airlines_id) {
 		url: "http://hci.it.itba.edu.ar/v1/api/misc.groovy",
 		jsonp: "callback",
 		dataType: "jsonp",
+		timeout: 5000,
 		data: {
 			method: "getairlinebyid",
 			id: params["airline_id"],
@@ -134,6 +139,7 @@ function ajaxFlightInfo(params, airlines) {
 		url: "http://hci.it.itba.edu.ar/v1/api/status.groovy",
 		jsonp: "callback",
 		dataType: "jsonp",
+		timeout: 5000,
 		data: {
 			method: "getflightstatus",
 			airline_id: params["airline_id"],
@@ -163,10 +169,12 @@ function ajaxFlightInfo(params, airlines) {
 			}
 		},
 		error: function(response) {
+
 			insertErrorCard(
 				$("#flight-info-card"),
-				"Hubo un error de conexion.",
-				"El servidor no responde :(  ."
+				"Hubo un error de conexión.",
+				"El servidor no responde.",
+				true
 			);
 			$("#review-head").hide();
 		}
@@ -220,7 +228,8 @@ $(document).ready(function() {
 				insertErrorCard(
 					$("#flight-info-card"),
 					"La aerolinea es inválida.",
-					"Si este error persiste, por favor contactenos a mota@itba.edu.ar."
+					"Si este error persiste, por favor contactenos a mota@itba.edu.ar.",
+					true
 				);
 				$("#review-head").hide();
 			}
@@ -235,7 +244,8 @@ $(document).ready(function() {
 					insertErrorCard(
 						$("#flight-info-card"),
 						"El número de vuelo es inválido.",
-						"Eso ni siquera es un entero :| ."
+						"El número de vuelo debe ser entero.",
+						true
 					);
 					$("#review-head").hide();
 				}
@@ -276,12 +286,13 @@ $(document).ready(function() {
 							options[op].sort_key,
 							options[op].sort_order,
 							page,
-							options[op]
+							options[op],
+							-1
 					)).then( function (response) {
 
 						$("#paginate").materializePagination({
 			                firstPage: page,
-			                lastPage: parseInt(response.total / response.page_size) + 1,
+			                lastPage: parseInt((response.total - 1) / response.page_size) + 1,
 			                urlParameter: '#opinion_header',
 			                align: "center",
 			                useUrlParameter: false,
@@ -325,53 +336,56 @@ $(document).ready(function() {
 		if (!$(this).attr('data-page')) {
 			return;
 		}
-		var auxpage = parseInt($(this).attr('data-page'));
-		if (auxpage == page) {
+		var dp = $(this).attr('data-page')
+		if (dp == "prev" || dp == "next") {
 			return false;
 		}
-		page = auxpage;
-		if (options[op].pages[page]) {
-			loadReviews(options[op].pages[page]);
+		var auxpage = parseInt(dp);
+		var prev_page = page;
+
+		if (options[op].pages[auxpage]) {
+			loadReviews(options[op].pages[auxpage]);
+			page = auxpage;
 		}
 		else {
-			ajaxReviews(
-				params,
-				options[op].sort_key,
-				options[op].sort_order,
-				page,
-				options[op]
-			)
+			$.when(
+				ajaxReviews(
+					params,
+					options[op].sort_key,
+					options[op].sort_order,
+					auxpage,
+					options[op],
+					prev_page
+				)
+			).then(function(response){
+
+			})
 		}
+		page = auxpage;
 		return true;
 	});
 
-	$(document).on('click', 'li#left_chevron', function() {
+	$(document).on('click', 'li.page_button[data-page=prev]', function() {
 		if ($(this).hasClass('disabled')) {
 			return false;
 		}
-		$("li.page_button").filter( function(index) {
-			return $(this).attr("value") == page - 1;
-		}).click();
-		return true;
+		$("li.page_button[data-page = " + (page - 1) +"]").click();
+		return false;
 	});
 
-	$(document).on('click', 'li#right_chevron', function() {
+	$(document).on('click', 'li.page_button[data-page=next]', function() {
 		if ($(this).hasClass('disabled')) {
 			return false;
 		}
-		$("li.page_button").filter( function(index) {
-			return $(this).attr("value") == (page + 1);
-		}).click();
-		return true;
+		$("li.page_button[data-page = " + (page + 1) +"]").click();
+		return false;
 	});
 
 	$('select#order_select').on('change', function() {
 		op = $(this).children('option.order_option:selected').attr('value');
-		page = 1;
 		$("li.page_button.active").removeClass('active');
 
 		$("li.page_button[data-page="+page+"]").addClass('active');
-		$("li#left_chevron").addClass("disabled");
 		if (total_pages == 1) {
 			$("li#right_chevron").addClass("disabled");
 		}
@@ -388,10 +402,13 @@ $(document).ready(function() {
 					params,
 					options[op].sort_key,
 					options[op].sort_order,
-					page,
-					options[op]
+					1,
+					options[op],
+					-1
 			)).then( function() {
-				$("li.page_button[data-page = 1]").click();
+				if (!response.error) {
+					$("li.page_button[data-page = 1]").click();
+				}
 			});
 		}
 		return true;
@@ -415,4 +432,7 @@ $(document).ready(function() {
 		  $("#post-review").hide();
 	});
 
+	$(document).on('click', 'a.write-review-link', function() {
+		return $(".write_review_button").click();
+	})
 });

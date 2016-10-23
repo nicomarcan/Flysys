@@ -4,11 +4,20 @@ function ajaxAirlineSearch(airlines, airlines_id) {
 			url: 'http://hci.it.itba.edu.ar/v1/api/misc.groovy',
 			jsonp: 'callback',
 			dataType: 'jsonp',
-			timeout: 1000,
+			timeout: 5000,
 			data: {
 				method: 'getairlines'
 			},
 			success: function(response) {
+				if (response.error) {
+					insertErrorCard(
+						$("#flight-info-card"),
+						"Error de conexion",
+						"No se pudo conectar al servidor",
+						false
+					);
+					$("#review-head").hide();
+				}
 				var airline_data = response.airlines;
 				var ret = [];
 				for (var i=0; i<response.total; i++) {
@@ -35,7 +44,13 @@ function ajaxAirlineSearch(airlines, airlines_id) {
 				);
 			},
 			error: function(obj, errorMsg, error) {
-
+				insertErrorCard(
+					$("#flight-info-card"),
+					"Error de conexion",
+					"No se pudo conectar al servidor",
+					false
+				)
+				$("#review-head").hide();
 			}
 		})
 }

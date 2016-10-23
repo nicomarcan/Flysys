@@ -109,15 +109,9 @@
 			</div>
 		</footer>
 	</div>
-	<div id="review-modal" class="modal">
+	<div id="review-modal" class="modal modal-fixed-footer">
     		<div class="modal-content" id= "post-review"  >
-		     	<p>Gracias por dejarnos su comentario! Eso nos ayuda a poder darle un buen feedback a nuestros usuarios!!!</p>
-		     	<br/>
-		     	<br/>
-				<a class="clickable" id="link-airline">Para ver los demás comentarios de esa Aerolinea haga click aqui</a>
-				<br/>
-				<br/>
-				<a class="clickable" id="link-flight">Para ver los demás comentarios de ese vuelo haga click aqui</a>
+		     	<p>Gracias por dejar su comentario.</p>
 		    </div>
 		    <div class="modal-content" id="review-form">
 
@@ -598,16 +592,18 @@
 	{{/reviews}}
 	</script>
 	<script type="x-tmpl-mustache" id="error_card">
-	<div class="card-panel row hoverable clickable ">
+	<div class="card-panel row hoverable clickable error-card">
 		<div class="col s12 error-header">
 			{{header}}
 		</div>
 		<div class='col s12 divider'></div>
 		<div class="col s12 error-description">
 			{{description}}
+			{{#link}}
 			<a class="back-link">
 				Volver atras.
 			</a>
+			{{/link}}
 		</div>
 	</div>
 	</script>
