@@ -58,6 +58,11 @@ nav .nav-wrapper > div > div {
   width: 50%;
 }
 
+nav li.search-button > i:hover {
+  cursor: pointer;
+  background-color: #222d32 ;
+  transition: .1s;
+}
 
 
 footer.page-footer {
@@ -93,7 +98,7 @@ p.big,a.big{
 }
 
 .search-back{
-  background-image: URL("../img/beach.jpg");
+  background-image: URL("../img/back.jpg");
 }
 .parallax{
    background-attachment: fixed;

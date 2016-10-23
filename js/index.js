@@ -81,8 +81,8 @@ $(document).ready(function(){
 				valores.push(airports[x].description.split(", ")[1].toLowerCase());
 				obj.push(airports[x].description) ;
 				valores.push(airports[x].description.toLowerCase());
-				nameToId[airports[x].description.split(", ")[1]] = airports[x].city.id;
-				nameToId[airports[x].description] = airports[x].id;
+				nameToId[airports[x].description.split(", ")[1].toLowerCase()] = airports[x].city.id;
+				nameToId[airports[x].description.toLowerCase()] = airports[x].id;
 			}
 			var blood_ciudades = new Bloodhound({
 				datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -109,6 +109,8 @@ $(document).ready(function(){
 							}
 			);
 			console.log(nameToId);
+			console.log(valores);
+			console.log(airlines);
 			};
 
 
@@ -143,7 +145,7 @@ $(document).ready(function(){
 			for(var x = 0 ; x<total ; x++ ){
 				obj.push(airl[x].name) ;
 				airlines.push(airl[x].name.toLowerCase());
-				nameToId[airl[x].name] = airl[x].id;
+				nameToId[airl[x].name.toLowerCase()] = airl[x].id;
 			}
 			var blood_ciudades = new Bloodhound({
 				datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -180,13 +182,7 @@ $(document).ready(function(){
         $(".slider").removeAttr("style");
         $("ul.slides").removeAttr("style");
 
-        $(".offer-img").on('mouseenter',function(){
-        	$(this).slider('next');
-        });
-
-         $(".offer-img").on('mouseleave',function(){
-        	$(this).slider('next');
-        });
+ 
 
 			//Implementacion de Panoramio
 		  var apiurl=new Array();
@@ -232,8 +228,7 @@ $(document).ready(function(){
 				    success: function(d){
 				   		var random =  parseInt((Math.random() * (90 )), 10) ;
 				  		var item = d.photos[4].photo_file_url;
-						 var photo= $('#offer-img-'+$(this).attr("num"));
-						 photo.attr("src",item);
+	
 						 photo= $('#offer-img-back-'+$(this).attr("num"));
 						 photo.next().children("h5").text($(this).attr("to"));
 						 photo.next().children("p").text("Desde "+ $(this).attr("price")+ " dolares");
@@ -247,6 +242,11 @@ $(document).ready(function(){
 		      }
 		    	// console.log(k);
 		   	}
+
+		   	$("#offers").click(function(){
+		   		//var pos = $("div.section.container-fluid.center.offers-text.offers-back").offset().top;
+		   		$("html, body").animate({ scrollTop: 500 },500);
+		   	})
 
 		$('img.offer-img').on('click', function() {
 			var from;
@@ -494,8 +494,8 @@ $(document).ready(function(){
 
 		//SEARCH TWO-WAY
 		$('#search-icon-two').on('click',function(){
-			var src = nameToId[$('#from_input_two').val()];
-			var dst = nameToId[$('#to_input_two').val()];
+			var src = nameToId[$('#from_input_two').val().toLowerCase()];
+			var dst = nameToId[$('#to_input_two').val().toLowerCase()];
 			var d1 = $('#departing_two input[name=_submit]').val();
 			var d2 = $('#returning input[name=_submit]').val();
 			var adults= $('#passenger_two  #adults_val_two').text();
@@ -539,8 +539,8 @@ $(document).ready(function(){
 
 		//SEARCH ONE-WAY
 		$('#search-icon').on('click',function(){
-			var src = nameToId[$('#from_input').val()];
-			var dst = nameToId[$('#to_input').val()];
+			var src = nameToId[$('#from_input').val().toLowerCase()];
+			var dst = nameToId[$('#to_input').val().toLowerCase()];
 			var d1 = $('#departing input[name=_submit]').val();
 			var adults= $('#passenger #adults_val').text();
 			var children= $('#passenger  #children_val').text();
@@ -859,7 +859,7 @@ $(document).ready(function(){
 
 		 //looking for comments directly
 		  $("#airline_search_btn").click(function(event) {
-		    var search_info = $("input#airline_search").typeahead('val');
+		    var search_info = $("input#airline_search").typeahead('val').toLowerCase();
 		    if (nameToId[search_info] != undefined) {
 		      window.location="review.html?airline_id="+nameToId[search_info];
 
