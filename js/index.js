@@ -9,8 +9,9 @@ $(document).ready(function(){
 		var prev_state;
 
    		prev_state =JSON.parse(sessionStorage.getItem("flight_info"));
-   		if(prev_state != undefined ){
-   				$("#one-way-tab").click();
+   		if( prev_state != undefined ){
+   				if(prev_state["Mode"] == "one-way")
+   					$("#one-way-tab").trigger('click');
 				var from = $("#from_input");
 				var to = $("#to_input");
 				from.val(prev_state['from']);
@@ -263,7 +264,7 @@ $(document).ready(function(){
 			}
 
 			from.typeahead('val',$(this).attr("from"));
-			from.focus();
+			from.blur();
 			to.typeahead('val',$(this).attr("to"));
 			to.blur();
 			event.stopPropagation();
@@ -384,7 +385,7 @@ $(document).ready(function(){
 		      out_duration: 200, // Transition out duration
 		      starting_top: '4%', // Starting top style attribute
 		      ending_top: '10%', // Ending top style attribute
-		      complete: function(){  $('.modal-trigger#passengers_two').text(getPassengers("_two"));}
+	
 
 		    }
 		  );
@@ -396,7 +397,7 @@ $(document).ready(function(){
 		      out_duration: 200, // Transition out duration
 		      starting_top: '4%', // Starting top style attribute
 		      ending_top: '10%', // Ending top style attribute
-		       complete: function(){  $('.modal-trigger#passengers').text(getPassengers(""));}
+		    
 		    }
 		  );
 
@@ -406,10 +407,18 @@ $(document).ready(function(){
 				if($(this).prev().attr("id")=="adults" ||$(this).prev().attr("id")=="adults_two"){
 					if(number > 1){
 						$(this).next().text(number-1);
+						if($("#search a.active").attr("href")=="#one-way")
+						 	$('.modal-trigger#passengers').text(getPassengers(""));
+						 else
+						 	$('.modal-trigger#passengers_two').text(getPassengers("_two"));
 					}
 				}else{
 					if(number > 0){
 						$(this).next().text(number-1);
+						 if($("#search a.active").attr("href")=="#one-way")
+						 	$('.modal-trigger#passengers').text(getPassengers(""));
+						 else
+						 	$('.modal-trigger#passengers_two').text(getPassengers("_two"));
 					}
 				}
 			});
@@ -418,10 +427,17 @@ $(document).ready(function(){
 				var number = Number($(this).prev().text());
 				if(number < 20){
 					$(this).prev().text(number+1);
+			        if($("#search a.active").attr("href")=="#one-way")
+						 	$('.modal-trigger#passengers').text(getPassengers(""));
+						 else
+						 	$('.modal-trigger#passengers_two').text(getPassengers("_two"));
 				}
 			});
 
 			$("#one-way-tab").on('click',function(){
+				if($("#search a.active").attr("href")=="#one-way"){
+					return;
+				}
 				var from_two = $("#from_input_two");
 				var to_two = $("#to_input_two");
 				var from_val = from_two.typeahead('val');
@@ -448,6 +464,9 @@ $(document).ready(function(){
 
 
 		$("#two-way-tab").on('click',function(){
+				if($("#search a.active").attr("href")=="#two-way"){
+					return;
+				}
 				var from = $("#from_input");
 				var to = $("#to_input");
 				var from_val = from.typeahead('val');
@@ -689,7 +708,7 @@ $(document).ready(function(){
 		});
 		var msg=false;
 
-		//flight number validator
+		//flight number validator todo:error al mandar review con numero de vuelo invalido, muestra dos mensajes en aerolinea
 		$(".flight_input").focusout(function(){
 			$('.flight_input').removeClass("valid");
 			$('.flight_input').removeClass("invalid");
@@ -839,13 +858,14 @@ $(document).ready(function(){
 		});
 
 		 //looking for comments directly
-		  $("form#airline_search_form").submit(function(event) {
+		  $("#airline_search_btn").click(function(event) {
 		    var search_info = $("input#airline_search").typeahead('val');
 		    if (nameToId[search_info] != undefined) {
-		      $("input#airline_search_id").val(nameToId[search_info]);
-		      return true;
+		      window.location="review.html?airline_id="+nameToId[search_info];
+
 		    }
-		    return false;
+		     $("input#airline_search").removeClass("valid");
+		     $("input#airline_search").addClass("invalid");
 		  });
 
 		  //airline validator
@@ -874,7 +894,7 @@ $(document).ready(function(){
 			function handleGetCurrentPosition(location){
 			   console.log(location.coords.latitude);
 			    console.log(location.coords.longitude);
-			    alert("Gracias por compartirnos su posicion: "+location.coords.latitude+" , "+location.coords.longitude+". Fl      isis apreciará esa información");
+			 //   alert("Gracias por compartirnos su posicion: "+location.coords.latitude+" , "+location.coords.longitude+". Fl      isis apreciará esa información");
 			     $.ajax({
 					     	type: 'GET',
 							url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy',

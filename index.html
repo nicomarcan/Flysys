@@ -14,34 +14,36 @@
     <link type="text/css" href="css/classic.date.css" rel="stylesheet"/>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+    
 
   </head>
 
     <body>
 
+		<noscript>
+		 	<div class="offers-back" style="height:50px" >
+		 		<p >JavaScript no está andando.Por favor intente recargar la página en unos momentos, y en caso de que este inconveniente continue por favor cambie a alguno de estos dos navegadores: Google Chrome o Mozzila Firefox.</p>
+		 	</div>
+	   </noscript>
 
-      <nav>
-        <div class="nav-wrapper color1">
-          <a href="#" class="brand-logo">Flysis</a>
-          <ul class="right hide-on-med-and-down">
-           	<li >
-							<form id="airline_search_form" action="./review.html" style="height:60px" method="GET">
-
-								<input id="airline_search_id" type="hidden" name="airline_id" />
-								<input id="airline_search" type="search" name="airline_search" class="typeahead airline_input_optional" placeholder="Buscar aerolineas."  />
-								<button class="btn-floating waves-effect waves-light transparent " type="submit" name="action" style="padding: 0px; background: #eeeeee;color: #252525;">
-									<i class="material-icons" style="line-height:normal; padding:2px; color:white">
-										search
-									</i>
-  								</button>
-							</form>
-			</li>
-            <li><a href="help.html"><i class="material-icons">help</i></a></li>
-
-          </ul>
-        </div>
-      </nav>
+           <nav class="color1">
+		      <div class="nav-wrapper">
+		        <div class="valign-wrapper">
+		          <div>
+		            <a href="index.html"><img src="logo.png" alt="Logo" class="valign" width="120"></a>
+		          </div>
+		          <div>
+		            <ul class="right">
+		              <li class="input-container">
+		                <input type="text" id="airline_search" class="typeahead airline_input_optional" placeholder="Buscar aerolíneas"/>
+		              </li>
+		              <li class="search-button"><i class="material-icons clickable" id="airline_search_btn">search</i></li>
+		              <li><a href="help.html"><i class="material-icons">help</i></a></li>
+		            </ul>
+		          </div>
+		        </div>
+		      </div>
+		    </nav>
 
       <div class="container-fluid parallax-container" >
       	<div  class="parallax search-back "></div>
@@ -704,5 +706,6 @@
     <script src="js/attrchange_ext.js"></script>
     <script type="text/javascript" src="js/typeahead.bundle.js"></script>
 	  <script type="text/javascript" src="http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities"></script>
+
   </body>
 </html>
