@@ -43,7 +43,7 @@ function insertReviewCards(reviews) {
 }
 
 var total_pages;
-function ajaxReviews(params, sort_key, sort_order, page, option) {
+function ajaxReviews(params, sort_key, sort_order, page, option, prev_page) {
 	$("#reviews-container").css("opacity", "0.5");
 	var data = {
 	method: "getairlinereviews",
@@ -61,17 +61,20 @@ function ajaxReviews(params, sort_key, sort_order, page, option) {
 		jsonp: "callback",
 		dataType: "jsonp",
 		data: data,
+		timeout: 5000,
 		success: function(response) {
 			$("#reviews-container").css("opacity", "1");
 			if (response.error) {
 				insertErrorCard(
 					$("#reviews-container"),
 					"Se produjo un error al cargar las opiniones.",
-					""
+					"El servidor esta teniendo problemas técnicos.",
+					false
 				);
 			}
-			else if (response.total == 0) {
-				insertNotFoundCard($("#reviews-container"), "No se encontraron opiniones.", "", "Sea el primero en opinar.", "review-link");
+			else if (response.reviews.length == 0) {
+				$("#reviews-container").html("");
+				insertNotFoundCard($("#reviews-container"), "No se encontraron opiniones.", "", "Sea la primera persona en comentar.", "write-review-link");
 				/* TODO bind click to review */
 			}
 			else {
@@ -90,10 +93,12 @@ function ajaxReviews(params, sort_key, sort_order, page, option) {
 		},
 		error: function(error) {
 			$("#reviews-container").css("opacity", "1");
+			$("#reviews-container").html("");
 			insertErrorCard(
 				$("#reviews-container"),
-				"Hubo un error de conexion.",
-				"Que verguenza... "
+				"Hubo un error de conexión.",
+				"No se pudo cargar la página. ",
+				false
 			);
 		}
 	})
