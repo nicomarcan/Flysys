@@ -861,13 +861,11 @@ $(document).ready(function(){
 		  $("#airline_search_btn").click(function(event) {
 		    var search_info = $("input#airline_search").typeahead('val');
 		    if (nameToId[search_info] != undefined) {
-		      $("input#airline_search_id").val(nameToId[search_info]);
+		      window.location="review.html?airline_id="+nameToId[search_info];
 
-		      return true;
 		    }
 		     $("input#airline_search").removeClass("valid");
 		     $("input#airline_search").addClass("invalid");
-		    return false;
 		  });
 
 		  //airline validator
