@@ -8,9 +8,8 @@ $(document).ready(function(){
 	if (typeof(Storage) !== "undefined") {
 		var prev_state;
 
-   		prev_state =JSON.parse(localStorage.getItem("flight_info"));
+   		prev_state =JSON.parse(sessionStorage.getItem("flight_info"));
    		if(prev_state != undefined ){
-   			if(prev_state['Mode']=="one-way"){
    				$("#one-way-tab").click();
 				var from = $("#from_input");
 				var to = $("#to_input");
@@ -20,23 +19,27 @@ $(document).ready(function(){
 				 $('#adults_val').text(prev_state['Adults']);
 				 $('#children_val').text(prev_state['Children']);
 				 $('#infants_val').text(prev_state['Infants']);
-   			}
-   			else{
-				var from = $("#from_input_two");
-				var to = $("#to_input_two");
-				from.val(prev_state['from']);
-				to.val(prev_state['to']);
+				var from_two = $("#from_input_two");
+				var to_two = $("#to_input_two");
+				from_two.val(prev_state['from']);
+				to_two.val(prev_state['to']);
 				 $('.modal-trigger#passengers_two').text( prev_state['Passengers']);
 				 $('#adults_val_two').text(prev_state['Adults']);
 				 $('#children_val_two').text(prev_state['Children']);
 				 $('#infants_val_two').text(prev_state['Infants']);
-   		}
    		}
    		console.log(prev_state);
 } else {
     // Sorry! No Web Storage support..
     //alert("no anda");
 }
+
+
+
+
+
+
+
 
 //	loadMap();
 		var valores=new Array();
@@ -495,7 +498,7 @@ $(document).ready(function(){
 				flight_info["Passengers"]=$('.modal-trigger#passengers_two').text();
 				flight_info["from"]=$('#from_input_two').val();
 				flight_info["to"]= $('#to_input_two').val();
-				localStorage.setItem("flight_info",JSON.stringify(flight_info));
+				sessionStorage.setItem("flight_info",JSON.stringify(flight_info));
 				window.location=url;
 
 
@@ -538,7 +541,7 @@ $(document).ready(function(){
 				flight_info["Passengers"]=$('.modal-trigger#passengers').text();
 				flight_info["from"]=$('#from_input').val();
 				flight_info["to"]= $('#to_input').val();
-				localStorage.setItem("flight_info",JSON.stringify(flight_info));
+				sessionStorage.setItem("flight_info",JSON.stringify(flight_info));
 				window.location=url;
 			}
 			else{
