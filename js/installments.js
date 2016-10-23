@@ -1,4 +1,7 @@
-function ajaxInstallments(flight_id, adults, children, infants, card_number, selector) {
+function ajaxInstallments(flight_id, adults, children, infants, card_number, selector, ratio, currency) {
+	if (selector.attr("number") == card_number) {
+		return;
+	}
 	$("option#installments-head-option").text("Cargando la tarjeta");
 	$("option.installment-option").remove("");
 	selector.val(null);
@@ -7,6 +10,7 @@ function ajaxInstallments(flight_id, adults, children, infants, card_number, sel
 			url: "http://hci.it.itba.edu.ar/v1/api/booking.groovy",
 			jsonp: "callback",
 			dataType: "jsonp",
+			timeout: 5000,
 			data: {
 				method: "getinstallments",
 				adults: adults,
@@ -17,8 +21,9 @@ function ajaxInstallments(flight_id, adults, children, infants, card_number, sel
 			},
 			success: function(response) {
 				if (response.error) {
-					selector.attr("disabled", "");
-					selector.material_select();
+					selector.parent().find("option.installments-head-option").text("Fracasó la petición al servidor.");
+					selector.parent().find("option.installments-head-option").attr("disabled", "");
+					$("select").material_select();
 				}
 				else {
 					var percentage = " (Costo de financiamiento del " + parseInt(response.financial_cost * 100) + "%)";
@@ -36,12 +41,12 @@ function ajaxInstallments(flight_id, adults, children, infants, card_number, sel
 						else {
 							q += instal[i].quantity + " cuotas: ";
 						}
-						q += " $" + instal[i].first.toFixed(2);
+						q += " " + currency +  + (instal[i].first * ratio).toFixed(2);
 						if (instal[i].others) {
 							q += " + " + (instal[i].quantity - 1);
-							q += " x $" + instal[i].others.toFixed(2);
-							total = (instal[i].quantity - 1) *  instal[i].others + instal[i].first;
-							q += " = $" + total.toFixed(2);
+							q += " x " + currency  + (instal[i].others * ratio).toFixed(2);
+							total = (instal[i].quantity - 1) *  instal[i].others  * ratio+ instal[i].first;
+							q += " = " + currency +  + (total * ratio).toFixed(2);
 						}
 
 						selector.append(
@@ -49,11 +54,14 @@ function ajaxInstallments(flight_id, adults, children, infants, card_number, sel
 						);
 					}
 					selector.removeAttr("disabled");
+					selector.parent().find("option.installments-head-option").text("Elija un modo de pago.");
+					selector.attr("number", card_number);
 					selector.material_select();
 				}
 			},
 			error: function() {
-				$("option#installments-head-option").text("Fracaso la peticion");
+				selector.parent().find("option.installments-head-option").text("Fracaso la conexion al servidor.");
+				selector.attr("disabled", "");
 				$("select").material_select();
 			}
 		});

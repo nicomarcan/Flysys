@@ -44,6 +44,7 @@ function setSelectError(selector) {
 
 function removeInstallmentsOptions() {
 	$("select option.installment-option").remove();
+	$("select").attr("number","");
 	$("select").attr("disabled", "");
 	$("select").material_select();
 }
@@ -51,10 +52,18 @@ function removeInstallmentsOptions() {
 function triggerInstallmentsAjax(card_number) {
 	var flights = getLocalObject("flights");
 	var flight_q = flights.length;
-	var cant_adultos=raiesgato(getUrlParameter("adults"));
-  var cant_chicos=raiesgato(getUrlParameter("children"));
-  var cant_infantes=raiesgato(getUrlParameter("infants"));
-
+	var flight_detail = getLocalObject(["flight_detail"]);
+	var cant_adultos= flight_detail["adults"];
+	var cant_chicos= flight_detail["children"];
+	var cant_infantes= flight_detail["infants"];
+	if (flight_detail["currency"] == "USD") {
+		var ratio = 1;
+		var currency = "U$S ";
+	}
+	else {
+		var ratio = parseFloat(getLocalObject(["conv_ratio"])["usdToArs"]);
+		var currency = "$ ";
+	}
 
 	for (var i = 0; i < flight_q; i++) {
 		ajaxInstallments(
@@ -63,7 +72,9 @@ function triggerInstallmentsAjax(card_number) {
 			cant_chicos,
 			cant_infantes,
 			card_number,
-			$("select#installment-options-"+(i+1))
+			$("select#installment-options-"+(i+1) ),
+			ratio,
+			currency
 		)
 	}
 }
