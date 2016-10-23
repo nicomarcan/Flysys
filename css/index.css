@@ -35,10 +35,31 @@ h5.to-offer,p.price-offer{
  
 }
 
+
 .slider .slides li .caption{
   position:relative;
  
 }
+nav div.nav-wrapper div.valign-wrapper {
+  height: 100%;
+}
+
+nav span.twitter-typeahead * {
+  margin: 0;
+}
+
+nav li.search-button > i:hover {
+  cursor: pointer;
+  background-color: #222d32 ;
+  transition: .1s;
+}
+
+nav .nav-wrapper > div > div {
+  width: 50%;
+}
+
+
+
 footer.page-footer {
   margin-top: 0;
   padding-top: 0;
@@ -55,7 +76,6 @@ footer.page-footer {
 
 .material-icons#search-icon,.material-icons#search-icon-two{
   float:right;
-  margin-right: 0;
 }
 
 .parallax-container{
