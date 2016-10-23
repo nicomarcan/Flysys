@@ -770,7 +770,7 @@ function initializeCollapsibles() {
     flight_detail["children"] = children ;
     flight_detail["infants"] = infants ;
     setLocalObject("flight_detail",flight_detail);
-    window.location = "datos.html";
+    window.location = "datos.html"+location.search;
     event.stopPropagation();
   });
 
