@@ -402,6 +402,10 @@ $(document).ready(function(){
 					from.blur();
 				if( to.typeahead('val')!="")
 					to.blur();
+				 $('.modal-trigger#passengers').text( $('.modal-trigger#passengers_two').text());
+				 $('#adults_val').text( $('#adults_val_two').text());
+				 $('#children_val').text( $('#children_val_two').text());
+				 $('#infants_val').text( $('#infants_val_two').text());
 		});
 
 
@@ -424,6 +428,10 @@ $(document).ready(function(){
 					from_two.blur();
 				if( to_two.typeahead('val')!="")
 					to_two.blur();
+				$('.modal-trigger#passengers_two').text( $('.modal-trigger#passengers').text());
+				$('#adults_val_two').text( $('#adults_val').text());
+				 $('#children_val_two').text( $('#children_val').text());
+				 $('#infants_val_two').text( $('#infants_val').text());
 
 		});
 
@@ -894,6 +902,10 @@ function showNotANumberError(){
 
 function getPassengers(elem){
 	var s = "";
-	s+=  $("#adults_val"+elem).text()+" A - "+$("#children_val"+elem).text()+" N - "+$("#infants_val"+elem).text()+" I";
+	num =   Number( $("#adults_val"+elem).text() ) + Number( $("#children_val"+elem).text() )+ Number( $("#infants_val"+elem).text() );
+	if (num == 1)
+		s = "1 Pasajero";
+	else
+		s+= num +" Pasajeros";	
 	return s;
 }
