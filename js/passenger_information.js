@@ -31,7 +31,7 @@ $(document).ready(function(){
 
   var flights = getLocalObject("flights");
 
-	if (!flights) {
+	if (!flights || getUrlParameter("children")==undefined || 	getUrlParameter("infants")==undefined || getUrlParameter("adults")==undefined) {
 		$("#contenedor").html("");
 		insertErrorCard(
 			$("#contenedor"),
