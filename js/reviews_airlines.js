@@ -288,8 +288,10 @@ $(document).ready(function() {
 							page,
 							options[op],
 							-1
-					)).then( function (response) {
-
+					)).then( function (response, errorMsg, error) {
+						if (response.error) {
+							return;
+						}
 						$("#paginate").materializePagination({
 			                firstPage: page,
 			                lastPage: parseInt((response.total - 1) / response.page_size) + 1,
@@ -348,18 +350,14 @@ $(document).ready(function() {
 			page = auxpage;
 		}
 		else {
-			$.when(
-				ajaxReviews(
-					params,
-					options[op].sort_key,
-					options[op].sort_order,
-					auxpage,
-					options[op],
-					prev_page
-				)
-			).then(function(response){
-
-			})
+			ajaxReviews(
+				params,
+				options[op].sort_key,
+				options[op].sort_order,
+				auxpage,
+				options[op],
+				prev_page
+			);
 		}
 		page = auxpage;
 		return true;
@@ -405,7 +403,7 @@ $(document).ready(function() {
 					1,
 					options[op],
 					-1
-			)).then( function() {
+			)).then( function(response, errorMsg, error) {
 				if (!response.error) {
 					$("li.page_button[data-page = 1]").click();
 				}

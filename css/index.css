@@ -9,6 +9,7 @@
 .offers-back{
   background-color:rgba(239,235,233,0.85);
  }
+
 #airline_search{
   margin-bottom: 0;
 }
@@ -32,13 +33,13 @@ p.price-offer{
 
 h5.to-offer,p.price-offer{
    background-color:rgba(38,50,56,0.6);
- 
+
 }
 
 
 .slider .slides li .caption{
   position:relative;
- 
+
 }
 nav div.nav-wrapper div.valign-wrapper {
   height: 100%;
