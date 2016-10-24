@@ -50,7 +50,6 @@ function addCard() {
   if($("#dep").text()==""){
     $("#dep_container").remove();
   }
-
   if($("#cuota2").text()==""){
     $("#dep_container").remove();
     $("#cuota1_det").text("Cuotas:")
@@ -497,7 +496,8 @@ function networkError(){
           payment: cache_payment,
           contact: getLocalObject("contact")
         }
-        fajax("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight2",{booking: JSON.stringify(final)},cuenta,networkError);
+        $.Deferred().resolve(fajax("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight2",{booking: JSON.stringify(final)},cuenta,networkError))
+        ;
       }
       finalizado();
 
