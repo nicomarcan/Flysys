@@ -83,19 +83,7 @@
           </div>
       </div>
     </footer>
-		<script type="x-tmpl-mustache" id="detallevuelo">
 
-			Detalle del vuelo<br/>
-			Numero de vuelo{{id_vuelo}}<br/>
-			Fecha{{fecha_vuelo}}<br/>
-			Hora de salida{{hora_sal_vuelo}}<br/>
-			Hora de llegada{{hora_lle_vuelo}}<br/>
-			Aeropuerto de origen:{{origen_vuelo}}<br/>
-			Aeropuerto destino:{{destino_vuelo}}<br/>
-			Precio por adulto:{{precio_adulto_vuelo}}<br/>
-			Precio por chico:{{precio_chico_vuelo}}<br/>
-			Precio por infante:{{precio_infante_vuelo}}<br/>
-		</script>
 		<script type="x-tmpl-mustache" id="detalletarjeta">
 			<div class="detalle">
 				<span class="info">Número de tarjeta </span>
@@ -153,8 +141,7 @@
 					<div class="card-panel row">
 						<div class="col s8">
 							<div class="detalle">
-								<span class="info">Informacion del pasajero </span>
-								<span>{{idpasajero}}</span>
+								<span class="info">Informacion del {{idpasajero}} pasajero </span>
 							</div>
 							<div class="detalle">
 								<span class="info">Nombre </span>
@@ -183,6 +170,7 @@
 		<script type="text/javascript" src="./js/mustache.min.js"></script>
     <script src="./js/common.js"></script>
 		<script src="./js/detalle.js"></script>
+
 		<script type="x-tmpl-mustache" id="row">
 
       <div class="individual-result">
@@ -207,12 +195,38 @@
                   </div>
                 </li>
                 <li class="row-f3 col s4 valign-wrapper">
-
                 </li>
               </ul>
 
             </div>
-            <div class="collapsible-body"><p>Aca va el detalle de la tarifa</p></div>
+            <div class="collapsible-body price-detail">
+              <ul class="container-fluid">
+                <li class="col s3 valign-wrapper">
+                  <div class="valign">
+                    <h5>Tarifa por adulto:</h5>
+                    <h5 class="price">${{adult}}</h5>
+                  </div>
+                </li>
+                <li class="col s3 valign-wrapper">
+                  <div class="valign">
+                    <h5>Tarifa por niño:</h5>
+                    <h5 class="price">${{child}}</h5>
+                  </div>
+                </li>
+                <li class="col s3 valign-wrapper">
+                  <div class="valign">
+                    <h5>Tarifa por infante:</h5>
+                    <h5 class="price">${{infant}}</h5>
+                  </div>
+                </li>
+                <li class="col s3 valign-wrapper">
+                  <div class="valign">
+                    <h5>Impuestos:  ${{taxes}}</h5>
+                    <h5>Cargos:  ${{charges}}</h5>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </li>
           <li>
             <div class="collapsible-header">
@@ -228,13 +242,13 @@
                 <li class="row-f2 col s4 valign-wrapper">
                   <div class="valign-wrapper">
                     <p class="valign left-s">{{airline_code_1}}</p>
-                    <i class="valign material-icons arrow-right">trending_flat</i>
                     <p class="valign right-s">{{flight_number_1}}</p>
+                    <p class="valign right-s">(+{{duration_1}}hs)</p>
                   </div>
                 </li>
                 <li class="row-f3 col s4 valign-wrapper arrive">
                   <div class="valign-wrapper">
-                    <h5 class="valign date left-s">+{{duration_1}}hs.</h5>
+                    <h5 class="valign date left-s">{{{arrival_1}}}</h5>
                     <h3 class="valign">|</h3>
                     <h4 class="valign airp-code right-s">{{to_1}}</h4>
                   </div>
@@ -247,17 +261,17 @@
               <ul class="collapsible-body-row container-fluid">
                 <li class="row-f1 col s4 valign-wrapper">
                   <div class="valign-wrapper">
-
+                    <p><strong>Partiendo de: </strong>{{airp_1}}</p>
                   </div>
                 </li>
                 <li class="row-f2 col s4 valign-wrapper">
                   <div class="valign-wrapper">
-
+                    <p><strong>Arribando en: </strong>{{airp_2}}</p>
                   </div>
                 </li>
                 <li class="row-f3 col s4 valign-wrapper">
                   <div class="valign-wrapper">
-                    <a class="waves-effect waves-light btn valign color3">Ver reputación</a>
+                    <p class="complete-name"><strong>{{airline_name_1}}</br> Vuelo {{flight_number_1}}</strong></p>
                   </div>
                 </li>
 
@@ -268,7 +282,7 @@
       </div>
 
     </script>
-		<script type="x-tmpl-mustache" id="rtw">
+    <script type="x-tmpl-mustache" id="rtw">
 
       <div class="individual-result">
         <ul class="collapsible" data-collapsible="accordion">
@@ -298,7 +312,34 @@
               </ul>
 
             </div>
-            <div class="collapsible-body"><p>Aca va el detalle de la tarifa</p></div>
+            <div class="collapsible-body price-detail">
+              <ul class="container-fluid">
+                <li class="col s3 valign-wrapper">
+                  <div class="valign">
+                    <h5>Tarifa por adulto:</h5>
+                    <h5 class="price">${{adult}}</h5>
+                  </div>
+                </li>
+                <li class="col s3 valign-wrapper">
+                  <div class="valign">
+                    <h5>Tarifa por niño:</h5>
+                    <h5 class="price">${{child}}</h5>
+                  </div>
+                </li>
+                <li class="col s3 valign-wrapper">
+                  <div class="valign">
+                    <h5>Tarifa por infante:</h5>
+                    <h5 class="price">${{infant}}</h5>
+                  </div>
+                </li>
+                <li class="col s3 valign-wrapper">
+                  <div class="valign">
+                    <h5>Impuestos:  ${{taxes}}</h5>
+                    <h5>Cargos:  ${{charges}}</h5>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </li>
           <li>
             <div class="collapsible-header">
@@ -314,13 +355,13 @@
                 <li class="row-f2 col s4 valign-wrapper">
                   <div class="valign-wrapper">
                     <p class="valign left-s">{{airline_code_1}}</p>
-                    <i class="valign material-icons arrow-right">trending_flat</i>
                     <p class="valign right-s">{{flight_number_1}}</p>
+                    <p class="valign right-s">(+{{duration_1}}hs)</p>
                   </div>
                 </li>
                 <li class="row-f3 col s4 valign-wrapper arrive">
                   <div class="valign-wrapper">
-                    <h5 class="valign date left-s">+{{duration_1}}hs.</h5>
+                    <h5 class="valign date left-s">{{{arrival_1}}}</h5>
                     <h3 class="valign">|</h3>
                     <h4 class="valign airp-code right-s">{{to_1}}</h4>
                   </div>
@@ -333,17 +374,17 @@
               <ul class="collapsible-body-row container-fluid">
                 <li class="row-f1 col s4 valign-wrapper">
                   <div class="valign-wrapper">
-
+                    <p><strong>Partiendo de:</strong>{{airp_1}}</p>
                   </div>
                 </li>
                 <li class="row-f2 col s4 valign-wrapper">
                   <div class="valign-wrapper">
-
+                    <p><strong>Arribando en: </strong>{{airp_2}}</p>
                   </div>
                 </li>
                 <li class="row-f3 col s4 valign-wrapper">
                   <div class="valign-wrapper">
-                    <a class="waves-effect waves-light btn valign color3">Ver reputación</a>
+                    <p class="complete-name"><strong>{{airline_name_1}}</br> Vuelo {{flight_number_1}}</strong></p>
                   </div>
                 </li>
 
@@ -364,13 +405,13 @@
                 <li class="row-f2 col s4 valign-wrapper">
                   <div class="valign-wrapper">
                     <p class="valign left-s">{{airline_code_2}}</p>
-                    <i class="valign material-icons arrow-right">trending_flat</i>
                     <p class="valign right-s">{{flight_number_2}}</p>
+                    <p class="valign right-s">(+{{duration_2}}hs)</p>
                   </div>
                 </li>
                 <li class="row-f3 col s4 valign-wrapper arrive">
                   <div class="valign-wrapper">
-                    <h5 class="valign date left-s">+{{duration_2}}hs.</h5>
+                    <h5 class="valign date left-s">{{{arrival_2}}}</h5>
                     <h3 class="valign">|</h3>
                     <h4 class="valign airp-code right-s">{{to_2}}</h4>
                   </div>
@@ -382,18 +423,17 @@
               <ul class="collapsible-body-row container-fluid">
                 <li class="row-f1 col s4 valign-wrapper">
                   <div class="valign-wrapper">
-                    <h5></h5>
+                    <p><strong>Partiendo de:</strong>{{airp_3}}</p>
                   </div>
                 </li>
                 <li class="row-f2 col s4 valign-wrapper">
                   <div class="valign-wrapper">
-
+                    <p><strong>Arribando en: </strong>{{airp_4}}</p>
                   </div>
-
                 </li>
                 <li class="row-f3 col s4 valign-wrapper">
                   <div class="valign-wrapper">
-                    <a class="waves-effect waves-light btn valign color3">Ver reputación</a>
+                    <p class="complete-name"><strong>{{airline_name_2}}</br> Vuelo {{flight_number_2}}</strong></p>
                   </div>
                 </li>
               </ul>
@@ -403,6 +443,5 @@
       </div>
 
     </script>
-
 </body>
 </html>

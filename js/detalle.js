@@ -11,6 +11,8 @@ var misc = 'http://hci.it.itba.edu.ar/v1/api/misc.groovy';
 var to = 2000 ;
 var airlineNameToId={};
 var airlineNames = [];
+var multiplier=getLocalObject("multiplier");
+var numeros=["primer","segundo","tercero","cuarto","quinto","sexto","séptimo","octavo","noveno","décimo","décimoprimero","décimosegundo","décimotercero","décimocuarto","décimoquinto","décimosexto","décimoseptimo","décimooctavo","décimonoveno","vigésimo"];
 
 
 function addCard() {
@@ -70,14 +72,15 @@ function addPassagers() {
   for (var i = 0; i < pasajeros.length; i++) {
     var pas=pasajeros[i];
     var rendered = Mustache.render(template,{
-      idpasajero:i,
+      idpasajero: numeros[i],
       fname: pas.first_name,
       lname: pas.last_name,
       bdate: humanDate(pas.birthdate),
       passport: pas.id_number
 
       });
-    $('#primero').after(rendered);
+    //$('#primero').after(rendered);
+    $("#primero").append(rendered);
   }
 
 }
@@ -128,7 +131,7 @@ function twStars(id_1,id_2){
   // }
   // var avg = (rep_1 + rep_2)/2;
   // return Math.round(avg/2);
-  return Math.round(7/2);
+  return Math.round(3);
 }
 
 function addOW(nstars,total,from,dep,ac,fn,duration,to,index) {
@@ -154,6 +157,99 @@ function addOW(nstars,total,from,dep,ac,fn,duration,to,index) {
   });
   $('#detalle').append(rendered);
 }
+
+function addOW2(adult,child,infant,taxes,charges,nstars,total,from,dep,ac,fn,duration,to,index,an,arr,airp_1,airp_2) {
+  total*=multiplier;
+  total = Math.floor(total * 100)/100;
+  adult = adult=="--"? "--" : Math.floor(adult * 100*multiplier)/100;
+  child = child=="--"? "--" : Math.floor(child * 100*multiplier)/100;
+  infant = infant=="--"? "--" : Math.floor(infant * 100*multiplier)/100;
+  taxes = Math.floor(taxes * 100*multiplier)/100;
+  charges = Math.floor(charges * 100*multiplier)/100;
+  var template = $('#row').html();
+  Mustache.parse(template);
+  var rep = importantStars(nstars);
+  var rendered = Mustache.render(template, {
+    i1: rep[0],
+    i2: rep[1],
+    i3: rep[2],
+    i4: rep[3],
+    i5: rep[4],
+    total: total ,
+    from_1: from ,
+    departure_1: dep,
+    airline_code_1: ac,
+    flight_number_1: fn ,
+    duration_1: duration,
+    to_1: to,
+    index: index,
+    adult: adult,
+    child: child,
+    infant: infant,
+    taxes: taxes,
+    charges: charges,
+    cmb_code: ac + "," + fn,
+    airline_name_1: an,
+    arrival_1: arr,
+    airp_1: airp_1,
+    airp_2: airp_2
+  });
+  $('#detalle').append(rendered);
+}
+
+function addTW2(adult,child,infant,taxes,charges,nstars,total,from,dep,ac,fn,duration,to,
+                           from1,dep1,ac1,fn1,duration1,to1,index,an,an1,arr,arr1,airp_1,airp_2,airp_3,airp_4) {
+  total*=multiplier;
+  total = Math.floor(total * 100)/100;
+  adult = adult=="--"? "--" : Math.floor(adult * 100*multiplier)/100;
+  child = child=="--"? "--" :Math.floor(child * 100*multiplier)/100;
+  infant = infant=="--"? "--" :Math.floor(infant * 100*multiplier)/100;
+  taxes = Math.floor(taxes * 100*multiplier)/100;
+  charges = Math.floor(charges * 100*multiplier)/100;
+  var template = $('#rtw').html();
+  Mustache.parse(template);
+  var rep = importantStars(nstars);
+  var rendered = Mustache.render(template, {
+    i1: rep[0],
+    i2: rep[1],
+    i3: rep[2],
+    i4: rep[3],
+    i5: rep[4],
+    total: total ,
+    from_1: from ,
+    departure_1: dep,
+    airline_code_1: ac,
+    flight_number_1: fn ,
+    duration_1: duration,
+    to_1: to,
+    from_2: from1 ,
+    departure_2: dep1,
+    airline_code_2: ac1,
+    flight_number_2: fn1 ,
+    duration_2: duration1,
+    to_2: to1,
+    index: index,
+    adult: adult,
+    child: child,
+    infant: infant,
+    taxes: taxes,
+    charges: charges,
+    cmb_code_1: ac + "," + fn,
+    cmb_code_2: ac1 + "," + fn1,
+    airline_name_1: an,
+    airline_name_2: an1,
+    arrival_1: arr,
+    arrival_2: arr1,
+    airp_1: airp_1,
+    airp_2: airp_2,
+    airp_3: airp_3,
+    airp_4: airp_4
+  });
+  $('#detalle').append(rendered);
+}
+
+
+
 
 function addTW(nstars,total,from,dep,ac,fn,duration,to,
                            from1,dep1,ac1,fn1,duration1,to1,index) {
@@ -196,56 +292,137 @@ $(document).ready(function(){
 
   // addOWResult(
   //     owStars(id),
-  //     s1[criterium[i]].price.total.total,
-  //     s1[criterium[i]].outbound_routes[0].segments[0].departure.airport.id,
+  //     vuelo.price.total.total,
+  //     vuelo.outbound_routes[0].segments[0].departure.airport.id,
   //     humanSpanishDate(d[0]) + "<br/>" + humanHour(d[1]),
-  //     s1[criterium[i]].outbound_routes[0].segments[0].airline.id,
-  //     s1[criterium[i]].outbound_routes[0].segments[0].number,
-  //     "  " + s1[criterium[i]].outbound_routes[0].segments[0].duration + "  ",
-  //     s1[criterium[i]].outbound_routes[0].segments[0].arrival.airport.id,
+  //     vuelo.outbound_routes[0].segments[0].airline.id,
+  //     vuelo.outbound_routes[0].segments[0].number,
+  //     "  " + vuelo.outbound_routes[0].segments[0].duration + "  ",
+  //     vuelo.outbound_routes[0].segments[0].arrival.airport.id,
   //     criterium[i]
   //   );
   //var rep = importantStars(stars[i]);
   if(flights.length==1){
     var vuelo=flights[0];
+    // var id = vuelo.outbound_routes[0].segments[0].airline.id;
+    // var d = vuelo.outbound_routes[0].segments[0].departure.date.split(" ");
+    // addOW(
+    //   id,
+    //     vuelo.price.total.total,
+    //     vuelo.outbound_routes[0].segments[0].departure.airport.id,
+    //     humanDate(d[0]) + "<br/>" + humanHour(d[1]),
+    //     vuelo.outbound_routes[0].segments[0].airline.id,
+    //     vuelo.outbound_routes[0].segments[0].number,
+    //     "  " + vuelo.outbound_routes[0].segments[0].duration + "  ",
+    //     vuelo.outbound_routes[0].segments[0].arrival.airport.id,
+    //     vuelo
+    // )
     var id = vuelo.outbound_routes[0].segments[0].airline.id;
     var d = vuelo.outbound_routes[0].segments[0].departure.date.split(" ");
-    addOW(
-      id,
+    var a = vuelo.outbound_routes[0].segments[0].arrival.date.split(" ");
+    var adult,child,infant,taxes,charges;
+    adult = vuelo.price.adults != null ? vuelo.price.adults.base_fare : "--";
+    child = vuelo.price.children != null ? vuelo.price.children.base_fare : "--";
+    infant = vuelo.price.infants != null ? vuelo.price.infants.base_fare : "--";
+    taxes = vuelo.price.total.taxes;
+    charges = vuelo.price.total.charges;
+    addOWResult(
+        adult,
+        child,
+        infant,
+        taxes,
+        charges,
+        owStars(id),
         vuelo.price.total.total,
         vuelo.outbound_routes[0].segments[0].departure.airport.id,
-        humanDate(d[0]) + "<br/>" + humanHour(d[1]),
+        humanSpanishDate(d[0]) + "<br/>" + humanHour(d[1]),
         vuelo.outbound_routes[0].segments[0].airline.id,
         vuelo.outbound_routes[0].segments[0].number,
         "  " + vuelo.outbound_routes[0].segments[0].duration + "  ",
         vuelo.outbound_routes[0].segments[0].arrival.airport.id,
-        vuelo
-    )
-  }else{
-    var id_1,id_2;
-    id_1 = flights[0].outbound_routes[0].segments[0].airline.id;
-    id_2 = flights[1].outbound_routes[0].segments[0].airline.id;
-
-    var d_1,d_2;
-    d_1 = flights[0].outbound_routes[0].segments[0].departure.date.split(" ");
-    d_2 = flights[1].outbound_routes[0].segments[0].departure.date.split(" ");
-    addTW(
-        twStars(id_1,id_2),
-        flights[0].price.total.total + flights[1].price.total.total,
-        flights[0].outbound_routes[0].segments[0].departure.airport.id,
-        humanDate(d_1[0]) + "<br/>" + humanHour(d_1[1]) ,
-        flights[0].outbound_routes[0].segments[0].airline.id,
-        flights[0].outbound_routes[0].segments[0].number,
-        "  " + flights[0].outbound_routes[0].segments[0].duration + "  ",
-        flights[0].outbound_routes[0].segments[0].arrival.airport.id,
-        flights[1].outbound_routes[0].segments[0].departure.airport.id,
-        humanDate(d_2[0]) + "<br/>" + humanHour(d_2[1]),
-        flights[1].outbound_routes[0].segments[0].airline.id,
-        flights[1].outbound_routes[0].segments[0].number,
-        "  " + flights[1].outbound_routes[0].segments[0].duration + "  ",
-        flights[1].outbound_routes[0].segments[0].arrival.airport.id,
-        1
+        criterium[i],
+        vuelo.outbound_routes[0].segments[0].airline.name,
+        humanSpanishDate(a[0]) + "<br/>" + humanHour(a[1]),
+        vuelo.outbound_routes[0].segments[0].departure.airport.description,
+        vuelo.outbound_routes[0].segments[0].arrival.airport.description
       );
+
+  }else{
+    // var id_1,id_2;
+    // id_1 = flights[0].outbound_routes[0].segments[0].airline.id;
+    // id_2 = flights[1].outbound_routes[0].segments[0].airline.id;
+    //
+    // var d_1,d_2;
+    // d_1 = flights[0].outbound_routes[0].segments[0].departure.date.split(" ");
+    // d_2 = flights[1].outbound_routes[0].segments[0].departure.date.split(" ");
+    // addTW(
+    //     twStars(id_1,id_2),
+    //     flights[0].price.total.total + flights[1].price.total.total,
+    //     flights[0].outbound_routes[0].segments[0].departure.airport.id,
+    //     humanDate(d_1[0]) + "<br/>" + humanHour(d_1[1]) ,
+    //     flights[0].outbound_routes[0].segments[0].airline.id,
+    //     flights[0].outbound_routes[0].segments[0].number,
+    //     "  " + flights[0].outbound_routes[0].segments[0].duration + "  ",
+    //     flights[0].outbound_routes[0].segments[0].arrival.airport.id,
+    //     flights[1].outbound_routes[0].segments[0].departure.airport.id,
+    //     humanDate(d_2[0]) + "<br/>" + humanHour(d_2[1]),
+    //     flights[1].outbound_routes[0].segments[0].airline.id,
+    //     flights[1].outbound_routes[0].segments[0].number,
+    //     "  " + flights[1].outbound_routes[0].segments[0].duration + "  ",
+    //     flights[1].outbound_routes[0].segments[0].arrival.airport.id,
+    //     1
+    //   );
+
+      var id_1,id_2;
+      id_1 = flights[0].outbound_routes[0].segments[0].airline.id;
+      id_2 = flights[1].outbound_routes[0].segments[0].airline.id;
+
+      var d_1,d_2;
+      d_1 = flights[0].outbound_routes[0].segments[0].departure.date.split(" ");
+      d_2 = flights[1].outbound_routes[0].segments[0].departure.date.split(" ");
+      var a_1,a_2;
+      a_1 = flights[0].outbound_routes[0].segments[0].arrival.date.split(" ");
+      a_2 = flights[1].outbound_routes[0].segments[0].arrival.date.split(" ");
+      var adult,child,infant,taxes,charges;
+      adult = flights[0].price.adults != null ? flights[0].price.adults.base_fare : "--";
+      adult += (adult == "--" ? "" : flights[1].price.adults.base_fare);
+      child = flights[0].price.children != null ? flights[0].price.children.base_fare : "--";
+      child += (child == "--" ? "" : flights[1].price.children.base_fare);
+      infant = flights[0].price.infants != null ? flights[0].price.infants.base_fare : "--";
+      infant += (infant == "--" ? "" : flights[1].price.infants.base_fare);
+      taxes = flights[0].price.total.taxes + flights[1].price.total.taxes;
+      charges = flights[0].price.total.charges + flights[1].price.total.charges;
+      addTW2(
+          adult,
+          child,
+          infant,
+          taxes,
+          charges,
+          twStars(id_1,id_2),
+          flights[0].price.total.total + flights[1].price.total.total,
+          flights[0].outbound_routes[0].segments[0].departure.airport.id,
+          humanDate(d_1[0]) + "<br/>" + humanHour(d_1[1]) ,
+          flights[0].outbound_routes[0].segments[0].airline.id,
+          flights[0].outbound_routes[0].segments[0].number,
+          "  " + flights[0].outbound_routes[0].segments[0].duration + "  ",
+          flights[0].outbound_routes[0].segments[0].arrival.airport.id,
+          flights[1].outbound_routes[0].segments[0].departure.airport.id,
+          humanDate(d_2[0]) + "<br/>" + humanHour(d_2[1]),
+          flights[1].outbound_routes[0].segments[0].airline.id,
+          flights[1].outbound_routes[0].segments[0].number,
+          "  " + flights[1].outbound_routes[0].segments[0].duration + "  ",
+          flights[1].outbound_routes[0].segments[0].arrival.airport.id,
+          1,//criterium[i],
+          flights[0].outbound_routes[0].segments[0].airline.name,
+          flights[1].outbound_routes[0].segments[0].airline.name,
+          humanDate(a_1[0]) + "<br/>" + humanHour(a_1[1]),
+          humanDate(a_2[0]) + "<br/>" + humanHour(a_2[1]),
+          flights[0].outbound_routes[0].segments[0].departure.airport.description,
+          flights[0].outbound_routes[0].segments[0].arrival.airport.description,
+          flights[1].outbound_routes[0].segments[0].departure.airport.description,
+          flights[1].outbound_routes[0].segments[0].arrival.airport.description
+        );
+
   }
 
 
@@ -306,4 +483,8 @@ $(document).ready(function(){
   installAirlineSearchHandler()
 //endcopypasta
 
+//veo collapsible-body
+$(".collapsible").collapsible({
+  accordion : false
+});
 });

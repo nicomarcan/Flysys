@@ -3,6 +3,7 @@ var spanish_months_short = [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'a
 var spanish_days = [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ];
 var spanish_days_short = [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ];
 
+
 var pageSize = 7 ;
 var intervalHours = 1;
 var to = 2000 ;
@@ -482,6 +483,7 @@ $(document).ready(function(){
         return false;
     }
     setCurrPage(currPage);
+    setLocalObject("multiplier",multiplier);
     return true;
   });
 
