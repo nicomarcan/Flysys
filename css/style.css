@@ -568,6 +568,13 @@ a.back-link{
 a.back-link:hover{
 	text-decoration: underline;
 }
+a.home-link{
+	color:#039be5;
+	cursor:pointer;
+}
+a.home-link:hover{
+	text-decoration: underline;
+}
 
 
 /*ESTILOS DEL AUTOCOMPLETE*/
