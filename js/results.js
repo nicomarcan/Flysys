@@ -58,9 +58,14 @@ var currMin,currMax;
 var currAirlines = [],currStars = [];
 var applied,result;
 var currCurrency = "USD" ;
-
+var airlines = {};
+var airlines_id = {};
 $(document).ready(function(){
-
+    $.when(
+  	  ajaxAirlineSearch(airlines, airlines_id)
+    ).then(
+  	  airlineSearchSubmit(airlines, airlines_id)
+    )
   var booking = 'http://hci.it.itba.edu.ar/v1/api/booking.groovy' ;
   var geo = 'http://hci.it.itba.edu.ar/v1/api/geo.groovy';
   var misc = 'http://hci.it.itba.edu.ar/v1/api/misc.groovy';
@@ -397,43 +402,6 @@ $(document).ready(function(){
     }
 
   });
-
-  $.ajax({
-    type: 'GET',
-    url: misc,
-    dataType: 'json' ,
-    timeout: to,
-    data : {
-      method: 'getairlines'
-    },
-    error: function(){
-      noFlightsFound("Se ha agotado el tiempo de espera");
-    },
-    success: function(d){
-      if(d.total<=d.page_size){
-        loadAirlinesTypeahead(d,airlineNames,airlineNameToId);
-      } else {
-        $.ajax({
-          type: 'GET',
-          url: misc,
-          dataType: 'json',
-          timeout: to,
-          data: {
-            page_size:d.total,
-            method: 'getairlines'
-          },
-          error: function(){
-            noFlightsFound("Se ha agotado el tiempo de espera");
-          },
-          success: function(f){
-            loadAirlinesTypeahead(f,airlineNames,airlineNameToId);
-          }
-        });
-      }
-    }
-  });
-
-  installAirlineSearchHandler();
 
   $("div.tool-element.order ul.dropdown-content.select-dropdown li").click(function(event){
     var criterium = $(this).text();

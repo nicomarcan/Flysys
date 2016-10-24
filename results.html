@@ -10,6 +10,7 @@
     <link type="text/css" rel="stylesheet" href="css/results.css"/>
     <link type="text/css" href="css/nouislider.min.css" rel="stylesheet">
     <link type="text/css" href="css/classic.css" rel="stylesheet">
+    <link type="text/css" href="css/nav.css" rel="stylesheet">
     <link type="text/css" href="css/classic.date.css" rel="stylesheet">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -329,23 +330,39 @@
     <script type="text/javascript" src="js/tree.js"></script>
     <script type="text/javascript" src="js/materialize-pagination.min.js"></script>
     <script type="text/javascript" src="js/results.js"></script>
-    <nav class="color1">
-      <div class="nav-wrapper">
-        <div class="valign-wrapper">
-          <div>
-            <a href="index.html"><img src="logo.png" class="valign" width="120"></a>
-          </div>
-          <div>
-            <ul class="right">
-              <li class="input-container">
-                <input type="text" id="airline_search" class="typeahead" placeholder="Buscar aerolíneas"/>
-              </li>
-              <li class="search-button"><i class="material-icons clickable" id="airline_search_btn">search</i></li>
-              <li><a href="help.html"><i class="material-icons">help</i></a></li>
-            </ul>
-          </div>
+    <script type="text/javascript" src="js/airline_search.js"></script>
+    <nav>
+        <div class=" color1 ">
+                <div class="nav-wrapper">
+                    <div class="valign-wrapper">
+                <div class="logo-img">
+                    <a href="index.html"><img src="logo.png" alt="Logo" class="valign" width="120"></a>
+                  </div>
+                <div>
+                    <ul class="right">
+                        <li class="input-container">
+                        <form id="airline_search_form" action="./review.html" method="GET">
+                            <input id="airline_search_id" type="hidden" name="airline_id" required></input>
+
+                                <li>
+                                    <input id="airline_search" type="search" class="typeahead" placeholder="Buscar aerolineas.">
+                                    </input>
+                                </li>
+                                <li>
+                                    <button class="btn-floating  transparent
+                                    z-depth-0 submit-search" type="submit" name="action">
+                                        <i class="material-icons search-icon">
+                                            search
+                                        </i>
+                                </button>
+                                </li>
+                        </span>
+                        </form>
+                        <li class="help-link"><a href="#"><i class="material-icons">help</i></a></li>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
     </nav>
     <div class="container-fluid color2" id="main-container">
 

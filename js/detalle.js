@@ -294,8 +294,16 @@ function addTW(nstars,total,from,dep,ac,fn,duration,to,
   $('#detalle').append(rendered);
 }
 
-
+var airlines = {};
+var airlines_id = {};
 $(document).ready(function(){
+
+    $.when(
+  	  ajaxAirlineSearch(airlines, airlines_id)
+    ).then(
+  	  airlineSearchSubmit(airlines, airlines_id)
+    )
+
   var flights = getLocalObject("flights");
 	if (!flights) {
 		$("#primero").html("");
@@ -489,6 +497,7 @@ function networkError(){
      window.location="./datos.html"+location.search;
   })
   //copypasta
+  /*
   if (existLocalObject("cacheNav")){
       loadAirlinesTypeahead(getLocalObject("cacheNav"),airlineNames,airlineNameToId);
   }else{
@@ -530,7 +539,7 @@ function networkError(){
 
   installAirlineSearchHandler()
 //endcopypasta
-
+*/
 //veo collapsible-body
 $(".collapsible").collapsible({
   accordion : false
