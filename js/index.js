@@ -1,8 +1,7 @@
-//TODO: cambiar los attr("class") por removeClass("")
-// TODO: mantener pasajeros cuando cambia entre ida e ida y vuelta
+
 var api_ready=true;
 var flight_info;
-$("html, body").animate({ scrollTop: "0" },200);
+
 $(document).ready(function(){
 
 	//history
@@ -30,11 +29,8 @@ $(document).ready(function(){
 				 $('#children_val_two').text(prev_state['Children']);
 				 $('#infants_val_two').text(prev_state['Infants']);
    		}
-   		//console.log(prev_state);
-} else {
-    // Sorry! No Web Storage support..
-    //alert("no anda");
-}
+   
+} 
 
 
 
@@ -69,7 +65,6 @@ $("#map-btn").click(function(){
 		          dataType: 'json',
 		          data: {page_size:d.total},
 		          success: function(f){
-		            //fillAirportsAutocomplte(f);
 		            cargaTypeAHead(f);
 		          }
 		        });
@@ -102,11 +97,7 @@ $("#map-btn").click(function(){
 									minLength: 1,
 									highlight: true
 							},
-						// {
-						// 		name: 'Aeropuertos',
-						// 		source: blood_aeropuertos,
-						// 		limit: 2,
-						// },
+		
 							{
 									name: 'Ciudades',
 									limit: 3,
@@ -118,71 +109,14 @@ $("#map-btn").click(function(){
 			console.log(airlines);
 			};
 
-			/*
-		  var airlines_url = 'http://hci.it.itba.edu.ar/v1/api/misc.groovy?method=getairlines';
-		  $.ajax({
-		    type: 'GET',
-		    url: airlines_url,
-		    dataType: 'json' ,
-		    success: function(d){
-		      if(d.total<=d.page_size){
-		        cargaTypeAHeadAirlines(d);
-		      } else {
-		        $.ajax({
-		          type: 'GET',
-		          url: airports_url,
-		          dataType: 'json',
-		          data: {page_size:d.total},
-		          success: function(f){
-		            //fillAirportsAutocomplte(f);
-		            cargaTypeAHeadAirlines(f);
-		          }
-		        });
-		      }
-		    }
-		  });
-		  */
+
 
 		$.when(
 			ajaxAirlineSearch(airlines, airlines_id)
 		).then(
 			airlineSearchSubmit(airlines, airlines_id)
 		)
-		  /*
-		  function cargaTypeAHeadAirlines(data){
-			var total = data.total;
-			var airl = data.airlines;
-			var obj = [];
-			for(var x = 0 ; x<total ; x++ ){
-				obj.push(airl[x].name) ;
-				airlines.push(airl[x].name.toLowerCase());
-				nameToId[airl[x].name.toLowerCase()] = airl[x].id;
-			}
-			var blood_ciudades = new Bloodhound({
-				datumTokenizer: Bloodhound.tokenizers.whitespace,
-				queryTokenizer: Bloodhound.tokenizers.whitespace,
-				local: obj
-			});
 
-
-				$('.typeahead#airlines_input,.typeahead#airline_search').typeahead(
-								{
-										minLength: 1,
-										highlight: true
-								},
-							// {
-							// 		name: 'Aeropuertos',
-							// 		source: blood_aeropuertos,
-							// 		limit: 2,
-							// },
-								{
-										name: 'Aerolineas',
-										limit: 3,
-										source: blood_ciudades,
-								}
-				);
-			};
-			*/
 			//AUTO COMPLETE ENDS
 
 		//OFFER IMGS
@@ -199,7 +133,6 @@ $("#map-btn").click(function(){
 
 
 		   	$("#offers").click(function(){
-		   		//var pos = $("div.section.container-fluid.center.offers-text.offers-back").offset().top;
 		   		$("html, body").animate({ scrollTop: 500 },500);
 		   	})
 
@@ -251,9 +184,7 @@ $("#map-btn").click(function(){
 			var cache=from_val
 			from.typeahead('val',to_val);
 			to.typeahead('val',cache);
-			// to.val(from_val)
-			// from.val(to_val);
-			// from.focus();
+
 			from.blur();
 			to.blur();
 
@@ -267,9 +198,7 @@ $("#map-btn").click(function(){
 			var cache=from_val
 			from.typeahead('val',to_val);
 			to.typeahead('val',cache);
-			// to.val(from_val)
-			// from.val(to_val);
-			// from.focus();
+
 			from.blur();
 			to.blur();
 
@@ -812,17 +741,7 @@ $("#map-btn").click(function(){
     		$('.blurred-img').css('opacity', opacityVal);
 		});
 
-		 //looking for comments directly
-     /*
-		 	$("form#airline_search_form").submit(function(event) {
-		var search_info = $("input#airline_search").typeahead('val').toLowerCase();
-		if (nameToId[search_info]) {
-			$("input#airline_search_id").val(nameToId[search_info]);
-			return true;
-		}
-		 $("input#airline_search").addClass("invalid");
-		return false;
-	});*/
+
 
 
 
