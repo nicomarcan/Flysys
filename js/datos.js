@@ -46,6 +46,7 @@ function setSelectError(selector) {
 	selector.parent().children(".select-wrapper input").css("border-bottom", "1px solid #F44336");
 	selector.parent().children(".select-wrapper input").css("box-shadow", "0 1px 0 0 #F44336");
 	selector.parent().children(".select-wrapper input").css("box-shadow", "0 1px 0 0 #F44336");
+	selector.parent().children("span.select-error").remove();
 	selector.parent().children("ul").after("<span style='color:red; font-size:12px;' class='select-error'>Elija una forma de financiamiento.</span>");
 	selector.attr("data-error","error");
 }
