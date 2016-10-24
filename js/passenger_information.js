@@ -149,7 +149,7 @@ function getCities(data){
       });
     }else{
       $("#nacimiento"+nim).focusout(function(){
-        if(!checkBirthDate($(this).val())){
+        if(!checkBirthDateAdult($(this).val())){
           $(this).removeClass("valid");
           $(this).addClass("invalid");
         }else{
