@@ -546,6 +546,35 @@ a.info_breadcrumbs.breadcrumb::before {
 
 /* fin de reviews*/
 
+a.info_breadcrumbs.breadcrumb {
+	font-size: 2rem;
+	color: black;
+	font-weight: lighter;
+}
+a.info_breadcrumbs.breadcrumb::before {
+	font-size: 2rem;
+	color: #a9a9a9;
+	font-weight: lighter;
+}
+a.blue-link {
+	color:#039be5;
+}
+a.blue-link:hover {
+	text-decoration: underline;
+}
+a.link {
+	cursor: pointer;
+}
+a.link:hover{
+	color: #167ac6;
+}
+a.back-link{
+	color:#039be5;
+	cursor:pointer;
+}
+a.back-link:hover{
+	text-decoration: underline;
+}
 
 
 /*ESTILOS DEL AUTOCOMPLETE*/

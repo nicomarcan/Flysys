@@ -6,6 +6,7 @@
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css"/>
 	    <link type="text/css" rel="stylesheet" href="css/style.css"/>
 		<link type="text/css" rel="stylesheet" href="css/patch.css"/>
+		<link type="text/css" rel="stylesheet" href="css/error.css"/>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 	<body class="roboto">
@@ -34,10 +35,11 @@
 
 		<div class="container-fluid row">
 			<div class="col s10 offset-s1" style="margin-top: 1rem;">
-									<a href="#!"  class="breadcrumb info_breadcrumbs link">Carga de datos</a>
-									<a href="#!" class="breadcrumb info_breadcrumbs link">Pago</a>
+									<a href="./index.html" class="breadcrumb info_breadcrumbs link">Inicio</a>
+									<a href="./index.html" class="breadcrumb info_breadcrumbs link" id="flight-path-breadcrumb"> Vuelo de ??? a ???</a>
+									<a href="#!" class="breadcrumb info_breadcrumbs link"> Informacion de pago</a>
 								</div>
-			<div class="col s10 offset-s1">
+			<div class="col s10 offset-s1" id="data-container">
 
 
 					<div class="card-panel row">
@@ -52,7 +54,7 @@
 
 				</div>
 
-	            <div class="row">
+	            <div class="row" >
 	              <div class="input-field col s2">
 	                <input id="tarjeta" type="text" placeholder="Nro tarjeta (Obligatorio)" maxlength="18"/>
 	                <label for="Tarjeta" data-error="Ingrese una tarjeta valida">Numero de tarjeta</label>
@@ -182,5 +184,22 @@
     <script src="js/datos.js"></script>
 		<script src="js/typeahead.bundle.js"></script>
 		<script src="./js/installments.js"></script>
+		<script src="./js/error.js"></script>
+		<script type="x-tmpl-mustache" id="error_card">
+		<div class="card-panel row hoverable clickable error-card">
+			<div class="col s12 error-header">
+				{{header}}
+			</div>
+			<div class='col s12 divider'></div>
+			<div class="col s12 error-description">
+				{{description}}
+				{{#link}}
+				<a class="back-link">
+					Volver atras.
+				</a>
+				{{/link}}
+			</div>
+		</div>
+		</script>
   </body>
 </html>
