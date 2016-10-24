@@ -7,6 +7,10 @@ var spanish_months = [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'J
 var spanish_months_short = [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ];
 var spanish_days = [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ];
 var spanish_days_short = [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ];
+var misc = 'http://hci.it.itba.edu.ar/v1/api/misc.groovy';
+var to = 2000 ;
+var airlineNameToId={};
+var airlineNames = [];
 
 
 function addCard() {
@@ -258,5 +262,41 @@ $(document).ready(function(){
   $("#back").click(function(){
      window.location="./datos.html"+location.search;
   })
-
+  //copypasta
+  $.ajax({
+    type: 'GET',
+    url: misc,
+    dataType: 'json' ,
+    timeout: to,
+    data : {
+      method: 'getairlines'
+    },
+    error: function(){
+      noFlightsFound("Se ha agotado el tiempo de espera");
+    },
+    success: function(d){
+      if(d.total<=d.page_size){
+        loadAirlinesTypeahead(d,airlineNames,airlineNameToId);
+      } else {
+        $.ajax({
+          type: 'GET',
+          url: misc,
+          dataType: 'json',
+          timeout: to,
+          data: {
+            page_size:d.total,
+            method: 'getairlines'
+          },
+          error: function(){
+            noFlightsFound("Se ha agotado el tiempo de espera");
+          },
+          success: function(f){
+            loadAirlinesTypeahead(f,airlineNames,airlineNameToId);
+          }
+        });
+      }
+    }
+  });
+  installAirlineSearchHandler()
+//endcopypasta
 });
