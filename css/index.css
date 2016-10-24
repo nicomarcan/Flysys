@@ -30,6 +30,10 @@ p.price-offer{
   position: absolute;bottom:3.2rem;
 }
 
+.font-color1{
+  color:#263238;
+}
+
 h5.to-offer,p.price-offer{
    background-color:rgba(38,50,56,0.6);
  
@@ -90,7 +94,7 @@ min-height: 1900px;
 p.big,a.big{
   font-size:20px;
 }
-
+.modal {  max-height: 100% !important }
 
 
 .search-back.blurred-img{
@@ -227,7 +231,9 @@ body{overflow-y:scroll!important}
 #review-modal.modal{
   min-height: 40rem;
 }
-
+.btn#map-btn:hover{
+  background-color:#263238;
+}
 .btn-flat#passengers,.btn-flat#passengers_two{
   color:white;
   width: 190px;
