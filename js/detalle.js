@@ -468,11 +468,8 @@ function networkError(){
         }
         fajax("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight2",{booking: JSON.stringify(final)},cuenta,networkError);
       }
-      if(count==flights.length){
-        finalizado();
-      }else{
-        count=0;
-      }
+      finalizado();
+
   });
   $("#back").click(function(){
      window.location="./datos.html"+location.search;

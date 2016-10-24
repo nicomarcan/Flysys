@@ -104,8 +104,13 @@ function checkNumberCard(dato, trigger){
 }
 function checkDateCard(dato){
   var patron=/^((3\d)|([0-2][0-9]))\/\d{2}/i;
+  var mes=new Date().getMonth();
+  var anio=new Date().getYear()-100;
   if(patron.test(dato)){
-    return true; //TODO
+    var cadena=dato.split("/");
+    if((anio<cadena[1]) || (anio==cadena[1] && mes<cadena[0])){
+      return true;
+    }
   }
   return false;
 }
@@ -152,6 +157,7 @@ function checkCity(dato){
 
 function checkPhone(dato){
   var patron=/^.{1,25}/i; //TODO
+  var anio=new Date().getYear()-100+2000;
   return patron.test(dato);
 }
 function checkEmail(dato){
