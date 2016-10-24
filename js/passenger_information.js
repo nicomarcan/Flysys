@@ -5,6 +5,10 @@ var countryNameToId={};
 var citiesIdtoName={};
 var passengersList=[];
 var passengersDict={};
+var misc = 'http://hci.it.itba.edu.ar/v1/api/misc.groovy';
+var to = 2000 ;
+var airlineNameToId={};
+var airlineNames = [];
 
 $(document).ready(function(){
 
@@ -67,9 +71,12 @@ function getCities(data){
 }
 
   function addPassager(nombre,num) {
+    var numeros=["primer","segundo","tercero","cuarto","quinto","sexto","séptimo","octavo","noveno","décimo","décimoprimero","décimosegundo","décimotercero","décimocuarto","décimoquinto","décimosexto","décimoseptimo","décimooctavo","décimonoveno","vigésimo"];
     var template = $('#pasajero_form').html();
     Mustache.parse(template);
     var rendered = Mustache.render(template,{
+      nombre: nombre,
+      id: numeros[parseInt(num)-1],
       indenti: (nombre+num)
     });
     $('#header').after(rendered);
@@ -77,7 +84,6 @@ function getCities(data){
 
   function cargoPasajero(nombre,num){
     var nim=nombre+num;
-    console.log(nim);
     addPassager(nombre,num);
     $('select').material_select();
     $(".tipo_id"+nim).mouseleave(function(){
@@ -237,5 +243,41 @@ function getCities(data){
     setLocalObject("passengers",passengers);
     window.location="./detalle.html"+location.search;
   });
-
+  //copypasta
+  $.ajax({
+    type: 'GET',
+    url: misc,
+    dataType: 'json' ,
+    timeout: to,
+    data : {
+      method: 'getairlines'
+    },
+    error: function(){
+      noFlightsFound("Se ha agotado el tiempo de espera");
+    },
+    success: function(d){
+      if(d.total<=d.page_size){
+        loadAirlinesTypeahead(d,airlineNames,airlineNameToId);
+      } else {
+        $.ajax({
+          type: 'GET',
+          url: misc,
+          dataType: 'json',
+          timeout: to,
+          data: {
+            page_size:d.total,
+            method: 'getairlines'
+          },
+          error: function(){
+            noFlightsFound("Se ha agotado el tiempo de espera");
+          },
+          success: function(f){
+            loadAirlinesTypeahead(f,airlineNames,airlineNameToId);
+          }
+        });
+      }
+    }
+  });
+  installAirlineSearchHandler()
+//endcopypasta
 });
