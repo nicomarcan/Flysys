@@ -1,0 +1,24 @@
+html, body {
+	height: 100%;
+}
+
+.wrapper {
+	min-height: 100%;
+	position:relative;
+}
+.page-container {
+	width: 100%;
+	height: 100%;
+	padding-bottom: 14rem;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 14rem;
+}
+footer.page-footer {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
