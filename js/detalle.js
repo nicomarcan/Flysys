@@ -44,18 +44,10 @@ function addCard() {
     phone: contacto.phones[0],
     email: contacto.email
     });
-  $('#botones').before(rendered);
-  if($("#piso").text()==""){
-    $("#piso_container").remove();
-  }
-  if($("#dep").text()==""){
-    $("#dep_container").remove();
-  }
-  if($("#cuota2").text()==""){
-    $("#dep_container").remove();
-    $("#cuota1_det").text("Cuotas:")
-  }
+    $('#botones').before(rendered);
+
 }
+
 
 function addFlight(){
   var template = $('#detallevuelo').html();
@@ -92,14 +84,14 @@ function addPassagers() {
 
       });
     //$('#primero').after(rendered);
-    $("#primero").append(rendered);
+    $("#contenedor_pasajero").append(rendered);
   }
 
 }
 
 function finalizado(){
   if(v1+v2==flights.length)
-    window.location="./final.html";
+    window.location="./final.html"+location.search;
 }
 function importantStars(rep){
   var ret = [] ;
@@ -316,15 +308,16 @@ $(document).ready(function(){
 
   var flights = getLocalObject("flights");
 	if (!flights || getUrlParameter("children")==undefined || 	getUrlParameter("infants")==undefined || getUrlParameter("adults")==undefined) {
-		$("#primero").html("");
+		$("#error_inf").html("");
 		insertErrorCard(
-			$("#primero"),
+			$("#error_inf"),
             "Ocurrió un error al cargar la información del vuelo.",
 			"No se puede seguir con la compra. Por favor, reintente la búsqueda.",
 			true,
 			"home-link",
 			"Volver al inicio."
 		);
+    $("#primero").addClass("s10").addClass("offset-s1").addClass("col");
     return;
 	}
   var aird = flights[0].outbound_routes[0].segments[0].departure.airport.id;
@@ -566,4 +559,14 @@ function networkError(){
 $(".collapsible").collapsible({
   accordion : false
 });
+if($("#piso").text()==""){
+  $("#piso_container").remove();
+}
+if($("#dep").text()==""){
+  $("#dep_container").remove();
+}
+if($("#cuota2").text()==""){
+  $("#couta2_container").remove();
+  $("#cuota1_det").text("Cuotas:")
+}
 });
