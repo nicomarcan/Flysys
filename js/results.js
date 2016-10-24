@@ -1151,6 +1151,7 @@ function fillAirportsAutocomplte(data,values,nameToId){
   var total = data.total;
   var airports = data.airports;
   var obj = [];
+  console.log(data);
   for(var x = 0 ; x<total ; x++ ){
     obj.push(airports[x].description.split(", ")[1]) ;
     values.push(airports[x].description.split(", ")[1]);
@@ -1159,6 +1160,7 @@ function fillAirportsAutocomplte(data,values,nameToId){
     nameToId[airports[x].description.split(", ")[1]] = airports[x].city.id;
     nameToId[airports[x].description] = airports[x].id;
     idToName[airports[x].city.id] = airports[x].description.split(", ")[1];
+    idToName[airports[x].id] = airports[x].description.split(", ")[1];
   }
   var blood_ciudades = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
