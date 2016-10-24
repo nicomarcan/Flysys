@@ -1,6 +1,7 @@
 //TODO: cambiar los attr("class") por removeClass("")
 // TODO: mantener pasajeros cuando cambia entre ida e ida y vuelta
-
+var api_ready=true;
+var flight_info;
 $("html, body").animate({ scrollTop: "0" },200);
 $(document).ready(function(){
 
@@ -29,7 +30,7 @@ $(document).ready(function(){
 				 $('#children_val_two').text(prev_state['Children']);
 				 $('#infants_val_two').text(prev_state['Infants']);
    		}
-   		console.log(prev_state);
+   		//console.log(prev_state);
 } else {
     // Sorry! No Web Storage support..
     //alert("no anda");
@@ -39,10 +40,13 @@ $(document).ready(function(){
 
 
 
+$("#map-btn").click(function(){
+	if (google_maps_ready == true && first == true) 
+			InitializeMap();
+	first=false;
+});
 
 
-
-//	loadMap();
 		var valores=new Array();
 		var airlines=new Array();
 		var nameToId={};
@@ -184,64 +188,7 @@ $(document).ready(function(){
 
  
 
-			//Implementacion de Panoramio
-		  var apiurl=new Array();
-		  var info = new Array ();
-
-		  function getOffers( from){
-			var j = 1;
-			var src;
-			var photo;
-		      $.ajax({
-		     	type: 'GET',
-				url: 'http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getflightdeals&from='+from,
-				dataType: 'jsonp',
-				success: function (alfa) {
-						if (alfa.error == undefined) {
-
-							var ciudades = alfa.deals;
-							var size = ciudades.length;
-							var random = parseInt((Math.random() * (ciudades.length-9)), 10) ;
-							var limit = random+9;
-							for( ; random< limit ; random++ ){
-								info.push({"to":ciudades[random].city.name.split(", ")[0] , "price" : alfa.deals[random].price,"num":limit-random})
-
-								//console.log(noSpacesCity);
-
-								apiurl.push("http://www.panoramio.com/map/get_panoramas.php?set=public&from=0&to=100&minx="+ciudades[random].city.longitude+"&miny="+ciudades[random].city.latitude+"&maxx="+(ciudades[random].city.longitude+1)+"&maxy="+(ciudades[random].city.latitude+1)+"&size=medium&mapfilter=false");
-							}
-					}
-					getImages(apiurl);
-				}
-			});};
-
-
-
-	      function getImages(apiurl){
-
-	      	for(var x = 0;x<9;x++){
-		    	   $.ajax({
-				    type: 'GET',
-				    url: apiurl[x],
-				    dataType: 'jsonp',
-				    context:info[x],
-				    success: function(d){
-				   		var random =  parseInt((Math.random() * (90 )), 10) ;
-				  		var item = d.photos[4].photo_file_url;
-	
-						 photo= $('#offer-img-back-'+$(this).attr("num"));
-						 photo.next().children("h5").text($(this).attr("to"));
-						 photo.next().children("p").text("Desde "+ $(this).attr("price")+ " dolares");
-						 photo.attr("src",item);
-						 photo.attr("to",$(this).attr("to"));
-						 photo.attr("from","Buenos Aires");
-
-
-				    }
-				  });
-		      }
-		    	// console.log(k);
-		   	}
+			
 
 		   	$("#offers").click(function(){
 		   		//var pos = $("div.section.container-fluid.center.offers-text.offers-back").offset().top;
@@ -882,43 +829,7 @@ $(document).ready(function(){
 
 		});
 
-			//geolocation
-			function getLocation() {
 
-			    if(navigator.geolocation)
-			        navigator.geolocation.getCurrentPosition(handleGetCurrentPosition, onError);
-			    else
-			    	alert("cabe");
-			}
-
-			function handleGetCurrentPosition(location){
-			   console.log(location.coords.latitude);
-			    console.log(location.coords.longitude);
-			 //   alert("Gracias por compartirnos su posicion: "+location.coords.latitude+" , "+location.coords.longitude+". Fl      isis apreciará esa información");
-			     $.ajax({
-					     	type: 'GET',
-							url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy',
-							data:{"method":"getcitiesbyposition","latitude":location.coords.latitude,"longitude":location.coords.longitude,"radius":100},
-							dataType: 'jsonp',
-							success: function (alfa) {
-								if(alfa.error==undefined){
-									if(alfa.cities.length > 0){
-										for(var x=0; x < alfa.cities.length;x++){
-											if(alfa.cities[x].has_airport){
-												getOffers(alfa.cities[x].id);
-											}
-										}
-									}
-								}
-						}
-					});
-
-			}
-
-			function onError(){
-				//alert("No tiene habilitada la geolocalizacion")
-				getOffers("BUE");
-			}
 
 
 			function showErrorCat(elem){
