@@ -667,7 +667,7 @@ $("#map-btn").click(function(){
 		$(".flight_input").focusout(function(){
 			$('.flight_input').removeClass("valid");
 			$('.flight_input').removeClass("invalid");
-			if($("#airlines_input").typeahead('val') == "" && $(this).val()!= ""){
+			if($("#airlines_input").typeahead('val') == "" && $(this).val()!= "" && !$(".airline_input").hasClass("invalid") ){
 				showEmptyAirlineError();
 			}
 
@@ -813,15 +813,16 @@ $("#map-btn").click(function(){
 		});
 
 		 //looking for comments directly
-		  $("#airline_search_btn").click(function(event) {
-		    var search_info = $("input#airline_search").typeahead('val').toLowerCase();
-		    if (nameToId[search_info] != undefined) {
-		      window.location="review.html?airline_id="+nameToId[search_info];
+		 	$("form#airline_search_form").submit(function(event) {
+		var search_info = $("input#airline_search").typeahead('val').toLowerCase();
+		if (nameToId[search_info]) {
+			$("input#airline_search_id").val(nameToId[search_info]);
+			return true;
+		}
+		 $("input#airline_search").addClass("invalid");
+		return false;
+	});
 
-		    }
-		     $("input#airline_search").removeClass("valid");
-		     $("input#airline_search").addClass("invalid");
-		  });
 
 		  //airline validator
 		$(".airline_input_optional").focusout(function(){
@@ -837,6 +838,11 @@ $("#map-btn").click(function(){
 
 		});
 
+		//clear history when clicking logo
+		$("#logo").click(function(){
+			sessionStorage.removeItem("flight_info");
+		});
+
 
 
 
@@ -846,7 +852,7 @@ $("#map-btn").click(function(){
 				elem.tooltip('add');
 				elem.mouseenter();
 				check=false;
-				setTimeout(function(){ elem.tooltip('remove');}, 2000);
+				setTimeout(function(){ elem.tooltip('remove');}, 3000);
 			}
 
 });
@@ -863,18 +869,18 @@ function showError(elem){
 	elem.tooltip('remove');
 		elem.tooltip('add');
 		elem.mouseenter();
-		setTimeout(function(){ elem.tooltip('remove'); }, 2000);
+		setTimeout(function(){ elem.tooltip('remove'); }, 3000);
 }
 
 function checkEmpty(elem){
 	if(elem.val()==""){
 		elem.tooltip('remove');
 		elem.addClass("invalid");
-		var text= elem.attr("data-tooltip");
+		var text= String(elem.attr("data-tooltip"));
 		elem.attr("data-tooltip","El campo es Obligatorio");
 		elem.tooltip('add');
 		elem.mouseenter();
-		setTimeout(function(){ elem.tooltip('remove'); elem.attr("data-tooltip",text);}, 2000);
+		setTimeout(function(){ elem.tooltip('remove'); elem.attr("data-tooltip",text);}, 3000);
 	}
 }
 
@@ -885,7 +891,7 @@ function showEmptyAirlineError(){
 		airline.attr("data-tooltip","Debe ingresar una aerolinea primero");
 		airline.tooltip('add');
 		airline.mouseenter();
-		setTimeout(function(){ airline.tooltip('remove'); airline.attr("data-tooltip",text);}, 2000);
+		setTimeout(function(){ airline.tooltip('remove'); airline.attr("data-tooltip",text);}, 3000);
 }
 
 function showIncorrectAirlineError(){
@@ -895,7 +901,7 @@ function showIncorrectAirlineError(){
 		airline.attr("data-tooltip","Debe ingresar una aerolinea válida");
 		airline.tooltip('add');
 		airline.mouseenter();
-		setTimeout(function(){ airline.tooltip('remove'); airline.attr("data-tooltip",text);}, 2000);
+		setTimeout(function(){ airline.tooltip('remove'); airline.attr("data-tooltip",text);}, 3000);
 }
 function showNotANumberError(){
 	var flight = $(".flight_input");
@@ -904,7 +910,7 @@ function showNotANumberError(){
 	flight.attr("data-tooltip","Debe ingresar un número");
 	flight.tooltip('add');
 	flight.mouseenter();
-	setTimeout(function(){ flight.tooltip('remove'); flight.attr("data-tooltip",text);}, 2000);
+	setTimeout(function(){ flight.tooltip('remove'); flight.attr("data-tooltip",text);}, 3000);
 }
 
 function getPassengers(elem){

@@ -28,27 +28,26 @@
 		 	</div>
 	   </noscript>
 
-<!-- todo:hacer que buscar sea un form asi anda con enter-->
+<!-- TODO: alejar la lupa de help y preguntar reestricciones de adultos,niños e infantes-->
 
 		<div class="wrapper">
 			<div class="page-container">
 
 				<nav>
-					<div class=" color1 ">
-							<div class="nav-wrapper">
+							<div class="nav-wrapper color1">
 								<div class="valign-wrapper">
-							<div class="logo-img">
-								<a href="index.html"><img src="logo.png" alt="Logo" class="valign" width="120"></a>
-					          </div>
-						    <div>
+									<div class="logo-img">
+										<a href="index.html"><img src="logo.png" alt="Logo" class="valign" width="120" id="logo"></a>
+							          </div>
+								    <div>
 								<ul class="right">
 									<li class="input-container">
 									<form id="airline_search_form" action="./review.html" method="GET">
-										<input id="airline_search_id" type="hidden" name="airline_id" required></input>
-
+										<input id="airline_search_id" type="hidden" name="airline_id" />
+										<ul>
 											<li>
-												<input id="airline_search" type="search" class="typeahead" placeholder="Buscar aerolineas.">
-												</input>
+												<input id="airline_search" type="search" class="typeahead " placeholder="Buscar aerolineas."/>
+
 											</li>
 											<li>
 												<button class="btn-floating waves-effect waves-light transparent
@@ -58,16 +57,19 @@
 													</i>
 		  									</button>
 											</li>
-									</span>
+										</ul>
+
 									</form>
-									<li class="help-link"><a href="#"><i class="material-icons">help</i></a></li>
 								</li>
+									<li class="help-link"><a href="help.html"><i class="material-icons">help</i></a></li>
+
 
 
 							</ul>
 						</div>
 					</div>
-				</nav>
+				</div>
+			</nav>
 
       <div class="container-fluid parallax-container" >
       	<div  class="parallax search-back "></div>
@@ -249,7 +251,6 @@
 
 	<div >
 	  <a class="waves-effect waves-light btn modal-trigger color1" id ="map-btn" href="#map-modal">Ver destinos en el mapa</a>
-		<a CLASS="clickable"><i class="material-icons color1">help</i></a><!-- TODO ADD HELP-->
 	  </div>
       </div>
     </div>
@@ -259,6 +260,7 @@
       <div class="row " >
 
         <div class="col s4 slider"  >
+
 
 
 	             <ul class="slides ">
@@ -682,15 +684,25 @@
 
 
  <!-- Map ModalStructure todo:sacar estilo embebido -->
-  <div id="map-modal" class="modal" style="width:1050px;">
+  <div id="map-modal" class="modal" style="width:1400px;">
 
 
        <div class="modal-content" >
+       		<div class="row">
+				 <div id="map" class="map-wrapper col s9" style="height:500px;width: 975px">
+							  <div class="col s2 push-s5 valign-wrapper preloader-wrapper">
+							  <div class="preloader-wrapper big active valign">
+								  <div class="spinner-layer spinner-blue">
+									<div class="circle-clipper left">
+									  <div class="circle"></div>
+									</div><div class="gap-patch">
+									  <div class="circle"></div>
+									</div><div class="circle-clipper right">
+									  <div class="circle"></div>
+									</div>
+								  </div>
 
-			 <div id="map" class="map-wrapper col s6" style="height:500px;width:1000px">
-						  <div class="col s2 push-s5 valign-wrapper preloader-wrapper">
-						  <div class="preloader-wrapper big active valign">
-							  <div class="spinner-layer spinner-blue">
+							  <div class="spinner-layer spinner-red">
 								<div class="circle-clipper left">
 								  <div class="circle"></div>
 								</div><div class="gap-patch">
@@ -700,40 +712,42 @@
 								</div>
 							  </div>
 
-						  <div class="spinner-layer spinner-red">
-							<div class="circle-clipper left">
-							  <div class="circle"></div>
-							</div><div class="gap-patch">
-							  <div class="circle"></div>
-							</div><div class="circle-clipper right">
-							  <div class="circle"></div>
-							</div>
-						  </div>
+							  <div class="spinner-layer spinner-yellow">
+								<div class="circle-clipper left">
+								  <div class="circle"></div>
+								</div><div class="gap-patch">
+								  <div class="circle"></div>
+								</div><div class="circle-clipper right">
+								  <div class="circle"></div>
+								</div>
+							  </div>
 
-						  <div class="spinner-layer spinner-yellow">
-							<div class="circle-clipper left">
-							  <div class="circle"></div>
-							</div><div class="gap-patch">
-							  <div class="circle"></div>
-							</div><div class="circle-clipper right">
-							  <div class="circle"></div>
+							  <div class="spinner-layer spinner-green">
+								<div class="circle-clipper left">
+								  <div class="circle"></div>
+								</div><div class="gap-patch">
+								  <div class="circle"></div>
+								</div><div class="circle-clipper right">
+								  <div class="circle"></div>
+								</div>
+							  </div>
 							</div>
-						  </div>
-
-						  <div class="spinner-layer spinner-green">
-							<div class="circle-clipper left">
-							  <div class="circle"></div>
-							</div><div class="gap-patch">
-							  <div class="circle"></div>
-							</div><div class="circle-clipper right">
-							  <div class="circle"></div>
-							</div>
-						  </div>
 						</div>
 					</div>
-				</div>
+					<div class="col s3 map-info">
+						<p>En el siguiente mapa se encuentran ubicadas las ofertas del sitio a través de marcadores.</p>
+						<p>Estos marcadores se encuentran ordenados por precio del 1 al 9, siendo el marcador que indica 1 el que hace referencia a la oferta más barata.
+						</p>
+						<p>Al hacer click en un marcador podrá obtener la información de la oferta(lugar de destino,precio,distancia).
+						</p>
+						<p>Utilizando la rueda(cambiar) de su mouse puede hacer zoom al mapa.
+						</p>
+					</div>
+			</div>
 	</div>
 </div>
+
+
 
 
    <footer class="page-footer color1">
@@ -741,13 +755,13 @@
         <div class="row">
           <div class="col l6 s12">
              <h5 class="white-text">Flysys</h5>
-            <p class="grey-text text-lighten-4">¡A volar por los aires!</p>
+            <p class="grey-text text-lighten-4">¡Volar es nuestra pasión!</p>
           </div>
           <div class="col l4 offset-l2 s12">
              <h5 class="white-text">Herramientas del sitio</h5>
              <ul>
                 <li><a class="grey-text text-lighten-3" href="#!">Información</a></li>
-                <li><a class="grey-text text-lighten-3" href="#!">Ayuda</a></li>
+                <li><a class="grey-text text-lighten-3" href="help.html">Ayuda</a></li>
               </ul>
             </div>
           </div>
@@ -773,6 +787,7 @@
      <script type="text/javascript" src="js/offers_map.js"></script>
 	  <script type="text/javascript" src="http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities"></script>
 <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDW8Zq1p2J_A1tExsMjmcov8t4b4ZAqFko&callback=initMap' type='text/javascript'></script>
+
 <script type="text/javascript" src="./js/airline_search.js"></script>
   </body>
 </html>
