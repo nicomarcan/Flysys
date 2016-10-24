@@ -221,13 +221,14 @@ function getCities(data){
     return passeger;
   }
 
-  function loadPassenger(nombre,psso){
+  function loadPassenger(nombre,psso, num){
     var string_nombre=nombre;
     setValInput("#nacimiento"+string_nombre,humanDate(psso.birthdate));
     setValInput("#nombre"+string_nombre,psso.first_name);
     setValInput("#apellido"+string_nombre,psso.last_name);
     setValInput("#pasaporte"+string_nombre,psso.id_number);
     setValInput("select#tipo_id"+string_nombre,psso.id_type);
+/*	checkPassenger(nombre, ""); */
   }
 
   if(existLocalObject("passengersDict")){
