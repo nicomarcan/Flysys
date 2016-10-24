@@ -18,7 +18,16 @@ $(document).ready(function(){
   	  ajaxAirlineSearch(airlines, airlines_id)
     ).then(
   	  airlineSearchSubmit(airlines, airlines_id)
-    )
+  );
+  
+	$(document).on("click", "a.link", function() {
+		var base = $(this).attr("href");
+		if (base != "#!" && base != "./index.html") {
+			window.location = base + location.search;
+            return false;
+		}
+		return true;
+	});
 
   var flights = getLocalObject("flights");
 
@@ -30,8 +39,8 @@ $(document).ready(function(){
 			"No se puede seguir con la compra. Por favor, reintente la búsqueda.",
 			true
 		);
-    $("#continuador").remove();
-    return;
+    	$("#continuador").remove();
+    	return;
 	}
   var aird = flights[0].outbound_routes[0].segments[0].departure.airport.id;
   var aira = flights[0].outbound_routes[0].segments[0].arrival.airport.id

@@ -11,7 +11,14 @@ $(document).ready(function(){
     ).then(
   	  airlineSearchSubmit(airlines, airlines_id)
     )
-
+	$(document).on("click", "a.link", function() {
+		var base = $(this).attr("href");
+		if (base != "#!" && base != "./index.html") {
+			window.location = base + location.search;
+            return false;
+		}
+		return true;
+	});
   if(!existLocalObject("flights")){
     window.location="./index.html";
   }
