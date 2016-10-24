@@ -1,7 +1,7 @@
 function fajax(aurl,datos,fsuccess,ferror){
     var urlfinal=aurl;
     // console.log('Iniciando ajax a:'+urlfinal);
-    $.ajax({
+    return $.ajax({
         type:'GET',
         data: datos,
         dataType: 'json',
@@ -107,8 +107,8 @@ function checkDateCard(dato){
   var mes=new Date().getMonth();
   var anio=new Date().getYear()-100;
   if(patron.test(dato)){
-    var cadena=dato.split("/");
-    if((anio<cadena[1]) || (anio==cadena[1] && mes<cadena[0])){
+    var cd=dato.split("/");
+    if(anio<parseInt(cd[1]) || (anio==parseInt(cd[1]) && mes<parseInt(cd[0]))){
       return true;
     }
   }
@@ -116,15 +116,15 @@ function checkDateCard(dato){
 }
 
 function checkCcv(dato){
-  var patron=/^\d{3,4}/i;
+  var patron=/^\d{3}/i;
   return patron.test(dato);
 }
 function checkName(dato){
-  var patron=/^([a-z]|[A-Z]|\s){1,80}/i;
+  var patron=/^([aábcdeéfghijklmnñoópqrstuúüvwxyzAÁBCDEÉFGHIJKLMNÑOÓPQRSTUÚÜ‌​VWXYZ]|\s){1,80}/i;
   return patron.test(dato);
 }
 function checkStreet(dato){
-  var patron=/^(.){1,70}/i;
+  var patron=/^([aábcdeéfghijklmnñoópqrstuúüvwxyzAÁBCDEÉFGHIJKLMNÑOÓPQRSTUÚÜ‌​VWXYZ]){1,70}/i;
   return patron.test(dato);
 }
 function checkStreetNumber(dato){

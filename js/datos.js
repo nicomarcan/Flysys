@@ -108,7 +108,7 @@ $(document).ready(function(){
 	});
 
 	var flights = getLocalObject("flights");
-	if (!flights) {
+	if (!flights || getUrlParameter("children")==undefined || 	getUrlParameter("infants")==undefined || getUrlParameter("adults")==undefined) {
 		$("#data-container").html("");
 		insertErrorCard(
 			$("#data-container"),
@@ -221,7 +221,7 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
   });
 
   actionfocusout("#tarjeta",checkNumberCard, triggerInstallmentsAjax);
-  actionfocusout("fecaducidad",checkDateCard);
+  actionfocusout("#fecaducidad",checkDateCard);
   actionfocusout("#ccv",checkCcv);
   actionfocusout("#nombre",checkName);
   actionfocusout("#apellido",checkName);
