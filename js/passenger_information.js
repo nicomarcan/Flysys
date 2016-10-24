@@ -110,11 +110,17 @@ function getCities(data){
   function addPassager(nombre,num) {
     var numeros=["primer","segundo","tercero","cuarto","quinto","sexto","séptimo","octavo","noveno","décimo","décimoprimero","décimosegundo","décimotercero","décimocuarto","décimoquinto","décimosexto","décimoseptimo","décimooctavo","décimonoveno","vigésimo"];
     var template = $('#pasajero_form').html();
+	var err_conv = {
+		"infante" : "Ingrese una fecha válida. Recuerde que los infantes deben ser menores de dos años.",
+		"chico": "Ingrese una fecha válida. Recuerde que los niños deben ser mayores de dos años y menores de once.",
+		"adulto" : "Ingrese una fecha válida. Recuerde que los adultos deben ser mayores de once años"
+	};
     Mustache.parse(template);
     var rendered = Mustache.render(template,{
       nombre: nombre,
       id: numeros[parseInt(num)-1],
-      indenti: (nombre+num)
+      indenti: (nombre+num),
+	  data_error: err_conv[nombre]
     });
     $('#header').after(rendered);
   }
