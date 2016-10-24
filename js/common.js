@@ -359,7 +359,7 @@ function loadAirlinesTypeahead(data,air_names,air_names_id){
 
   $('#airline_search').typeahead(
           {
-              minLength: 2,
+              minLength: 1,
               highlight: true
           },
           {
