@@ -38,10 +38,11 @@ $(document).ready(function(){
 
 
 
-
+var airlines = {};
+var airlines_id = {};
 
 $("#map-btn").click(function(){
-	if (google_maps_ready == true && first == true) 
+	if (google_maps_ready == true && first == true)
 			InitializeMap();
 	first=false;
 });
@@ -117,7 +118,7 @@ $("#map-btn").click(function(){
 			console.log(airlines);
 			};
 
-
+			/*
 		  var airlines_url = 'http://hci.it.itba.edu.ar/v1/api/misc.groovy?method=getairlines';
 		  $.ajax({
 		    type: 'GET',
@@ -140,8 +141,14 @@ $("#map-btn").click(function(){
 		      }
 		    }
 		  });
+		  */
 
-
+		$.when(
+			ajaxAirlineSearch(airlines, airlines_id)
+		).then(
+			airlineSearchSubmit(airlines, airlines_id)
+		)
+		  /*
 		  function cargaTypeAHeadAirlines(data){
 			var total = data.total;
 			var airl = data.airlines;
@@ -175,6 +182,7 @@ $("#map-btn").click(function(){
 								}
 				);
 			};
+			*/
 			//AUTO COMPLETE ENDS
 
 		//OFFER IMGS
@@ -186,9 +194,9 @@ $("#map-btn").click(function(){
         $(".slider").removeAttr("style");
         $("ul.slides").removeAttr("style");
 
- 
 
-			
+
+
 
 		   	$("#offers").click(function(){
 		   		//var pos = $("div.section.container-fluid.center.offers-text.offers-back").offset().top;
@@ -332,7 +340,7 @@ $("#map-btn").click(function(){
 		      out_duration: 200, // Transition out duration
 		      starting_top: '4%', // Starting top style attribute
 		      ending_top: '10%', // Ending top style attribute
-	
+
 
 		    }
 		  );
@@ -344,7 +352,7 @@ $("#map-btn").click(function(){
 		      out_duration: 200, // Transition out duration
 		      starting_top: '4%', // Starting top style attribute
 		      ending_top: '10%', // Ending top style attribute
-		    
+
 		    }
 		  );
 
@@ -495,7 +503,7 @@ $("#map-btn").click(function(){
 			var url= "results.html?"+"mode=one-way&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1;
 			console.log(url);
 			if(src!=undefined && dst!=undefined && d1!=""){
-				
+
 				var flight_info= {};
 				flight_info["Mode"]="one-way";
 				flight_info["src"]=src;
@@ -905,6 +913,6 @@ function getPassengers(elem){
 	if (num == 1)
 		s = "1 Pasajero";
 	else
-		s+= num +" Pasajeros";	
+		s+= num +" Pasajeros";
 	return s;
 }

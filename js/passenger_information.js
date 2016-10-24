@@ -10,7 +10,16 @@ var to = 2000 ;
 var airlineNameToId={};
 var airlineNames = [];
 
+var airlines = {};
+var airlines_id = {};
 $(document).ready(function(){
+
+	$.when(
+  	  ajaxAirlineSearch(airlines, airlines_id)
+    ).then(
+  	  airlineSearchSubmit(airlines, airlines_id)
+    )
+
   var flights = getLocalObject("flights");
 
 	if (!flights) {
@@ -42,6 +51,8 @@ function getCountries(data){
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     local: valores
   });
+
+
 
   $('.typeaheadpaises').typeahead(
           {
@@ -259,6 +270,7 @@ function getCities(data){
     window.location="./detalle.html"+location.search;
   });
   //copypasta
+  /*
   if (existLocalObject("cacheNav")){
       loadAirlinesTypeahead(getLocalObject("cacheNav"),airlineNames,airlineNameToId);
   }else{
@@ -297,5 +309,6 @@ function getCities(data){
       }
     });
   }
+  */
 //endcopypasta
 });

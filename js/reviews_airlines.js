@@ -186,7 +186,19 @@ $(document).ready(function() {
 	/* wait for airline search */
 
 	$.when(
-		ajaxAirlineSearch(airlines, airlines_id)
+		ajaxAirlineSearch(
+			airlines,
+			airlines_id,
+			function() {
+				insertErrorCard(
+					$("#flight-info-card"),
+					"Error de conexion",
+					"No se pudo conectar al servidor",
+					false
+				);
+				$("#review-head").hide();
+			}
+		)
 	).then(function(response, errorMsg, error) {
 		if (response.error || errorMsg == "error") {
 			handle_error(response.error);
@@ -381,7 +393,7 @@ $(document).ready(function() {
 		}
 		return true;
 	});
-	
+
 
 	$(document).on('click', '.write_review_button', function () {
 		 for(var x = 1 ; x<7 ; x++){
