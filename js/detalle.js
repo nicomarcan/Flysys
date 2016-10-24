@@ -307,6 +307,20 @@ $(document).ready(function(){
 		);
     return;
 	}
+  var aird = flights[0].outbound_routes[0].segments[0].departure.airport.id;
+  var aira = flights[0].outbound_routes[0].segments[0].arrival.airport.id
+  $("a#flight-path-breadcrumb").text("Vuelo de "+ aird + " a "+ aira);
+  var flight_detail = getLocalObject(["flight_detail"]);
+  if (!flight_detail) {
+    $("#data-container").html("");
+    insertErrorCard(
+      $("#data-container"),
+      "Ocurrió un error al cargar la información de los pasajeros.",
+      "No se puede seguir con la compra. Por favor, reintente la búsqueda.",
+      true
+    );
+  }
+
   //addFlight();
   addCard();
   addPassagers();
