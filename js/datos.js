@@ -114,7 +114,9 @@ $(document).ready(function(){
 			$("#data-container"),
 			"Ocurrió un error al cargar la información del vuelo.",
 			"No se puede seguir con la compra. Por favor, reintente la búsqueda.",
-			true
+			true,
+			"home-link",
+			"Volver al inicio."
 		);
 	}
 	var aird = flights[0].outbound_routes[0].segments[0].departure.airport.id;
@@ -125,9 +127,11 @@ $(document).ready(function(){
 		$("#data-container").html("");
 		insertErrorCard(
 			$("#data-container"),
-			"Ocurrió un error al cargar la información de los pasajeros.",
+			"Ocurrió un error al cargar la información del vuelo.",
 			"No se puede seguir con la compra. Por favor, reintente la búsqueda.",
-			true
+			true,
+			"home-link",
+			"Volver al inicio."
 		);
 	}
 

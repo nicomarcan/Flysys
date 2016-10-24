@@ -84,7 +84,7 @@ $(document).ready(function(){
     d2=getUrlParameter("d2");
   }
 
-  $("#date1 .datepicker").pickadate({
+  $("#date1 .datepicker ").pickadate({
     monthsFull: spanish_months,
     monthsShort: spanish_months_short,
     weekdaysFull: spanish_days,
@@ -97,6 +97,22 @@ $(document).ready(function(){
     onRender: function(){
       $("#date1 .picker__footer .picker__button--today").remove();
       $("#date1 .picker__footer .picker__button--clear").remove();
+    }
+  });
+
+  $("#date1_1 .datepicker ").pickadate({
+    monthsFull: spanish_months,
+    monthsShort: spanish_months_short,
+    weekdaysFull: spanish_days,
+    weekdaysShort: spanish_days_short,
+    close: 'Cerrar',
+    firstDay: 1,
+    format: 'd !de mmmm !de yyyy',
+    formatSubmit: 'yyyy-mm-dd' ,
+    min: 2,
+    onRender: function(){
+      $("#date1_1 .picker__footer .picker__button--today").remove();
+      $("#date1_1 .picker__footer .picker__button--clear").remove();
     }
   });
 
@@ -533,9 +549,9 @@ $(document).ready(function(){
   });
 
   $("#ow_search").click(function(event){
-    var src = nameToId[$("#one-way #from_input").val()] ;
-    var dst = nameToId[$("#one-way #to_input").val()];
-    var d1 = $('#one-way #date1 input[name=_submit]').val();
+    var src = nameToId[$("#one-way #from_input_1").val()] ;
+    var dst = nameToId[$("#one-way #to_input_1").val()];
+    var d1 = $('#one-way #date1_1 input[name=_submit]').val();
     var adults = $("#adults_number_1").text();
     var children = $("#children_number_1").text();
     var infants = $("#infants_number_1").text();
@@ -543,15 +559,15 @@ $(document).ready(function(){
     var errors=false;
     if(src == undefined){
       errors=true;
-      showMessage($("#one-way #from_input"));
+      showMessage($("#one-way #from_input_1"));
     }
     if(dst == undefined){
       errors=true;
-      showMessage($("#one-way #to_input"));
+      showMessage($("#one-way #to_input_1"));
     }
     if(d1 == ""){
       errors=true;
-      showMessage($('#one-way #date1 input'));
+      showMessage($('#one-way #date1_1 input'));
     }
 
     if(adults + children + infants == 0){
@@ -1152,7 +1168,7 @@ function fillAirportsAutocomplte(data,values,nameToId){
 
 
 
-      $('#from_input , #to_input').typeahead(
+      $('#from_input , #to_input , #from_input_1 , #to_input_1 ').typeahead(
               {
                   minLength: 2,
                   highlight: true

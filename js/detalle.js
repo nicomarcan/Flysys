@@ -319,9 +319,11 @@ $(document).ready(function(){
 		$("#primero").html("");
 		insertErrorCard(
 			$("#primero"),
-			"Ocurrió un error al cargar la información del vuelo.",
+            "Ocurrió un error al cargar la información del vuelo.",
 			"No se puede seguir con la compra. Por favor, reintente la búsqueda.",
-			true
+			true,
+			"home-link",
+			"Volver al inicio."
 		);
     return;
 	}

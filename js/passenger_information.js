@@ -19,7 +19,7 @@ $(document).ready(function(){
     ).then(
   	  airlineSearchSubmit(airlines, airlines_id)
   );
-  
+
 	$(document).on("click", "a.link", function() {
 		var base = $(this).attr("href");
 		if (base != "#!" && base != "./index.html") {
@@ -37,7 +37,9 @@ $(document).ready(function(){
 			$("#contenedor"),
 			"Ocurrió un error al cargar la información del vuelo.",
 			"No se puede seguir con la compra. Por favor, reintente la búsqueda.",
-			true
+			true,
+			"home-link",
+			"Volver al inicio."
 		);
     	$("#continuador").remove();
     	return;

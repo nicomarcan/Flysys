@@ -334,36 +334,34 @@
     <script type="text/javascript" src="js/results.js"></script>
     <script type="text/javascript" src="js/airline_search.js"></script>
     <nav>
-        <div class=" color1 ">
-                <div class="nav-wrapper">
-                    <div class="valign-wrapper">
-                <div class="logo-img">
+        <div class="nav-wrapper color1">
+          <div class="valign-wrapper">
+            <div class="logo-img">
                     <a href="index.html"><img src="logo.png" alt="Logo" class="valign" width="120"></a>
-                  </div>
-                <div>
-                    <ul class="right">
-                        <li class="input-container">
-                        <form id="airline_search_form" action="./review.html" method="GET">
-                            <input id="airline_search_id" type="hidden" name="airline_id" required></input>
-
+            </div>
+            <div>
+              <ul class="right">
+                <li class="input-container">
+                  <form id="airline_search_form" action="./review.html" method="GET">
+                            <input id="airline_search_id" type="hidden" name="airline_id" required />
+                              <ul>
                                 <li>
-                                    <input id="airline_search" type="search" class="typeahead" placeholder="Buscar aerolineas.">
-                                    </input>
+                                    <input id="airline_search" type="search" class="typeahead" placeholder="Buscar aerolineas."/>
                                 </li>
                                 <li>
-                                    <button class="btn-floating  transparent
-                                    z-depth-0 submit-search" type="submit" name="action">
+                                    <button class="btn-floating  transparent z-depth-0 submit-search" type="submit" name="action">
                                         <i class="material-icons search-icon">
                                             search
                                         </i>
-                                </button>
+                                    </button>
                                 </li>
-                        </span>
-                        </form>
-                        <li class="help-link"><a href="#"><i class="material-icons">help</i></a></li>
+                                <li class="help-link"><a href="#"><i class="material-icons">help</i></a></li>
+                              </ul>
+                      </form>
                     </li>
                 </ul>
             </div>
+          </div>
         </div>
     </nav>
     <div class="container-fluid color2" id="main-container">
@@ -409,13 +407,13 @@
                 <input type="text" id="to_input" name="from_input" class="typeahead" placeholder="Destino" data-position="right"  data-tooltip="Ingrese una ciudad válida"/>
               </div>
               <div class="row date-field" id="date1">
-                <input type="date" placeholder="Partiendo" class="datepicker" data-position="right"  data-tooltip="Ingrese una fecha de partida"/>
+                <input placeholder="Partiendo" class="datepicker" data-position="right"  data-tooltip="Ingrese una fecha de partida"/>
               </div>
               <div class="row date-field last" id="date2">
-                <input type="date" class="datepicker" placeholder="Volviendo" data-position="right"  data-tooltip="Ingrese una fecha de regreso"/>
+                <input  class="datepicker" placeholder="Volviendo" data-position="right"  data-tooltip="Ingrese una fecha de regreso"/>
               </div>
               <div class="row">
-                <a class="dropdown-button waves-effect waves-light btn left" id="pass_btn_1"  data-beloworigin="true" data-activates='passenger_number' data-position="bottom"  data-tooltip="Ingrese un número de pasajeros válido">Pasajeros</span></a>
+                <a class="dropdown-button waves-effect waves-light btn left" id="pass_btn_1"  data-beloworigin="true" data-activates='passenger_number' data-position="bottom"  data-tooltip="Ingrese un número de pasajeros válido">Pasajeros</a>
 
                 <ul id='passenger_number' class='dropdown-content passenger-selection'>
                   <li class="container-fluid center-align" id="adults">
@@ -465,16 +463,16 @@
             </form>
             <form id="one-way">
               <div class="input-field row">
-                <input type="text" id="from_input" name="from_input" class="typeahead" placeholder="Origen" data-position="right"  data-tooltip="Ingrese una ciudad válida"/>
+                <input type="text" id="from_input_1" name="from_input" class="typeahead" placeholder="Origen" data-position="right"  data-tooltip="Ingrese una ciudad válida"/>
               </div>
               <div class="input-field row">
-                <input type="text" id="to_input" name="from_input" class="typeahead" placeholder="Destino" data-position="right"  data-tooltip="Ingrese una fecha de partida"/>
+                <input type="text" id="to_input_1" name="from_input" class="typeahead" placeholder="Destino" data-position="right"  data-tooltip="Ingrese una fecha de partida"/>
               </div>
-              <div class="row date-field last" id="date1">
-                <input type="date" placeholder="Partiendo" class="datepicker" data-position="right"  data-tooltip="Ingrese una fecha de regreso"/>
+              <div class="row date-field last" id="date1_1">
+                <input placeholder="Partiendo" class="datepicker" data-position="right"  data-tooltip="Ingrese una fecha de regreso"/>
               </div>
               <div class="row">
-                <a class="dropdown-button waves-effect waves-light btn left"  id="pass_btn_2" data-beloworigin="true" data-activates='passenger_number_1' data-position="bottom"  data-tooltip="Ingrese un número de pasajeros válido">Pasajeros</span></a>
+                <a class="dropdown-button waves-effect waves-light btn left"  id="pass_btn_2" data-beloworigin="true" data-activates='passenger_number_1' data-position="bottom"  data-tooltip="Ingrese un número de pasajeros válido">Pasajeros</a>
 
                 <ul id='passenger_number_1' class='dropdown-content passenger-selection'>
                   <li class="container-fluid center-align" id="adults_1">
@@ -574,6 +572,7 @@
           </div>
 
       </div>
+    </div>
     </div>
     <footer class="page-footer color1">
       <div class="container">
