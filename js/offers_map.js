@@ -274,7 +274,7 @@ var getDistance = function(p1, p2) {
 				    context:info[x],
 				    success: function(d){
 				   		var random =  parseInt((Math.random() * (90 )), 10) ;
-				  		var item = d.photos[4].photo_file_url;
+				  		var item = d.photos[3].photo_file_url;
 	
 						 photo= $('#offer-img-back-'+$(this).attr("num"));
 						 photo.next().children("h5").text($(this).attr("to"));
