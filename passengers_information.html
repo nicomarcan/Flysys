@@ -29,15 +29,16 @@
     </nav>
 		<div class="container-fluid row">
 			<div class="col s10 offset-s1" style="margin-top: 1rem;">
-									<a href="#!"  class="breadcrumb info_breadcrumbs link">Carga de datos</a>
-									<a href="#!" class="breadcrumb info_breadcrumbs link">Pasajeros</a>
+				<a href="./index.html" class="breadcrumb info_breadcrumbs link">Inicio</a>
+				<a href="./index.html" class="breadcrumb info_breadcrumbs link" id="flight-path-breadcrumb"> Vuelo de ??? a ???</a>
+				<a href="#!" class="breadcrumb info_breadcrumbs link"> Información de los pasajeros</a>
 								</div>
-			<div class="col s10 offset-s1">
+			<div class="col s10 offset-s1" id="contenedor">
 
 
 
 
-				<div class="card-panel row">
+				<div class="card-panel row" >
 
 					<div id="header" class="valign col s8 opinions_header">
 						INFORMACION DE LOS PASAJEROS
@@ -50,7 +51,7 @@
 		<div class="container-fluid row">
 
 			<div class="col s10 offset-s1">
-				<div class="card-panel row">
+				<div class="card-panel row" id="continuador">
 
             <div class="row">
               <div class="input-field col offset-s10">
@@ -125,11 +126,28 @@
 						</div>
 		</div>
 		</script>
+		<script type="x-tmpl-mustache" id="error_card">
+		<div class="card-panel row hoverable clickable error-card">
+			<div class="col s12 error-header">
+				{{header}}
+			</div>
+			<div class='col s12 divider'></div>
+			<div class="col s12 error-description">
+				{{description}}
+				{{#link}}
+				<a class="back-link">
+					Volver atras.
+				</a>
+				{{/link}}
+			</div>
+		</div>
+		</script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="js/mustache.min.js"></script>
 		<script src="js/common.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
     <script src="js/passenger_information.js"></script>
 		<script src="js/typeahead.bundle.js"></script>
+		<script src="js/error.js"></script>
   </body>
 </html>

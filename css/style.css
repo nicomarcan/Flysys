@@ -696,3 +696,13 @@ nav .nav-wrapper > div > div {
   margin-top: 0.5rem;
 }
 /*FIN DEL NAV*/
+.error-header {
+	font-size: 32px;
+	color: black;
+	font-weight: lighter;
+}
+
+.error-description {
+	margin:10px auto auto auto;
+	overflow: hidden;
+}

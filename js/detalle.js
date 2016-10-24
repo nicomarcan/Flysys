@@ -296,8 +296,17 @@ function addTW(nstars,total,from,dep,ac,fn,duration,to,
 
 
 $(document).ready(function(){
-
-
+  var flights = getLocalObject("flights");
+	if (!flights) {
+		$("#primero").html("");
+		insertErrorCard(
+			$("#primero"),
+			"Ocurrió un error al cargar la información del vuelo.",
+			"No se puede seguir con la compra. Por favor, reintente la búsqueda.",
+			true
+		);
+    return;
+	}
   //addFlight();
   addCard();
   addPassagers();

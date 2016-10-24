@@ -4,6 +4,9 @@ var airlineNameToId={};
 var airlineNames = [];
 
 $(document).ready(function(){
+  if(!existLocalObject("flights")){
+    window.location="./index.html";
+  }
   $("#continuar").click(function(){
      localStorage.clear();
      window.location="./index.html";

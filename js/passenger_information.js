@@ -11,7 +11,22 @@ var airlineNameToId={};
 var airlineNames = [];
 
 $(document).ready(function(){
+  var flights = getLocalObject("flights");
 
+	if (!flights) {
+		$("#contenedor").html("");
+		insertErrorCard(
+			$("#contenedor"),
+			"Ocurrió un error al cargar la información del vuelo.",
+			"No se puede seguir con la compra. Por favor, reintente la búsqueda.",
+			true
+		);
+    $("#continuador").remove();
+    return;
+	}
+  var aird = flights[0].outbound_routes[0].segments[0].departure.airport.id;
+  var aira = flights[0].outbound_routes[0].segments[0].arrival.airport.id
+  $("a#flight-path-breadcrumb").text("Vuelo de "+ aird + " a "+ aira);
 function getCountries(data){
   var paises = data.countries;
   var valores=[];

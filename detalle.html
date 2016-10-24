@@ -145,7 +145,7 @@
 					<div class="card-panel row">
 						<div class="col s8">
 							<div class="detalle">
-								<span class="titulo">Informacion del {{idpasajero}} pasajero </span>
+								<span class="titulo">Datos del {{idpasajero}} pasajero </span>
 							</div>
 							<div class="detalle">
 								<span class="info">Nombre </span>
@@ -172,9 +172,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 		<script src="js/typeahead.bundle.js"></script>
 		<script type="text/javascript" src="./js/mustache.min.js"></script>
+		<script src="./js/error.js"></script>
     <script src="./js/common.js"></script>
 		<script src="./js/detalle.js"></script>
-
+		<script src="./js/error.js"></script>
 		<script type="x-tmpl-mustache" id="row">
 
       <div class="individual-result">
@@ -447,5 +448,21 @@
       </div>
 
     </script>
+		<script type="x-tmpl-mustache" id="error_card">
+		<div class="card-panel row hoverable clickable error-card">
+			<div class="col s12 error-header">
+				{{header}}
+			</div>
+			<div class='col s12 divider'></div>
+			<div class="col s12 error-description">
+				{{description}}
+				{{#link}}
+				<a class="back-link">
+					Volver atras.
+				</a>
+				{{/link}}
+			</div>
+		</div>
+		</script>
 </body>
 </html>
