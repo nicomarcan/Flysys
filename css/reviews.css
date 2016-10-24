@@ -71,6 +71,10 @@ a.flight_number_link {
 	font-weight: lighter;
 }
 
+#review-modal .row{
+  margin-bottom: 0;
+}
+
 li.collection-item.score_list_element .opinion_list_item {
 	font-size:1.5rem;
 	color: #6b6b6b;

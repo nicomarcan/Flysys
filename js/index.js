@@ -648,7 +648,7 @@ $("#map-btn").click(function(){
 
 		//airline validator
 		$(".airline_input").focusout(function(){
-			 if(jQuery.inArray($(this).val().toLowerCase(),airlines) >= 0){
+			 if(airlines[$(this).val().toLowerCase()]){
 			 	   $(this).addClass("valid");
 			 	 $(this).removeClass("invalid");
 			 }
@@ -667,7 +667,7 @@ $("#map-btn").click(function(){
 		$(".flight_input").focusout(function(){
 			$('.flight_input').removeClass("valid");
 			$('.flight_input').removeClass("invalid");
-			if($("#airlines_input").typeahead('val') == "" && $(this).val()!= "" && !$(".airline_input").hasClass("invalid") ){
+			if($("#airlines_input").typeahead('val') == "" && $(this).val()!= ""){
 				showEmptyAirlineError();
 			}
 
@@ -682,7 +682,7 @@ $("#map-btn").click(function(){
 				  $.ajax({
 					    type: 'GET',
 						url: 'http://hci.it.itba.edu.ar/v1/api/status.groovy',
-						data:{"method":"getflightstatus","airline_id":nameToId[$("#airlines_input").val()],"flight_number":$(this).val()},
+						data:{"method":"getflightstatus","airline_id":airlines[$("#airlines_input").val().toLowerCase()],"flight_number":$(this).val()},
 						dataType: 'jsonp',
 						success: function (alfa) {
 							if(alfa.error==undefined){
@@ -825,19 +825,7 @@ $("#map-btn").click(function(){
 	});*/
 
 
-		  //airline validator
-		$(".airline_input_optional").focusout(function(){
-			 if(jQuery.inArray($(this).val().toLowerCase(),airlines) >= 0){
-			 	  $(this).addClass("valid");
-			 	 $(this).removeClass("invalid");
-			 }
-			 else {
-			 	 $(this).removeClass("valid");
-		         $(this).addClass("invalid");
-			 }
 
-
-		});
 
 		//clear history when clicking logo
 		$("#logo").click(function(){

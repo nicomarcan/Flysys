@@ -225,10 +225,7 @@ div.map-info p{
   font-size: 18px;
 }
 
-div.map-info{
-  border: 1px solid black;
-  margin-left: 20px!important;
-}
+
 
 #passengers-modal.modal,#passengers-modal-two.modal{
   min-height: 11rem;
