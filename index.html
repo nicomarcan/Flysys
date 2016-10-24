@@ -9,6 +9,7 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <!--Import materialize.css-->
    <link rel="stylesheet" href="css/materialize.css"/>
+   <link type="text/css" rel="stylesheet" href="css/nav.css"/>
    <link type="text/css" rel="stylesheet" href="css/patch.css"/>
     <link type="text/css" rel="stylesheet" href="css/index.css"/><!--change later-->
     <link type="text/css" href="css/classic.css" rel="stylesheet"/>
@@ -32,24 +33,41 @@
 		<div class="wrapper">
 			<div class="page-container">
 
-           <nav class="color1">
-		      <div class="nav-wrapper">
-		        <div class="valign-wrapper">
-		          <div>
-		            <a href="index.html"><img src="logo.png" alt="Logo" class="valign" width="120"></a>
-		          </div>
-		          <div>
-		            <ul class="right">
-		              <li class="input-container">
-		                <input type="text" id="airline_search" class="typeahead airline_input_optional" placeholder="Buscar aerolíneas"/>
-		              </li>
-		              <li class="search-button"><i class="material-icons clickable" id="airline_search_btn">search</i></li>
-		              <li><a href="help.html"><i class="material-icons">help</i></a></li>
-		            </ul>
-		          </div>
-		        </div>
-		      </div>
-		    </nav>
+				<nav>
+					<div class=" color1 ">
+							<div class="nav-wrapper">
+								<div class="valign-wrapper">
+							<div class="logo-img">
+								<a href="index.html"><img src="logo.png" alt="Logo" class="valign" width="120"></a>
+					          </div>
+						    <div>
+								<ul class="right">
+									<li class="input-container">
+									<form id="airline_search_form" action="./review.html" method="GET">
+										<input id="airline_search_id" type="hidden" name="airline_id" required></input>
+
+											<li>
+												<input id="airline_search" type="search" class="typeahead" placeholder="Buscar aerolineas.">
+												</input>
+											</li>
+											<li>
+												<button class="btn-floating waves-effect waves-light transparent
+												z-depth-0 submit-search" type="submit" name="action">
+													<i class="material-icons search-icon">
+														search
+													</i>
+		  									</button>
+											</li>
+									</span>
+									</form>
+									<li class="help-link"><a href="#"><i class="material-icons">help</i></a></li>
+								</li>
+
+
+							</ul>
+						</div>
+					</div>
+				</nav>
 
       <div class="container-fluid parallax-container" >
       	<div  class="parallax search-back "></div>
@@ -222,13 +240,13 @@
 
           </div>
 
-  
+
 
     <div class="section  container-fluid center offers-text offers-back" >
       <div class="row container">
         <h1 class="header clickable font-color1" id="offers" >Ofertas</h1>
         <h5 class="header font-color1">Encontrá tu destino soñado.</h5>
-                 
+
 	<div >
 	  <a class="waves-effect waves-light btn modal-trigger color1" id ="map-btn" href="#map-modal">Ver destinos en el mapa</a>
 		<a CLASS="clickable"><i class="material-icons color1">help</i></a><!-- TODO ADD HELP-->
@@ -665,8 +683,8 @@
 
  <!-- Map ModalStructure todo:sacar estilo embebido -->
   <div id="map-modal" class="modal" style="width:1050px;">
-    
-      
+
+
        <div class="modal-content" >
 
 			 <div id="map" class="map-wrapper col s6" style="height:500px;width:1000px">
