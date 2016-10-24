@@ -325,7 +325,30 @@ function checkPassenger(tipo,num){
   if(!checkBirthDate($("#nacimiento"+tag).val())){
     $("#nacimiento"+tag).addClass("invalid");
     flag=false;
+  }else{
+    if(tipo=="infante"){
+      if(!checkBirthDateInfant($("#nacimiento"+tag).val())){
+        $("#nacimiento"+tag).addClass("invalid");
+        flag=false;
+      }
+    }else if(tipo=="chico"){
+      if(!checkBirthDateChildren($("#nacimiento"+tag).val())){
+        $("#nacimiento"+tag).addClass("invalid");
+        flag=false;
+      }
+    }else if(tipo=="adulto"){
+      if(!checkBirthDateAdult($("#nacimiento"+tag).val())){
+        $("#nacimiento"+tag).addClass("invalid");
+        flag=false;
+      }
+    }
   }
+
+    // var err_conv = {
+    //   "infante" : "Ingrese una fecha válida. Recuerde que los infantes deben ser menores de dos años.",
+    //   "chico": "Ingrese una fecha válida. Recuerde que los niños deben ser mayores de dos años y menores de once.",
+    //   "adulto" : "Ingrese una fecha válida. Recuerde que los adultos deben ser mayores de once años"
+    // };
   return flag;
 }
 function checkInstallments(dato){
