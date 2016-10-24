@@ -5,18 +5,32 @@
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css"/>
 	    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+		<link type="text/css" rel="stylesheet" href="css/patch.css"/>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 	<body class="roboto">
-		<nav>
-			<div class="nav-wrapper color1">
-				<a href="#" class="brand-logo">Logo</a>
-				<ul class="right hide-on-med-and-down">
-					<li><a href="#"><i class="material-icons">info</i></a></li>
-					<li><a href="#"><i class="material-icons">help</i></a></li>
-				</ul>
-			</div>
-		</nav>
+
+		<div class="wrapper">
+			<div class="page-container">
+		<nav class="color1">
+      <div class="nav-wrapper">
+        <div class="valign-wrapper">
+          <div>
+            <a href="index.html"><img src="logo.png" class="valign" width="120"></a>
+          </div>
+          <div>
+            <ul class="right">
+              <li class="input-container">
+                <input type="text" id="airline_search" class="typeahead" placeholder="Buscar aerolíneas"/>
+              </li>
+              <li class="search-button"><i class="material-icons clickable" id="airline_search_btn">search</i></li>
+              <li><a href="#"><i class="material-icons">info</i></a></li>
+              <li><a href="#"><i class="material-icons">help</i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
 
 		<div class="container-fluid row">
 			<div class="col s10 offset-s1" style="margin-top: 1rem;">
@@ -26,140 +40,141 @@
 			<div class="col s10 offset-s1">
 
 
-				<div class="card-panel row">
-					<div id="opinion_header" class="valign col s8 opinions_header">
-						INFORMACION DE LA TARJETA
-						<div class="divider"></div>
+					<div class="card-panel row">
+						<div id="opinion_header" class="valign col s8 opinions_header">
+							INFORMACION DE LA TARJETA
+							<div class="divider"></div>
+						</div>
+
+
+
+				<div class="row">
+
+				</div>
+
+	            <div class="row">
+	              <div class="input-field col s2">
+	                <input id="tarjeta" type="text" placeholder="Nro tarjeta (Obligatorio)" maxlength="18"/>
+	                <label for="Tarjeta" data-error="Ingrese una tarjeta valida">Numero de tarjeta</label>
+	              </div>
+				  <div class="input-field col s4">
+					<select id="installment-options-1" class="col s6" disabled >
+						<option class="installments-head-option" value=""  disabled selected> Vuelo de ida.</option>
+					</select>
+					<select id="installment-options-2" class="col s6" disabled>
+						<option class="installments-head-option" value=""  disabled selected> Vuelo de vuelta</option>
+					</select>
+					<label>Opciones de financiamiento</label>
 					</div>
+	                <div class=" input-field  col s3">
+						<input id="fecaducidad" type="text" class="validate" pattern="(0[0-9])|(1[0-2])/[0-9][0-9]" placeholder="MM/AA (Obligatorio)" maxlength="6"/>
+						<label for="fecaducidad" data-error="Ingrese una fecha valida">Caducidad</label>
+					</div>
+	              <div class="input-field col s2">
+	                <input id="ccv" type="text" pattern="^([0-9][0-9][0-9])"  class="validate" placeholder="CCV (Obligatorio)" maxlength="3"/>
+	                <label for="ccv" data-error="Ingrese los 3 digitos">CCV</label>
+				  		</div>
+							<div class="row">
+								<div class="col s8">
+									<h5>Informacion del pago</h5>
+								</div>
+							</div>
+	            <div class="row">
+	                  <div class="input-field col s6">
+	                    <input id="nombre" type="text" class="validate" placeholder="Nombre (Obligatorio)" maxlength="80" maxlength="80"/>
+	                    <label for="nombre"  data-error="Debe ser un nombre valido">Nombre</label>
+	                  </div>
+										<div class="input-field col s6">
+										<input id="apellido" type="text" class="validate" placeholder="Apellido (Obligatorio)" maxlength="80"/>
 
+	                        <label for="apellido"  data-error="Debe ser un nombre valido">Apellido</label>
+	                    </div>
 
+	            </div>
+							<div class="row">
+								<div class="col s8">
+									<h5>Domicilio y contacto</h5>
+								</div>
+							</div>
+							<div class="row">
+										<div class="input-field col s5">
+											<input id="calle" type="text" class="validate" placeholder="Calle (Obligatorio)" maxlength="60"/>
+											<label for="calle"  data-error="Debe ser un nombre valido">Calle</label>
+										</div>
+										<div class="input-field col s3">
+												<input id="callnro" type="text" placeholder="Nro. Calle (Obligatorio)"  maxlength="20"/>
+												<label for="callnro"  data-error="Debe ser solamente numeros">Nro. Calle</label>
+										</div>
+										<div class="input-field col s2">
+												<input id="piso" type="text" class="validate" placeholder="Piso" maxlength="5"/>
+												<label for="piso"  data-error="Debe ser el piso">Piso</label>
+										</div>
+										<div class="input-field col s1">
+												<input id="depto" type="text" class="validate" placeholder="Depto" maxlength="5"/>
+												<label for="depto"  data-error="">Depto</label>
+										</div>
+										<div class="input-field col s1">
+												<input id="postal" type="text" class="validate"  placeholder="CP (Obligatorio)" maxlength="10"/>
+												<label for="postal"  data-error="No debe contener mas de 10 caracteres">Postal</label>
+										</div>
 
-			<div class="row">
+							</div>
+							<div class="row">
+										<div class="input-field col s3">
+												<input id="ciudad" type="text" class="typeaheadciudades" placeholder="Ciudad (Obligatorio)" />
+												<label data-error="Debe ser una ciudad valida" for="ciudad">Ciudad</label>
+										</div>
+										<div class="input-field col s2">
+												<input id="provincia" type="text" class="typeaheadciudades" disabled placeholder="Provincia"/>
+												<label for="provincia">Provincia</label>
+										</div>
+										<div class="input-field col s2">
+												<input id="pais" type="text" class="typeaheadpaises"  disabled placeholder="Pais"/>
+												<label for="pais">Pais</label>
+										</div>
+										<div class="input-field col s3">
+											<input id="email" type="email" class="validate" placeholder="Email (Obligatorio)"/>
+											<label for="email"  data-error="Debe ser un email valido">Email</label>
+										</div>
+										<div class="input-field col s2">
+											<input id="telefono" type="text" class="validate" pattern="(\w|-){1,25}" placeholder="Telefono (Obligatorio)" maxlength="25"/>
+											<label for="telefono"  data-error="Debe se un telefono valido">Telefono</label>
+										</div>
+							</div>
+	                <div class="row">
+	                    <a class="waves-effect waves-light btn valign col offset-s10" id="continuar">CONFIRMAR</a>
+	                </div>
+				  </div>
+	            </div>
+
+	        </div>
+	            </div>
+
 
 			</div>
-
-            <div class="row">
-              <div class="input-field col s2">
-                <input id="tarjeta" type="text" placeholder="Nro tarjeta (Obligatorio)" maxlength="18"/>
-                <label for="Tarjeta" data-error="Ingrese una tarjeta valida">Numero de tarjeta</label>
-              </div>
-			  <div class="input-field col s4">
-				<select id="installment-options-1" class="col s6" disabled >
-					<option class="installments-head-option" value=""  disabled selected> Vuelo de ida.</option>
-				</select>
-				<select id="installment-options-2" class="col s6" disabled>
-					<option class="installments-head-option" value=""  disabled selected> Vuelo de vuelta</option>
-				</select>
-				<label>Opciones de financiamiento</label>
+		<footer class="page-footer color1 loadfooter">
+			<div class="container">
+				<div class="row">
+				  <div class="col l6 s12">
+				     <h5 class="white-text">Flysys</h5>
+				    <p class="grey-text text-lighten-4">¡A volar por los aires!</p>
+				  </div>
+				  <div class="col l4 offset-l2 s12">
+				     <h5 class="white-text">Herramientas del sitio</h5>
+				     <ul>
+				        <li><a class="grey-text text-lighten-3" href="#!">Información</a></li>
+				        <li><a class="grey-text text-lighten-3" href="#!">Ayuda</a></li>
+				      </ul>
+				    </div>
+				  </div>
 				</div>
-                <div class=" input-field  col s3">
-					<input id="fecaducidad" type="text" class="validate" pattern="(0[0-9])|(1[0-2])/[0-9][0-9]" placeholder="MM/AA (Obligatorio)" maxlength="6"/>
-					<label for="fecaducidad" data-error="Ingrese una fecha valida">Caducidad</label>
+				<div class="footer-copyright">
+				  <div class="container">
+				  © 2016 - Instituto Tecnológico de Buenos Aires
+				  </div>
 				</div>
-              <div class="input-field col s2">
-                <input id="ccv" type="text" pattern="^([0-9][0-9][0-9])"  class="validate" placeholder="CCV (Obligatorio)" maxlength="3"/>
-                <label for="ccv" data-error="Ingrese los 3 digitos">CCV</label>
-			  		</div>
-						<div class="row">
-							<div class="col s8">
-								<h5>Informacion del pago</h5>
-							</div>
-						</div>
-            <div class="row">
-                  <div class="input-field col s6">
-                    <input id="nombre" type="text" class="validate" placeholder="Nombre (Obligatorio)" maxlength="80" maxlength="80"/>
-                    <label for="nombre"  data-error="Debe ser un nombre valido">Nombre</label>
-                  </div>
-									<div class="input-field col s6">
-									<input id="apellido" type="text" class="validate" placeholder="Apellido (Obligatorio)" maxlength="80"/>
-
-                        <label for="apellido"  data-error="Debe ser un nombre valido">Apellido</label>
-                    </div>
-
-            </div>
-						<div class="row">
-							<div class="col s8">
-								<h5>Domicilio y contacto</h5>
-							</div>
-						</div>
-						<div class="row">
-									<div class="input-field col s5">
-										<input id="calle" type="text" class="validate" placeholder="Calle (Obligatorio)" maxlength="60"/>
-										<label for="calle"  data-error="Debe ser un nombre valido">Calle</label>
-									</div>
-									<div class="input-field col s3">
-											<input id="callnro" type="text" placeholder="Nro. Calle (Obligatorio)"  maxlength="20"/>
-											<label for="callnro"  data-error="Debe ser solamente numeros">Nro. Calle</label>
-									</div>
-									<div class="input-field col s2">
-											<input id="piso" type="text" class="validate" placeholder="Piso" maxlength="5"/>
-											<label for="piso"  data-error="Debe ser el piso">Piso</label>
-									</div>
-									<div class="input-field col s1">
-											<input id="depto" type="text" class="validate" placeholder="Depto" maxlength="5"/>
-											<label for="depto"  data-error="">Depto</label>
-									</div>
-									<div class="input-field col s1">
-											<input id="postal" type="text" class="validate"  placeholder="CP (Obligatorio)" maxlength="10"/>
-											<label for="postal"  data-error="No debe contener mas de 10 caracteres">Postal</label>
-									</div>
-
-						</div>
-						<div class="row">
-									<div class="input-field col s3">
-											<input id="ciudad" type="text" class="typeaheadciudades" placeholder="Ciudad (Obligatorio)" />
-											<label data-error="Debe ser una ciudad valida" for="ciudad">Ciudad</label>
-									</div>
-									<div class="input-field col s2">
-											<input id="provincia" type="text" class="typeaheadciudades" disabled placeholder="Provincia"/>
-											<label for="provincia">Provincia</label>
-									</div>
-									<div class="input-field col s2">
-											<input id="pais" type="text" class="typeaheadpaises"  disabled placeholder="Pais"/>
-											<label for="pais">Pais</label>
-									</div>
-									<div class="input-field col s3">
-										<input id="email" type="email" class="validate" placeholder="Email (Obligatorio)"/>
-										<label for="email"  data-error="Debe ser un email valido">Email</label>
-									</div>
-									<div class="input-field col s2">
-										<input id="telefono" type="text" class="validate" pattern="(\w|-){1,25}" placeholder="Telefono (Obligatorio)" maxlength="25"/>
-										<label for="telefono"  data-error="Debe se un telefono valido">Telefono</label>
-									</div>
-						</div>
-                <div class="row">
-                    <a class="waves-effect waves-light btn valign col offset-s10" id="continuar">CONFIRMAR</a>
-                </div>
-			  </div>
-            </div>
-
-        </div>
-            </div>
-
-
-
- <footer class="page-footer color1 loadfooter">
-      <div class="container">
-        <div class="row">
-          <div class="col l6 s12">
-             <h5 class="white-text">Flysys</h5>
-            <p class="grey-text text-lighten-4">¡A volar por los aires!</p>
-          </div>
-          <div class="col l4 offset-l2 s12">
-             <h5 class="white-text">Herramientas del sitio</h5>
-             <ul>
-                <li><a class="grey-text text-lighten-3" href="#!">Información</a></li>
-                <li><a class="grey-text text-lighten-3" href="#!">Ayuda</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="footer-copyright">
-          <div class="container">
-          © 2016 - Instituto Tecnológico de Buenos Aires
-          </div>
-      </div>
-    </footer>
+		</footer>
+	</div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="js/mustache.min.js"></script>
 		<script src="js/common.js"></script>
