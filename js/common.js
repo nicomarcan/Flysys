@@ -1,7 +1,7 @@
 function fajax(aurl,datos,fsuccess,ferror){
     var urlfinal=aurl;
     // console.log('Iniciando ajax a:'+urlfinal);
-    $.ajax({
+    return $.ajax({
         type:'GET',
         data: datos,
         dataType: 'json',

@@ -100,7 +100,7 @@ $(document).ready(function(){
     )
 
 	var flights = getLocalObject("flights");
-	if (!flights) {
+	if (!flights || getUrlParameter("children")==undefined || 	getUrlParameter("infants")==undefined || getUrlParameter("adults")==undefined) {
 		$("#data-container").html("");
 		insertErrorCard(
 			$("#data-container"),
