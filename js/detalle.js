@@ -13,17 +13,24 @@ var airlineNameToId={};
 var airlineNames = [];
 var multiplier=getLocalObject("multiplier");
 var numeros=["primer","segundo","tercero","cuarto","quinto","sexto","séptimo","octavo","noveno","décimo","décimoprimero","décimosegundo","décimotercero","décimocuarto","décimoquinto","décimosexto","décimoseptimo","décimooctavo","décimonoveno","vigésimo"];
-
+var count=0;
 
 function addCard() {
   var template = $('#detalletarjeta').html();
   Mustache.parse(template);
   var pago=getLocalObject("payment");
   var contacto=getLocalObject("contact");
+  var installments=getLocalObject("installments");
+  var cuota1=installments[0];
+  var cuota2="";
+  if(installments.length>1){
+      cuota2=installments[1];
+  }
   var rendered = Mustache.render(template,{
     id: pago.credit_card.number,
     expira: pago.credit_card.expiration,
-    cuotas: pago.installments,
+    cuotas1: cuota1,
+    cuotas2: cuota2,
     sec_code: pago.credit_card.security_code,
     fname: pago.credit_card.first_name,
     lname: pago.credit_card.last_name,
@@ -42,6 +49,11 @@ function addCard() {
   }
   if($("#dep").text()==""){
     $("#dep_container").remove();
+  }
+
+  if($("#cuota2").text()==""){
+    $("#dep_container").remove();
+    $("#cuota1_det").text("Cuotas:")
   }
 }
 
@@ -326,23 +338,23 @@ $(document).ready(function(){
     infant = vuelo.price.infants != null ? vuelo.price.infants.base_fare : "--";
     taxes = vuelo.price.total.taxes;
     charges = vuelo.price.total.charges;
-    addOWResult(
+    addOW2(
         adult,
         child,
         infant,
         taxes,
         charges,
-        owStars(id),
+        3,
         vuelo.price.total.total,
         vuelo.outbound_routes[0].segments[0].departure.airport.id,
-        humanSpanishDate(d[0]) + "<br/>" + humanHour(d[1]),
+        humanDate(d[0]) + "<br/>" + humanHour(d[1]),
         vuelo.outbound_routes[0].segments[0].airline.id,
         vuelo.outbound_routes[0].segments[0].number,
         "  " + vuelo.outbound_routes[0].segments[0].duration + "  ",
         vuelo.outbound_routes[0].segments[0].arrival.airport.id,
-        criterium[i],
+        1,
         vuelo.outbound_routes[0].segments[0].airline.name,
-        humanSpanishDate(a[0]) + "<br/>" + humanHour(a[1]),
+        humanDate(a[0]) + "<br/>" + humanHour(a[1]),
         vuelo.outbound_routes[0].segments[0].departure.airport.description,
         vuelo.outbound_routes[0].segments[0].arrival.airport.description
       );
@@ -426,21 +438,32 @@ $(document).ready(function(){
   }
 
 
+function cuenta(){
+  count++;
+}
+function networkError(){
+  Materialize.toast("Error en la conexion con el servidor",5000)
+}
 
   $("#confirmar").click(function(){
     //getLocalObject("flights")[0].outbound_routes[0].segments[0].id
       for (var i = 0; i < flights.length; i++) {
         var fe=flights[i];
+        var cache_payment=getLocalObject("payment");
+        cache_payment.installments=parseInt(getLocalObject("installments")[i]);
         var final={
           flight_id: fe.outbound_routes[0].segments[0].id,
           passengers: getLocalObject("passengers"),
-          payment: getLocalObject("payment"),
+          payment: cache_payment,
           contact: getLocalObject("contact")
         }
-        fajax("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight2",{booking: JSON.stringify(final)},undefined,undefined);
+        fajax("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight2",{booking: JSON.stringify(final)},cuenta,networkError);
       }
-
-      finalizado();
+      if(count==flights.length){
+        finalizado();
+      }else{
+        count=0;
+      }
   });
   $("#back").click(function(){
      window.location="./datos.html"+location.search;

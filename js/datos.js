@@ -29,6 +29,7 @@ function loadPayment(){
 		setValInput("#pais",countryObj[lpayment.billing_address.city.country.id]);
 		setValInput("#email",lcontact.email);
 		setValInput("#telefono",lcontact.phones[0]);
+		triggerInstallmentsAjax(lpayment.credit_card.number);
 		return true;
 	}
 	return false;
@@ -116,19 +117,6 @@ $(document).ready(function(){
 	}
 
 
-	var flight_q = 0;
-	if (flights && flights.length > 0) {
-		flight_q = flights.length;
-		if (flight_q == 1) {
-			/* truchada para ida || ida y vuelta */
-			$("select#installment-options-2").remove();
-			$("select#installment-options-1").removeClass("s6").addClass("s12");
-			$("select").material_select();
-		}
-		else {
-			$("select").material_select();
-		}
-	}
 
 function getCountries(data){
   var paises = data.countries;
@@ -262,7 +250,7 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
   function pullPayment(){
     var paisid=citiesObj[$("#ciudad").val()][0];
     var payment={
-          installments:$("select#installment-options").val(), //cantidad de cuotas
+          installments:1, //cantidad de cuotas
           credit_card:{
             number: $("#tarjeta").val(),
             expiration: $("#fecaducidad").val().split("/")[0]+$("#fecaducidad").val().split("/")[1],
@@ -290,6 +278,15 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
         return payment;
   }
 
+	function pullInstallments(){
+		var installments=[];
+		installments.push($("select#installment-options-1").val());
+		if(flights.length>1){
+			installments.push($("select#installment-options-2").val());
+		}
+		return installments;
+	}
+
   function pullContact(){
     var contact={
       email: $("#email").val(),
@@ -304,8 +301,10 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
     }
     var payment=pullPayment();
     var contact=pullContact();
+		var installments=pullInstallments();
     setLocalObject("contact",contact);
     setLocalObject("payment",payment);
+		setLocalObject("installments",installments);
     window.location="./passengers_information.html"+location.search;
   });
    loadPayment();
@@ -314,4 +313,27 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
  ).then( airlineSearchSubmit(airlines, airlines_id))
 
  //endcopypasta
+
+ var flight_q = 0;
+ if (flights && flights.length > 0) {
+	 flight_q = flights.length;
+	 var installments=getLocalObject("installments");
+	 if (flight_q == 1) {
+		 /* truchada para ida || ida y vuelta */
+		 $("select#installment-options-2").remove();
+		 $("select#installment-options-1").removeClass("s6").addClass("s12");
+
+	 }
+	 else {
+		 if(existLocalObject("installments")){
+			 $("select#installment-options-2").val(installments[1]);
+		 }
+
+	 }
+	 $("select").material_select();
+	 if(existLocalObject("installments")){
+	  $("select#installment-options-1").val(installments[0]);
+	}
+ }
+
 });

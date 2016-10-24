@@ -483,7 +483,6 @@ $(document).ready(function(){
         return false;
     }
     setCurrPage(currPage);
-    setLocalObject("multiplier",multiplier);
     return true;
   });
 
@@ -765,6 +764,7 @@ function initializeCollapsibles() {
       default:
         return false;
     }
+    setLocalObject("multiplier",multiplier);
     setLocalObject("flights",flights);
     var flight_detail = {};
     flight_detail["currency"] = currCurrency;

@@ -654,6 +654,11 @@ a.back-link:hover{
 	font-weight: lighter;
 	font-size: 1rem;
 }
+
+.titulo {
+	font-size: 1.1rem;
+  font-weight: lighter;
+}
 /*yolo*/
 div.results-container div.individual-result {
   width: 80%;

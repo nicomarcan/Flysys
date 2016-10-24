@@ -47,7 +47,7 @@
 				<div class="card-panel row " id="facturacion">
 				<div class="row" id="botones">
 					<div class="col s6">
-							<a class="waves-effect waves-light btn valign center" id="back">volver</a>
+							<a class="waves-effect waves-light btn valign center" id="back">MODIFICAR</a>
 					</div>
 					<div class="col s6">
 							<a class="waves-effect waves-light btn valign center" id="confirmar">CONFIRMAR</a>
@@ -89,9 +89,13 @@
 				<span class="info">Número de tarjeta </span>
 				<span>{{id}}</span>
 			</div>
-			<div class="detalle">
-				<span class="info">Cuotas </span>
-				<span>{{cuotas}}</span>
+			<div class="detalle" id="couta1_container">
+				<span class="info" id="cuota1_det">Cuotas del primer vuelo: </span>
+				<span  id="cuota1">{{cuotas1}}</span>
+			</div>
+			<div class="detalle" id="couta2_container">
+				<span class="info">Cuotas del segundo vuelo: </span>
+				<span id="cuota2">{{cuotas2}}</span>
 			</div>
 			<div class="detalle">
 				<span class="info">Nombre </span>
@@ -141,7 +145,7 @@
 					<div class="card-panel row">
 						<div class="col s8">
 							<div class="detalle">
-								<span class="info">Informacion del {{idpasajero}} pasajero </span>
+								<span class="titulo">Informacion del {{idpasajero}} pasajero </span>
 							</div>
 							<div class="detalle">
 								<span class="info">Nombre </span>
