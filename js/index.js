@@ -805,15 +805,16 @@ $("#map-btn").click(function(){
 		});
 
 		 //looking for comments directly
-		  $("#airline_search_btn").click(function(event) {
-		    var search_info = $("input#airline_search").typeahead('val').toLowerCase();
-		    if (nameToId[search_info] != undefined) {
-		      window.location="review.html?airline_id="+nameToId[search_info];
+		 	$("form#airline_search_form").submit(function(event) {
+		var search_info = $("input#airline_search").typeahead('val').toLowerCase();
+		if (nameToId[search_info]) {
+			$("input#airline_search_id").val(nameToId[search_info]);
+			return true;
+		}
+		 $("input#airline_search").addClass("invalid");
+		return false;
+	});
 
-		    }
-		     $("input#airline_search").removeClass("valid");
-		     $("input#airline_search").addClass("invalid");
-		  });
 
 		  //airline validator
 		$(".airline_input_optional").focusout(function(){

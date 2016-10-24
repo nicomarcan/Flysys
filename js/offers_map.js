@@ -70,9 +70,10 @@
     });
         
         map.fitBounds(bounds);
-      
+      	city_info.sort(function(a, b){return a.price-b.price});
+      	console.log(city_info);
          for(var x = 0 ; x < 9;x++){
-       		 addmarker(city_info[x]);
+       		 addmarker(city_info[x],String(x+1));
        	}
        	addMyMarker(myCoords);
 
@@ -127,7 +128,7 @@
 
 var first=true;
 var myCoords = {};
-function addmarker(city) {
+function addmarker(city,i) {
 
 	      latilongi = new google.maps.LatLng(city.lat,city.long);
 	      var cityCoords = {};
@@ -159,7 +160,7 @@ function addmarker(city) {
         draggable: true,
         map: map,
         title: city.name,
-        label:city.name[0]
+        label:i,
 
     });
      marker.addListener('click', function() {
@@ -184,7 +185,7 @@ function addMyMarker(coords) {
   var infowindow = new google.maps.InfoWindow({
     content: contentString
   });
-var image= "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+var image= "http://maps.google.com/mapfiles/kml/pal3/icon48.png";
 
    
     var marker = new google.maps.Marker({
