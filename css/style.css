@@ -710,3 +710,11 @@ nav .nav-wrapper > div > div {
 #ciudad{
   margin-left: 4%;
 }
+
+.input-field label {
+    width: 100%;
+}
+
+.container-fluid.container-info {
+    padding-bottom: 5rem;
+}
