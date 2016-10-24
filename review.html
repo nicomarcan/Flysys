@@ -22,39 +22,25 @@
 	<body class="roboto">
 		<div class="wrapper">
 			<div class="page-container">
-		<nav>
-			<div class="nav-wrapper color1 container-fluid">
-					<div class="row">
-					<div class="col s2">
-						<a href="index.html" class="brand-logo">Flysis</a>
-					</div>
-					<ul class="right hide-on-med-and-down">
-						<li>
-							<form id="airline_search_form" action="./review.html" method="GET">
-
-								<input id="airline_search_id" type="hidden" name="airline_id" required></input>
-								<ul>
-									<li>
-										<input id="airline_search" type="search" class="typeahead" placeholder="Buscar aerolineas.">
-										</input>
-									</li>
-									<li>
-										<button class="btn-floating waves-effect waves-light blue-grey submit-search" type="submit" name="action">
-											<i class="material-icons search-icon">
-												search
-											</i>
-  									</button>
-									</li>
-							</span>
-							</form>
-						</li>
-
-						<li><a href="#"><i class="material-icons">info</i></a></li>
-						<li><a href="#"><i class="material-icons">help</i></a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+				<nav class="color1">
+		      <div class="nav-wrapper">
+		        <div class="valign-wrapper">
+		          <div>
+		            <a href="index.html"><img src="logo.png" class="valign" width="120"></a>
+		          </div>
+		          <div>
+		            <ul class="right">
+		              <li class="input-container">
+		                <input type="text" id="airline_search" class="typeahead" placeholder="Buscar aerolíneas"/>
+		              </li>
+		              <li class="search-button"><i class="material-icons clickable" id="airline_search_btn">search</i></li>
+		              <li><a href="#"><i class="material-icons">info</i></a></li>
+		              <li><a href="#"><i class="material-icons">help</i></a></li>
+		            </ul>
+		          </div>
+		        </div>
+		      </div>
+		    </nav>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col s8 push-s2 breadcrumb-container">
