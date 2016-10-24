@@ -252,7 +252,7 @@ var getDistance = function(p1, p2) {
 								city_info.push(city);
 								//console.log(noSpacesCity);
 
-								apiurl.push("http://www.panoramio.com/map/get_panoramas.php?set=public&from=0&to=100&minx="+ciudades[random].city.longitude+"&miny="+ciudades[random].city.latitude+"&maxx="+(ciudades[random].city.longitude+1)+"&maxy="+(ciudades[random].city.latitude+1)+"&size=medium&mapfilter=false");
+								apiurl.push("http://www.panoramio.com/map/get_panoramas.php?set=public&from=0&to=20&minx="+(ciudades[random].city.longitude-1)+"&miny="+(ciudades[random].city.latitude-1)+"&maxx="+(ciudades[random].city.longitude+1)+"&maxy="+(ciudades[random].city.latitude+1)+"&size=medium&mapfilter=true");
 							}
 					}
 					getImages(apiurl);
@@ -274,7 +274,7 @@ var getDistance = function(p1, p2) {
 				    context:info[x],
 				    success: function(d){
 				   		var random =  parseInt((Math.random() * (90 )), 10) ;
-				  		var item = d.photos[3].photo_file_url;
+				  		var item = d.photos[0].photo_file_url;
 	
 						 photo= $('#offer-img-back-'+$(this).attr("num"));
 						 photo.next().children("h5").text($(this).attr("to"));

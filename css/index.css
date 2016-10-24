@@ -225,12 +225,37 @@ div.map-info p{
   font-size: 18px;
 }
 
+#map-modal{
+ width:1400px;
+}
+
+#map{
+   height:500px;
+}
+
+noscript.div{
+  height:50px;
+}
+
+.fullwidth{
+  width:100%;
+}
+
+#adults_two,#adults{
+  padding-right: 0.35rem;
+}
+
+#children_two,#children{
+  padding-right: 1.41rem;
+}
+
+
+
 
 
 #passengers-modal.modal,#passengers-modal-two.modal{
-  min-height: 11rem;
+  min-height: 15rem;
   min-width:15rem;
-  border-radius: 25px;
   position:absolute;
   top:auto!important;
   overflow: visible ;

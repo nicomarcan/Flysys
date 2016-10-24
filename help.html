@@ -1,35 +1,68 @@
 <!DOCTYPE html>
 
 <html>
-  <meta charset="utf-8"/>
+ 
   <head>
+     <meta charset="utf-8"/>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
        <link type="text/css" rel="stylesheet" href="css/help.css"/>
-
+            <link type="text/css" rel="stylesheet" href="css/patch.css"/>
+       <title>Flysys</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 
     </head>
+
   <body class="roboto">
-    <nav >
-      <div class="nav-wrapper color1">
-        <a href="index.html" class="brand-logo">Flysys</a>
-        <ul class="right hide-on-med-and-down">
-          <li><a href="#"><i class="material-icons">info</i></a></li>
-        </ul>
-      </div>
-      <div class=row>
+    <div class="wrapper">
+      <div class="page-container">
+    <nav>
+              <div class="nav-wrapper color1">
+                <div class="valign-wrapper">
+                  <div class="logo-img">
+                    <a href="index.html"><img src="logo.png" alt="Logo" class="valign" width="120" id="logo"></a>
+                        </div>
+                    <div>
+                <ul class="right">
+                  <li class="input-container">
+                  <form id="airline_search_form" action="./review.html" method="GET">
+                    <input id="airline_search_id" type="hidden" name="airline_id" />
+                    <ul>
+                      <li>
+                        <input id="airline_search" type="search" class="typeahead " placeholder="Buscar aerolineas."/>
+
+                      </li>
+                      <li>
+                        <button class="btn-floating  transparent
+                        z-depth-0 submit-search" type="submit" name="action">
+                          <i class="material-icons search-icon">
+                            search
+                          </i>
+                        </button>
+                      </li>
+                    </ul>
+
+                  </form>
+                </li>
+                  <li class="help-link"><a href="help.html"><i class="material-icons">help</i></a></li>
+
+
+
+              </ul>
+            </div>
+          </div>
+        </div>
+         <div class=row>
        <div class="nav-wrapper color1 col s8 offset-s2 " id="breadcrumb">
        
-          <a href="#!" class="breadcrumb" selected>Búsqueda</a>
-          <a href="#!" class="breadcrumb">Elección</a>
-          <a href="#!" class="breadcrumb">Ingreso de Datos</a>
-          <a href="#!" class="breadcrumb">Confirmación</a>
+          <a class="breadcrumb" id="search">Búsqueda</a>
+          <a class="breadcrumb">Elección</a>
+          <a  class="breadcrumb">Ingreso de Datos</a>
+          <a  class="breadcrumb">Confirmación</a>
       </div>
     </div>
-    </nav>
-
+      </nav>
    
 
     <div class="container-fluid row" id="primero">
@@ -41,45 +74,58 @@
              <div class="col s8 offset-s2 slider" >
               <ul class="slides" >
                 <li class="step_start first" >
-                  <img src="http://2.bp.blogspot.com/-hU25nwadhPI/TV1TNKRmBYI/AAAAAAAAAH8/dKxiSpvhsPE/s1600/600px-MA_Route_1_svg.png"> 
+                  <img src="img/index.png" alt="index"> 
               
                 </li>
                 <li>
-                  <img src="img/results.png">
+                  <img src="img/index2.png" alt="index2">
+               
+                </li>
+                <li>
+                  <img src="img/index3.png" alt="index3">
+               
+                </li>
+                <li>
+                  <img src="img/index4.png" alt="index4">
+               
+                </li>
+                <li>
+                  <img src="img/index5.png" alt="index5">
                
                 </li>
                 <li class="step_start">
-                  <img src="https://blognumbers.files.wordpress.com/2010/09/2.jpg"> 
-                  <div class="caption right-align">
-                    <h3>Right Aligned Caption</h3>
-                    <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-                  </div>
+                  <img src="img/search.png" alt="search"> 
+      
                 </li>
                 <li>
-                  <img src="http://lorempixel.com/580/250/nature/4">
-                  <div class="caption center-align">
-                    <h3>This is our big Tagline!</h3>
-                    <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-                  </div>
+                  <img src="img/search2.png" alt="search2">
+
+                </li>
+                <li>
+                  <img src="img/search3.png" alt="search3">
+
+                </li>
+                <li>
+                  <img src="img/search4.png" alt="search4">
+      
                 </li>
 
                   <li class="step_start" >
-                  <img src="http://www.clipartkid.com/images/27/number-3-clip-art-at-clker-com-vector-clip-art-online-royalty-free-PSbAsE-clipart.png"> 
+                  <img src="http://www.clipartkid.com/images/27/number-3-clip-art-at-clker-com-vector-clip-art-online-royalty-free-PSbAsE-clipart.png" alt="asd"/> 
               
                 </li>
                 <li>
-                  <img src="img/results.png">
+                  <img src="img/results.png" alt="asd">
                
                 </li>
                 <li class="step_start last" >
-                  <img src="http://www.clipartkid.com/images/309/blog-numbers-just-numbers-page-2-9bq8wQ-clipart.jpg"> 
+                  <img src="http://www.clipartkid.com/images/309/blog-numbers-just-numbers-page-2-9bq8wQ-clipart.jpg" alt="asd"> 
                   <div class="caption right-align">
                     <h3>Right Aligned Caption</h3>
                     <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
                   </div>
                 </li>
                 <li class="last">
-                  <img src="http://lorempixel.com/580/250/nature/4">
                   <div class="caption center-align">
                     <h3>This is our big Tagline!</h3>
                     <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
@@ -88,14 +134,16 @@
               </ul>
             </div>
           </div>
+
           <div class="center-align">
 
-            <a class="waves-effect waves-light btn disabled" id="prev-step" style="margin-right:2rem">Etapa Anterior</a> 
-            <a class="waves-effect waves-light btn disabled" id="prev" style="margin-right:2rem">Anterior</a> 
-            <a class="waves-effect waves-light btn" id="next" style="margin-right:2rem">Siguiente</a> 
-             <a class="waves-effect waves-light btn" id="next-step" style="margin-right:2rem">Etapa Siguiente</a> 
+            <a class="waves-effect waves-light btn disabled color1" id="prev-step" >Etapa Anterior</a> 
+            <a class="waves-effect waves-light btn disabled color1" id="prev" >Anterior</a> 
+            <a class="waves-effect waves-light btn disabled color1" id="start-step" >Principio de Etapa</a> 
+            <a class="waves-effect waves-light btn color1" id="next" >Siguiente</a> 
+             <a class="waves-effect waves-light btn color1" id="next-step" >Etapa Siguiente</a> 
             
-          <div>
+          </div>
                 
       </div>
 
@@ -106,14 +154,14 @@
   <div id="modal1" class="modal">
     <div class="modal-content left-align">
       <h4>Bienvenido a la página de ayuda</h4>
-      <p>Resumimos el proceso de compra de pasajes en cuatro etapas interactivas para facilitarle el uso de este sitio. Estas son:
+      <p>Resumimos el proceso de compra de pasajes en cuatro etapas interactivas para facilitarle el uso de este sitio. Estas son:</p>
         <ol >
           <li >Búsqueda</li>
           <li>Elección</li>
           <li>Ingreso de Datos</li>
           <li>Confirmación</li>
         </ol>
-        </p>
+      
 
 <p> Cada etapa está explicada mediante una serie de fotos interactivas, pudiendo saltar etapas en caso de ya conocerlas o de ya haberlas entendido.</p>
 
@@ -123,20 +171,19 @@
       <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Entendido</a>
     </div>
   </div>
+ </div>
 
-
- <footer class="page-footer color1 loadfooter" ng-include="include/footer.html" style="background-color:#263238">
+ <footer class="page-footer color1 "  >
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
              <h5 class="white-text">Flysys</h5>
-            <p class="grey-text text-lighten-4">¡A volar por los aires!</p>
+            <p class="grey-text text-lighten-4">¡Volar es nuestra pasión!</p>
           </div>
           <div class="col l4 offset-l2 s12">
              <h5 class="white-text">Herramientas del sitio</h5>
              <ul>
-                <li><a class="grey-text text-lighten-3" href="#!">Información</a></li>
-                <li><a class="grey-text text-lighten-3" href="#!">Ayuda</a></li>
+                <li><a class="grey-text text-lighten-3" href="help.html">Ayuda</a></li>
               </ul>
             </div>
           </div>
@@ -147,10 +194,13 @@
           </div>
       </div>
     </footer>
+  </div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
     <script type="text/javascript" src="js/mustache.min.js"></script>
     <script src="js/common.js"></script>
     <script src="js/help.js"></script>
+    <script type="text/javascript" src="./js/airline_search.js"></script>
+    <script type="text/javascript" src="js/typeahead.bundle.js"></script>
 </body>
 </html>
