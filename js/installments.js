@@ -2,6 +2,9 @@ function ajaxInstallments(flight_id, adults, children, infants, card_number, sel
 	if (selector.attr("number") == card_number) {
 		return;
 	}
+	$("select[data-error=error]").each( function() {
+		$(this).parent().children(".select-error").remove();
+	})
 	$("option#installments-head-option").text("Cargando la tarjeta");
 	$("option.installment-option").remove("");
 	selector.val(null);
@@ -62,7 +65,7 @@ function ajaxInstallments(flight_id, adults, children, infants, card_number, sel
 			error: function() {
 				selector.parent().find("option.installments-head-option").text("Fracaso la conexion al servidor.");
 				selector.attr("disabled", "");
-				$("select").material_select();
+				selector.material_select();
 			}
 		});
 	}

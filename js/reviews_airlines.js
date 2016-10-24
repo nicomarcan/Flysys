@@ -23,19 +23,7 @@ function insertFlightInfoCard(info) {
 
 }
 
-function insertErrorCard(container, header, description, link) {
-	if (container.find(".error-card").length !== 0) {
-		return
-	}
-	var template = $("#error_card").html();
-	Mustache.parse(template);
-	var render = Mustache.render(template, {
-		header: header,
-		description: description,
-		link: link
-	});
-	container.prepend(render);
-}
+
 
 function insertNotFoundCard(container, header, description, link_description, link_class) {
 	var template = $("#not_found_card").html();
@@ -78,24 +66,6 @@ function insertAirlineInfoCard(airline) {
 	$("#flight-info-card").append(render);
 }
 
-function startPagination(pages, page) {
-	var el = '<li id="left_chevron" class="disabled "><a href="#opinion_header"><i class="material-icons">chevron_left</i></a></li>';
-	for (var i = 1; i <= pages; i++) {
-		if (i == page) {
-			el += '<li class="page_button active" value="'+ i +'"><a href="#opinion_header">'+ i +'</a></li>';
-		}
-		else {
-			el += '<li class="waves-effect page_button" value="'+ i +'"><a href="#opinion_header">'+ i +'</a></li>';
-		}
-	}
-	if (pages == 1 || pages == 0) {
-		el += '<li id="right_chevron" class=" disabled" ><a href="#opinion_header"><i class="material-icons">chevron_right</i></a></li>'
-	}
-	else {
-		el += '<li id="right_chevron"><a href="#opinion_header"><i class="material-icons">chevron_right</i></a></li>';
-	}
-	return el;
-}
 
 function ajaxAirlineInfo(params, airlines_id) {
 	$.ajax({
@@ -288,8 +258,10 @@ $(document).ready(function() {
 							page,
 							options[op],
 							-1
-					)).then( function (response) {
-
+					)).then( function (response, errorMsg, error) {
+						if (response.error) {
+							return;
+						}
 						$("#paginate").materializePagination({
 			                firstPage: page,
 			                lastPage: parseInt((response.total - 1) / response.page_size) + 1,
@@ -348,18 +320,14 @@ $(document).ready(function() {
 			page = auxpage;
 		}
 		else {
-			$.when(
-				ajaxReviews(
-					params,
-					options[op].sort_key,
-					options[op].sort_order,
-					auxpage,
-					options[op],
-					prev_page
-				)
-			).then(function(response){
-
-			})
+			ajaxReviews(
+				params,
+				options[op].sort_key,
+				options[op].sort_order,
+				auxpage,
+				options[op],
+				prev_page
+			);
 		}
 		page = auxpage;
 		return true;
@@ -405,7 +373,7 @@ $(document).ready(function() {
 					1,
 					options[op],
 					-1
-			)).then( function() {
+			)).then( function(response, errorMsg, error) {
 				if (!response.error) {
 					$("li.page_button[data-page = 1]").click();
 				}
@@ -413,9 +381,7 @@ $(document).ready(function() {
 		}
 		return true;
 	});
-	$(document).on('click', "a.back-link", function() {
-		history.back();
-	});
+	
 
 	$(document).on('click', '.write_review_button', function () {
 		 for(var x = 1 ; x<7 ; x++){

@@ -44,13 +44,18 @@ function raiesgato(valor){
 function setSelectError(selector) {
 	selector.parent().children(".select-wrapper input").css("border-bottom", "1px solid #F44336");
 	selector.parent().children(".select-wrapper input").css("box-shadow", "0 1px 0 0 #F44336");
+	selector.parent().children(".select-wrapper input").css("box-shadow", "0 1px 0 0 #F44336");
+	selector.parent().children("ul").after("<span style='color:red; font-size:12px;' class='select-error'>Elija una forma de financiamiento.</span>");
+	selector.attr("data-error","error");
 }
 
 function removeInstallmentsOptions() {
-	$("select option.installment-option").remove();
-	$("select").attr("number","");
-	$("select").attr("disabled", "");
-	$("select").material_select();
+	$("select").not("[disabled=disabled]").each(function(){
+		$(this).children("option.installment-option").remove();
+		$(this).attr("number","");
+		$(this).attr("disabled", "");
+		$(this).material_select();
+	})
 }
 
 function triggerInstallmentsAjax(card_number) {
@@ -86,6 +91,30 @@ function triggerInstallmentsAjax(card_number) {
 
 $(document).ready(function(){
 	var flights = getLocalObject("flights");
+	if (!flights) {
+		$("#data-container").html("");
+		insertErrorCard(
+			$("#data-container"),
+			"Ocurrió un error al cargar la información del vuelo.",
+			"No se puede seguir con la compra. Por favor, reintente la búsqueda.",
+			true
+		);
+	}
+	var aird = flights[0].outbound_routes[0].segments[0].departure.airport.id;
+	var aira = flights[0].outbound_routes[0].segments[0].arrival.airport.id
+	$("a#flight-path-breadcrumb").text("Vuelo de "+ aird + " a "+ aira);
+	var flight_detail = getLocalObject(["flight_detail"]);
+	if (!flight_detail) {
+		$("#data-container").html("");
+		insertErrorCard(
+			$("#data-container"),
+			"Ocurrió un error al cargar la información de los pasajeros.",
+			"No se puede seguir con la compra. Por favor, reintente la búsqueda.",
+			true
+		);
+	}
+
+
 	var flight_q = 0;
 	if (flights && flights.length > 0) {
 		flight_q = flights.length;

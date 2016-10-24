@@ -9,12 +9,13 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <!--Import materialize.css-->
    <link rel="stylesheet" href="css/materialize.css"/>
+   <link type="text/css" rel="stylesheet" href="css/patch.css"/>
     <link type="text/css" rel="stylesheet" href="css/index.css"/><!--change later-->
     <link type="text/css" href="css/classic.css" rel="stylesheet"/>
     <link type="text/css" href="css/classic.date.css" rel="stylesheet"/>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    
+
 
   </head>
 
@@ -25,6 +26,11 @@
 		 		<p >JavaScript no está andando.Por favor intente recargar la página en unos momentos, y en caso de que este inconveniente continue por favor cambie a alguno de estos dos navegadores: Google Chrome o Mozilla Firefox.</p>
 		 	</div>
 	   </noscript>
+
+<!-- todo:hacer que buscar sea un form asi anda con enter-->
+
+		<div class="wrapper">
+			<div class="page-container">
 
            <nav class="color1">
 		      <div class="nav-wrapper">
@@ -216,14 +222,17 @@
 
           </div>
 
-
-
+  
 
     <div class="section  container-fluid center offers-text offers-back" >
       <div class="row container">
-        <h1 class="header clickable" id="offers">Ofertas</h1>
-        <h5 class="header">Encontrá tu destino soñado.</h5>
-        <p class=" text-darken-3 lighten-3">Hacerlos volar es nuestra pasión</p>
+        <h1 class="header clickable font-color1" id="offers" >Ofertas</h1>
+        <h5 class="header font-color1">Encontrá tu destino soñado.</h5>
+                 
+	<div >
+	  <a class="waves-effect waves-light btn modal-trigger color1" id ="map-btn" href="#map-modal">Ver destinos en el mapa</a>
+		<a CLASS="clickable"><i class="material-icons color1">help</i></a><!-- TODO ADD HELP-->
+	  </div>
       </div>
     </div>
 
@@ -235,7 +244,7 @@
 
 
 	             <ul class="slides ">
-    
+
       <li>
         <img  class="offer-img big clickable" id="offer-img-back-1" alt="not-found" src="img/image-not-found.jpg"/>
         <div class="caption left-align">
@@ -254,7 +263,7 @@
 
 
 	             <ul class="slides ">
-  
+
       <li>
         <img  class="offer-img big clickable" id="offer-img-back-2" alt="not-found" src="img/image-not-found.jpg"/>
         <div  class="caption left-align" >
@@ -274,7 +283,7 @@
 
 
 	             <ul class="slides ">
-    
+
       <li>
         <img  class="offer-img big clickable" id="offer-img-back-3" alt="not-found"  src="img/image-not-found.jpg"/>
         <div class="caption left-align" >
@@ -297,7 +306,7 @@
 
 
 	             <ul class="slides ">
-    
+
       <li>
         <img  class="offer-img big clickable" id="offer-img-back-4" alt="not-found" src="img/image-not-found.jpg"/>
         <div class="caption left-align" >
@@ -358,7 +367,7 @@
 
 
 	             <ul class="slides ">
- 
+
       <li>
         <img  class="offer-img big clickable" id="offer-img-back-7" alt="not-found" src="img/image-not-found.jpg"/>
         <div class="caption left-align" >
@@ -397,7 +406,7 @@
 
 
 	             <ul class="slides ">
- 
+
       <li>
         <img  class="offer-img big clickable" id="offer-img-back-9" alt="not-found"  src="img/image-not-found.jpg"/>
         <div class="caption left-align" >
@@ -424,8 +433,9 @@
         	<p>¿Comentarios acerca de un vuelo?<a id="review-btn" class="waves-effect waves-light btn modal-trigger" href="#review-modal">Cuéntenos</a></p>
         </div>
       </div>
-    </div>
 
+	</div>
+</div>
 
     <div id="review-modal" class="modal modal-fixed-footer">
     		<div class="modal-content" id= "post-review"  >
@@ -653,6 +663,61 @@
 </div>
 
 
+ <!-- Map ModalStructure todo:sacar estilo embebido -->
+  <div id="map-modal" class="modal" style="width:1050px;">
+    
+      
+       <div class="modal-content" >
+
+			 <div id="map" class="map-wrapper col s6" style="height:500px;width:1000px">
+						  <div class="col s2 push-s5 valign-wrapper preloader-wrapper">
+						  <div class="preloader-wrapper big active valign">
+							  <div class="spinner-layer spinner-blue">
+								<div class="circle-clipper left">
+								  <div class="circle"></div>
+								</div><div class="gap-patch">
+								  <div class="circle"></div>
+								</div><div class="circle-clipper right">
+								  <div class="circle"></div>
+								</div>
+							  </div>
+
+						  <div class="spinner-layer spinner-red">
+							<div class="circle-clipper left">
+							  <div class="circle"></div>
+							</div><div class="gap-patch">
+							  <div class="circle"></div>
+							</div><div class="circle-clipper right">
+							  <div class="circle"></div>
+							</div>
+						  </div>
+
+						  <div class="spinner-layer spinner-yellow">
+							<div class="circle-clipper left">
+							  <div class="circle"></div>
+							</div><div class="gap-patch">
+							  <div class="circle"></div>
+							</div><div class="circle-clipper right">
+							  <div class="circle"></div>
+							</div>
+						  </div>
+
+						  <div class="spinner-layer spinner-green">
+							<div class="circle-clipper left">
+							  <div class="circle"></div>
+							</div><div class="gap-patch">
+							  <div class="circle"></div>
+							</div><div class="circle-clipper right">
+							  <div class="circle"></div>
+							</div>
+						  </div>
+						</div>
+					</div>
+				</div>
+	</div>
+</div>
+
+
    <footer class="page-footer color1">
       <div class="container">
         <div class="row">
@@ -675,6 +740,7 @@
           </div>
       </div>
     </footer>
+</div>
       <!--Import jQuery before materialize.js-->
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
@@ -686,7 +752,8 @@
       <script src="js/attrchange.js"></script>
     <script src="js/attrchange_ext.js"></script>
     <script type="text/javascript" src="js/typeahead.bundle.js"></script>
+     <script type="text/javascript" src="js/offers_map.js"></script>
 	  <script type="text/javascript" src="http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities"></script>
-
+<script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDW8Zq1p2J_A1tExsMjmcov8t4b4ZAqFko&callback=initMap' type='text/javascript'></script>
   </body>
 </html>
