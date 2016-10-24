@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-	<meta charset="utf-8"/>
 	<head>
+		<meta charset="utf-8"/>
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css"/>
 		<link type="text/css" rel="stylesheet" href="css/nav.css"/>
@@ -51,7 +51,7 @@
 					</div>
 				</nav>
 
-		<div class="container-fluid row">
+		<div class="container-fluid row container-info">
 			<div class="col s10 offset-s1" style="margin-top: 1rem;">
 									<a href="./index.html" class="breadcrumb info_breadcrumbs link">Inicio</a>
 									<a href="./index.html" class="breadcrumb info_breadcrumbs link" id="flight-path-breadcrumb"> Vuelo de ??? a ???</a>
@@ -95,14 +95,15 @@
 	                <label for="ccv" data-error="Ingrese los 3 digitos">CCV</label>
 				  		</div>
 							<div class="row">
-								<div class="col s8">
-									<h5>Informacion del pago</h5>
+								<div  class="valign col s8 opinions_header" style="margin-top:1.2rem">
+									INFORMACION DE PAGO
+									<div class="divider"></div>
 								</div>
 							</div>
 	            <div class="row">
 	                  <div class="input-field col s6">
 	                    <input id="nombre" type="text" class="validate" placeholder="(Obligatorio)" maxlength="80" maxlength="80"/>
-	                    <label for="nombre"  data-error="Debe ser un nombre valido">Nombre</label>
+	                    <label for="nombre"  data-error="Debe ser un nombre valido" style="width:100%">Nombre</label>
 	                  </div>
 										<div class="input-field col s6">
 										<input id="apellido" type="text" class="validate" placeholder="(Obligatorio)" maxlength="80"/>
@@ -112,8 +113,9 @@
 
 	            </div>
 							<div class="row">
-								<div class="col s8">
-									<h5>Domicilio y contacto</h5>
+								<div  class="valign col s8 opinions_header" style="margin-top:1.2rem">
+									DOMICILIO Y CONTACTO
+									<div class="divider"></div>
 								</div>
 							</div>
 							<div class="row">
