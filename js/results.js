@@ -58,9 +58,10 @@ var currMin,currMax;
 var currAirlines = [],currStars = [];
 var applied,result;
 var currCurrency = "USD" ;
-
+var airlines = {};
+var airlines_id = {};
 $(document).ready(function(){
-
+    
   var booking = 'http://hci.it.itba.edu.ar/v1/api/booking.groovy' ;
   var geo = 'http://hci.it.itba.edu.ar/v1/api/geo.groovy';
   var misc = 'http://hci.it.itba.edu.ar/v1/api/misc.groovy';

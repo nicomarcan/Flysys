@@ -46,15 +46,7 @@ ul.right li.help-link {
 	margin-right: 15px;
 	margin-left:0px;
 }
-ul.right li.help-link :hover {
-	background-color: #181f23;
-}
-.input-container li:hover {
-	background-color: #181f23;
-}
+
 li.input-container form li {
 	padding:0 0 0 0.5rem;
-}
-.input-container li:hover {
-	background-color: #181f23;
 }
