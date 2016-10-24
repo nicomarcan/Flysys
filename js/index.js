@@ -706,7 +706,7 @@ $("#map-btn").click(function(){
 			var airline = {};
 			var flight = {};
 			var rating = {};
-			airline["id"] = nameToId[$("#review-modal #airlines_input").val()];
+			airline["id"] = airlines[$("#review-modal #airlines_input").val().toLowerCase()];
 			flight["airline"]=airline;
 			flight["number"]=parseInt($("#review-modal #vuelo").val());
 			review["flight"]=flight;
@@ -766,11 +766,11 @@ $("#map-btn").click(function(){
 		});
 		//link to airline comments
 		$("#link-airline").on('click',function(){
-			window.location="review.html?airline_id="+nameToId[$("#review-modal #airlines_input").val()];
+			window.location="review.html?airline_id="+airlines[$("#review-modal #airlines_input").val().toLowerCase()];
 		});
 		//link to flight specific comments
 		$("#link-flight").on('click',function(){
-			window.location="review.html?airline_id="+nameToId[$("#review-modal #airlines_input").val()]+"&flight_number="+parseInt($("#review-modal #vuelo").val());
+			window.location="review.html?airline_id="+airlines[$("#review-modal #airlines_input").val().toLowerCase()]+"&flight_number="+parseInt($("#review-modal #vuelo").val());
 		});
 
 		//review button clearing last input

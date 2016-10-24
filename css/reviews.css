@@ -54,6 +54,11 @@ li.score_list_element_header.collection-item {
 	color:#d4d4d4;
 }
 
+.clickable:hover{
+	cursor:pointer;
+	transition:0.3s;
+}
+
 a.write_review_button.waves-effect.waves-light {
 	margin:1rem auto 1rem auto;
 	font-size:1rem;
