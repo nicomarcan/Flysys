@@ -115,9 +115,14 @@ function getCities(data){
 		"chico": "Ingrese una fecha válida. Recuerde que los niños deben ser mayores de dos años y menores de once.",
 		"adulto" : "Ingrese una fecha válida. Recuerde que los adultos deben ser mayores de once años"
 	};
+	var n2=nombre;
+	if(n2=="chico"){
+		n2="niño";
+	}
     Mustache.parse(template);
     var rendered = Mustache.render(template,{
       nombre: nombre,
+			nombre2: n2,
       id: numeros[parseInt(num)-1],
       indenti: (nombre+num),
 	  data_error: err_conv[nombre]
