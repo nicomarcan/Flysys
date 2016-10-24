@@ -156,7 +156,7 @@ function checkCity(dato){
 }
 
 function checkPhone(dato){
-  var patron=/^.{1,25}/i; //TODO
+  var patron=/^(\d|\#){1,25}/i; //TODO
   var anio=new Date().getYear()-100+2000;
   return patron.test(dato);
 }
