@@ -1,8 +1,9 @@
 
-var api_ready=true;
-var flight_info;
+
+
 
 $(document).ready(function(){
+	var to = 2000 ;
 
 	//history
 	if (typeof(Storage) !== "undefined") {
@@ -55,6 +56,10 @@ $("#map-btn").click(function(){
 		    type: 'GET',
 		    url: airports_url,
 		    dataType: 'json' ,
+		     timeout: to,
+		      error: function(){
+                		showInternetError();
+              		},
 		    success: function(d){
 		      if(d.total<=d.page_size){
 		        cargaTypeAHead(d);
@@ -63,10 +68,15 @@ $("#map-btn").click(function(){
 		          type: 'GET',
 		          url: airports_url,
 		          dataType: 'json',
+		           timeout: to,
 		          data: {page_size:d.total},
+		             error: function(){
+                		showInternetError();
+              		},
 		          success: function(f){
 		            cargaTypeAHead(f);
 		          }
+
 		        });
 		      }
 		    }
@@ -104,9 +114,7 @@ $("#map-btn").click(function(){
 									source: blood_ciudades,
 							}
 			);
-			console.log(nameToId);
-			console.log(valores);
-			console.log(airlines);
+
 			};
 
 
@@ -386,7 +394,6 @@ $("#map-btn").click(function(){
 			var children= $('#passenger_two  #children_val_two').text();
 			var infants= $('#passenger_two #infants_val_two').text();
 			var url= "results.html?"+"mode=two-way&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1+"&d2="+d2;
-			console.log(url);
 			if(src!=undefined && dst!=undefined && d1!="" &&  d2!=""){
 				window.location=url;
 				var flight_info= {};
@@ -430,7 +437,6 @@ $("#map-btn").click(function(){
 			var children= $('#passenger  #children_val').text();
 			var infants= $('#passenger  #infants_val').text();
 			var url= "results.html?"+"mode=one-way&src="+src+"&dst="+dst+"&adults="+adults+"&children="+children+"&infants="+infants+"&d1="+d1;
-			console.log(url);
 			if(src!=undefined && dst!=undefined && d1!=""){
 
 				var flight_info= {};
@@ -613,6 +619,10 @@ $("#map-btn").click(function(){
 						url: 'http://hci.it.itba.edu.ar/v1/api/status.groovy',
 						data:{"method":"getflightstatus","airline_id":airlines[$("#airlines_input").val().toLowerCase()],"flight_number":$(this).val()},
 						dataType: 'jsonp',
+						 timeout: to,
+						  error: function(){
+                		showInternetError();
+              		},
 						success: function (alfa) {
 							if(alfa.error==undefined){
 								$('.flight_input').addClass("valid");
@@ -661,6 +671,10 @@ $("#map-btn").click(function(){
 				        url: review_url,
 		                  contentType: 'application/json',
 			         	 data: JSON.stringify(review),
+			         	  timeout: to,
+			         	   error: function(){
+                		showInternetError();
+              		},
 					    success: function(d){
 					      if(d.error == undefined){
 
@@ -829,4 +843,8 @@ function getPassengers(elem){
 	else
 		s+= num +" Pasajeros";
 	return s;
+}
+
+function showInternetError(){
+	  Materialize.toast('Por favor verifique su conexión a internet y recargue la página', 4000)
 }
