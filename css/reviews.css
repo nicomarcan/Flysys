@@ -85,12 +85,12 @@ span.review_title {
   font-weight: bold;
 }
 a.info_breadcrumbs.breadcrumb {
-	font-size: 2rem;
+	font-size: 1rem;
 	color: black;
 	font-weight: lighter;
 }
 a.info_breadcrumbs.breadcrumb::before {
-	font-size: 2rem;
+	font-size: 1rem;
 	color: #a9a9a9;
 	font-weight: lighter;
 }
@@ -337,4 +337,6 @@ nav .nav-wrapper > div > div {
 .detalle{
   margin-top: 0.5rem;
 }
+
+.modal {  max-height: 100% !important }
 /*FIN DEL NAV*/

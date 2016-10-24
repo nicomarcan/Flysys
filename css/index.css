@@ -101,7 +101,7 @@ p.big,a.big{
 
 
 .search-back.blurred-img{
-  background-image: URL("http://www.splitshire.com/wp-content/uploads/2015/03/SplitShire-8098-1800x1200.jpg");
+  background-image: URL("../img/blurred.jpg");
 }
 
 .search-back{
@@ -118,7 +118,7 @@ p.big,a.big{
 .offer-img.big{
   height:280px;
   width: 90%;
-
+  object-fit: cover; /* solucion??*/
 }
 
 
@@ -159,11 +159,11 @@ p.big,a.big{
 
 
 
-
-
-.row.input .clickable:not([selected]):hover{
-   color: #64b5f6 ;
+.help-link a i{
+  margin-left:10px;
 }
+
+
 
   /* label color */
    .input .input-field label {
@@ -221,6 +221,15 @@ body{overflow-y:scroll!important}
   display:inline;
 }
 
+div.map-info p{
+  font-size: 18px;
+}
+
+div.map-info{
+  border: 1px solid black;
+  margin-left: 20px!important;
+}
+
 #passengers-modal.modal,#passengers-modal-two.modal{
   min-height: 11rem;
   min-width:15rem;
@@ -234,7 +243,7 @@ body{overflow-y:scroll!important}
 #review-modal.modal{
   min-height: 40rem;
 }
-.btn#map-btn:hover{
+.btn#map-btn:hover,.btn-small.minus:hover,.btn-small.plus:hover{
   background-color:#263238;
 }
 .btn-flat#passengers,.btn-flat#passengers_two{

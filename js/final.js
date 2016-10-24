@@ -2,8 +2,16 @@ var misc = 'http://hci.it.itba.edu.ar/v1/api/misc.groovy';
 var to = 2000 ;
 var airlineNameToId={};
 var airlineNames = [];
-
+var airlines = {};
+var airlines_id = {};
 $(document).ready(function(){
+
+	$.when(
+  	  ajaxAirlineSearch(airlines, airlines_id)
+    ).then(
+  	  airlineSearchSubmit(airlines, airlines_id)
+    )
+
   if(!existLocalObject("flights")){
     window.location="./index.html";
   }
@@ -12,6 +20,7 @@ $(document).ready(function(){
      window.location="./index.html";
   })
   //copypasta
+  /*
   $.ajax({
     type: 'GET',
     url: misc,
@@ -47,5 +56,6 @@ $(document).ready(function(){
     }
   });
   installAirlineSearchHandler()
+  */
 //endcopypasta
 });

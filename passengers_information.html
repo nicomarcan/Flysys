@@ -5,32 +5,53 @@
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css"/>
 	    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+		<link type="text/css" rel="stylesheet" href="css/patch.css"/>
+		<link type="text/css" rel="stylesheet" href="css/nav.css"/>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 	<body class="roboto">
-		<nav class="color1">
-      <div class="nav-wrapper">
-        <div class="valign-wrapper">
-          <div>
-            <a href="index.html"><img src="logo.png" class="valign" width="120"></a>
-          </div>
-          <div>
-            <ul class="right">
-              <li class="input-container">
-                <input type="text" id="airline_search" class="typeahead" placeholder="Buscar aerolíneas"/>
-              </li>
-              <li class="search-button"><i class="material-icons clickable" id="airline_search_btn">search</i></li>
-              <li><a href="#"><i class="material-icons">info</i></a></li>
-              <li><a href="#"><i class="material-icons">help</i></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
+		<div class="wrapper">
+			<div class="page-container">
+				<nav>
+					<div class=" color1 ">
+							<div class="nav-wrapper">
+								<div class="valign-wrapper">
+							<div class="logo-img">
+								<a href="index.html"><img src="logo.png" alt="Logo" class="valign" width="120"></a>
+							  </div>
+							<div>
+								<ul class="right">
+									<li class="input-container">
+									<form id="airline_search_form" action="./review.html" method="GET">
+										<input id="airline_search_id" type="hidden" name="airline_id" required></input>
+
+											<li>
+												<input id="airline_search" type="search" class="typeahead" placeholder="Buscar aerolineas.">
+												</input>
+											</li>
+											<li>
+												<button class="btn-floating waves-effect waves-light transparent
+												z-depth-0 submit-search" type="submit" name="action">
+													<i class="material-icons search-icon">
+														search
+													</i>
+											</button>
+											</li>
+									</span>
+									</form>
+									<li class="help-link"><a href="#"><i class="material-icons">help</i></a></li>
+								</li>
+
+
+							</ul>
+						</div>
+					</div>
+				</nav>
 		<div class="container-fluid row">
 			<div class="col s10 offset-s1" style="margin-top: 1rem;">
 				<a href="./index.html" class="breadcrumb info_breadcrumbs link">Inicio</a>
 				<a href="./index.html" class="breadcrumb info_breadcrumbs link" id="flight-path-breadcrumb"> Vuelo de ??? a ???</a>
+				<a href="./datos.html" class="breadcrumb info_breadcrumbs link"> Información de pago</a>
 				<a href="#!" class="breadcrumb info_breadcrumbs link"> Información de los pasajeros</a>
 								</div>
 			<div class="col s10 offset-s1" id="contenedor">
@@ -44,21 +65,20 @@
 						INFORMACION DE LOS PASAJEROS
 						<div class="divider"></div>
 					</div>
+
+
+
+
+
+
+		              <div class="input-field col offset-s10">
+		                    <a class="waves-effect waves-light btn valign col " id="continuar">CONTINUAR</a>
+
+								</div>
+							</div>
+							</div>
 					</div>
-					</div>
-					</div>
-
-		<div class="container-fluid row">
-
-			<div class="col s10 offset-s1">
-				<div class="card-panel row" id="continuador">
-
-            <div class="row">
-              <div class="input-field col offset-s10">
-                    <a class="waves-effect waves-light btn valign col " id="continuar">CONTINUAR</a>
-
-						</div></div></div></div></div>
-
+</div>
 
 
 
@@ -84,6 +104,7 @@
           </div>
       </div>
     </footer>
+</div>
 		<script type="x-tmpl-mustache" id="pasajero_form">
 		<div class="container-fluid row passangerform">
 			<div class="col s12">
@@ -113,11 +134,11 @@
 																	</div>
 																	<div class="input-field col s6">
 																		<input id="pasaporte{{indenti}}" type="text" class="validate" placeholder="(Obligatorio)" maxlength="19"/>
-																		<label for="pasaporte{{indenti}}" data-error="Debe se un pasaporte valido"  id="text_id">Pasaporte</label>
+																		<label for="pasaporte{{indenti}}" data-error="Debe se un pasaporte valido"  id="text_id">Número</label>
 																	</div>
 																	<div class="date-field col s3 input-field ">
-																		<label for="nacimiento{{indenti}}">Fecha de nacimiento</label>
-																		<input id="nacimiento{{indenti}}" placeholder="DD/MM/AAAA (Obligatorio)" data-error="Debe ser una fecha valida" type="text" class="" maxlength="12"/>
+																		<input id="nacimiento{{indenti}}" placeholder="DD/MM/AAAA (Obligatorio)"  type="text" class="" maxlength="12"/>
+																		<label for="nacimiento{{indenti}}" data-error="Debe ser una fecha valida">Fecha de nacimiento</label>
 																	</div>
 															</div>
 											</div>
@@ -149,5 +170,6 @@
     <script src="js/passenger_information.js"></script>
 		<script src="js/typeahead.bundle.js"></script>
 		<script src="js/error.js"></script>
+		<script src="js/airline_search.js"></script>
   </body>
 </html>

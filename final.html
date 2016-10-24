@@ -6,31 +6,50 @@
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 	    <link type="text/css" rel="stylesheet" href="css/style.css"/>
-
+		<link type="text/css" rel="stylesheet" href="css/nav.css"/>
+		<link type="text/css" rel="stylesheet" href="css/patch.css"/>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 
     </head>
 	<body class="roboto">
-		<nav class="color1">
-      <div class="nav-wrapper">
-        <div class="valign-wrapper">
-          <div>
-            <a href="index.html"><img src="logo.png" class="valign" width="120"></a>
-          </div>
-          <div>
-            <ul class="right">
-              <li class="input-container">
-                <input type="text" id="airline_search" class="typeahead" placeholder="Buscar aerolíneas"/>
-              </li>
-              <li class="search-button"><i class="material-icons clickable" id="airline_search_btn">search</i></li>
-              <li><a href="#"><i class="material-icons">info</i></a></li>
-              <li><a href="#"><i class="material-icons">help</i></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
+		<div class="wrapper">
+			<div class="page-container">
+				<nav>
+					<div class=" color1 ">
+							<div class="nav-wrapper">
+								<div class="valign-wrapper">
+							<div class="logo-img">
+								<a href="index.html"><img src="logo.png" alt="Logo" class="valign" width="120"></a>
+							  </div>
+							<div>
+								<ul class="right">
+									<li class="input-container">
+									<form id="airline_search_form" action="./review.html" method="GET">
+										<input id="airline_search_id" type="hidden" name="airline_id" required></input>
+
+											<li>
+												<input id="airline_search" type="search" class="typeahead" placeholder="Buscar aerolineas.">
+												</input>
+											</li>
+											<li>
+												<button class="btn-floating waves-effect waves-light transparent
+												z-depth-0 submit-search" type="submit" name="action">
+													<i class="material-icons search-icon">
+														search
+													</i>
+											</button>
+											</li>
+									</span>
+									</form>
+									<li class="help-link"><a href="#"><i class="material-icons">help</i></a></li>
+								</li>
+
+
+							</ul>
+						</div>
+					</div>
+				</nav>
 		<div class="container-fluid row" id="primero">
 			<div class="col s10 offset-s1">
 
@@ -49,7 +68,7 @@
         </div>
       </div>
 		</div>
-
+</div>
 
 
  <footer class="page-footer color1 loadfooter" ng-include="include/footer.html">
@@ -74,11 +93,13 @@
           </div>
       </div>
     </footer>
+</div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 		<script type="text/javascript" src="js/mustache.min.js"></script>
 		<script src="js/typeahead.bundle.js"></script>
 		<script src="./js/common.js"></script>
 		<script src="./js/final.js"></script>
+		<script src="./js/airline_search.js"></script>
 </body>
 </html>

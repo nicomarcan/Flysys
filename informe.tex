@@ -1,0 +1,169 @@
+\documentclass[spanish]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[a4paper]{geometry}
+\usepackage{babel}
+\usepackage{enumerate}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{wrapfig}
+
+\title{Implementación de un sitio Web \\ 2Q2016-HCI-ITBA}
+\date{}
+\author{}
+
+\begin{document}
+	
+
+	\begin{titlepage}
+		
+		\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} 
+		
+		\center 
+		
+
+		
+		\textsc{\LARGE Instituto Tecnológico de Buenos Aires}\\[1.5cm] 
+		\textsc{\Large Interacción Hombre-Computadora}\\[0.5cm] 
+		
+
+		
+		\HRule \\[0.4cm]
+		{ \huge \bfseries Implementación de un sitio Web}\\[0.4cm] % Title of your document
+		\HRule \\[1.5cm]
+		
+		
+		\Large 
+		Nicolás \textsc{Marcantonio}\\[.5cm] 
+		Matías \textsc{Ota}\\[.5cm]
+		Tomás A. \textsc{Raies}\\[.5cm]
+		M. Alejo \textsc{Saqués}\\[4cm]
+		\textsc{-2016-}
+		
+		\vfill 
+		
+	\end{titlepage}
+	
+	\tableofcontents
+	\newpage
+	\maketitle
+	\begin{abstract}
+		En el presente escrito, se enumerarán y explicarán aquellas decisiones de diseño tomadas por el Equipo durante la implementación de un sitio web de búsqueda y adquisición de vuelos. Asimismo, se compararán dichas decisiones con lo que se pudo observar en las versiones finales de los prototipos exhibidas en el informe anterior, justificando las diferencias existentes con \textit{descubrimientos} realizados durante el desarrollo del producto, como así también con algunos de los comentarios de la Cátedra a propósito del informe precedente.
+	\end{abstract}
+	\newpage
+	
+	\section{Decisiones de diseño}
+	\paragraph{}A continuación, se compararán las versiones finales de cada una de las páginas comentadas en el informe anterior con las implementaciones de dichas páginas usando tecnologías \textit{HTML}, \text{CSS} y \textit{Javascript}.
+	\subsection{Identidad del sitio}
+	\paragraph{} Acrónimo de \textit{Flight System}, \textit{Flysys} ha sido el nombre elegido por el Equipo para el sitio desarrollado. El logo, de carácter serio, combina el nombre del sitio con puntos unidos con líneas, simbolizando la transición entre destinos. 
+	\paragraph{} Por lo general, la intención del sitio fue de proveer una imagen neutral, dando lugar tanto a un ámbito empresarial como a un entorno familiar. Se destaca por este lado el contraste entre colores grises-azulados oscuros para la navegación global, y tonos blancos para el contenido.  
+	\subsection{Página principal}
+			\begin{figure}[h]
+				\centering
+				\includegraphics[scale=.08]{P-P.jpg}
+				\caption{Prototipo en papel: Página principal}
+			\end{figure}
+	\paragraph{} En rasgos generales, la página principal probablemente sea la página que menos diferencias presente con respecto a su prototipo final. Sin embargo, existe una serie de elementos a considerar, algunos de los cuales, al formar parte de la navegación persistente del sitio, se verán también reflejados en las sucesivas páginas.
+	\subsubsection{Barra de navegación}
+	\paragraph{} En lo que respecta a la barra de navegación, podrá observarse una serie de diferencias. Por un lado, se podrá notar que el ícono de \textit{Preguntas Frecuentes} ha sido removido. En el borrador de la entrega precedente, la Cátedra cuestionó la existencia de los dos íconos, tanto de \textit{Preguntas Frecuentes} como de \textit{Ayuda}, argumentando que el usuario podría no entender la diferencia en cuanto a la naturaleza de cada uno. En el informe anterior, el Equipo consideró que la diferencia entre los mismos era clara, argumentando que en una de las páginas el usuario encontraría respuestas acerca de los medios de pago existentes u otras consideraciones sobre la compra en sí, mientras que en la otra hallaría ayuda acerca de cómo llevar a cabo el proceso de búsqueda y adquisición. Sin embargo, en esta entrega final, dadas las limitaciones de la simulación, el Equipo no tiene más que coincidir con la cátedra en cuanto a la existencia de ambos botones. Se consideró resumir toda la información en una página de \textit{Ayuda}, en la que sucesivas capturas de pantalla y leyendas guían al usuario en su proceso de búsqueda.
+			\begin{figure}[h]
+				\centering
+				\includegraphics[scale=.25]{F-P.jpg}
+				\caption{Versión final: Página principal}
+			\end{figure} 
+	\paragraph{} Por otro lado, se incluyó en la barra de navegación un campo de búsqueda de aerolíneas. El usuario interesado en conocer información detallada acerca de una aerolínea y sus vuelos podrá ingresar aquí el nombre de la aerolínea deseada. Se lo redireccionará a una página elaborada a tal propósito, la cual será mencionada más adelante.
+	\subsubsection{Ofertas}
+	\paragraph{} En el panel de ofertas, anunciado de manera llamativa con un mensaje de gran tamaño con la leyenda \textit{Ofertas} y un mensaje inspirador, se muestra un mosaico de imágenes de destinos que se encuentran en oferta. Al cliquear en uno de ellos, los campos de origen y destino del panel de búsqueda se rellenarán con la información apropiada. Como podrá notarse, debajo de los mensajes que encabezan el panel se podrá encontrar un botón con la leyenda \textit{Ver destinos en el mapa}. Al cliquearlo, se le mostrará un  \textit{modal} al usuario con un mapa en el que se observará su posición actual y las ubicaciones de los destinos en oferta de las imágenes de abajo. 
+	\subsection{Página de resultados}
+	\paragraph{} Tal como en la página principal, existe una mínima serie de diferencias en la página de resultados con respecto al último prototipo en papel. Son cambios tanto estéticos como funcionales, atendiendo a determinados consejos de la Cátedra realizados sobre la entrega anterior. 
+	\subsubsection{Barra de herramientas} 
+			\begin{figure}[h]
+				\centering
+				\includegraphics[scale=.08]{P-R-2.jpg}
+				\caption{Prototipo en papel: Página de resultados: Barra de herramientas.}
+			\end{figure}
+	\paragraph{} A diferencia del prototipo en papel, el Equipo consideró más oportuno que dicha barra se extendiese sobre todo el ancho de la página, en vez de restringirse al ancho del panel de resultados. Esta decisión es de carácter puramente estético. 
+	\paragraph{} Podrá notarse hacia la izquierda de dicha barra un mensaje informándole al usuario los destinos que está buscando junto al número de resultados arrojados. Hacia la derecha, podrán observarse las herramientas de búsqueda, esto es, el criterio de ordenamiento y la moneda en la que se desea ver los resultados, por defecto dólares estadounidenses. 
+			\begin{figure}[h]
+				\centering
+				\includegraphics[scale=.25]{F-R-1.jpg}
+				\caption{Versión final: Página de resultados: Barra de herramientas.}
+			\end{figure}
+	\subsubsection{Panel de filtros}
+			\begin{figure}[h]
+				\centering
+				\includegraphics[scale=.2]{P-R-1.jpg}
+				\caption{Prototipo en papel: Página de resultados: Detalle del selector de reputación.}
+			\end{figure}
+	\paragraph{} En el panel de filtros podrá notarse la adición de un botón ofreciéndole al usuario la posibilidad de limpiar los filtros que estableció previamente. Esta funcionalidad, la cual no fue prevista por el Equipo en ningún momento del prototipado, fue incorporada a propósito de un comentario de la Cátedra.
+			\begin{figure}[h]
+				\centering
+				\includegraphics[scale=.25]{F-R-2.jpg}
+				\caption{Versión final: Página de resultados: Detalle del panel de filtros.}
+			\end{figure}
+	\paragraph{} Podrá notarse que, en esta versión, se ha depuesto uno de los planteos realizados en la entrega anterior sobre el cálculo de la reputación. En el borrador de la primera entrega, la Cátedra argumentó que un usuario podría no entender a qué se estaría refiriendo la aplicación al hablar de reputación, por lo que en el prototipo final en papel el Equipo consideró expandir el mensaje de \textit{Reputación} a \textit{Reputación promedio}. Sin embargo, en esta versión final se ha considerado volver a la primera decisión del Equipo. Se considera que los modelos de usuario no están interesados en conocer las nimiedades del cálculo de la reputación que la aplicación realiza mediante código. Al fin y al cabo, un usuario típico desea conocer cuál de los vuelos es el \textit{mejor} en algún sentido, y muy raramente deseará conocer el porqué de dicho rasgo. Se considera, asimismo, que colocar \textit{Reputación promedio} podría desviar la atención del usuario de su propósito inicial, al intentar entender el motivo de colocar un mensaje tan extenso donde, por lo general, está acostumbrado a ver únicamente \textit{Reputación}.
+	\subsection{Resultados individuales}
+	\subsubsection{Botón de compra}
+			\begin{figure}[h]
+				\centering
+				\includegraphics[scale=.1]{P-RI.jpg}
+				\caption{Prototipo en papel: Resultado individual.}
+			\end{figure}
+	\paragraph{} Como se pudo leer en el escrito anterior, la ubicación del botón de compra tuvo una serie de vaivenes fomentados por la confusión de ciertos usuarios durante las pruebas de usabilidad del prototipo en papel. En primera instancia, el botón se encontraba hacia la derecha del importe total del viaje. Debido a que un usuario demoró en encontrar al botón en dicho lugar, se optó por emplazarlo por debajo del importe, estimando que dicha ubicación es un foco de atención muy importante. Sin embargo, en esta versión final se ha optado por emplazarlo en la ubicación originalmente prevista. En esta instancia, el Equipo considera que los problemas que tuvo dicho usuario al encontrar el botón emanaron de uno de los problemas intrínsecos del prototipado en papel: la dificultad de ejercer contrastes. Al realizar la implementación final, se ha notado que, con un correcto uso de colores, dicho botón es fácilmente localizable al colocarlo hacia la derecha del importe total, por lo que se tomó la decisión de dejarlo allí.
+	\subsubsection{Detalles del vuelo}
+			\begin{figure}[h]
+				\centering
+				\includegraphics[scale=.5]{F-RI.jpg}
+				\caption{Versión final: Resultado individual. Demostración del despliegue del resultado.}
+			\end{figure}
+			\newpage
+	\paragraph{} Por lo demás, la versión final guarda una estrecha relación con el prototipo final en papel. Podrá notarse que la duración del vuelo acompaña al número del vuelo, y que las fechas y horas asociadas a cada ubicación están junto a las mismas. Las aerolíneas se presentan en dos formatos: tanto con sus logos hacia la izquierda de la reputación de la combinación de vuelos, como en el detalle del tramo, junto al botón para ver la reputación del vuelo. Además, la calificación se muestra señalando de color más oscuro las estrellas que correspondan, en vez de colocar un número acompañado de una estrella.
+	\subsection{Páginas de calificaciones} 
+			\begin{figure}[h]
+				\centering
+				\includegraphics[scale=.08]{P-C.jpg}
+				\caption{Prototipo en papel: Página de calificaciones.}
+			\end{figure}
+	\paragraph{} Se realizó una re elaboración de la manera de presentarle al usuario las calificaciones tanto de aerolíneas como de vuelos en particular. 
+	\paragraph{} Por un lado, a través del campo de búsqueda en la barra de navegación, es posible acceder a la información global de una aerolínea, en la cual se mostrará su descripción, logo, puntuación global y todos los comentarios de cada uno de los vuelos asociados a la misma. 
+	\paragraph{} Al cliquear en el número de vuelo de alguno de los comentarios existentes, o al presionar el botón de \textit{Ver reputación} en algún resultado de una búsqueda, se mostrará al usuario el detalle del itinerario, una animación realizada sobre un mapa mostrando la transición entre destinos y, por último, los comentarios asociados exclusivamente a dicho vuelo.  
+				\begin{figure}[h]
+					\centering
+					\includegraphics[scale=.25]{F-C-1.jpg}
+					\caption{Versión final: Página de calificaciones, aerolínea.}
+				\end{figure}
+	\paragraph{} Dadas las innumerables diferencias que se pueden encontrar en el plano estético, no se ahondará en cada una de ellas. Se ofrece al lector la posibilidad de comparar el sinfín de cambios observando las diferencias entre el prototipo final en papel y la versión funcional. 
+				\begin{figure}[h]
+					\centering
+					\includegraphics[scale=.25]{F-C-2.jpg}
+					\caption{Versión final: Página de calificaciones, vuelo.}
+				\end{figure}
+				\newpage
+				\begin{figure}[h]
+					\centering
+					\includegraphics[scale=.07]{P-F.jpg}
+					\caption{Prototipo en papel: Formularios.}
+				\end{figure}
+	\subsection{Formularios de pasajeros y pago}
+	\paragraph{} Atendiendo a los consejos de la Cátedra, los formularios de detalles de los pasajeros e información de pago han sido desdoblados, ahora encontrándose cada uno en su propia página. 
+			\begin{figure}[h]
+				\centering
+				\includegraphics[scale=.20]{F-F-1.jpg}
+				\caption{Versión final: Formularios: mostrando desdoblamiento.}
+			\end{figure}
+	\paragraph{} Existen ciertos campos, tales como las fechas, en los que se asiste al usuario en su completado. Por ejemplo, al introducir una fecha, se inserta automáticamente una barra al finalizar la introducción del día y mes. 
+	\paragraph{} Por otro lado, ciertos campos se completan automáticamente en base a la información introducida por el usuario en campos asociados. Por ejemplo, al introducir la ciudad, se completan automáticamente los campos de provincia y país. 
+	\paragraph{} Por último, al introducir el número de la tarjeta, se computan automáticamente las opciones de financiamiento para cada uno de los tramos deseados. El usuario deberá seleccionar aquella opción que sea de su agrado. 
+	\section{Navegadores compatibles}
+	\paragraph{} El sitio ha demostrado ser compatible con los siguientes navegadores:
+	\begin{itemize}
+		\item \textit{Google Chrome} Versión 53
+		\item \textit{Mozilla Firefox} Versión 49
+	\end{itemize}
+	\paragraph{} \textbf{Nota: } En \verb|index.html|, es posible que en \textit{Mozilla Firefox} las imágenes de los destinos en oferta no carguen hasta que el usuario de permisos a la geolocalización. El navegador mismo le mostrará un cartel al usuario solicitando permisos para rastrearlo, tras lo cual, de ser aceptada la solicitud, las imágenes cargarán. En \textit{Google Chrome}, por el contrario, por defecto la geolocalización está deshabilitada, y es posible que no se le muestre al usuario mensaje alguno si el este ya había deshabilitado las funciones de geolocalización en ocasiones anteriores. De todas formas, si el usuario no acepta ser localizado, en cualquiera de los dos casos se usará la ubicación por defecto, Buenos Aires. 
+	\newpage
+	\section{Conclusión}
+	\paragraph{} En la etapa de desarrollo, el estar en contacto de una manera mucho más minuciosa con lo que se está produciendo llevó a detectar elementos mejorables en relación al prototipo en papel. Por otro lado, al ser dicho contacto mucho más profundo mediante constantes pruebas de funcionalidad, ciertos aspectos pudieron ser reconsiderados a los efectos de lograr mayor contacto con el usuario, tanto por el lado de la funcionalidad ofrecida como desde el punto de vista de las leyendas que se le puedan mostrar. En otras palabras, se destaca que las decisiones de diseño  bajo ningún punto de vista fueron inamovibles, sino que estuvieron sujetas al constante escrutinio por parte de los integrantes del Equipo, tomando decisiones de implementación que, desde su punto de vista, tuvieron en consideración al potencial usuario de la aplicación.   
+\end{document}

@@ -172,9 +172,15 @@ function checkPassport(dato){
   var patron=/^\d{1,18}/i;
   return patron.test(dato);
 }
+
+function isValidDate(s) {
+  var bits = s.split('/');
+  var d = new Date(bits[2], bits[1] - 1, bits[0]);
+  return d && (d.getMonth() + 1) == bits[1];
+}
 function checkBirthDate(dato){
   var patron=/\d{2}\/\d{2}\/\d{4}/i;
-  if(patron.test(dato)){
+  if(patron.test(dato) && isValidDate(dato)){
     var datopartido=dato.split("/");
     var datodia=parseInt(datopartido[0]);
     var datomes=parseInt(datopartido[1]);
@@ -188,41 +194,49 @@ function checkBirthDate(dato){
 }
 
 function checkBirthDateInfant(dato){
-  var dia=new Date().getDate();
-  var mes=new Date().getMonth();
-  var anio=new Date().getYear()-100+2000;
-  var datopartido=dato.split("/");
-  var datodia=parseInt(datopartido[0]);
-  var datomes=parseInt(datopartido[1]);
-  var datoanio=parseInt(datopartido[2]);
-  if((anio-datoanio)<2){
-    return true;
-  }else if((anio-datoanio)==2){
-    if((mes-datomes)>=0){
-      return true;
+    if (checkBirthDate(dato)){
+    	var today = new Date();
+
+        var datopartido=dato.split("/");
+        var birth = new Date(datopartido[2], datopartido[1] - 1, datopartido[0]);
+        var intervalmili = today - birth;
+        var diffDays = Math.ceil(intervalmili / (1000 * 3600 * 24));
+        if (diffDays >= 0 && diffDays <= 730  ){
+      	  return true;
+        }
+        return false;
     }
     return false;
-  }
-  return false;
 }
 
 function checkBirthDateChildren(dato){
-  var dia=new Date().getDate();
-  var mes=new Date().getMonth();
-  var anio=new Date().getYear()-100+2000;
-  var datopartido=dato.split("/");
-  var datodia=parseInt(datopartido[0]);
-  var datomes=parseInt(datopartido[1]);
-  var datoanio=parseInt(datopartido[2]);
-  if((anio-datoanio)<18){
-    return true;
-  }else if((anio-datoanio)==18){
-    if((mes-datomes)>=0){
-      return true;
+    if (checkBirthDate(dato)){
+    	var today = new Date();
+
+    	var datopartido=dato.split("/");
+    	var birth = new Date(datopartido[2], datopartido[1] - 1, datopartido[0]);
+    	var intervalmili = today - birth;
+    	var diffDays = Math.ceil(intervalmili / (1000 * 3600 * 24));
+    	if (diffDays > 730 && diffDays <= 4015  ){
+    		return true;
+    	}
+    	return false;
     }
     return false;
-  }
-  return false;
+}
+function checkBirthDateAdult(dato){
+    if (checkBirthDate(dato)){
+    	var today = new Date();
+    	var datopartido=dato.split("/");
+    	var birth = new Date(datopartido[2], datopartido[1] - 1, datopartido[0]);
+    	var intervalmili = today - birth;
+    	var diffDays = Math.ceil(intervalmili / (1000 * 3600 * 24));
+    	if (diffDays > 4015){
+    		return true;
+    	}
+    	return false;
+    }
+    return false;
 }
 
 function checkPayment(){

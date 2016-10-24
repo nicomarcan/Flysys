@@ -533,26 +533,16 @@ span.review_title {
     font-size: 20px;
     font-weight: bold;
 }
-a.info_breadcrumbs.breadcrumb {
-    font-size: 32px;
-    color: black;
-    font-weight: lighter;
-}
-a.info_breadcrumbs.breadcrumb::before {
-    font-size: 32px;
-    color: #a9a9a9;
-    font-weight: lighter;
-}
 
 /* fin de reviews*/
 
 a.info_breadcrumbs.breadcrumb {
-	font-size: 2rem;
+	font-size: 1rem;
 	color: black;
 	font-weight: lighter;
 }
 a.info_breadcrumbs.breadcrumb::before {
-	font-size: 2rem;
+	font-size: 1rem;
 	color: #a9a9a9;
 	font-weight: lighter;
 }
@@ -712,4 +702,12 @@ nav .nav-wrapper > div > div {
 }
 #tarjeta{
   margin-left: 3%;
+}
+
+.input-field label {
+    width: 100%;
+}
+
+.container-fluid.container-info {
+    padding-bottom: 5rem;
 }
