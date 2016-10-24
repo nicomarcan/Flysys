@@ -364,3 +364,13 @@ li.inline p{
 }
 
 /*fin de typeahead*/
+button.submit-search {
+	padding: 0;
+	background: #eeeeee;
+	color: #252525;
+}
+button.submit-search i.search-icon {
+	line-height:normal;
+	padding:0.1rem;
+	color:white;
+}

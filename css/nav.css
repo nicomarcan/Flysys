@@ -1,0 +1,60 @@
+/* NAV*/
+nav div.nav-wrapper div.valign-wrapper {
+  height: 100%;
+}
+
+nav span.twitter-typeahead * {
+  margin: 0;
+}
+
+nav li.search-button > i:hover {
+  cursor: pointer;
+  background-color: #222d32 ;
+  transition: .1s;
+}
+
+nav .nav-wrapper > div > div {
+  width: 50%;
+}
+
+button.submit-search {
+	padding: 0;
+	background: #eeeeee;
+	color: #252525;
+}
+button.submit-search i.search-icon {
+	line-height:normal;
+	padding:0.1rem;
+	color:white;
+}
+
+ul.right li a{
+	line-height:normal;
+	padding:0.1rem;
+	color:white;
+	margin:0
+}
+
+ul.right li.input-container input{
+	line-height:normal;
+	padding:0.1rem;
+	color:white;
+	margin:0
+}
+ul.right li.help-link {
+	padding-right:5px;
+	margin-right: 15px;
+	margin-left:0px;
+}
+ul.right li.help-link :hover {
+	background-color: #181f23;
+}
+.input-container li:hover {
+	background-color: #181f23;
+}
+li.input-container form li {
+	padding:0 0 0 0.5rem;
+}
+.input-container li:hover {
+	background-color: #181f23;
+}
