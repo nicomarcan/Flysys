@@ -396,12 +396,6 @@ $(document).ready(function() {
 
 
 	$(document).on('click', '.write_review_button', function () {
-      $("#review-modal #airlines_input").typeahead('val','');
-      $("#review-modal #airlines_input").removeClass("valid");
-      $("#review-modal #airlines_input").removeClass("invalid");
-      $("#review-modal #vuelo").val("");
-      $("#review-modal #vuelo").removeClass("invalid");
-      $("#review-modal #vuelo").removeClass("valid");
        for(var x = 1 ; x<7 ; x++){
          $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children().addClass("grey-text text-lighten-1 ");
           $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children().removeAttr("clicked");
