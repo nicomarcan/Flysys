@@ -304,6 +304,15 @@ $(document).ready(function(){
   	  airlineSearchSubmit(airlines, airlines_id)
     )
 
+    $(document).on("click", "a.link", function() {
+		var base = $(this).attr("href");
+		if (base != "#!" && base != "./index.html") {
+			window.location = base + location.search;
+            return false;
+		}
+		return true;
+	});
+
   var flights = getLocalObject("flights");
 	if (!flights || getUrlParameter("children")==undefined || 	getUrlParameter("infants")==undefined || getUrlParameter("adults")==undefined) {
 		$("#primero").html("");
