@@ -478,40 +478,45 @@ function networkError(){
      window.location="./datos.html"+location.search;
   })
   //copypasta
-  $.ajax({
-    type: 'GET',
-    url: misc,
-    dataType: 'json' ,
-    timeout: to,
-    data : {
-      method: 'getairlines'
-    },
-    error: function(){
-      noFlightsFound("Se ha agotado el tiempo de espera");
-    },
-    success: function(d){
-      if(d.total<=d.page_size){
-        loadAirlinesTypeahead(d,airlineNames,airlineNameToId);
-      } else {
-        $.ajax({
-          type: 'GET',
-          url: misc,
-          dataType: 'json',
-          timeout: to,
-          data: {
-            page_size:d.total,
-            method: 'getairlines'
-          },
-          error: function(){
-            noFlightsFound("Se ha agotado el tiempo de espera");
-          },
-          success: function(f){
-            loadAirlinesTypeahead(f,airlineNames,airlineNameToId);
-          }
-        });
+  if (existLocalObject("cacheNav")){
+      loadAirlinesTypeahead(getLocalObject("cacheNav"),airlineNames,airlineNameToId);
+  }else{
+    $.ajax({
+      type: 'GET',
+      url: misc,
+      dataType: 'json' ,
+      timeout: to,
+      data : {
+        method: 'getairlines'
+      },
+      error: function(){
+        noFlightsFound("Se ha agotado el tiempo de espera");
+      },
+      success: function(d){
+        if(d.total<=d.page_size){
+          loadAirlinesTypeahead(d,airlineNames,airlineNameToId);
+        } else {
+          $.ajax({
+            type: 'GET',
+            url: misc,
+            dataType: 'json',
+            timeout: to,
+            data: {
+              page_size:d.total,
+              method: 'getairlines'
+            },
+            error: function(){
+              noFlightsFound("Se ha agotado el tiempo de espera");
+            },
+            success: function(f){
+              loadAirlinesTypeahead(f,airlineNames,airlineNameToId);
+            }
+          });
+        }
       }
-    }
-  });
+    });
+  }
+
   installAirlineSearchHandler()
 //endcopypasta
 

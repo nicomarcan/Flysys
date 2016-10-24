@@ -345,6 +345,7 @@ function humanExpirationDate(fecha){
 }
 
 function loadAirlinesTypeahead(data,air_names,air_names_id){
+  setLocalObject("cacheNav",data);
   var total = data.total;
   var airl = data.airlines;
   var obj = [];
