@@ -698,7 +698,10 @@ nav .nav-wrapper > div > div {
 }
 
 #ciudad{
-  margin-left: 4%;
+  margin-left: 3%;
+}
+#tarjeta{
+  margin-left: 3%;
 }
 
 .input-field label {
