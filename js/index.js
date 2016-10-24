@@ -813,6 +813,7 @@ $("#map-btn").click(function(){
 		});
 
 		 //looking for comments directly
+     /*
 		 	$("form#airline_search_form").submit(function(event) {
 		var search_info = $("input#airline_search").typeahead('val').toLowerCase();
 		if (nameToId[search_info]) {
@@ -821,7 +822,7 @@ $("#map-btn").click(function(){
 		}
 		 $("input#airline_search").addClass("invalid");
 		return false;
-	});
+	});*/
 
 
 		  //airline validator

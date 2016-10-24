@@ -337,4 +337,6 @@ nav .nav-wrapper > div > div {
 .detalle{
   margin-top: 0.5rem;
 }
+
+.modal {  max-height: 100% !important }
 /*FIN DEL NAV*/

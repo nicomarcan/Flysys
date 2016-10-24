@@ -396,18 +396,25 @@ $(document).ready(function() {
 
 
 	$(document).on('click', '.write_review_button', function () {
-		 for(var x = 1 ; x<7 ; x++){
-			 $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children().attr("class"," material-icons grey-text text-lighten-1 clickable");
-			  $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children().removeAttr("clicked");
-		 }
-		   $("#recommend .material-icons.clickable").removeAttr("selected");
-		   $("#recommend .material-icons.clickable").attr("class","material-icons grey-text text-lighten-1 clickable");
-			$("#review-modal #comments").val("");
-			$("#review-modal #comments").removeClass("invalid");
-		  $("#send-review").show();
-		  $("#review-form").show();
-		  $("#close-modal").hide();
-		  $("#post-review").hide();
+      $("#review-modal #airlines_input").typeahead('val','');
+      $("#review-modal #airlines_input").removeClass("valid");
+      $("#review-modal #airlines_input").removeClass("invalid");
+      $("#review-modal #vuelo").val("");
+      $("#review-modal #vuelo").removeClass("invalid");
+      $("#review-modal #vuelo").removeClass("valid");
+       for(var x = 1 ; x<7 ; x++){
+         $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children().addClass("grey-text text-lighten-1 ");
+          $("#review-modal #opinion-row-"+x).children(":nth-child(2)").children().removeAttr("clicked");
+       }
+           $("#recommend .material-icons.clickable").removeAttr("selected");
+           $("#recommend .material-icons.clickable").addClass(" grey-text text-lighten-1 ");
+      $("#review-modal #comments").val("");
+      $("#review-modal #comments").removeClass("invalid valid");
+      $("#send-review").show();
+     $("#review-form").show();
+     $("#close-modal").hide();
+
+     $("#post-review").hide();
 	});
 
 	$(document).on('click', 'a.write-review-link', function() {

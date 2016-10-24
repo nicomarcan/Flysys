@@ -71,8 +71,12 @@ function airlineSearchSubmit(airlines, airlines_id) {
 		var search_info = $("input#airline_search").typeahead('val').toLowerCase();
 		if (airlines[search_info]) {
 			$("input#airline_search_id").val(airlines[search_info]);
+
+      	 $("input#airline_search").removeClass("invalid");
+             	 $("input#airline_search").addClass("valid");
 			return true;
 		}
+     $("input#airline_search").addClass("invalid");
 		return false;
 	});
 }

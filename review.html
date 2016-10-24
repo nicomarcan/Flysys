@@ -11,6 +11,7 @@
 		<link type="text/css" rel="stylesheet" href="./css/nav.css"/>
 		<link type="text/css" rel="stylesheet" href="./css/reviews.css"/>
 		<link type="text/css" rel="stylesheet" href="./css/error.css"/>
+    <link type="text/css" rel="stylesheet" href="./css/patch.css"/>
 		<link type="text/css" rel="stylesheet" href="./css/offline-theme-chrome.css"/>
 		<link type="text/css" rel="stylesheet" href="./css/offline-language-spanish.css"/>
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
@@ -126,15 +127,14 @@
 
 		      <form >
 					  <div class="row">
-						  <div class="input-field col s6 " style="">
-                       <input type="text" id="airlines_input" name="airlines_input" class="typeahead airline_input" placeholder="Nombre de la Aerolinea"/>
-                        <label for="airlines_input" data-error="wrong" data-success="right">Aerolinea</label>
+              <div class="input-field col s6 " style="">
+                       <input type="text" id="airlines_input" name="airlines_input" class="typeahead airline_input tooltipped" placeholder="Nombre de la Aerolinea" data-position="bottom" data-delay="50" data-tooltip="Ingrese una aerolinea válida"/>
 			         </div>
 
-							<div class="input-field col s6">
-			                <input id="vuelo" type="text" class="flight_input"/>
-			                <label class="flight_input_label" for="vuelo" data-error="El número de vuelo es invalido">Número de Vuelo</label>
-			       </div>
+               <div class="input-field col s6">
+                       <input id="vuelo" type="text" class="flight_input tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ingrese un numero de vuelo válido"/>
+                       <label for="vuelo" >Número de Vuelo</label>
+              </div>
 			       </div>
 
 
@@ -142,7 +142,7 @@
 			           <div class="col s3 " id ="friendliness" >
 				            <p>Amabilidad</p>
 			            </div>
-						 <div class="col s3 star_group offset-s1" id="entro">
+						 <div class="col s3 star_group offset-s1" >
 
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
@@ -287,7 +287,7 @@
 										<i class=" material-icons grey-text text-lighten-1 clickable">
 											grade
 										</i>
-										<i class=" material-icons grey-text text-lighten-1 clickable">
+                    <i class=" material-icons grey-text text-lighten-1 clickable tooltipped " data-position="right" data-delay="50" data-tooltip="Debe calificar todas las categorias">
 											grade
 										</i>
 
@@ -301,25 +301,26 @@
                      <p> Recomendaría el vuelo? </p>
                  </div>
                       <div class="col s3  offset-s1" id="recommend">
+                        <i class=" material-icons grey-text text-lighten-1 clickable" id="yes">
+                          thumb_up
+                        </i>
 
-                    <i class=" material-icons grey-text text-lighten-1 clickable" id="no">
-                      thumb_down
-                    </i>
+                        <i class=" material-icons grey-text text-lighten-1 clickable tooltipped" id="no" data-position="bottom" data-delay="50" data-tooltip="Debe seleccionar si recomienda o no el viaje">
+                          thumb_down
+                        </i>
 
 
-                    <i class=" material-icons grey-text text-lighten-1 clickable" id="yes">
-                      thumb_up
-                    </i>
+
 
                   </div>
               </div>
 
-			          <div class="row comments">
-				        <div class="input-field col s12">
-				          <textarea id="comments" class="materialize-textarea" length="256"></textarea>
-				          <label for="comments" data-error="El máximo de caracteres en un comentario es 256">Comentarios</label>
-				        </div>
-				      </div>
+              <div class="row comments">
+              <div class="input-field col s12">
+                <textarea id="comments" class="materialize-textarea tooltipped" data-position="bottom" data-delay="50" data-tooltip="La máxima cantidad de caracteres es 256"></textarea>
+                <label for="comments" >Comentarios</label>
+              </div>
+            </div>
 		            </form>
 		    </div>
 
@@ -342,7 +343,7 @@
 	<script type="text/javascript" src="js/offline_config.js"></script>
 	<script type="text/javascript" src="js/review_map.js"></script>
 	<script type="text/javascript" src="js/review_modal.js"></script>
-	<script type="text/javascript" src="js/common.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
 	<script type="text/javascript" src="js/materialize-pagination.js"></script>
 	<script type="text/x-tmpl-mustache" id='airline_card_info'>
 		<div class="card-panel row">
