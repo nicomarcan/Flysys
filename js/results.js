@@ -483,7 +483,7 @@ $(document).ready(function(){
 
   /*begin passenger selection*/
 
-  $(".btn.minus").click(function(event){
+  $(".btn.minus:not(.adults)").click(function(event){
     var n = $($(event.target).parent().next().children()[0]).text();
     if(n==0){
       return;
@@ -493,6 +493,15 @@ $(document).ready(function(){
     event.stopPropagation();
   });
 
+  $(".btn.minus.adults").click(function(event){
+    var n = $($(event.target).parent().next().children()[0]).text();
+    if(n==1){
+      return;
+    }
+    var set = parseInt(n) -1;
+    $($(event.target).parent().next().children()[0]).text(set);
+    event.stopPropagation();
+  });
 
   $(".btn.plus").click(function(event){
     var n = $($(event.target).parent().prev().children()[0]).text();

@@ -23,13 +23,13 @@ var airlines_id = {};
 					}
 					if($('.slider li.active').prevAll('.step_start').length == 1){
 						$('#prev-step').removeClass("disabled");
-					}		
+					}
 				}
 
-				
+
 				if($('.slider li.active').hasClass('last') && !$('.slider li.active').hasClass('step_start')){
 					$(this).addClass("disabled");
-				}	
+				}
 
 			}
 	});
@@ -37,7 +37,7 @@ var airlines_id = {};
 
 
 	$('#prev').click(function(){
-		
+
 			if(!$(this).hasClass("disabled")){
 				if($('.slider li.active').hasClass('step_start')){
 					var selected= $('a.breadcrumb[selected]');
@@ -62,7 +62,7 @@ var airlines_id = {};
 				if($('.slider li.active').hasClass('first')){
 					$(this).addClass("disabled");
 					$("#start-step").addClass("disabled");
-				}	
+				}
 
 			}
 	});
@@ -71,14 +71,14 @@ var airlines_id = {};
 		if(!$(this).hasClass("disabled")){
 
 			$("#prev-step").removeClass("disabled");
-			$("#prev").removeClass("disabled");			
+			$("#prev").removeClass("disabled");
 			$('.slider').slider('next');
 			while(!$('.slider li.active').hasClass('step_start') ){
 				$('.slider').slider('next');
 			}
 			if($('.slider li.active').hasClass('last')){
 				$(this).addClass("disabled");
-			}	
+			}
 			var selected= $('a.breadcrumb[selected]');
 			selected.removeAttr("selected");
 			selected.next().attr("selected","");
@@ -90,7 +90,7 @@ var airlines_id = {};
 
 //todo: boton principio de etapa, genera bug sino
     $('#prev-step').click(function(){
-		
+
 			if(!$(this).hasClass("disabled")){
 				$("#next-step").removeClass("disabled");
 				$("#next").removeClass("disabled");
@@ -100,7 +100,7 @@ var airlines_id = {};
 						$('.slider').slider('prev');
 					}
 				}
-	
+
 				$('.slider').slider('prev');
 				while(!$('.slider li.active').hasClass('step_start') ){
 					$('.slider').slider('prev');
@@ -109,7 +109,7 @@ var airlines_id = {};
 				if($('.slider li.active').hasClass('first')){
 					$(this).addClass("disabled");
 					$("#prev").addClass("disabled");
-				}	
+				}
 				var selected= $('a.breadcrumb[selected]');
 				selected.removeAttr("selected");
 				selected.prev().attr("selected","");
@@ -119,10 +119,10 @@ var airlines_id = {};
     });
 
       $('#start-step').click(function(){
-		
+
 			if(!$(this).hasClass("disabled")){
 				$("#next").removeClass("disabled");
-	
+
 				$('.slider').slider('prev');
 				while(!$('.slider li.active').hasClass('step_start') ){
 					$('.slider').slider('prev');
@@ -131,15 +131,13 @@ var airlines_id = {};
 				if($('.slider li.active').hasClass('first')){
 					$(this).addClass("disabled");
 					$("#prev").addClass("disabled");
-				}	
+				}
 				$("#start-step").addClass("disabled");
 		}
 
     });
 
-       $('.modal-trigger').leanModal();
-
-         $('#modal1').openModal();
+    
 
          	$.when(
 			ajaxAirlineSearch(airlines, airlines_id)

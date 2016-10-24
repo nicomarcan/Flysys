@@ -63,7 +63,9 @@ min-height: 1700px;
   width: 400px;
 }
 
-
+.separeted{
+    padding-bottom: 5rem;
+}
 .offer-img:hover{
   box-shadow: 0 0 5px 5px #bdbdbd
 }
