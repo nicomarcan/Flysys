@@ -307,21 +307,33 @@ function checkPassenger(tipo,num){
   var flag=true;
   var tag=tipo+num;
   if(!checkName($("#nombre"+tag).val())){
+    $("#nombre"+tag).removeClass("valid");
     $("#nombre"+tag).addClass("invalid");
     flag=false;
+  }else{
+    $("#nombre"+tag).removeClass("invalid");
+    $("#nombre"+tag).addClass("valid");
   }
   if(!checkName($("#apellido"+tag).val())){
     $("#apellido"+tag).addClass("invalid");
+    $("#apellido"+tag).removeClass("valid");
     flag=false;
+  }else{
+    $("#apellido"+tag).addClass("valid");
   }
   if(!checkPassport($("#pasaporte"+tag).val())){
     $("#pasaporte"+tag).addClass("invalid");
     flag=false;
+  }else{
+    $("#pasaporte"+tag).addClass("valid");
   }
   if(!checkIdType($("select#tipo_id"+tag).val())){
     $("select#tipo_id"+tag).addClass("invalid");
     flag=false;
+  }else{
+    $("select#tipo_id"+tag).addClass("valid");
   }
+  $("#nacimiento"+tag).addClass("valid");
   if(!checkBirthDate($("#nacimiento"+tag).val())){
     $("#nacimiento"+tag).addClass("invalid");
     flag=false;

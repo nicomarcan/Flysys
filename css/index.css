@@ -144,8 +144,8 @@ p.big,a.big{
 }
 
 #opinion a.btn{
-  background-color:#f57f17 ;
-  text-transform: none;
+  background-color: #263238 ;
+
 }
 
 #opinion .col p{
@@ -249,7 +249,9 @@ noscript.div{
   padding-right: 1.41rem;
 }
 
-
+#review-btn{
+  margin-left: 1.2rem;
+}
 
 
 
