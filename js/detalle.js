@@ -13,7 +13,8 @@ var airlineNameToId={};
 var airlineNames = [];
 var multiplier=getLocalObject("multiplier");
 var numeros=["primer","segundo","tercero","cuarto","quinto","sexto","séptimo","octavo","noveno","décimo","décimoprimero","décimosegundo","décimotercero","décimocuarto","décimoquinto","décimosexto","décimoseptimo","décimooctavo","décimonoveno","vigésimo"];
-var count=0;
+var v1=0;
+var v2=0;
 
 function addCard() {
   var template = $('#detalletarjeta').html();
@@ -97,7 +98,8 @@ function addPassagers() {
 }
 
 function finalizado(){
-  window.location="./final.html"
+  if(v1+v2==flights.length)
+    window.location="./final.html";
 }
 function importantStars(rep){
   var ret = [] ;
@@ -477,13 +479,23 @@ $(document).ready(function(){
         );
 
   }
-
-
-function cuenta(){
-  count++;
+function alfa(){
+  console.log("mensaje");
 }
+
+function cuentav1(){
+  v1++;
+  finalizado();
+}
+
+function cuentav2(){
+  v2++;
+  finalizado();
+}
+
+var funciones=[cuentav1,cuentav2]
 function networkError(){
-  Materialize.toast("Error en la conexion con el servidor",5000)
+  Materialize.toast("Error en la conexion con el servidor",500)
 }
 
   $("#confirmar").click(function(){
@@ -498,10 +510,9 @@ function networkError(){
           payment: cache_payment,
           contact: getLocalObject("contact")
         }
-        $.Deferred().resolve(fajax("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight2",{booking: JSON.stringify(final)},cuenta,networkError))
-        ;
+        Materialize.toast("Procesando la consulta",1000);
+        fajax("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight2",{booking: JSON.stringify(final)},funciones[i],networkError);
       }
-      finalizado();
 
   });
   $("#back").click(function(){
