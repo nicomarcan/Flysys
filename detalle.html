@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 
 <html>
-	<meta charset="utf-8"/>
+
 	<head>
+		<meta charset="utf-8"/>
+		<title>Confirmar compra</title>
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 	    <link type="text/css" rel="stylesheet" href="css/style.css"/>
@@ -22,34 +24,37 @@
 								<div class="valign-wrapper">
 							<div class="logo-img">
 								<a href="index.html"><img src="logo.png" alt="Logo" class="valign" width="120"></a>
-							  </div>
-							<div>
+					          </div>
+						    <div>
 								<ul class="right">
 									<li class="input-container">
 									<form id="airline_search_form" action="./review.html" method="GET">
-										<input id="airline_search_id" type="hidden" name="airline_id" required></input>
-
+										<input id="airline_search_id" type="hidden" name="airline_id">
+											<ul>
 											<li>
 												<input id="airline_search" type="search" class="typeahead" placeholder="Buscar aerolineas.">
-												</input>
+
 											</li>
 											<li>
-												<button class="btn-floating transparent
+												<button class="btn-floating  transparent
 												z-depth-0 submit-search" type="submit" name="action">
 													<i class="material-icons search-icon">
 														search
 													</i>
-											</button>
+		  									</button>
 											</li>
-									</span>
+										</ul>
 									</form>
+									</li>
 									<li class="help-link"><a href="#"><i class="material-icons">help</i></a></li>
-								</li>
+
 
 
 							</ul>
 						</div>
 					</div>
+				</div>
+			</div>
 				</nav>
 		<div class="container-fluid row" id="primero">
 			<div class="col s10 offset-s1" style="margin-top: 1rem;">
@@ -88,7 +93,7 @@
 
 
 
- <footer class="page-footer color1 loadfooter" ng-include="include/footer.html">
+ <footer class="page-footer color1 loadfooter">
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
@@ -111,7 +116,7 @@
       </div>
     </footer>
 </div>
-		<script type="x-tmpl-mustache" id="detalletarjeta">
+		<script type="text/x-tmpl-mustache" id="detalletarjeta">
 			<div class="detalle">
 				<span class="info">Número de tarjeta </span>
 				<span>{{id}}</span>
@@ -166,7 +171,7 @@
 			</div>
 
 		</script>
-		<script type=" x-tmpl-mustache" id="detallepasajero">
+		<script type="text/x-tmpl-mustache" id="detallepasajero">
 				<div class="col s7 push-s1" style="padding-right: 0">
 					<div class="card-panel row">
 						<div class="col s8">
@@ -202,7 +207,7 @@
 		<script src="./js/detalle.js"></script>
 		<script src="./js/error.js"></script>
 		<script src="./js/airline_search.js"></script>
-		<script type="x-tmpl-mustache" id="row">
+		<script type="text/x-tmpl-mustache" id="row">
 
       <div class="individual-result">
         <ul class="collapsible" data-collapsible="accordion">
@@ -306,7 +311,7 @@
       </div>
 
     </script>
-    <script type="x-tmpl-mustache" id="rtw">
+    <script type="text/x-tmpl-mustache" id="rtw">
 
       <div class="individual-result">
         <ul class="collapsible" data-collapsible="accordion">
@@ -461,7 +466,7 @@
       </div>
 
     </script>
-		<script type="x-tmpl-mustache" id="error_card">
+		<script type="text/x-tmpl-mustache" id="error_card">
 		<div class="card-panel row hoverable clickable error-card">
 			<div class="col s12 error-header">
 				{{header}}

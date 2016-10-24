@@ -27,11 +27,11 @@
 								<ul class="right">
 									<li class="input-container">
 									<form id="airline_search_form" action="./review.html" method="GET">
-										<input id="airline_search_id" type="hidden" name="airline_id" required></input>
-
+										<input id="airline_search_id" type="hidden" name="airline_id">
+											<ul>
 											<li>
 												<input id="airline_search" type="search" class="typeahead" placeholder="Buscar aerolineas.">
-												</input>
+
 											</li>
 											<li>
 												<button class="btn-floating  transparent
@@ -41,15 +41,18 @@
 													</i>
 		  									</button>
 											</li>
-									</span>
+										</ul>
 									</form>
+									</li>
 									<li class="help-link"><a href="#"><i class="material-icons">help</i></a></li>
-								</li>
+
 
 
 							</ul>
 						</div>
 					</div>
+				</div>
+			</div>
 				</nav>
 
 		<div class="container-fluid row container-info">
@@ -104,7 +107,7 @@
 							</div>
 	            <div class="row">
 	                  <div class="input-field col s6">
-	                    <input id="nombre" type="text" class="validate" placeholder="(Obligatorio)" maxlength="80" maxlength="80"/>
+	                    <input id="nombre" type="text" class="validate" placeholder="(Obligatorio)" maxlength="80"/>
 	                    <label for="nombre"  data-error="Debe ser un nombre válido" style="width:100%">Nombre</label>
 	                  </div>
 										<div class="input-field col s6">
@@ -208,7 +211,7 @@
 		<script src="js/typeahead.bundle.js"></script>
 		<script src="./js/installments.js"></script>
 		<script src="./js/error.js"></script>
-		<script type="x-tmpl-mustache" id="error_card">
+		<script type="text/x-tmpl-mustache" id="error_card">
 		<div class="card-panel row hoverable clickable error-card">
 			<div class="col s12 error-header">
 				{{header}}
