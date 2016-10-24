@@ -62,6 +62,7 @@ li.score_list_element_header.collection-item {
 a.write_review_button.waves-effect.waves-light {
 	margin:1rem auto 1rem auto;
 	font-size:1rem;
+	background-color: #455a64;
 }
 
 a.flight_number_link {
