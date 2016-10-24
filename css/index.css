@@ -86,6 +86,7 @@ footer.page-footer {
 
 .parallax-container{
 min-height: 1900px;
+padding-bottom: 5rem;
 }
 
 p.big,a.big{
