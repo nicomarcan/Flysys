@@ -225,7 +225,7 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
   });
 
   actionfocusout("#tarjeta",checkNumberCard, triggerInstallmentsAjax);
-  actionfocusout("fecaducidad",checkDateCard);
+  actionfocusout("#fecaducidad",checkDateCard);
   actionfocusout("#ccv",checkCcv);
   actionfocusout("#nombre",checkName);
   actionfocusout("#apellido",checkName);
