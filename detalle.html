@@ -97,51 +97,51 @@
 			Precio por infante:{{precio_infante_vuelo}}<br/>
 		</script>
 		<script type="x-tmpl-mustache" id="detalletarjeta">
-			<div style="margin-top: 0.5rem">
+			<div class="detalle">
 				<span class="info">Número de tarjeta </span>
 				<span>{{id}}</span>
 			</div>
-			<div style="margin-top: 0.5rem">
+			<div class="detalle">
 				<span class="info">Cuotas </span>
 				<span>{{cuotas}}</span>
 			</div>
-			<div style="margin-top: 0.5rem">
+			<div class="detalle">
 				<span class="info">Nombre </span>
 				<span>{{fname}}</span>
 			</div>
-			<div style="margin-top: 0.5rem">
+			<div class="detalle">
 				<span class="info">Apellido </span>
 				<span>{{lname}}</span>
 			</div>
-			<div style="margin-top: 0.5rem">
+			<div class="detalle">
 				<span class="info">Calle </span>
 				<span>{{street}}</span>
 			</div>
-			<div style="margin-top: 0.5rem">
-				<span class="info">Piso </span>
-				<span>{{floor}}</span>
+			<div class="detalle" id="piso_container">
+				<span class="info" >Piso </span>
+				<span id="piso">{{floor}}</span>
 			</div>
-			<div style="margin-top: 0.5rem">
-				<span class="info">Departamento </span>
-				<span>{{section}}</span>
+			<div class="detalle" id="dep_container">
+				<span class="info" >Departamento </span>
+				<span id="dep">{{section}}</span>
 			</div>
-			<div style="margin-top: 0.5rem">
+			<div class="detalle">
 				<span class="info">Ciudad </span>
 				<span>{{city}}</span>
 			</div>
-			<div style="margin-top: 0.5rem">
+			<div class="detalle">
 				<span class="info">Provincia </span>
 				<span>{{state}}</span>
 			</div>
-			<div style="margin-top: 0.5rem">
+			<div class="detalle">
 				<span class="info">País </span>
 				<span>{{country}}</span>
 			</div>
-			<div style="margin-top: 0.5rem">
+			<div class="detalle">
 				<span class="info">Telefono </span>
 				<span>{{phone}}</span>
 			</div>
-			<div style="margin-top: 0.5rem">
+			<div class="detalle">
 				<span class="info">Email </span>
 				<span>{{email}}</span>
 			</div>
@@ -152,23 +152,23 @@
 				<div class="col s7 offset-s1">
 					<div class="card-panel row">
 						<div class="col s8">
-							<div style="margin-top: 0.5rem">
+							<div class="detalle">
 								<span class="info">Informacion del pasajero </span>
 								<span>{{idpasajero}}</span>
 							</div>
-							<div style="margin-top: 0.5rem">
+							<div class="detalle">
 								<span class="info">Nombre </span>
 								<span>{{fname}}</span>
 							</div>
-							<div style="margin-top: 0.5rem">
+							<div class="detalle">
 								<span class="info">Apellido </span>
 								<span>{{lname}}</span>
 							</div>
-							<div style="margin-top: 0.5rem">
+							<div class="detalle">
 								<span class="info">Fecha de nacimiento </span>
 								<span>{{bdate}}</span>
 							</div>
-							<div style="margin-top: 0.5rem">
+							<div class="detalle">
 								<span class="info">Nro de Pasaporte/Documento </span>
 								<span>{{passport}}</span>
 							</div>
@@ -179,6 +179,7 @@
 		</script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+		<script src="js/typeahead.bundle.js"></script>
 		<script type="text/javascript" src="./js/mustache.min.js"></script>
     <script src="./js/common.js"></script>
 		<script src="./js/detalle.js"></script>
@@ -388,6 +389,7 @@
                   <div class="valign-wrapper">
 
                   </div>
+
                 </li>
                 <li class="row-f3 col s4 valign-wrapper">
                   <div class="valign-wrapper">

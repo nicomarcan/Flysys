@@ -6,6 +6,7 @@ function fajax(aurl,datos,fsuccess,ferror){
         data: datos,
         dataType: 'json',
         url: urlfinal,
+        timeout: 2000,
         success: function(data){
             if(data.error==undefined){
                 fsuccess(data);
@@ -27,6 +28,7 @@ function fapax(aurl,datos,fsuccess,ferror){
         type:'POST',
         data: datos,
         dataType: 'json',
+        timeout: 2000,
         url: urlfinal,
         contentType: 'application/json',
         success: function(data){
@@ -321,7 +323,7 @@ function actionfocusout(tag,funcion, trigger){
 	  }
     }else{
         if($(this).val()==""){
-          Materialize.toast("El campo es obligatorio",1000);
+        //  Materialize.toast("El campo es obligatorio",1000);
   //        $(this).focus();
         }
         $(this).removeClass("valid");

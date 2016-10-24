@@ -35,6 +35,12 @@ function addCard() {
     email: contacto.email
     });
   $('#botones').before(rendered);
+  if($("#piso").text()==""){
+    $("#piso_container").remove();
+  }
+  if($("#dep").text()==""){
+    $("#dep_container").remove();
+  }
 }
 
 function addFlight(){
@@ -299,4 +305,5 @@ $(document).ready(function(){
   });
   installAirlineSearchHandler()
 //endcopypasta
+
 });

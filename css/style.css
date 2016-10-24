@@ -661,3 +661,7 @@ nav li.search-button > i:hover {
 nav .nav-wrapper > div > div {
   width: 50%;
 }
+
+.detalle{
+  margin-top: 0.5rem;
+}
