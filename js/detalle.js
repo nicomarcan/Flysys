@@ -44,18 +44,10 @@ function addCard() {
     phone: contacto.phones[0],
     email: contacto.email
     });
-  $('#botones').before(rendered);
-  if($("#piso").text()==""){
-    $("#piso_container").remove();
-  }
-  if($("#dep").text()==""){
-    $("#dep_container").remove();
-  }
-  if($("#cuota2").text()==""){
-    $("#dep_container").remove();
-    $("#cuota1_det").text("Cuotas:")
-  }
+    $('#botones').before(rendered);
+
 }
+
 
 function addFlight(){
   var template = $('#detallevuelo').html();
@@ -567,4 +559,14 @@ function networkError(){
 $(".collapsible").collapsible({
   accordion : false
 });
+if($("#piso").text()==""){
+  $("#piso_container").remove();
+}
+if($("#dep").text()==""){
+  $("#dep_container").remove();
+}
+if($("#cuota2").text()==""){
+  $("#couta2_container").remove();
+  $("#cuota1_det").text("Cuotas:")
+}
 });
