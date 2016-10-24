@@ -13,7 +13,8 @@ var airlineNameToId={};
 var airlineNames = [];
 var multiplier=getLocalObject("multiplier");
 var numeros=["primer","segundo","tercero","cuarto","quinto","sexto","séptimo","octavo","noveno","décimo","décimoprimero","décimosegundo","décimotercero","décimocuarto","décimoquinto","décimosexto","décimoseptimo","décimooctavo","décimonoveno","vigésimo"];
-var count=0;
+var v1=0;
+var v2=0;
 
 function addCard() {
   var template = $('#detalletarjeta').html();
@@ -43,19 +44,10 @@ function addCard() {
     phone: contacto.phones[0],
     email: contacto.email
     });
-  $('#botones').before(rendered);
-  if($("#piso").text()==""){
-    $("#piso_container").remove();
-  }
-  if($("#dep").text()==""){
-    $("#dep_container").remove();
-  }
+    $('#botones').before(rendered);
 
-  if($("#cuota2").text()==""){
-    $("#dep_container").remove();
-    $("#cuota1_det").text("Cuotas:")
-  }
 }
+
 
 function addFlight(){
   var template = $('#detallevuelo').html();
@@ -92,13 +84,14 @@ function addPassagers() {
 
       });
     //$('#primero').after(rendered);
-    $("#primero").append(rendered);
+    $("#contenedor_pasajero").append(rendered);
   }
 
 }
 
 function finalizado(){
-  window.location="./final.html"
+  if(v1+v2==flights.length)
+    window.location="./final.html"+location.search;
 }
 function importantStars(rep){
   var ret = [] ;
@@ -304,15 +297,27 @@ $(document).ready(function(){
   	  airlineSearchSubmit(airlines, airlines_id)
     )
 
+    $(document).on("click", "a.link", function() {
+		var base = $(this).attr("href");
+		if (base != "#!" && base != "./index.html") {
+			window.location = base + location.search;
+            return false;
+		}
+		return true;
+	});
+
   var flights = getLocalObject("flights");
-	if (!flights) {
-		$("#primero").html("");
+	if (!flights || getUrlParameter("children")==undefined || 	getUrlParameter("infants")==undefined || getUrlParameter("adults")==undefined) {
+		$("#error_inf").html("");
 		insertErrorCard(
-			$("#primero"),
-			"Ocurrió un error al cargar la información del vuelo.",
+			$("#error_inf"),
+            "Ocurrió un error al cargar la información del vuelo.",
 			"No se puede seguir con la compra. Por favor, reintente la búsqueda.",
-			true
+			true,
+			"home-link",
+			"Volver al inicio."
 		);
+    $("#primero").addClass("s10").addClass("offset-s1").addClass("col");
     return;
 	}
   var aird = flights[0].outbound_routes[0].segments[0].departure.airport.id;
@@ -467,13 +472,23 @@ $(document).ready(function(){
         );
 
   }
-
-
-function cuenta(){
-  count++;
+function alfa(){
+  console.log("mensaje");
 }
+
+function cuentav1(){
+  v1++;
+  finalizado();
+}
+
+function cuentav2(){
+  v2++;
+  finalizado();
+}
+
+var funciones=[cuentav1,cuentav2]
 function networkError(){
-  Materialize.toast("Error en la conexion con el servidor",5000)
+  Materialize.toast("Error en la conexion con el servidor",500)
 }
 
   $("#confirmar").click(function(){
@@ -488,9 +503,9 @@ function networkError(){
           payment: cache_payment,
           contact: getLocalObject("contact")
         }
-        fajax("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight2",{booking: JSON.stringify(final)},cuenta,networkError);
+        Materialize.toast("Procesando la consulta",1000);
+        fajax("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight2",{booking: JSON.stringify(final)},funciones[i],networkError);
       }
-      finalizado();
 
   });
   $("#back").click(function(){
@@ -544,4 +559,14 @@ function networkError(){
 $(".collapsible").collapsible({
   accordion : false
 });
+if($("#piso").text()==""){
+  $("#piso_container").remove();
+}
+if($("#dep").text()==""){
+  $("#dep_container").remove();
+}
+if($("#cuota2").text()==""){
+  $("#couta2_container").remove();
+  $("#cuota1_det").text("Cuotas:")
+}
 });

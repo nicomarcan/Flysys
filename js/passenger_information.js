@@ -18,20 +18,31 @@ $(document).ready(function(){
   	  ajaxAirlineSearch(airlines, airlines_id)
     ).then(
   	  airlineSearchSubmit(airlines, airlines_id)
-    )
+  );
+
+	$(document).on("click", "a.link", function() {
+		var base = $(this).attr("href");
+		if (base != "#!" && base != "./index.html") {
+			window.location = base + location.search;
+            return false;
+		}
+		return true;
+	});
 
   var flights = getLocalObject("flights");
 
-	if (!flights) {
+	if (!flights || getUrlParameter("children")==undefined || 	getUrlParameter("infants")==undefined || getUrlParameter("adults")==undefined) {
 		$("#contenedor").html("");
 		insertErrorCard(
 			$("#contenedor"),
 			"Ocurrió un error al cargar la información del vuelo.",
 			"No se puede seguir con la compra. Por favor, reintente la búsqueda.",
-			true
+			true,
+			"home-link",
+			"Volver al inicio."
 		);
-    $("#continuador").remove();
-    return;
+    	$("#continuador").remove();
+    	return;
 	}
   var aird = flights[0].outbound_routes[0].segments[0].departure.airport.id;
   var aira = flights[0].outbound_routes[0].segments[0].arrival.airport.id

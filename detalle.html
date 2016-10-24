@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 
 <html>
-	<meta charset="utf-8"/>
+
 	<head>
+		<meta charset="utf-8"/>
+		<title>Confirmar compra</title>
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 	    <link type="text/css" rel="stylesheet" href="css/style.css"/>
 		<link type="text/css" rel="stylesheet" href="css/patch.css"/>
 		<link type="text/css" rel="stylesheet" href="css/nav.css"/>
+		<link type="text/css" rel="stylesheet" href="css/results.css"/>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 
@@ -21,45 +24,48 @@
 								<div class="valign-wrapper">
 							<div class="logo-img">
 								<a href="index.html"><img src="logo.png" alt="Logo" class="valign" width="120"></a>
-							  </div>
-							<div>
+					          </div>
+						    <div>
 								<ul class="right">
 									<li class="input-container">
 									<form id="airline_search_form" action="./review.html" method="GET">
-										<input id="airline_search_id" type="hidden" name="airline_id" required></input>
-
+										<input id="airline_search_id" type="hidden" name="airline_id">
+											<ul>
 											<li>
 												<input id="airline_search" type="search" class="typeahead" placeholder="Buscar aerolineas.">
-												</input>
+
 											</li>
 											<li>
-												<button class="btn-floating transparent
+												<button class="btn-floating  transparent
 												z-depth-0 submit-search" type="submit" name="action">
 													<i class="material-icons search-icon">
 														search
 													</i>
-											</button>
+		  									</button>
 											</li>
-									</span>
+										</ul>
 									</form>
-									<li class="help-link"><a href="#"><i class="material-icons">help</i></a></li>
-								</li>
+									</li>
+									<li class="help-link"><a href="./help.html"><i class="material-icons">help</i></a></li>
+
 
 
 							</ul>
 						</div>
 					</div>
+				</div>
+			</div>
 				</nav>
 		<div class="container-fluid row" id="primero">
 			<div class="col s10 offset-s1" style="margin-top: 1rem;">
 				<a href="./index.html" class="breadcrumb info_breadcrumbs link">Inicio</a>
-				<a href="./index.html" class="breadcrumb info_breadcrumbs link" id="flight-path-breadcrumb"> Vuelo de ??? a ???</a>
+				<a href="./results.html" class="breadcrumb info_breadcrumbs link" id="flight-path-breadcrumb"> Vuelo de ??? a ???</a>
 				<a href="./datos.html" class="breadcrumb info_breadcrumbs link"> Información de pago</a>
 				<a href="./passengers_information.html" class="breadcrumb info_breadcrumbs link"> Información de los pasajeros</a>
 				<a href="./detalle.html" class="breadcrumb info_breadcrumbs link"> Confirmar compra</a>
 								</div>
-
-			<div class="col s7 push-s1 main-panel">
+								<div class="col s10 offset-s1" id="error_inf" />
+			<div class="col s8  main-panel">
 
 				<div class="card-panel row" id="contenedor_detalle">
             	<div class="row" id="detalle">
@@ -67,16 +73,22 @@
             	</div>
 
         		</div>
-      			</div>
 
-			<div class="col s3 push-s1 side-panel">
+						<div class="row" id="contenedor_pasajero">
+
+
+								</div>
+			</div>
+
+
+			<div class="col s4 side-panel">
 				<div class="card-panel row " id="facturacion">
 				<div class="row" id="botones">
 					<div class="col s6">
-							<a class="waves-effect waves-light btn valign center" id="back">MODIFICAR</a>
+							<a class="waves-effect waves-light btn valign center color3" id="back">MODIFICAR</a>
 					</div>
 					<div class="col s6">
-							<a class="waves-effect waves-light btn valign center" id="confirmar">CONFIRMAR</a>
+							<a class="waves-effect waves-light btn valign center color3" id="confirmar">CONFIRMAR</a>
 					</div>
 					</div>
 				</div>
@@ -87,17 +99,16 @@
 
 
 
- <footer class="page-footer color1 loadfooter" ng-include="include/footer.html">
+ <footer class="page-footer color1 loadfooter">
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
              <h5 class="white-text">Flysys</h5>
-            <p class="grey-text text-lighten-4">¡A volar por los aires!</p>
+            <p class="grey-text text-lighten-4">¡Volar es nuestra pasión!</p>
           </div>
           <div class="col l4 offset-l2 s12">
              <h5 class="white-text">Herramientas del sitio</h5>
              <ul>
-                <li><a class="grey-text text-lighten-3" href="#!">Información</a></li>
                 <li><a class="grey-text text-lighten-3" href="#!">Ayuda</a></li>
               </ul>
             </div>
@@ -110,17 +121,17 @@
       </div>
     </footer>
 </div>
-		<script type="x-tmpl-mustache" id="detalletarjeta">
+		<script type="text/x-tmpl-mustache" id="detalletarjeta">
 			<div class="detalle">
 				<span class="info">Número de tarjeta </span>
 				<span>{{id}}</span>
 			</div>
 			<div class="detalle" id="couta1_container">
-				<span class="info" id="cuota1_det">Cuotas del primer vuelo: </span>
+				<span class="info" id="cuota1_det">Cuotas del vuelo de ida </span>
 				<span  id="cuota1">{{cuotas1}}</span>
 			</div>
 			<div class="detalle" id="couta2_container">
-				<span class="info">Cuotas del segundo vuelo: </span>
+				<span class="info">Cuotas del vuelo de vuelta: </span>
 				<span id="cuota2">{{cuotas2}}</span>
 			</div>
 			<div class="detalle">
@@ -156,7 +167,7 @@
 				<span>{{country}}</span>
 			</div>
 			<div class="detalle">
-				<span class="info">Telefono </span>
+				<span class="info">Teléfono </span>
 				<span>{{phone}}</span>
 			</div>
 			<div class="detalle">
@@ -165,8 +176,8 @@
 			</div>
 
 		</script>
-		<script type=" x-tmpl-mustache" id="detallepasajero">
-				<div class="col s7 push-s1" style="padding-right: 0">
+		<script type="text/x-tmpl-mustache" id="detallepasajero">
+				<div class="" style="padding-right: 0">
 					<div class="card-panel row">
 						<div class="col s8">
 							<div class="detalle">
@@ -201,7 +212,7 @@
 		<script src="./js/detalle.js"></script>
 		<script src="./js/error.js"></script>
 		<script src="./js/airline_search.js"></script>
-		<script type="x-tmpl-mustache" id="row">
+		<script type="text/x-tmpl-mustache" id="row">
 
       <div class="individual-result">
         <ul class="collapsible" data-collapsible="accordion">
@@ -305,7 +316,7 @@
       </div>
 
     </script>
-    <script type="x-tmpl-mustache" id="rtw">
+    <script type="text/x-tmpl-mustache" id="rtw">
 
       <div class="individual-result">
         <ul class="collapsible" data-collapsible="accordion">
@@ -460,7 +471,7 @@
       </div>
 
     </script>
-		<script type="x-tmpl-mustache" id="error_card">
+		<script type="text/x-tmpl-mustache" id="error_card">
 		<div class="card-panel row hoverable clickable error-card">
 			<div class="col s12 error-header">
 				{{header}}
@@ -469,8 +480,8 @@
 			<div class="col s12 error-description">
 				{{description}}
 				{{#link}}
-				<a class="back-link">
-					Volver atras.
+				<a class="{{link_link}}">
+					{{link_message}}
 				</a>
 				{{/link}}
 			</div>

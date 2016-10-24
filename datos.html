@@ -27,11 +27,11 @@
 								<ul class="right">
 									<li class="input-container">
 									<form id="airline_search_form" action="./review.html" method="GET">
-										<input id="airline_search_id" type="hidden" name="airline_id" required></input>
-
+										<input id="airline_search_id" type="hidden" name="airline_id">
+											<ul>
 											<li>
 												<input id="airline_search" type="search" class="typeahead" placeholder="Buscar aerolineas.">
-												</input>
+
 											</li>
 											<li>
 												<button class="btn-floating  transparent
@@ -41,21 +41,24 @@
 													</i>
 		  									</button>
 											</li>
-									</span>
+										</ul>
 									</form>
-									<li class="help-link"><a href="#"><i class="material-icons">help</i></a></li>
-								</li>
+									</li>
+									<li class="help-link"><a href="./help.html"><i class="material-icons">help</i></a></li>
+
 
 
 							</ul>
 						</div>
 					</div>
+				</div>
+			</div>
 				</nav>
 
 		<div class="container-fluid row container-info">
 			<div class="col s10 offset-s1" style="margin-top: 1rem;">
 									<a href="./index.html" class="breadcrumb info_breadcrumbs link">Inicio</a>
-									<a href="./index.html" class="breadcrumb info_breadcrumbs link" id="flight-path-breadcrumb"> Vuelo de ??? a ???</a>
+									<a href="./results.html" class="breadcrumb info_breadcrumbs link" id="flight-path-breadcrumb"> Vuelo de ??? a ???</a>
 									<a href="#!" class="breadcrumb info_breadcrumbs link"> Información de pago</a>
 								</div>
 			<div class="col s10 offset-s1" id="data-container">
@@ -76,7 +79,7 @@
 	            <div class="row" >
 	              <div class="input-field col s3">
 	                <input id="tarjeta" type="text" placeholder="(Obligatorio)" maxlength="18"/>
-	                <label for="Tarjeta" data-error="Ingrese una tarjeta valida">Numero de tarjeta</label>
+	                <label for="Tarjeta" data-error="Ingrese una tarjeta válida">Número de tarjeta</label>
 	              </div>
 				  <div class="input-field col s4">
 					<select id="installment-options-1" class="col s6" disabled >
@@ -88,12 +91,13 @@
 					<label>Opciones de financiamiento</label>
 					</div>
 	                <div class=" input-field  col s3">
-						<input id="fecaducidad" type="text" class="validate" pattern="(0[0-9])|(1[0-2])/[0-9][0-9]" placeholder="MM/AA (Obligatorio)" maxlength="6"/>
+						<input id="fecaducidad" type="text" placeholder="MM/AA (Obligatorio)" maxlength="6"/>
 						<label for="fecaducidad" data-error="Ingrese una fecha valida">Caducidad</label>
+
 					</div>
 	              <div class="input-field col s2">
 	                <input id="ccv" type="text"   placeholder="(Obligatorio)" maxlength="3"/>
-	                <label for="ccv" data-error="Ingrese los 3 digitos">CCV</label>
+	                <label for="ccv" data-error="Ingrese los 3 dígitos">CCV</label>
 				  		</div>
 							<div class="row">
 								<div  class="valign col s8 opinions_header" style="margin-top:1.2rem">
@@ -103,13 +107,13 @@
 							</div>
 	            <div class="row">
 	                  <div class="input-field col s6">
-	                    <input id="nombre" type="text" class="validate" placeholder="(Obligatorio)" maxlength="80" maxlength="80"/>
-	                    <label for="nombre"  data-error="Debe ser un nombre valido" style="width:100%">Nombre</label>
+	                    <input id="nombre" type="text" class="validate" placeholder="(Obligatorio)" maxlength="80"/>
+	                    <label for="nombre"  data-error="Debe ser un nombre válido" style="width:100%">Nombre</label>
 	                  </div>
 										<div class="input-field col s6">
 										<input id="apellido" type="text" class="validate" placeholder="(Obligatorio)" maxlength="80"/>
 
-	                        <label for="apellido"  data-error="Debe ser un nombre valido">Apellido</label>
+	                        <label for="apellido"  data-error="Debe ser un nombre válido">Apellido</label>
 	                    </div>
 
 	            </div>
@@ -122,11 +126,11 @@
 							<div class="row">
 										<div class="input-field col s5">
 											<input id="calle" type="text" class="validate" placeholder="(Obligatorio)" maxlength="60"/>
-											<label for="calle"  data-error="Debe ser un nombre valido">Calle</label>
+											<label for="calle"  data-error="Debe ser un nombre válido">Calle</label>
 										</div>
 										<div class="input-field col s3">
 												<input id="callnro" type="text" placeholder="(Obligatorio)"  maxlength="20"/>
-												<label for="callnro"  data-error="Debe ser solamente numeros">Nro. Calle</label>
+												<label for="callnro"  data-error="Deben ser solamente números">Nro. Calle</label>
 										</div>
 										<div class="input-field col s2">
 												<input id="piso" type="text" class="validate" placeholder="" maxlength="5"/>
@@ -138,14 +142,14 @@
 										</div>
 										<div class="input-field col s1">
 												<input id="postal" type="text" class="validate"  placeholder="(Obligatorio)" maxlength="10"/>
-												<label for="postal"  data-error="No debe contener mas de 10 caracteres">Postal</label>
+												<label for="postal"  data-error="No debe contener más de 10 caracteres">Postal</label>
 										</div>
 
 							</div>
 							<div class="row">
 										<div class="input-field col s3">
 												<input id="ciudad" type="text" class="typeaheadciudades" placeholder="(Obligatorio)" />
-												<label data-error="Debe ser una ciudad valida" for="ciudad">Ciudad</label>
+												<label data-error="Debe ser una ciudad válida" for="ciudad">Ciudad</label>
 										</div>
 										<div class="input-field col s2">
 												<input id="provincia" type="text" class="typeaheadciudades" disabled placeholder=""/>
@@ -157,15 +161,15 @@
 										</div>
 										<div class="input-field col s3">
 											<input id="email" type="email" class="validate" placeholder="(Obligatorio)"/>
-											<label for="email"  data-error="Debe ser un email valido">Email</label>
+											<label for="email"  data-error="Debe ser un email válido">Email</label>
 										</div>
 										<div class="input-field col s2">
 											<input id="telefono" type="text" class="validate" pattern="(\w|-){1,25}" placeholder="(Obligatorio)" maxlength="25"/>
-											<label for="telefono"  data-error="Debe se un telefono valido">Telefono</label>
+											<label for="telefono"  data-error="Debe se un telefono válido">teléfono</label>
 										</div>
 							</div>
 	                <div class="row">
-	                    <a class="waves-effect waves-light btn valign col offset-s10" id="continuar">CONFIRMAR</a>
+	                    <a class="waves-effect waves-light btn valign col offset-s10 color3" id="continuar">CONTINUAR</a>
 	                </div>
 				  </div>
 	            </div>
@@ -180,12 +184,11 @@
 				<div class="row">
 				  <div class="col l6 s12">
 				     <h5 class="white-text">Flysys</h5>
-				    <p class="grey-text text-lighten-4">¡A volar por los aires!</p>
+				    <p class="grey-text text-lighten-4">¡Volar es nuestra pasión!</p>
 				  </div>
 				  <div class="col l4 offset-l2 s12">
 				     <h5 class="white-text">Herramientas del sitio</h5>
 				     <ul>
-				        <li><a class="grey-text text-lighten-3" href="#!">Información</a></li>
 				        <li><a class="grey-text text-lighten-3" href="#!">Ayuda</a></li>
 				      </ul>
 				    </div>
@@ -207,7 +210,7 @@
 		<script src="js/typeahead.bundle.js"></script>
 		<script src="./js/installments.js"></script>
 		<script src="./js/error.js"></script>
-		<script type="x-tmpl-mustache" id="error_card">
+		<script type="text/x-tmpl-mustache" id="error_card">
 		<div class="card-panel row hoverable clickable error-card">
 			<div class="col s12 error-header">
 				{{header}}
@@ -216,8 +219,8 @@
 			<div class="col s12 error-description">
 				{{description}}
 				{{#link}}
-				<a class="back-link">
-					Volver atras.
+				<a class="{{link_link}}">
+					{{link_message}}
 				</a>
 				{{/link}}
 			</div>

@@ -11,6 +11,9 @@
   background-color:#efebe9;
  }
 
+ .color3 {
+   background-color: #455a64;
+ }
 
 
 ul.inline li{
@@ -563,6 +566,13 @@ a.back-link{
 	cursor:pointer;
 }
 a.back-link:hover{
+	text-decoration: underline;
+}
+a.home-link{
+	color:#039be5;
+	cursor:pointer;
+}
+a.home-link:hover{
 	text-decoration: underline;
 }
 
