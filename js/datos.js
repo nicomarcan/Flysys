@@ -29,7 +29,7 @@ function loadPayment(){
 		setValInput("#pais",countryObj[lpayment.billing_address.city.country.id]);
 		setValInput("#email",lcontact.email);
 		setValInput("#telefono",lcontact.phones[0]);
-		triggerInstallmentsAjax(lpayment.credit_card.number)
+		triggerInstallmentsAjax(lpayment.credit_card.number, true)
 		return true;
 	}
 	return false;
@@ -60,7 +60,7 @@ function removeInstallmentsOptions() {
 	})
 }
 
-function triggerInstallmentsAjax(card_number) {
+function triggerInstallmentsAjax(card_number, vflag) {
 	var flights = getLocalObject("flights");
 	var flight_q = flights.length;
 	var flight_detail = getLocalObject(["flight_detail"]);
@@ -88,25 +88,26 @@ function triggerInstallmentsAjax(card_number) {
 			currency
 		)
 	}
-	if (flight_q == 1) {
-		$.when(def[0]).then(
-			function(){
-				checkPayment();
-				$("select").val("");
-				$("select").material_select();
-			}
-		);
+	if (vflag) {
+		if (flight_q == 1) {
+			$.when(def[0]).then(
+				function(){
+					checkPayment();
+					$("select").val("");
+					$("select").material_select();
+				}
+			);
+		}
+		if (flight_q == 2) {
+			$.when(def[0], def[1]).then(
+				function(){
+					checkPayment();
+					$("select").val("");
+					$("select").material_select();
+				}
+			);
+		}
 	}
-	if (flight_q == 2) {
-		$.when(def[0], def[1]).then(
-			function(){
-				checkPayment();
-				$("select").val("");
-				$("select").material_select();
-			}
-		);
-	}
-
 }
 var airlines = {};
 var airlines_id = {};
