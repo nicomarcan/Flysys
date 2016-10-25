@@ -346,9 +346,6 @@ if(existLocalObject("countryObj")&&existLocalObject("countryNameToId")){
     window.location="./passengers_information.html"+location.search;
   });
    loadPayment();
-   $.when(
-	 ajaxAirlineSearch(airlines,airlines_id)
- ).then( airlineSearchSubmit(airlines, airlines_id))
 
  //endcopypasta
 

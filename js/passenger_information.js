@@ -233,7 +233,7 @@ function getCities(data){
     setValInput("#apellido"+string_nombre,psso.last_name);
     setValInput("#pasaporte"+string_nombre,psso.id_number);
     setValInput("select#tipo_id"+string_nombre,psso.id_type);
-/*	checkPassenger(nombre, ""); */
+	checkPassenger(nombre, ""); 
   }
 
   if(existLocalObject("passengersDict")){
