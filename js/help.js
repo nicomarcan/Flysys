@@ -27,7 +27,7 @@ var airlines_id = {};
 				}
 
 
-				if($('.slider li.active').hasClass('last') && !$('.slider li.active').hasClass('step_start')){
+				if($('.slider li.active').hasClass('last') ){
 					$(this).addClass("disabled");
 				}
 

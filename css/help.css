@@ -58,6 +58,12 @@ nav li.search-button > i:hover {
     display: block;
 }
 
+.bot{
+  position: relative;
+  bottom:0;
+  left:0;
+}
+
 .typeahead,
 .tt-query,
 .tt-hint {
