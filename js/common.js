@@ -244,55 +244,81 @@ function checkPayment(){
   if(!checkNumberCard($("#tarjeta").val(), function(){})){
     $("#tarjeta").addClass("invalid");
     flag=false;
-  }
+    }else{
+        $("#tarjeta").addClass("valid");
+    }
   if(!checkDateCard($("#fecaducidad").val())){
     $("#fecaducidad").addClass("invalid");
     flag=false;
-  }
+    }else{
+        $("#fecaducidad").addClass("valid");
+    }
   if(!checkCcv($("#ccv").val())){
     $("#ccv").addClass("invalid");
     flag=false;
-  }
+}else{
+    $("#ccv").addClass("valid");
+}
   if(!checkName($("#nombre").val())){
     $("#nombre").addClass("invalid");
     flag=false;
-  }
+}else{
+    $("#nombre").addClass("valid");
+}
   if(!checkName($("#apellido").val())){
     $("#apellido").addClass("invalid");
     flag=false;
-  }
+}else{
+    $("#apellido").addClass("valid");
+}
   if(!checkStreet($("#calle").val())){
     $("#calle").addClass("invalid");
     flag=false;
-  }
+}else{
+    $("#calle").addClass("valid");
+}
   if(!checkStreetNumber($("#callnro").val())){
     $("#callnro").addClass("invalid");
     flag=false;
-  }
+}else{
+    $("#callnro").addClass("valid");
+}
   if(!checkFloor($("#piso").val())){
     $("#piso").addClass("invalid");
     flag=false;
-  }
+}else{
+    $("#piso").addClass("valid");
+}
   if(!checkApartment($("#depto").val())){
     $("#depto").addClass("invalid");
     flag=false;
-  }
   if(!checkZipCode($("#postal").val())){
     $("#postal").addClass("invalid");
     flag=false;
-  }
+}else{
+        $("#postal").addClass("valid");
+}
   if(!checkCity($("#ciudad").val())){
     $("#ciudad").addClass("invalid");
     flag=false;
   }
+}else{
+        $("#ciudad").addClass("valid");
+}
   if(!checkEmail($("#email").val())){
     $("#email").addClass("invalid");
     flag=false;
-  }
+
+}else{
+        $("#email").addClass("valid");
+}
   if(!checkPhone($("#telefono").val())){
     $("#telefono").addClass("invalid");
     flag=false;
-  }
+ 
+}else{
+        $("#telefono").addClass("valid");
+}
   $("select").each( function() {
 	  if (!$(this).val() || $(this).val() == "") {
 		  setSelectError($(this));

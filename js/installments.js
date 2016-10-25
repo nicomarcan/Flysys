@@ -9,7 +9,7 @@ function ajaxInstallments(flight_id, adults, children, infants, card_number, sel
 	$("option.installment-option").remove("");
 	selector.val(null);
 	selector.material_select();
-		$.ajax({
+		return $.ajax({
 			url: "http://hci.it.itba.edu.ar/v1/api/booking.groovy",
 			jsonp: "callback",
 			dataType: "jsonp",
