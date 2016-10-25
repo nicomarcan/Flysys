@@ -3,8 +3,8 @@
 
     var city_info= new Array();
     function InitializeMap() {
- 
- 		
+
+
 
         var latlng = new google.maps.LatLng(-34.397, 150.644);
         var myOptions =
@@ -22,7 +22,7 @@
 	bounds.extend(depa);
 	bounds.extend(arra);
         map = new google.maps.Map(document.getElementById("map"), {
-    
+
       zoom: 0,
 	  disableDefaultUI: true,
 	  draggable: true,
@@ -68,7 +68,7 @@
 		}
 	  ]
     });
-        
+
         map.fitBounds(bounds);
       	city_info.sort(function(a, b){return a.price-b.price});
       	console.log(city_info);
@@ -103,6 +103,10 @@
 							url: 'http://hci.it.itba.edu.ar/v1/api/geo.groovy',
 							data:{"method":"getcitiesbyposition","latitude":location.coords.latitude,"longitude":location.coords.longitude,"radius":100},
 							dataType: 'jsonp',
+              timeout:to,
+              error: function(){
+                showInternetError();
+              },
 							success: function (alfa) {
 								if(alfa.error==undefined){
 									if(alfa.cities.length > 0){
@@ -123,7 +127,7 @@
 				getOffers("BUE");
 				 myCoords["latitude"]=-34.603722;
 			    myCoords["longitude"]=-58.381592;
-				
+
 			}
 
 var first=true;
@@ -136,7 +140,7 @@ function addmarker(city,i) {
 	      cityCoords["longitude"]=city.long;
 	var distance= getDistance(cityCoords ,myCoords) + " km";
 
-	
+
 	         var contentString = '<div id="content">'+
       '<div id="siteNotice">'+
       '</div>'+
@@ -144,8 +148,8 @@ function addmarker(city,i) {
       '<div id="bodyContent">'+
       '<p>Desde '+city.price+' Dólares</p>'+
       '<p>A '+distance+'</p>'
-   
-  
+
+
       '</div>'+
       '</div>';
 
@@ -154,7 +158,7 @@ function addmarker(city,i) {
   });
 
 
-   
+
     var marker = new google.maps.Marker({
         position: latilongi,
         draggable: true,
@@ -165,7 +169,7 @@ function addmarker(city,i) {
     });
      marker.addListener('click', function() {
     infowindow.open(map, marker);
-     
+
   });
 
 }
@@ -175,7 +179,7 @@ function addMyMarker(coords) {
 	      latilongi = new google.maps.LatLng(coords.latitude,coords.longitude);
 
 
-	
+
 	         var contentString = '<div id="content">'+
       '<div id="siteNotice">'+
       '</div>'+
@@ -187,18 +191,18 @@ function addMyMarker(coords) {
   });
 var image= "http://maps.google.com/mapfiles/kml/pal3/icon48.png";
 
-   
+
     var marker = new google.maps.Marker({
         position: latilongi,
         draggable: true,
         map: map,
         icon:image
-     
+
 
     });
      marker.addListener('click', function() {
     infowindow.open(map, marker);
-     
+
   });
 
 }
@@ -224,7 +228,7 @@ var getDistance = function(p1, p2) {
     //Implementacion de Panoramio
 		  var apiurl=new Array();
 		  var info = new Array ();
-		  
+
 
 
 		  function getOffers( from){
@@ -237,7 +241,7 @@ var getDistance = function(p1, p2) {
 				dataType: 'jsonp',
 				success: function (alfa) {
 						if (alfa.error == undefined) {
-							
+
 							var ciudades = alfa.deals;
 							var size = ciudades.length;
 							var random = parseInt((Math.random() * (ciudades.length-9)), 10) ;
@@ -257,8 +261,8 @@ var getDistance = function(p1, p2) {
 					}
 					getImages(apiurl);
 					api_ready = true;
-					
-					
+
+
 				}
 			});};
 
@@ -275,7 +279,7 @@ var getDistance = function(p1, p2) {
 				    success: function(d){
 				   		var random =  parseInt((Math.random() * (90 )), 10) ;
 				  		var item = d.photos[0].photo_file_url;
-	
+
 						 photo= $('#offer-img-back-'+$(this).attr("num"));
 						 photo.next().children("h5").text($(this).attr("to"));
 						 photo.next().children("p").text("Desde "+ $(this).attr("price")+ " dolares");
